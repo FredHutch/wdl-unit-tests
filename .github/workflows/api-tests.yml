@@ -1,0 +1,30 @@
+name: API Tests
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - test-api
+  workflow_dispatch:
+
+jobs:
+  api-tests:
+    runs-on:
+      labels: linux-docker-runner
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "0.5.8"
+
+      - name: Set up Python
+        run: uv python install 3.13
+
+      - name: Run tests
+        env:
+          PROOF_API_TOKEN_DEV: ${{ secrets.PROOF_API_TOKEN_DEV }}
+        working-directory: wdl-tests
+        run: uv run pytest tests/proof-api/ --verbose
