@@ -1,0 +1,32 @@
+name: Cromwell Test Run
+
+on:
+  workflow_dispatch:
+
+jobs:
+  testrun:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: Set Up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+      -
+        name: Pull Cromwell Jarfile
+        run: wget -q https://github.com/broadinstitute/cromwell/releases/download/86/cromwell-86.jar
+      -
+        name: Execute Test Run of WDL Workflows
+        run: |
+          java -jar cromwell-86.jar run helloHostname/helloHostname.wdl
+          java -jar cromwell-86.jar run helloModuleHostname/helloModuleHostname.wdl
+          java -jar cromwell-86.jar run helloDockerHostname/helloDockerHostname.wdl
+
+
+
+
