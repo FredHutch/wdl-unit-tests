@@ -43,3 +43,11 @@ class CromwellApi(object):
         )
         res.raise_for_status()
         return res.json()
+
+    def version(self):
+        res = httpx.get(
+            f"{self.base_url}/engine/v1/version",
+            headers=self.headers,
+        )
+        res.raise_for_status()
+        return res.json()

@@ -11,11 +11,11 @@ def make_path(file):
     return path / f"{file}/{file}.wdl"
 
 
-proof_api = ProofApi()
-# proof_api.status()
-# proof_api.is_cromwell_server_up()
-cromwell_url = proof_api.cromwell_url()
-cromwell_api = CromwellApi(url=cromwell_url)
+# proof_api = ProofApi()
+# # proof_api.status()
+# # proof_api.is_cromwell_server_up()
+# cromwell_url = proof_api.cromwell_url()
+# cromwell_api = CromwellApi(url=cromwell_url)
 
 # cromwell_api.submit_workflow(wdl_path=make_path("helloHostname"))
 # cromwell_api.submit_workflow(
@@ -24,7 +24,7 @@ cromwell_api = CromwellApi(url=cromwell_url)
 # cromwell_api.metadata('f8c84698-164e-4b5d-b64e-81256209949c')
 
 
-def test_submit_works():
+def test_submit_works(cromwell_api):
     """Submitting a WDL file works"""
     submit_res = cromwell_api.submit_workflow(wdl_path=make_path("helloHostname"))
     time.sleep(5)

@@ -1,12 +1,12 @@
 import httpx
-from constants import BASE_URL, TOKEN
+from constants import PROOF_BASE_URL, TOKEN
 
 
 class ProofApi(object):
     """ProofApi class"""
 
     def __init__(self):
-        self.base_url = BASE_URL
+        self.base_url = PROOF_BASE_URL
         self.token = TOKEN
         self.headers = {"Authorization": f"Bearer {TOKEN}"}
 
