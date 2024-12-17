@@ -1,6 +1,7 @@
 name: WOMtool Validation of WDL Script
 
 on:
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -9,7 +10,14 @@ permissions:
 
 jobs:
   womtoolval:
+    if: ${{ github.event.pull_request.head.repo.fork == false }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        wdl:
+          - helloHostname/helloHostname.wdl
+          - helloModuleHostname/helloModuleHostname.wdl
+          - helloDockerHostname/helloDockerHostname.wdl
     steps:
       -
         name: Checkout
@@ -25,10 +33,7 @@ jobs:
         run: wget -q https://github.com/broadinstitute/cromwell/releases/download/86/womtool-86.jar
       -
         name: Validate WDL Scripts
-        run: |
-          java -jar womtool-86.jar validate helloHostname/helloHostname.wdl
-          java -jar womtool-86.jar validate helloModuleHostname/helloModuleHostname.wdl
-          java -jar womtool-86.jar validate helloDockerHostname/helloDockerHostname.wdl
+        run: java -jar womtool-86.jar validate ${{ matrix.wdl }}
 
 
 
