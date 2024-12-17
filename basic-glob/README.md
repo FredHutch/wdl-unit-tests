@@ -16,9 +16,6 @@ The workflow calls a task to create `.txt` files and gathers them using the `glo
 ### **Task: `create_files`**
 The task generates two sample `.txt` files and collects all `.txt` files in the working directory using `glob`.
 
-**Outputs**:
-- `txt_files`: `Array[File]` - List of all `.txt` files.
-
 ---
 
 ### **Expected Output**
