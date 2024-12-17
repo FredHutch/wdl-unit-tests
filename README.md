@@ -47,4 +47,15 @@ When adding new test workflows, please follow these guidelines:
 - Document runtime requirements clearly
 - Isolate it to its own directory
 
+## Workflow for contributing unit tests 
+
+- Raise a GitHub Issue for the Unit test: describe the intention of what the unit test should do
+- Create a unit-test branch (each unit test should have its own branch)
+- Add WDL test files and or JSONS
+- Commit and push
+- Open a PR with atleast 2 reviewers (1 being @Sean and the other reviewer should be the person who opened this issue if you did not).
+- Also if you’re contributing to that branch please make sure to mention the name of the corresponding issue in the PR
+- Also make sure to add the WDL to the cromwell-test-run.yml and womtools-validate.yml
+- Review reviews
+- Merge 
 
