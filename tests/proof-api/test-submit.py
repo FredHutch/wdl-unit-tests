@@ -27,7 +27,7 @@ cromwell_api = CromwellApi(url=cromwell_url)
 def test_submit_works():
     """Submitting a WDL file works"""
     submit_res = cromwell_api.submit_workflow(wdl_path=make_path("helloHostname"))
-    time.sleep(3)
+    time.sleep(5)
     metadata_submitted = cromwell_api.metadata(submit_res["id"])
     print(metadata_submitted)
     assert isinstance(submit_res, dict)
