@@ -11,6 +11,7 @@ on:
 
 jobs:
   api-tests:
+    if: ${{ ! github.event.pull_request.head.repo.fork }}
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
