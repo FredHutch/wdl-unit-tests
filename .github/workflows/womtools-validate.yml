@@ -27,9 +27,10 @@ jobs:
       -
         name: Validate WDL Scripts
         run: |
-          java -jar womtool-86.jar validate helloHostname/helloHostname.wdl
-          java -jar womtool-86.jar validate helloModuleHostname/helloModuleHostname.wdl
-          java -jar womtool-86.jar validate helloDockerHostname/helloDockerHostname.wdl
+          java -jar womtool-86.jar validate helloHostname/helloHostname.wdl &
+          java -jar womtool-86.jar validate helloModuleHostname/helloModuleHostname.wdl &
+          java -jar womtool-86.jar validate helloDockerHostname/helloDockerHostname.wdl &
+          wait
 
 
 
