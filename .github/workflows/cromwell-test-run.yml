@@ -1,10 +1,12 @@
 name: Cromwell Test Run
 
 on:
+  pull_request:
   workflow_dispatch:
 
 jobs:
   testrun:
+    if: ${{ github.event.pull_request.head.repo.fork == false }}
     runs-on: ubuntu-latest
     permissions: write-all
     strategy:
