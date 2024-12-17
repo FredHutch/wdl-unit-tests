@@ -6,17 +6,9 @@ version 1.0
 
 workflow map_example {
     input {
-        Array[String] samples = ["sample1", "sample2", "sample3"]
-        Map[String, String] sample_metadata = {
-            "sample1": "normal",
-            "sample2": "tumor",
-            "sample3": "normal"
-        }
-        Map[String, Int] read_lengths = {
-            "sample1": 100,
-            "sample2": 150,
-            "sample3": 100
-        }
+        Array[String] samples
+        Map[String, String] sample_metadata
+        Map[String, Int] read_lengths
     }
 
     # To iterate over a map in WDL 1.0, we need to provide the keys as an array, super annoying
