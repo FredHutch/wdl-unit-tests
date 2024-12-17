@@ -1,3 +1,4 @@
+version 1.0
 workflow glob_subdirectory_test {
     call create_nested_files
     output {
