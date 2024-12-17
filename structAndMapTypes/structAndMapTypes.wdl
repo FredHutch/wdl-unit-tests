@@ -1,70 +1,54 @@
 version 1.0
-## This workflow demonstrates the usage of struct and map types in WDL
-## by processing user information and configuration settings.
-
-#### TYPE DEFINITIONS
-
-struct User {
-    String name
-    Int age
-    Map[String, String] preferences
-}
+## This workflow demonstrates the usage of map types in WDL
+## by processing sample read length data as an example.
 
 #### WORKFLOW DEFINITION
 
-workflow StructAndMapTypes {
+workflow map_example {
     input {
-        User user
-        Map[String, Int] scores
-    }
-    
-    call ProcessUser { 
-        input: 
-            person = user,
-            test_scores = scores
-    }
-    
-    output {
-        String user_summary = ProcessUser.summary
-        Map[String, Int] processed_scores = ProcessUser.updated_scores
+        Array[String] samples = ["sample1", "sample2", "sample3"]
+        Map[String, String] sample_metadata = {
+            "sample1": "normal",
+            "sample2": "tumor",
+            "sample3": "normal"
+        }
+        Map[String, Int] read_lengths = {
+            "sample1": 100,
+            "sample2": 150,
+            "sample3": 100
+        }
     }
 
-    parameter_meta {
-        user: "User struct containing name, age, and preferences"
-        scores: "Map of test names to scores"
+    # To iterate over a map in WDL 1.0, we need to provide the keys as an array, super annoying
+    # WDL 1.1+ has a "keys" function that you can use to loop through the keys of the map
+    scatter (sample in samples) {
+        call process_sample {
+            input:
+                sample_name = sample,
+                sample_type = sample_metadata[sample],
+                read_length = read_lengths[sample]
+        }
     }
 }
 
 #### TASK DEFINITIONS
 
-task ProcessUser {
+task process_sample {
     input {
-        User person
-        Map[String, Int] test_scores
-    }
-    
-    command <<<
-        echo "User Summary:" > summary.txt
-        echo "Name: ~{person.name}" >> summary.txt
-        echo "Age: ~{person.age}" >> summary.txt
-        echo "Preferences:" >> summary.txt
-        ~{write_map(person.preferences)} >> summary.txt
-        echo "Test Scores:" >> summary.txt
-        ~{write_map(test_scores)} >> summary.txt
-    >>>
-    
-    output {
-        String summary = read_string("summary.txt")
-        Map[String, Int] updated_scores = test_scores
-    }
-    
-    runtime {
-        cpu: 1
-        memory: "1 GB"
+        String sample_name
+        String sample_type
+        Int read_length
     }
 
-    parameter_meta {
-        person: "User struct to process"
-        test_scores: "Map of test scores to process"
+    command <<<
+        echo "Processing ~{sample_name} (~{sample_type}) with read length ~{read_length}"
+    >>>
+
+    output {
+        String message = read_string(stdout())
+    }
+
+    runtime {
+        docker: "ubuntu:latest"
     }
 }
