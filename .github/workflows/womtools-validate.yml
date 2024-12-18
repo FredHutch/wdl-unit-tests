@@ -9,15 +9,28 @@ permissions:
   packages: write
 
 jobs:
+  generate-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Find WDL Directories
+        id: set-matrix
+        run: |
+          # Find all directories containing .wdl files
+          dirs=$(find . -type f -name "*.wdl" -exec dirname {} \; | sort -u | jq -R . | jq -s .)
+          echo "Directories: $dirs"
+          echo "::set-output name=matrix::$dirs"
+
   womtoolval:
     if: ${{ github.event.pull_request.head.repo.fork == false }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        wdl:
-          - helloHostname
-          - helloModuleHostname
-          - helloDockerHostname
+        wdl: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
     steps:
       -
         name: Checkout
@@ -35,5 +48,11 @@ jobs:
         name: Validate WDL Scripts
         run: java -jar womtool-86.jar validate ${{ matrix.wdl }}/${{ matrix.wdl }}.wdl -i ${{ matrix.wdl }}/inputs.json
 
-
-
+      - name: Validate WDL Scripts
+        run: |
+          cmd="java -jar womtool-86.jar validate ${{ matrix.wdl }}/${{ matrix.wdl }}.wdl"
+          if [[ -f "${{ matrix.wdl }}/inputs.json" ]]; then
+            cmd="$cmd -i ${{ matrix.wdl }}/inputs.json"
+          fi
+          echo "Running command: $cmd"
+          eval "$cmd"
