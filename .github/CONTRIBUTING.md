@@ -11,45 +11,27 @@ By participating in this project, you agree to abide by our [Code of Conduct](CO
 New unit test suggestions are tracked as GitHub issues. When creating a unit test suggestion, please:
 - Check the issue tracker to avoid duplicates
 - Use a clear and descriptive title
-- Provide a detailed description of the proposed functionality
+- Provide a detailed description of the proposed unit test
 - Explain why this additional test would be useful
 
-### Pull Requests
+### Contributing New Unit Tests
 
 1. Clone the repo locally and create your branch from `main`
-2. Commit your new WDL to that branch
-3. Ensure the WDL 
-4. Update the documentation
-5. Make sure your code follows the existing style
-6. Issue the pull request!
+2. Ensure your proposed WDL runs locally via `miniwdl run` or `cromwell run`
+3. Add the WDL to a subdirectory by the same name, i.e. `coolUnitTest/coolUnitTest.wdl`
+4. Make sure to include an `inputs.json` and `options.json` (even if the `inputs.json is just an empty json)
+5. Add a README to the WDL's subdirectory describing the unit test's functionality and purpose
+6. Update the overarching repo's README as well
+7. Commit and push your proposed changes to GitHub.
+8. Create a pull request describing the updates and identifying the corresponding GitHub issue
+9. Request a review from a member of the DaSL team (ideally the person requested the test)
+10. Address all comment/requested changes from these reviews
+11. Once the PR has been approved and all checks have passed, merge the PR into `main`
 
 ## Style Guidelines
 
-### Git Commit Messages
-- Use the present tense ("Add feature" not "Added feature")
-- Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
-- Limit the first line to 72 characters
-- Reference issues and pull requests liberally after the first line
-
-### Code Style
-- Follow WILDS WDL Style Guide
-
-
-STILL NEED TO UPDATE THIS!!!
-
-
-## Testing
-
-- Write tests for new features
-- Run the full test suite before submitting PR
-- Tests can be run with: `npm test`
-
-## Documentation
-
-- Update README.md with details of changes to the interface
-- Update API documentation for any modified endpoints
-- Add JSDoc comments for new functions and classes
-- Update the changelog
+- Follow [WILDS WDL Style Guide](https://getwilds.org/guide/wdlconfig.html)
+- For now, only use WDL v1.0 syntax (sadly Cromwell only accepts v1.0)
 
 ## License
 
