@@ -20,13 +20,13 @@ New unit test suggestions are tracked as GitHub issues. When creating a unit tes
 2. Ensure your proposed WDL runs locally via `miniwdl run` or `cromwell run`
 3. Add the WDL to a subdirectory by the same name, i.e. `coolUnitTest/coolUnitTest.wdl`
 4. Make sure to include an `inputs.json` and `options.json` if required and that any other input files referenced in `inputs.json` are provided in the same directory
-6. Add a README to the WDL's subdirectory describing the unit test's functionality and purpose
-7. Update the overarching repo's README as well
-8. Commit and push your proposed changes to GitHub.
-9. Create a pull request describing the updates and identifying the corresponding GitHub issue
-10. Request a review from a member of the DaSL team (ideally the person requested the test)
-11. Address all comment/requested changes from these reviews
-12. Once the PR has been approved and all checks have passed, merge the PR into `main`
+5. Add a README to the WDL's subdirectory describing the unit test's functionality and purpose
+6. Update the overarching repo's README as well
+7. Commit and push your proposed changes to GitHub.
+8. Create a pull request describing the updates and identifying the corresponding GitHub issue
+9. Request a review from a member of the DaSL team (ideally the person requested the test)
+10. Address all comment/requested changes from these reviews
+11. Once the PR has been approved and all checks have passed, merge the PR into `main`
 
 ## Style Guidelines
 
