@@ -21,7 +21,7 @@ jobs:
         id: set-matrix
         run: |
           # Find all directories containing .wdl files
-          dirs=$(find . -type f -name "*.wdl" -exec dirname {} \; | sort -u | jq -R . | jq -s 'map(trim)')
+          dirs=$(find . -type f -name "*.wdl" -exec dirname {} \; | sort -u | jq -R . | jq -s 'map(gsub("^\\s+|\\s+$"; ""))')
           echo "Directories: $dirs"
           echo "matrix=$dirs" >> $GITHUB_OUTPUT
 
