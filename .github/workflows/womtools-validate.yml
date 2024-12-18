@@ -15,9 +15,9 @@ jobs:
     strategy:
       matrix:
         wdl:
-          - helloHostname/helloHostname.wdl
-          - helloModuleHostname/helloModuleHostname.wdl
-          - helloDockerHostname/helloDockerHostname.wdl
+          - helloHostname
+          - helloModuleHostname
+          - helloDockerHostname
     steps:
       -
         name: Checkout
@@ -33,7 +33,7 @@ jobs:
         run: wget -q https://github.com/broadinstitute/cromwell/releases/download/86/womtool-86.jar
       -
         name: Validate WDL Scripts
-        run: java -jar womtool-86.jar validate ${{ matrix.wdl }}
+        run: java -jar womtool-86.jar validate ${{ matrix.wdl }}/${{ matrix.wdl }}.wdl -i ${{ matrix.wdl }}/inputs.json
 
 
 
