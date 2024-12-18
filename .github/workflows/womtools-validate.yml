@@ -23,7 +23,7 @@ jobs:
           # Find all directories containing .wdl files
           dirs=$(find . -type f -name "*.wdl" -exec dirname {} \; | sort -u | jq -R . | jq -s .)
           echo "Directories: $dirs"
-          echo "::set-output name=matrix::$dirs"
+          echo "matrix=$dirs" >> $GITHUB_OUTPUT
 
   womtoolval:
     if: ${{ github.event.pull_request.head.repo.fork == false }}
