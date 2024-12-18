@@ -1,11 +1,23 @@
 import httpx
-from constants import TOKEN
+from tenacity import (
+    retry,
+    retry_if_exception_type,
+    stop_after_attempt,
+    wait_exponential,
+)
+from utils import TOKEN
 
 
 def as_file_object(path=None):
     if not path:
         return None
     return open(path, mode="rb")
+
+
+def my_before_sleep(state):
+    print(
+        f"Retrying in {state.next_action.sleep} seconds, attempt {state.attempt_number}"
+    )
 
 
 class CromwellApi(object):
@@ -34,6 +46,12 @@ class CromwellApi(object):
         res.raise_for_status()
         return res.json()
 
+    @retry(
+        retry=retry_if_exception_type(httpx.HTTPStatusError),
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=4, max=10),
+        before_sleep=my_before_sleep,
+    )
     def metadata(self, workflow_id):
         params = {"expandSubWorkflows": False, "excludeKey": "calls"}
         res = httpx.get(

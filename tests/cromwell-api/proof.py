@@ -1,5 +1,5 @@
 import httpx
-from constants import PROOF_BASE_URL, TOKEN
+from utils import PROOF_BASE_URL, TOKEN
 
 
 class ProofApi(object):
