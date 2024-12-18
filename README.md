@@ -47,4 +47,23 @@ When adding new test workflows, please follow these guidelines:
 - Document runtime requirements clearly
 - Isolate it to its own directory
 
+## Cromwell tests
 
+A suite of tests for running WDLs against Cromwell are located in `tests/cromwell-api`. Tests are run using Python. To run tests:
+
+- clone this repository locally and cd into it
+- if you don't have `uv` installed, [install it][uvinstall]
+- create a virtual environment: `uv venv`. This should pick up the Python version specified in `.python-version`. If you do not have the version given in `.python-version` it will be installed by `uv`. 
+- activate the virtual environment: `source .venv/bin/activate`
+- check that you have the Python version in `.python-version`: `python --version`
+- set a PROOF token for the test user used for these tests as `PROOF_API_TOKEN_DEV`. the value is in 1password - talk to Sean or Scott if you don't have access
+- run tests, for example: `uv run pytest tests/cromwell-api/ --verbose` 
+
+To add tests:
+
+- Tests must be in files beginning with `test-`, and be in the `tests/` dir. All tests against the Cromwell API should go into `tests/cromwell-api/` dir
+- Ideally use the pytest fixture `cromwell_api` created in `tests/cromwell-api/conftest.py` to call the Cromwell API. If there's a method missing that you need add it to the `CromwellApi` class in `tests/cromwell-api/cromwell.py`
+- Make sure the tests pass. 
+- Put changes to code on a branch, then open a PR
+
+[uvinstall]: https://docs.astral.sh/uv/getting-started/installation/
