@@ -69,7 +69,7 @@ task process_sample {
         echo "Flowcell ID: ~{select_first([sample.sequencing.flowcell_id, 'N/A'])}"
         echo "Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}"
         echo "Quality Score: ~{sample.metrics.quality_score}"
-        echo "GC Content: ~{select_first([sample.metrics.gc_content, 0.0])}"
+        echo "GC Content: ~{select_first([sample.metrics.gc_content, 0])}"
         echo "Duplicate Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%"
         echo "Library Prep: ~{select_first([sample.library_prep, 'Standard'])}"
     >>>
