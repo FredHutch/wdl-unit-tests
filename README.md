@@ -45,10 +45,6 @@ This test suite is designed to:
 - Serve as examples for WDL development
 
 ## Contributing
-When adding new test workflows, please follow these guidelines:
-- Keep workflows minimal and focused on testing specific features
-- Include comprehensive parameter metadata
-- Document runtime requirements clearly
-- Isolate it to its own directory
+See our [CONTRIBUTING.md](.github/CONTRIBUTING.md) for exact details on how to contribute.
 
 
