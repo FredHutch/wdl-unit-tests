@@ -1,34 +1,56 @@
 name: Cromwell Test Run
 
 on:
+  pull_request:
   workflow_dispatch:
 
 jobs:
+  generate-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Find WDL Directories
+        id: set-matrix
+        run: |
+          # Find all directories containing .wdl files
+          dirs=$(find . -type f -name "*.wdl" -exec dirname {} \; | sort -u | sed 's|^\./||' | jq -R . | jq -s | jq -c .)
+          echo "Directories: $dirs"
+          echo "matrix=$dirs" >> $GITHUB_OUTPUT
+
   testrun:
+    needs: generate-matrix
+    if: ${{ github.event.pull_request.head.repo.fork == false }}
     runs-on: ubuntu-latest
     permissions: write-all
+    strategy:
+      matrix:
+        wdl: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
     steps:
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v4
-      -
-        name: Set Up Java
+
+      - name: Set Up Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
-      -
-        name: Pull Cromwell Jarfile
+
+      - name: Pull Cromwell Jarfile
         run: wget -q https://github.com/broadinstitute/cromwell/releases/download/86/cromwell-86.jar
-      -
-        name: Execute Test Run of WDL Workflows
+
+      - name: Execute Test Run of WDL Workflows
         run: |
-          java -jar cromwell-86.jar run helloHostname/helloHostname.wdl
-          java -jar cromwell-86.jar run helloModuleHostname/helloModuleHostname.wdl
-          java -jar cromwell-86.jar run helloDockerHostname/helloDockerHostname.wdl
-          java -jar cromwell-86.jar run mapTypeTest/mapTypeTest.wdl -i mapTypeTest/inputs.json -o mapTypeTest/options.json
-          java -jar cromwell-86.jar run structTypeTest/mapTypeTest.wdl -i structTypeTest/inputs.json -o structTypeTest/options.json
-
-
-
+          cmd="java -jar cromwell-86.jar run ${{ matrix.wdl }}/${{ matrix.wdl }}.wdl"
+          if [[ -f "${{ matrix.wdl }}/inputs.json" ]]; then
+            cmd="$cmd -i ${{ matrix.wdl }}/inputs.json"
+          fi
+          if [[ -f "${{ matrix.wdl }}/options.json" ]]; then
+            cmd="$cmd -o ${{ matrix.wdl }}/options.json"
+          fi
+          echo "Running command: $cmd"
+          eval "$cmd"
 

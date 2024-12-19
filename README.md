@@ -1,4 +1,8 @@
 # wdl-unit-tests
+
+![Runs on Cromwell](https://github.com/FredHutch/wdl-unit-tests/actions/workflows/cromwell-test-run.yml/badge.svg)
+![WOMtool Validation](https://github.com/FredHutch/wdl-unit-tests/actions/workflows/womtools-validate.yml/badge.svg)
+
 A collection of minimal WDL (Workflow Description Language) workflows designed for testing WDL execution environments and backend configurations. Each workflow tests a specific aspect of WDL functionality while maintaining simplicity for easy debugging and verification.
 
 ## Workflows
@@ -41,10 +45,6 @@ This test suite is designed to:
 - Serve as examples for WDL development
 
 ## Contributing
-When adding new test workflows, please follow these guidelines:
-- Keep workflows minimal and focused on testing specific features
-- Include comprehensive parameter metadata
-- Document runtime requirements clearly
-- Isolate it to its own directory
+See our [CONTRIBUTING.md](.github/CONTRIBUTING.md) for exact details on how to contribute.
 
 

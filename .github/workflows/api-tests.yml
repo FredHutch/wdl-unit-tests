@@ -6,10 +6,12 @@ on:
       - main
       - dev
       - test-api
+  pull_request:
   workflow_dispatch:
 
 jobs:
   api-tests:
+    if: ${{ ! github.event.pull_request.head.repo.fork }}
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
@@ -25,4 +27,4 @@ jobs:
       - name: Run tests
         env:
           PROOF_API_TOKEN_DEV: ${{ secrets.PROOF_API_TOKEN_DEV }}
-        run: uv run pytest tests/proof-api/ --verbose
+        run: uv run pytest tests/cromwell-api/ --verbose
