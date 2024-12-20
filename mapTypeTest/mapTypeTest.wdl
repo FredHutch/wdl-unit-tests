@@ -1,8 +1,4 @@
 version 1.0
-## This workflow demonstrates the usage of map types in WDL
-## by processing sample read length data as an example.
-
-#### WORKFLOW DEFINITION
 
 workflow enhanced_map_test {
     input {
@@ -97,12 +93,15 @@ task process_nested_map {
         String patient_id
         Map[String, String] patient_data
         Array[String] samples_for_patient
+        String sample_type = patient_data[samples_for_patient[0]]
     }
 
-    command <<<
-        echo "Processing patient ~{patient_id}"
-        ~{sep='\n' select_all(prefix('echo "Sample: ', samples_for_patient))} Type: ~{patient_data[samples_for_patient[0]]}
-    >>>
+    command {
+        echo "Processing patient ${patient_id} with sample type ${sample_type}"
+        for sample in ${sep=' ' samples_for_patient}; do
+            echo "Sample: $sample"
+        done
+    }
 
     output {
         String message = read_string(stdout())
