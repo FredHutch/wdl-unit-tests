@@ -5,7 +5,7 @@ from tenacity import (
     stop_after_attempt,
     wait_exponential,
 )
-from utils import TOKEN
+from utils import TOKEN, past_date
 
 
 def as_file_object(path=None):
@@ -18,6 +18,12 @@ def my_before_sleep(state):
     print(
         f"Retrying in {state.next_action.sleep} seconds, attempt {state.attempt_number}"
     )
+
+
+def path_as_string(x):
+    if not x:
+        return None
+    return str(x.absolute())
 
 
 class CromwellApi(object):
@@ -35,16 +41,18 @@ class CromwellApi(object):
         params=None,
     ):
         files = {
-            "workflowSource": as_file_object(str(wdl_path.absolute())),
-            "workflowInputs": as_file_object(batch),
-            "workflowInputs_2": as_file_object(params),
+            "workflowSource": as_file_object(path_as_string(wdl_path)),
+            "workflowInputs": as_file_object(path_as_string(batch)),
+            "workflowInputs_2": as_file_object(path_as_string(params)),
         }
         files = {k: v for k, v in files.items() if v}
         res = httpx.post(
             f"{self.base_url}/api/workflows/v1", headers=self.headers, files=files
         )
         res.raise_for_status()
-        return res.json()
+        data = res.json()
+        data["path"] = str(wdl_path)
+        return data
 
     @retry(
         retry=retry_if_exception_type(httpx.HTTPStatusError),
@@ -52,8 +60,7 @@ class CromwellApi(object):
         wait=wait_exponential(multiplier=1, min=4, max=10),
         before_sleep=my_before_sleep,
     )
-    def metadata(self, workflow_id):
-        params = {"expandSubWorkflows": False, "excludeKey": "calls"}
+    def metadata(self, workflow_id, params={}):
         res = httpx.get(
             f"{self.base_url}/api/workflows/v1/{workflow_id}/metadata",
             headers=self.headers,
@@ -66,6 +73,40 @@ class CromwellApi(object):
         res = httpx.get(
             f"{self.base_url}/engine/v1/version",
             headers=self.headers,
+        )
+        res.raise_for_status()
+        return res.json()
+
+    def validate(self, wdl_path, inputs=None):
+        files = {
+            "workflowSource": as_file_object(path_as_string(wdl_path)),
+            "workflowInputs": as_file_object(path_as_string(inputs)),
+        }
+        files = {k: v for k, v in files.items() if v}
+        res = httpx.post(
+            f"{self.base_url}/api/womtool/v1/describe",
+            headers=self.headers,
+            files=files,
+        )
+        res.raise_for_status()
+        return res.json()
+
+    def abort(self, workflow_id):
+        res = httpx.post(
+            f"{self.base_url}/api/workflows/v1/{workflow_id}/abort",
+            headers=self.headers,
+        )
+        res.raise_for_status()
+        return res.json()
+
+    def search(self, days=1, name=None, status=None):
+        submission = f"{past_date(days)}T00:00Z"
+        params = {"submission": submission, "name": name, "status": status}
+        params = {k: v for k, v in params.items() if v}
+        res = httpx.get(
+            f"{self.base_url}/api/workflows/v1/query",
+            headers=self.headers,
+            params=params,
         )
         res.raise_for_status()
         return res.json()
