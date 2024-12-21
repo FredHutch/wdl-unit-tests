@@ -53,7 +53,6 @@ workflow enhanced_map_test {
     output {
         Map[String, String] result_map = create_result_map.output_map
         Array[String] nested_map_results = process_nested_map.message
-        Boolean empty_map_processed = process_empty_map.success
     }
 }
 
