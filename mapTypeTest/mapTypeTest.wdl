@@ -93,8 +93,12 @@ task process_nested_map {
         String patient_id
         Map[String, String] patient_data
         Array[String] samples_for_patient
-        String sample_type = patient_data[samples_for_patient[0]]
     }
+
+    # First get the first sample ID
+    String first_sample = samples_for_patient[0]
+    # Then use it to index the patient data
+    String sample_type = patient_data[first_sample]
 
     command {
         echo "Processing patient ${patient_id} with sample type ${sample_type}"
