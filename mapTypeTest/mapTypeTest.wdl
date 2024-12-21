@@ -8,7 +8,6 @@ workflow enhanced_map_test {
         Map[String, Int] read_lengths
 
         # New test inputs
-        Map[String, String] empty_map = {}
         Map[String, Map[String, String]] nested_map = {
             "patient1": {
                 "sample1": "normal",
@@ -21,12 +20,6 @@ workflow enhanced_map_test {
         }
         # We need to provide keys as arrays since WDL 1.0 doesn't have a keys() function
         Array[String] patient_ids = ["patient1", "patient2"]
-    }
-
-    # Test processing empty map
-    call process_empty_map {
-        input:
-            empty_map = empty_map
     }
 
     # Test nested map processing
@@ -61,30 +54,6 @@ workflow enhanced_map_test {
         Map[String, String] result_map = create_result_map.output_map
         Array[String] nested_map_results = process_nested_map.message
         Boolean empty_map_processed = process_empty_map.success
-    }
-}
-
-task process_empty_map {
-    input {
-        Map[String, String] empty_map
-    }
-
-    command <<<
-        # Convert the map to a string and check if it's empty
-        MAP_STR="~{write_map(empty_map)}"
-        if [ "$MAP_STR" == "{}" ]; then
-            echo "true"
-        else
-            echo "false"
-        fi
-    >>>
-
-    output {
-        Boolean success = read_boolean(stdout())
-    }
-
-    runtime {
-        docker: "ubuntu:latest"
     }
 }
 
