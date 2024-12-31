@@ -49,7 +49,7 @@ Processes individual sample information using the complex struct types.
 - `message`: String containing processed sample information
 
 **Runtime Requirements:**
-- Docker: ubuntu:latest
+- Docker: ubuntu:noble-20241118.1
 
 ## Usage
 ```bash

@@ -56,7 +56,7 @@ Aggregates processing results into a map structure.
 
 **Runtime Requirements:**
 All tasks use Docker containers:
-- `process_sample`, `process_nested_map`: ubuntu:latest
+- `process_sample`, `process_nested_map`: ubuntu:noble-20241118.1
 - `create_result_map`: python:3.8-slim
 
 ## Usage
