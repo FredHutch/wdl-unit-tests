@@ -1,35 +1,55 @@
 name: WOMtool Validation of WDL Script
 
 on:
+  pull_request:
   workflow_dispatch:
 
-permissions:
-  contents: read
-  packages: write
-
 jobs:
-  womtoolval:
+  generate-matrix:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Find WDL Directories
+        id: set-matrix
+        run: |
+          # Find all directories containing .wdl files
+          dirs=$(find . -type f -name "*.wdl" -exec dirname {} \; | sort -u | sed 's|^\./||' | jq -R . | jq -s | jq -c .)
+          echo "Directories: $dirs"
+          echo "matrix=$dirs" >> $GITHUB_OUTPUT
+
+  womtoolval:
+    needs: generate-matrix
+    if: ${{ github.event.pull_request.head.repo.fork == false }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        wdl: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
     steps:
       -
         name: Checkout
         uses: actions/checkout@v4
+
       -
         name: Set Up Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
+
       -
         name: Pull WOMtool Jarfile
         run: wget -q https://github.com/broadinstitute/cromwell/releases/download/86/womtool-86.jar
-      -
+
+      - 
         name: Validate WDL Scripts
         run: |
-          java -jar womtool-86.jar validate helloHostname/helloHostname.wdl
-          java -jar womtool-86.jar validate helloModuleHostname/helloModuleHostname.wdl
-          java -jar womtool-86.jar validate helloDockerHostname/helloDockerHostname.wdl
-          java -jar womtool-86.jar validate conditionalTest/conditionalTest.wdl -i conditionalTest/inputs.json
-
-
-
+          cmd="java -jar womtool-86.jar validate ${{ matrix.wdl }}/${{ matrix.wdl }}.wdl"
+          if [[ -f "${{ matrix.wdl }}/inputs.json" ]]; then
+            cmd="$cmd -i ${{ matrix.wdl }}/inputs.json"
+          fi
+          echo "Running command: $cmd"
+          eval "$cmd"
