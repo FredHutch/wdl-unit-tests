@@ -77,7 +77,7 @@ task process_high_quality {
     }
 
     runtime {
-        docker: "ubuntu:latest"
+        docker: "ubuntu:noble-20241118.1@sha256:80dd3c3b9c6cecb9f1667e9290b3bc61b78c2678c02cbdae5f0fea92cc6734ab"
     }
 }
 
@@ -99,7 +99,7 @@ task run_qc_report {
     }
 
     runtime {
-        docker: "ubuntu:latest"
+        docker: "ubuntu:noble-20241118.1@sha256:80dd3c3b9c6cecb9f1667e9290b3bc61b78c2678c02cbdae5f0fea92cc6734ab"
     }
 }
 
@@ -119,6 +119,6 @@ task summarize {
     }
 
     runtime {
-        docker: "ubuntu:latest"
+        docker: "ubuntu:noble-20241118.1@sha256:80dd3c3b9c6cecb9f1667e9290b3bc61b78c2678c02cbdae5f0fea92cc6734ab"
     }
 }
