@@ -3,8 +3,10 @@ from pathlib import Path
 
 import sh
 
+
 class Womtool(object):
     """Womtool class"""
+
     def __init__(self):
         self.womtool_path = os.getenv("WOMTOOL_PATH")
         if not self.womtool_path:
@@ -16,19 +18,16 @@ class Womtool(object):
         if path.exists():
             self.womtool = self.womtool.bake(i=str(path))
 
-    def validate(self, wdl_path):
+    def validate(self, wdl_path, verbose=False):
         try:
             self.has_inputs(wdl_path)
             self.womtool = self.womtool.bake(
                 "validate",
                 f"{wdl_path}/{wdl_path}.wdl",
             )
-            print(self.womtool)
+            if verbose:
+                print(self.womtool)
             self.womtool()
-            # self.womtool(
-            #     "validate",
-            #     f"{wdl_path}/{wdl_path}.wdl",
-            # )
         except sh.ErrorReturnCode as e:
             print(f"Command {e.full_cmd} exited with {e.exit_code}")
             return False
