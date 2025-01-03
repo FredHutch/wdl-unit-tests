@@ -29,23 +29,19 @@ jobs:
       matrix:
         wdl: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
     steps:
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v4
 
-      -
-        name: Set Up Java
+      - name: Set Up Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
 
-      -
-        name: Pull WOMtool Jarfile
+      - name: Pull WOMtool Jarfile
         run: wget -q https://github.com/broadinstitute/cromwell/releases/download/86/womtool-86.jar
 
-      - 
-        name: Validate WDL Scripts
+      - name: Validate WDL Scripts
         run: |
           cmd="java -jar womtool-86.jar validate ${{ matrix.wdl }}/${{ matrix.wdl }}.wdl"
           if [[ -f "${{ matrix.wdl }}/inputs.json" ]]; then
