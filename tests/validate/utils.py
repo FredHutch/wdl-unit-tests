@@ -19,10 +19,16 @@ class Womtool(object):
     def validate(self, wdl_path):
         try:
             self.has_inputs(wdl_path)
-            self.womtool(
+            self.womtool = self.womtool.bake(
                 "validate",
                 f"{wdl_path}/{wdl_path}.wdl",
             )
+            print(self.womtool)
+            self.womtool()
+            # self.womtool(
+            #     "validate",
+            #     f"{wdl_path}/{wdl_path}.wdl",
+            # )
         except sh.ErrorReturnCode as e:
             print(f"Command {e.full_cmd} exited with {e.exit_code}")
             return False
