@@ -112,6 +112,12 @@ class CromwellApi(object):
         res.raise_for_status()
         return res.json()
 
+    @retry(
+        retry=retry_if_exception_type(httpx.HTTPStatusError),
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=4, max=10),
+        before_sleep=my_before_sleep,
+    )
     def outputs(self, workflow_id):
         res = httpx.get(
             f"{self.base_url}/api/workflows/v1/{workflow_id}/outputs",
