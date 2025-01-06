@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pytest
+
 from cromwell import CromwellApi
 from proof import ProofApi
 

@@ -5,6 +5,7 @@ from tenacity import (
     stop_after_attempt,
     wait_exponential,
 )
+
 from utils import TOKEN, past_date
 
 
@@ -107,6 +108,14 @@ class CromwellApi(object):
             f"{self.base_url}/api/workflows/v1/query",
             headers=self.headers,
             params=params,
+        )
+        res.raise_for_status()
+        return res.json()
+
+    def outputs(self, workflow_id):
+        res = httpx.get(
+            f"{self.base_url}/api/workflows/v1/{workflow_id}/outputs",
+            headers=self.headers,
         )
         res.raise_for_status()
         return res.json()
