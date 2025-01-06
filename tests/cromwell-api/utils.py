@@ -5,6 +5,49 @@ from pathlib import Path
 PROOF_BASE_URL = "https://proof-api-dev.fredhutch.org"
 TOKEN = os.getenv("PROOF_API_TOKEN_DEV")
 
+metadata_response_keys = {
+    "submitted": [
+        "submittedFiles",
+        "calls",
+        "outputs",
+        "status",
+        "id",
+        "inputs",
+        "labels",
+        "submission",
+    ],
+    "final": [
+        "workflowName",
+        "workflowProcessingEvents",
+        "actualWorkflowLanguageVersion",
+        "submittedFiles",
+        "calls",
+        "outputs",
+        "workflowRoot",
+        "actualWorkflowLanguage",
+        "status",
+        "end",
+        "start",
+        "id",
+        "inputs",
+        "labels",
+        "submission",
+    ],
+}
+
+workflow_states = {
+    "not_final": [
+        "Running",
+        "Submitted",
+        "Pending",
+    ],
+    "final": [
+        "Failed",
+        "Aborted",
+        "Succeeded",
+    ],
+}
+
 
 def make_path(file):
     path = Path(__file__).parents[2].resolve()
