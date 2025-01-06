@@ -14,7 +14,7 @@ def cromwell_api():
     return CromwellApi(url=cromwell_url)
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="session")
 def submit_wdls(cromwell_api):
     """
     This fixture runs automatically before any tests.

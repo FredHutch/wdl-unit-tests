@@ -40,11 +40,13 @@ class CromwellApi(object):
         wdl_path,
         batch=None,
         params=None,
+        labels=None,
     ):
         files = {
             "workflowSource": as_file_object(path_as_string(wdl_path)),
             "workflowInputs": as_file_object(path_as_string(batch)),
             "workflowInputs_2": as_file_object(path_as_string(params)),
+            "labels": as_file_object(path_as_string(labels)),
         }
         files = {k: v for k, v in files.items() if v}
         res = httpx.post(
@@ -121,6 +123,20 @@ class CromwellApi(object):
     def outputs(self, workflow_id):
         res = httpx.get(
             f"{self.base_url}/api/workflows/v1/{workflow_id}/outputs",
+            headers=self.headers,
+        )
+        res.raise_for_status()
+        return res.json()
+
+    @retry(
+        retry=retry_if_exception_type(httpx.HTTPStatusError),
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=4, max=10),
+        before_sleep=my_before_sleep,
+    )
+    def labels(self, workflow_id):
+        res = httpx.get(
+            f"{self.base_url}/api/workflows/v1/{workflow_id}/labels",
             headers=self.headers,
         )
         res.raise_for_status()
