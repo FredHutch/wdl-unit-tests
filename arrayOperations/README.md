@@ -1,7 +1,29 @@
-# ArrayOperations WDL Workflow
+# Unit test for Array Operations (ArrayOperations)
 
 ## Overview
-A comprehensive test workflow that demonstrates array handling, scatter-gather functionality, and various array operations in WDL. The workflow performs multiple array tests including empty array handling, indexing, array functions, concatenation, nested array processing, integer array operations, and file array localization, while maintaining its original uppercase conversion functionality.
+The ArrayOperations workflow is a unit test designed to validate and demonstrate various operations on arrays in WDL (Workflow Description Language). It includes tests for:
+
+- String Arrays: Manipulations like uppercase conversion, indexing, sorting, concatenation, and flattening.
+- Integer Arrays: Operations like summation and concatenation.
+- Nested Arrays: Flattening and validation.
+- File Arrays: Localization and content reading.
+- Edge cases : Empty arrays 
+
+## Purpose
+This workflow serves as a comprehensive test case for:
+- Array input/output handling
+- Empty array processing
+- Array indexing and bounds checking
+- Array sorting and length calculations
+- Array concatenation
+- Nested array operations
+- Integer array operations and parsing
+- File array localization and access
+- Scatter-gather operations
+- Parallel task execution
+- Basic string manipulation
+- Output array collection
+- Intermediate array declarations
 
 ## Workflow Components
 
@@ -9,14 +31,14 @@ A comprehensive test workflow that demonstrates array handling, scatter-gather f
 The main workflow demonstrates various array operations and parallel processing capabilities.
 
 **Inputs:**
-- `strings`: Array[String] - Primary list of strings to be processed
+- `strings`: Array[String] - Primary array of input strings for testing.
 - `additional_strings`: Array[String] - Secondary array for testing concatenation (optional, defaults to empty)
-- `nested_arrays`: Array[Array[String]] - Array of arrays for testing nested operations (optional, defaults to empty)
+- `nested_arrays`: Array[Array[String]] - Array of arrays for testing flattening and nested operations (optional, defaults to empty)
 - `numbers`: Array[Int] - Array of integers for testing numeric operations (optional, defaults to [1,2,3,4,5])
 - `input_files`: Array[File] - Array of input files for testing file localization (optional, defaults to empty)
 
 **Outputs:**
-- `uppercased`: Array[String] - List of input strings converted to uppercase
+- `uppercased`: Array[String] - Uppercased elements from the input string array.
 - `first_index`: Int? - First valid index of the input array (0)
 - `last_index`: Int? - Last valid index of the input array
 - `sorted_array`: Array[String] - Input array sorted alphabetically
@@ -86,26 +108,10 @@ Example inputs.json:
 }
 ```
 
-## Purpose
-This workflow serves as a comprehensive test case for:
-- Array input/output handling
-- Empty array processing
-- Array indexing and bounds checking
-- Array sorting and length calculations
-- Array concatenation
-- Nested array operations
-- Integer array operations and parsing
-- File array localization and access
-- Scatter-gather operations
-- Parallel task execution
-- Basic string manipulation
-- Output array collection
-- Intermediate array declarations
-
 ## Version
 WDL 1.0
 
-## Notes
+## Additional Notes
 - Useful for testing backend's ability to handle parallel task execution
 - Demonstrates proper scatter-gather syntax
 - Shows comprehensive array manipulation patterns
