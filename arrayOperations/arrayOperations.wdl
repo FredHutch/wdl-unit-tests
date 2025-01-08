@@ -59,7 +59,7 @@ workflow ArrayOperations {
         Int? last_index = ValidateIndex.last_index # Last index in string array
         Array[String] sorted_array = ArrayFunctions.sorted # Sorted array
         Array[Array[String]] processed_nested = ArrayFunctions.processed_nested # Processed nested array
-        Boolean concat_test_passed = ArrayConcat. # Result of concatenation test
+        Boolean concat_test_passed = ArrayConcat.test_passed # Result of concatenation test
         Int array_length = ArrayFunctions.arr_length # Length of input array
         Array[String] flattened = ArrayFunctions.flattened # Flattened nested arrays
         # New outputs for integer array operations 
