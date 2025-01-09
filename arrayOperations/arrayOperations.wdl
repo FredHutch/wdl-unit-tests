@@ -2,31 +2,33 @@ version 1.0
 
 workflow ArrayOperations {
     input {
+        # Input arrays for different tests
         Array[String] strings
         Array[String] additional_strings = []  # For testing array concatenation
-        Array[Array[String]] nested_arrays = []  # For testing array of arrays
-        Array[Int] numbers = [1, 2, 3, 4, 5]  # Default integer array for testing
-        Array[File] input_files = []  # Array of files for testing localization
+        Array[Array[String]] nested_arrays = []  # For testing nested arrays
+        Array[Int] numbers = [1, 2, 3, 4, 5]  # Default integer array for numeric operations
+        Array[File] input_files = [] # Array of files to test file operations
     }
     
+    # Scatter operation to test processing of each element in an array
     # Test empty arrays (original operation still works with empty input)
     scatter (str in strings) {
         call Uppercase { input: text = str }
     }
     
-    # Test array indexing
+    # Test array indexing (accessing first and last elements)
     if (length(strings) > 0) {
         call ValidateIndex { input: arr = strings }
     }
     
-    # Test array functions
+    # Test array functions like sorting, length calculation, and flattening
     call ArrayFunctions { 
         input: 
             arr = strings,
             nested = nested_arrays
     }
     
-    # Test array concatenation
+    # Test array concatenation and verify the combined length
     Array[String] combined = flatten([strings, additional_strings])
     call ArrayConcat {
         input: 
@@ -35,7 +37,7 @@ workflow ArrayOperations {
             expected_length = length(combined)
     }
     
-    # Test integer array operations
+    # Test integer array operations like summation and combining arrays
     Array[Int] more_numbers = [6, 7, 8, 9, 10]  # Intermediate array declaration
     call IntegerArrayOps {
         input:
@@ -43,32 +45,33 @@ workflow ArrayOperations {
             additional_numbers = more_numbers
     }
 
-    # Test file array operations
+    # Test file array operations like localization and content reading
     if (length(input_files) > 0) {
         call FileArrayOps {
             input:
                 files = input_files
         }
     }
-    
+    # Outputs to capture results of the tests
     output {
-        Array[String] uppercased = Uppercase.out
-        Int? first_index = ValidateIndex.first_index
-        Int? last_index = ValidateIndex.last_index
-        Array[String] sorted_array = ArrayFunctions.sorted
-        Array[Array[String]] processed_nested = ArrayFunctions.processed_nested
-        Boolean concat_test_passed = ArrayConcat.test_passed
-        Int array_length = ArrayFunctions.arr_length
-        Array[String] flattened = ArrayFunctions.flattened
-        # New outputs for integer array operations
-        Int sum_result = IntegerArrayOps.sum
-        Array[Int] combined_numbers = IntegerArrayOps.combined
+        Array[String] uppercased = Uppercase.out # Outputs from scatter task
+        Int? first_index = ValidateIndex.first_index # First index in string array
+        Int? last_index = ValidateIndex.last_index # Last index in string array
+        Array[String] sorted_array = ArrayFunctions.sorted # Sorted array
+        Array[Array[String]] processed_nested = ArrayFunctions.processed_nested # Processed nested array
+        Boolean concat_test_passed = ArrayConcat.test_passed # Result of concatenation test
+        Int array_length = ArrayFunctions.arr_length # Length of input array
+        Array[String] flattened = ArrayFunctions.flattened # Flattened nested arrays
+        # New outputs for integer array operations 
+        Int sum_result = IntegerArrayOps.sum # Sum of integer array
+        Array[Int] combined_numbers = IntegerArrayOps.combined # Combined integer arrays
         # New outputs for file array operations
-        Array[String]? file_contents = FileArrayOps.contents
-        Boolean? files_localized = FileArrayOps.localization_success
+        Array[String]? file_contents = FileArrayOps.contents # Contents of files
+        Boolean? files_localized = FileArrayOps.localization_success # File localization status
     }
 
     parameter_meta {
+        # Descriptions for inputs
         strings: "Primary array of input strings"
         additional_strings: "Secondary array for testing concatenation"
         nested_arrays: "Array of arrays for testing nested array operations"
@@ -77,6 +80,7 @@ workflow ArrayOperations {
     }
 }
 
+# Task to convert string to uppercase (tests per-element processing)
 task Uppercase {
     input {
         String text
@@ -96,6 +100,8 @@ task Uppercase {
     }
 }
 
+
+# Task to test indexing operations
 task ValidateIndex {
     input {
         Array[String] arr
@@ -117,6 +123,7 @@ task ValidateIndex {
     }
 }
 
+# Task to test array functions
 task ArrayFunctions {
     input {
         Array[String] arr
@@ -147,6 +154,7 @@ task ArrayFunctions {
     }
 }
 
+# Task to test concatenation of two arrays
 task ArrayConcat {
     input {
         Array[String] arr1
@@ -173,6 +181,7 @@ task ArrayConcat {
     }
 }
 
+# Task to test integer array operations
 task IntegerArrayOps {
     input {
         Array[Int] numbers
@@ -202,6 +211,7 @@ task IntegerArrayOps {
     }
 }
 
+# Task to test file array operations
 task FileArrayOps {
     input {
         Array[File] files
