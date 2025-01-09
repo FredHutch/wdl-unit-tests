@@ -1,13 +1,11 @@
 from utils import Womtool
 
-should_fail = ["badFile"]
-
 wom = Womtool()
 
 
 def test_womtool_validate(wdl_path):
-    out = wom.validate(wdl_path)
-    if wdl_path in should_fail:
-        assert not out
+    is_valid = wom.validate(wdl_path)
+    if wdl_path.startswith("bad"):
+        assert not is_valid
     else:
-        assert out
+        assert is_valid
