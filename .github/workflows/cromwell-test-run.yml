@@ -50,6 +50,9 @@ jobs:
       - name: Set up Python
         run: uv python install 3.13
 
+      - name: Install dependencies
+        run: uv sync --all-extras
+
       - name: Execute Test Run of WDL Workflows
         env:
           CROMWELL_PATH: cromwell-86.jar
