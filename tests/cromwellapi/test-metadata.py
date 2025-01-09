@@ -1,6 +1,9 @@
+import pytest
+
 from utils import metadata_response_keys, workflow_states
 
 
+@pytest.mark.vcr
 def test_metadata(cromwell_api, submit_wdls):
     """Getting workflow metadata works"""
     params = {"expandSubWorkflows": False, "excludeKey": "calls"}

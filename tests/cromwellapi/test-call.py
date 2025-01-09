@@ -1,7 +1,10 @@
 # import json
+import pytest
 
 from utils import metadata_response_keys, workflow_states
 
+
+@pytest.mark.vcr
 def test_call(cromwell_api, submit_wdls):
     """Getting workflow metadata with expandSubWorkflows:true works"""
     params = {"expandSubWorkflows": True}

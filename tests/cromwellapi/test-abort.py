@@ -5,6 +5,7 @@ from utils import make_path
 wdls = ["helloHostname", "helloDockerHostname", "helloModuleHostname"]
 
 
+@pytest.mark.vcr
 @pytest.mark.parametrize("wdl", wdls)
 def test_abort(cromwell_api, wdl):
     """Checking that abort works"""

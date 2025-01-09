@@ -1,6 +1,8 @@
 # import re
+import pytest
 
 
+@pytest.mark.vcr
 def test_failures_initial_state(cromwell_api, submit_wdls):
     """Checking for failures works for initial state"""
     params = {"includeKey": "failures", "includeKey": "jobId"}
