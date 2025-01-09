@@ -42,9 +42,9 @@ jobs:
         run: wget -q https://github.com/broadinstitute/cromwell/releases/download/86/womtool-86.jar
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v4
+        uses: astral-sh/setup-uv@v5
         with:
-          version: "0.5.13"
+          version: "0.5.16"
 
       - name: Set up Python
         run: uv python install 3.13
@@ -52,4 +52,4 @@ jobs:
       - name: Validate WDL Scripts
         env:
           WOMTOOL_PATH: womtool-86.jar
-        run: uv run pytest tests/validate/test-validate.py --wdl-path=${{ matrix.wdl }} --verbose -s
+        run: uv run pytest tests/cromwelljava/test-validate.py --wdl-path=${{ matrix.wdl }} --verbose -s
