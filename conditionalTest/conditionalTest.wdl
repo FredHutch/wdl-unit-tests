@@ -26,7 +26,7 @@ workflow conditional_example {
 
     # Create string arrays for the QC report
     scatter (sample in samples) {
-        String sample_line = sample.name + "," + sample.type + "," + sample.quality_score
+        String sample_line = "~{sample.name},~{sample.type},~{sample.quality_score}"
     }
 
     # Demonstrate single conditional task
