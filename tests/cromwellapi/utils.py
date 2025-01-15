@@ -49,9 +49,19 @@ workflow_states = {
 }
 
 
-def make_path(file):
+def path_wdl(wdl):
     path = Path(__file__).parents[2].resolve()
-    return path / f"{file}/{file}.wdl"
+    return path / f"{wdl}/{wdl}.wdl"
+
+
+def path_options(wdl):
+    path = Path(__file__).parents[2].resolve()
+    return path / f"{wdl}/options.json"
+
+
+def path_inputs(wdl):
+    path = Path(__file__).parents[2].resolve()
+    return path / f"{wdl}/inputs.json"
 
 
 def past_date(days):
