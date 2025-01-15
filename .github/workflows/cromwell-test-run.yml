@@ -6,7 +6,7 @@ on:
 
 jobs:
   generate-matrix:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
@@ -24,7 +24,7 @@ jobs:
   testrun:
     needs: generate-matrix
     if: ${{ github.event.pull_request.head.repo.fork == false }}
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     permissions: write-all
     strategy:
       matrix:
@@ -40,7 +40,7 @@ jobs:
           java-version: '21'
 
       - name: Pull Cromwell Jarfile
-        run: curl -s -L -O https://github.com/broadinstitute/cromwell/releases/download/86/cromwell-86.jar
+        run: wget -q https://github.com/broadinstitute/cromwell/releases/download/86/cromwell-86.jar
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5

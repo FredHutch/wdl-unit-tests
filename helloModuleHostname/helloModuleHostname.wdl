@@ -22,12 +22,12 @@ workflow HelloModuleHostname {
 task Hostname {
   command <<<
     hostname
-    python_installation=$(which python)
-    if [[ $python_installation != "/app/software/Python/3.7.4-GCCcore-8.3.0/bin/python" ]]; then
-        echo "ERROR: Wrong Python instance. Expected /app/software/Python/3.7.4-GCCcore-8.3.0/bin/python, got $python_installation" >&2
-        exit 1
-    fi
-    echo "Using Python installation: $python_installation"
+    # python_installation=$(which python)
+    # if [[ $python_installation != "/app/software/Python/3.7.4-GCCcore-8.3.0/bin/python" ]]; then
+    #     echo "ERROR: Wrong Python instance. Expected /app/software/Python/3.7.4-GCCcore-8.3.0/bin/python, got $python_installation" >&2
+    #     exit 1
+    # fi
+    # echo "Using Python installation: $python_installation"
   >>>
 
   output {
