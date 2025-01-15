@@ -4,6 +4,7 @@ from utils import make_path
 
 LABELS_FILE_1 = Path("tests/cromwellapi/labels1.json")
 
+
 def test_labels(cromwell_api):
     """Getting workflow labels works"""
     job = cromwell_api.submit_workflow(

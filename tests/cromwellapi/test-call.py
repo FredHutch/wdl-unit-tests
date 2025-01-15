@@ -2,6 +2,7 @@
 
 from utils import metadata_response_keys, workflow_states
 
+
 def test_call(cromwell_api, submit_wdls):
     """Getting workflow metadata with expandSubWorkflows:true works"""
     params = {"expandSubWorkflows": True}
