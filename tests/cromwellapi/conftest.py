@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pytest
+
 from cromwell import CromwellApi
 from proof import ProofApi
 
@@ -13,7 +14,7 @@ def cromwell_api():
     return CromwellApi(url=cromwell_url)
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="session")
 def submit_wdls(cromwell_api):
     """
     This fixture runs automatically before any tests.
@@ -25,7 +26,12 @@ def submit_wdls(cromwell_api):
 
     print(f"Submitting {len(wdl_paths)} wdls ...")
 
-    out = [cromwell_api.submit_workflow(wdl_path=path) for path in wdl_paths]
+    out = []
+    for path in wdl_paths:
+        opts_path = path.parent / "options.json"
+        opts_path = opts_path if opts_path.exists() else None
+        res = cromwell_api.submit_workflow(wdl_path=path, options=opts_path)
+        out.append(res)
 
     # Yield to let tests run
     yield out
