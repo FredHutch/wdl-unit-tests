@@ -43,6 +43,6 @@ task generate_diverse_outputs {
     }
 
     runtime {
-        docker: "ubuntu:noble-20241118.1@sha256:80dd3c3b9c6cecb9f1667e9290b3bc61b78c2678c02cbdae5f0fea92cc6734ab"
+        docker: "ubuntu:noble-20241118.1"
     }
 }
