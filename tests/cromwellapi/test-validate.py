@@ -12,7 +12,7 @@ def test_validate_good_wdl(cromwell_api):
 
 def test_validate_bad_wdl(cromwell_api):
     """Checking that validate works - final state is quick"""
-    res = cromwell_api.validate(wdl_path=make_path("badFile"))
+    res = cromwell_api.validate(wdl_path=make_path("badValMissingValue"))
     assert isinstance(res, dict)
     assert not res["valid"]
     assert not res["validWorkflow"]
