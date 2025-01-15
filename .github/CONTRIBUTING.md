@@ -18,7 +18,7 @@ New unit test suggestions are tracked as GitHub issues. When creating a unit tes
 
 1. Clone the repo locally and create your branch from `main`
 2. Ensure your proposed WDL runs locally via `miniwdl run` or `cromwell run`
-3. Add the WDL to a subdirectory by the same name, i.e. `coolUnitTest/coolUnitTest.wdl`
+3. Add the WDL to a subdirectory by the same name, i.e. `coolUnitTest/coolUnitTest.wdl`. If the WDL is expected to fail WOMtool the subdirectory AND the WDL file name must start with `badVal`. If the WDL is expected to fail both WOMtool and a Cromwell run, then the subdirectory AND the WDL file name must start with `badRun`.
 4. Make sure to include an `inputs.json` and `options.json` if required and that any other input files referenced in `inputs.json` are provided in the same directory
 5. Add a README to the WDL's subdirectory describing the unit test's functionality and purpose
 6. Update the overarching repo's README as well
