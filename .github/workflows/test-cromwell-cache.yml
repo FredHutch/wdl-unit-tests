@@ -30,7 +30,6 @@ jobs:
           duration=$((end_time - start_time))
           echo "first_duration=$duration" >> $GITHUB_OUTPUT
           
-          # Find the workflow directory more robustly
           workflow_dir=$(find . -type d -name "CacheTest" -path "*/cromwell-executions/*" | sort -r | head -1)
           if [ -z "$workflow_dir" ]; then
             echo "::error::Could not find workflow execution directory"
@@ -52,35 +51,70 @@ jobs:
           duration=$((end_time - start_time))
           echo "second_duration=$duration" >> $GITHUB_OUTPUT
           
-          # Find the most recent workflow directory that's different from the first
           workflow_dir=$(find . -type d -name "CacheTest" -path "*/cromwell-executions/*" | sort -r | head -1)
           latest_runs=$(find "$workflow_dir" -mindepth 1 -maxdepth 1 -type d | sort -r)
           workflow_id=$(echo "$latest_runs" | grep -v "${{ steps.first-run.outputs.first_workflow_id }}" | head -1 | xargs basename)
           echo "Second workflow ID: $workflow_id"
           echo "second_workflow_id=$workflow_id" >> $GITHUB_OUTPUT
 
+      - name: Create modified inputs
+        run: |
+          echo '{
+            "CacheTest.message": "Modified message to invalidate cache",
+            "CacheTest.sleep_time": 15
+          }' > cacheTest/modified_inputs.json
+          
+      - name: Third run (should NOT use cache)
+        id: third-run
+        run: |
+          echo "Running third execution with modified inputs..."
+          start_time=$(date +%s)
+          java -Dconfig.file=cacheTest/cromwell.conf -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/modified_inputs.json -o cacheTest/options.json > cromwell_modified.log 2>&1
+          end_time=$(date +%s)
+          duration=$((end_time - start_time))
+          echo "third_duration=$duration" >> $GITHUB_OUTPUT
+          
+          workflow_dir=$(find . -type d -name "CacheTest" -path "*/cromwell-executions/*" | sort -r | head -1)
+          latest_runs=$(find "$workflow_dir" -mindepth 1 -maxdepth 1 -type d | sort -r)
+          workflow_id=$(echo "$latest_runs" | grep -v "${{ steps.first-run.outputs.first_workflow_id }}" | grep -v "${{ steps.second-run.outputs.second_workflow_id }}" | head -1 | xargs basename)
+          echo "Third workflow ID: $workflow_id"
+          echo "third_workflow_id=$workflow_id" >> $GITHUB_OUTPUT
+
       - name: Validate caching behavior
         run: |
           echo "First run duration: ${{ steps.first-run.outputs.first_duration }} seconds"
           echo "Second run duration: ${{ steps.second-run.outputs.second_duration }} seconds"
-          echo "First execution ID: ${{ steps.first-run.outputs.first_execution_id }}"
-          echo "Second execution ID: ${{ steps.second-run.outputs.second_execution_id }}"
+          echo "Third run duration: ${{ steps.third-run.outputs.third_duration }} seconds"
           
-          # Verify both runs completed
-          if [ -z "${{ steps.first-run.outputs.first_workflow_id }}" ] || [ -z "${{ steps.second-run.outputs.second_workflow_id }}" ]; then
-            echo "::error::One or both workflow runs failed to complete"
+          # Verify all runs completed
+          if [ -z "${{ steps.first-run.outputs.first_workflow_id }}" ] || \
+             [ -z "${{ steps.second-run.outputs.second_workflow_id }}" ] || \
+             [ -z "${{ steps.third-run.outputs.third_workflow_id }}" ]; then
+            echo "::error::One or more workflow runs failed to complete"
             exit 1
           fi
           
-          # Check for cache hit messages in the Cromwell logs from the second run
+          # Check for cache hit in second run
           if ! grep -q "cache hit copying success" cromwell.log; then
-            echo "::error::No cache hit message found in Cromwell logs"
+            echo "::error::No cache hit message found in second run Cromwell logs"
+            exit 1
+          fi
+          
+          # Check that third run did NOT use cache
+          if grep -q "cache hit copying success" cromwell_modified.log; then
+            echo "::error::Cache hit found in third run when it should have been invalidated"
             exit 1
           fi
           
           # Verify second run was significantly faster
           if [ ${{ steps.second-run.outputs.second_duration }} -gt $(( ${{ steps.first-run.outputs.first_duration }} / 2 )) ]; then
-            echo "::error::Cache validation failed! Second run took too long (${steps.second-run.outputs.second_duration}s), suggesting cache wasn't used."
+            echo "::error::Cache validation failed! Second run took too long, suggesting cache wasn't used"
+            exit 1
+          fi
+          
+          # Verify third run was NOT cached (should take similar time to first run)
+          if [ ${{ steps.third-run.outputs.third_duration }} -lt $(( ${{ steps.first-run.outputs.first_duration }} / 2 )) ]; then
+            echo "::error::Third run was too fast, suggesting cache was incorrectly used"
             exit 1
           fi
           
