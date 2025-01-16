@@ -80,7 +80,7 @@ task process_nested_map {
     }
 
     runtime {
-        docker: "ubuntu:noble-20241118.1@sha256:80dd3c3b9c6cecb9f1667e9290b3bc61b78c2678c02cbdae5f0fea92cc6734ab"
+        docker: "ubuntu:noble-20241118.1"
     }
 }
 
@@ -100,7 +100,7 @@ task process_sample {
     }
 
     runtime {
-        docker: "ubuntu:noble-20241118.1@sha256:80dd3c3b9c6cecb9f1667e9290b3bc61b78c2678c02cbdae5f0fea92cc6734ab"
+        docker: "ubuntu:noble-20241118.1"
     }
 }
 
@@ -126,6 +126,6 @@ task create_result_map {
     }
 
     runtime {
-        docker: "python:3.8-slim@sha256:1d52838af602b4b5a831beb13a0e4d073280665ea7be7f69ce2382f29c5a613f"
+        docker: "python:3.8-slim"
     }
 }
