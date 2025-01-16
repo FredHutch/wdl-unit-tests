@@ -4,7 +4,7 @@ workflow testFileoperations {
     call file_operations
 
     output {
-        File created_file = file_operations.created_file
+        File created_file1 = file_operations.created_file1
         File moved_file = file_operations.moved_file
         File renamed_file = file_operations.renamed_file
     }
@@ -12,19 +12,24 @@ workflow testFileoperations {
 
 task file_operations {
     command <<<
-        # Create a new file
-        echo "This is the created file." > created_file.txt
+        # Create three different files
+        echo "This is the first created file." > file1.txt
+        echo "This is the second file that will be moved." > file2.txt
+        echo "This is the third file that will be renamed." > file3.txt
         
-        # Move the created file to a new directory
+        # Move the second file to a new directory
         mkdir -p output_dir
-        mv created_file.txt output_dir/
+        mv file2.txt output_dir/
         
-        # Rename the moved file
-        mv output_dir/created_file.txt output_dir/renamed_file.txt
+        # Rename the third file
+        mv file3.txt file3_renamed.txt
     >>>
 
     output {
-        File renamed_file = "output_dir/renamed_file.txt"  # Verifies file was renamed
+        # Output the actual existing files
+        File created_file1 = "file1.txt"                  # The first file remains unchanged
+        File moved_file = "output_dir/file2.txt"          # The second file after being moved
+        File renamed_file = "file3_renamed.txt"           # The third file after being renamed
     }
 
     runtime {
