@@ -69,8 +69,8 @@ jobs:
           workflow_id=$(echo "$latest_runs" | grep -v "${{ steps.first-run.outputs.first_workflow_id }}" | head -1 | xargs basename)
           echo "Second workflow ID: $workflow_id"
           
-          # Find and validate output file
-          output_file="$workflow_dir/$workflow_id/call-GenerateTimestamp/execution/output.txt"
+          # Update the path to include cacheCopy
+          output_file="$workflow_dir/$workflow_id/call-GenerateTimestamp/cacheCopy/execution/output.txt"
           if [ ! -f "$output_file" ]; then
             echo "::error::Could not find output.txt at $output_file"
             exit 1
