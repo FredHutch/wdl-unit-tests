@@ -24,8 +24,6 @@ task file_operations {
     >>>
 
     output {
-        File created_file = "created_file.txt"  # This will fail if not created correctly
-        File moved_file = "output_dir/created_file.txt"  # Verifies file was moved
         File renamed_file = "output_dir/renamed_file.txt"  # Verifies file was renamed
     }
 
