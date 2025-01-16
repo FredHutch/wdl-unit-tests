@@ -49,6 +49,16 @@ workflow_states = {
 }
 
 
+class MissingProofToken(Exception):
+    pass
+
+
+def token_check(token):
+    if token is None:
+        raise MissingProofToken("Couldn't access env var PROOF_API_TOKEN_DEV")
+    return token
+
+
 def path_wdl(wdl):
     path = Path(__file__).parents[2].resolve()
     return path / f"{wdl}/{wdl}.wdl"

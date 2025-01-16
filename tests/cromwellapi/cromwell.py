@@ -6,7 +6,7 @@ from tenacity import (
     wait_exponential,
 )
 
-from utils import TOKEN, past_date
+from utils import TOKEN, past_date, token_check
 
 
 def as_file_object(path=None):
@@ -32,7 +32,7 @@ class CromwellApi(object):
 
     def __init__(self, url):
         self.base_url = url.rstrip("/")
-        self.token = TOKEN
+        self.token = token_check(TOKEN)
         self.headers = {"Authorization": f"Bearer {TOKEN}"}
 
     def submit_workflow(
