@@ -14,7 +14,6 @@ workflow CacheTest {
 
     output {
         File output_file = GenerateTimestamp.timestamp_file
-        String execution_id = GenerateTimestamp.execution_id
     }
 }
 
@@ -25,22 +24,16 @@ task GenerateTimestamp {
     }
 
     command <<<
-        # Sleep to make the task take a noticeable amount of time
         sleep ~{sleep_seconds}
-
-        # Generate a unique execution ID
-        execution_id=$(date +%s%N)
-        echo "Execution ID: $execution_id"
-
-        # Create output with timestamp and message
+        
+        # Use a deterministic identifier based on inputs
         echo "Message: ~{input_message}" > output.txt
-        echo "Timestamp: $(date)" >> output.txt
-        echo "Execution ID: $execution_id" >> output.txt
+        echo "Sleep time: ~{sleep_seconds}" >> output.txt
+        echo "Run ID: ~{input_message}-~{sleep_seconds}" >> output.txt
     >>>
 
     output {
         File timestamp_file = "output.txt"
-        String execution_id = read_string(stdout())
     }
 
     runtime {
