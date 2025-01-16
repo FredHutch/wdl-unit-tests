@@ -25,7 +25,7 @@ jobs:
         run: |
           echo "Running first execution..."
           start_time=$(date +%s)
-          java -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json
+          java -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json
           end_time=$(date +%s)
           duration=$((end_time - start_time))
           echo "first_duration=$duration" >> $GITHUB_OUTPUT
@@ -38,7 +38,7 @@ jobs:
         run: |
           echo "Running second execution..."
           start_time=$(date +%s)
-          java -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json
+          java -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json
           end_time=$(date +%s)
           duration=$((end_time - start_time))
           echo "second_duration=$duration" >> $GITHUB_OUTPUT
