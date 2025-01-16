@@ -25,20 +25,20 @@ jobs:
         run: |
           echo "Running first execution..."
           start_time=$(date +%s)
-          # Capture Cromwell's output to get workflow ID
-          workflow_output=$(java -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json)
+          java -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json
           end_time=$(date +%s)
           duration=$((end_time - start_time))
           echo "first_duration=$duration" >> $GITHUB_OUTPUT
           
-          # Extract workflow ID from Cromwell output
-          workflow_id=$(echo "$workflow_output" | grep "started workflow" | sed 's/.*workflow \([^)]*\).*/\1/')
+          # Find the most recent workflow directory
+          workflow_dir=$(ls -td cromwell-executions/CacheTest/*/ | head -1)
+          workflow_id=$(basename "$workflow_dir")
           echo "First workflow ID: $workflow_id"
           
-          # Find the output file for this specific workflow
-          output_file=$(find cromwell-executions/CacheTest/"$workflow_id" -name "output.txt")
-          if [ -z "$output_file" ]; then
-            echo "::error::Could not find output.txt for workflow $workflow_id"
+          # Find the output file
+          output_file="$workflow_dir/call-GenerateTimestamp/execution/output.txt"
+          if [ ! -f "$output_file" ]; then
+            echo "::error::Could not find output.txt at $output_file"
             exit 1
           fi
           execution_id=$(grep "Execution ID:" "$output_file" | cut -d' ' -f3)
@@ -52,20 +52,20 @@ jobs:
         run: |
           echo "Running second execution..."
           start_time=$(date +%s)
-          # Capture Cromwell's output to get workflow ID
-          workflow_output=$(java -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json)
+          java -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json
           end_time=$(date +%s)
           duration=$((end_time - start_time))
           echo "second_duration=$duration" >> $GITHUB_OUTPUT
           
-          # Extract workflow ID from Cromwell output
-          workflow_id=$(echo "$workflow_output" | grep "started workflow" | sed 's/.*workflow \([^)]*\).*/\1/')
+          # Find the most recent workflow directory (different from the first one)
+          workflow_dir=$(ls -td cromwell-executions/CacheTest/*/ | grep -v "${{ steps.first-run.outputs.first_workflow_id }}" | head -1)
+          workflow_id=$(basename "$workflow_dir")
           echo "Second workflow ID: $workflow_id"
           
-          # Find the output file for this specific workflow
-          output_file=$(find cromwell-executions/CacheTest/"$workflow_id" -name "output.txt")
-          if [ -z "$output_file" ]; then
-            echo "::error::Could not find output.txt for workflow $workflow_id"
+          # Find the output file
+          output_file="$workflow_dir/call-GenerateTimestamp/execution/output.txt"
+          if [ ! -f "$output_file" ]; then
+            echo "::error::Could not find output.txt at $output_file"
             exit 1
           fi
           execution_id=$(grep "Execution ID:" "$output_file" | cut -d' ' -f3)
