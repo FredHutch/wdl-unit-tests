@@ -3,7 +3,7 @@ version 1.0
 workflow CacheTest {
     input {
         String message
-        Int sleep_time = 5
+        Int sleep_time = 20
     }
 
     call GenerateTimestamp {

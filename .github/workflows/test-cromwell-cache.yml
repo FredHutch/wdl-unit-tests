@@ -96,7 +96,7 @@ jobs:
           
           # Check for cache hit messages in the logs
           second_workflow_dir=$(find . -type d -name "${{ steps.second-run.outputs.second_workflow_id }}" -path "*/cromwell-executions/*")
-          if ! grep -q "Cache hit" "$second_workflow_dir/call-GenerateTimestamp/execution/stdout"; then
+          if ! grep -q "Cache hit" "$second_workflow_dir/call-GenerateTimestamp/cacheCopy/execution/stdout"; then
             echo "::error::No cache hit message found in logs"
             exit 1
           fi
