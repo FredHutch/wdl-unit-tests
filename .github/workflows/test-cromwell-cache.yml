@@ -51,7 +51,7 @@ jobs:
         run: |
           echo "Running second execution..."
           start_time=$(date +%s)
-          java -Dconfig.file=cacheTest/cromwell.conf -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json 2> cromwell.log
+          java -Dconfig.file=cacheTest/cromwell.conf -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json > cromwell.log 2>&1
           end_time=$(date +%s)
           duration=$((end_time - start_time))
           echo "second_duration=$duration" >> $GITHUB_OUTPUT
