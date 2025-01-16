@@ -1,0 +1,129 @@
+# Unit Test for Cromwell Call Caching
+
+## Overview
+This workflow is designed to validate Cromwell's call caching functionality through a series of controlled test executions. It verifies that:
+- Identical workflow runs properly utilize the cache
+- Modified inputs correctly invalidate the cache
+- Execution times align with expected caching behavior
+
+The test consists of three sequential workflow runs:
+1. Initial execution to populate the cache
+2. Identical execution to verify cache utilization
+3. Modified execution to confirm cache invalidation
+
+## Purpose
+This workflow serves as a comprehensive test case for:
+- Call caching configuration
+- Cache hit detection
+- Cache invalidation
+- Execution time validation
+- Workflow output verification
+- Runtime environment consistency
+- File system interactions
+- Docker container caching
+
+## Workflow Components
+
+### Workflow: `CacheTest`
+The main workflow demonstrates caching behavior through a simple, deterministic task execution.
+
+**Inputs:**
+- `message`: String - Input message to be written to output
+- `sleep_time`: Int - Duration to sleep (defaults to 20 seconds)
+
+**Outputs:**
+- `output_file`: File - Generated output file containing timestamp and input message
+
+### Tasks
+
+#### Task: `GenerateTimestamp`
+Creates a deterministic output based on input parameters with a controlled execution time.
+
+**Runtime Requirements:**
+- CPU: 1 core
+- Memory: 1 GB
+- Docker: ubuntu:latest
+
+## Configuration
+
+### cromwell.conf
+Key configuration elements:
+```hocon
+call-caching {
+  enabled = true
+  invalidate-bad-cache-results = true
+}
+```
+
+### options.json
+Testing options:
+```json
+{
+    "workflow_failure_mode": "ContinueWhilePossible",
+    "write_to_cache": true,
+    "read_from_cache": true
+}
+```
+
+## GitHub Action Workflow
+
+The test is automated through a GitHub Action (`test-cromwell-cache.yml`) that:
+1. Sets up the Java environment
+2. Downloads Cromwell
+3. Executes three test runs
+4. Validates caching behavior
+
+### Test Sequence
+1. **First Run:**
+   - Executes with initial inputs
+   - Measures execution time
+   - Records workflow ID
+
+2. **Second Run:**
+   - Uses identical inputs
+   - Verifies cache utilization
+   - Confirms faster execution time
+
+3. **Third Run:**
+   - Uses modified inputs
+   - Verifies cache invalidation
+   - Confirms execution time similar to first run
+
+### Validation Checks
+- Completion of all workflow runs
+- Presence of cache hit messages in second run
+- Absence of cache hit messages in third run
+- Execution time comparisons
+- Workflow ID uniqueness
+
+## Usage
+
+### Local Testing
+```bash
+# Execute first run
+java -Dconfig.file=cromwell.conf -jar cromwell.jar run cacheTest.wdl -i inputs.json -o options.json
+
+# Execute second run (should use cache)
+java -Dconfig.file=cromwell.conf -jar cromwell.jar run cacheTest.wdl -i inputs.json -o options.json
+
+# Execute third run (with modified inputs)
+java -Dconfig.file=cromwell.conf -jar cromwell.jar run cacheTest.wdl -i modified_inputs.json -o options.json
+```
+
+### GitHub Actions
+The test will automatically run on:
+- Pull requests
+- Manual workflow dispatch
+
+## Version
+- WDL 1.0
+- Cromwell 86
+- GitHub Actions Runner: ubuntu-latest
+
+## Additional Notes
+- Ensures consistent cache behavior across environments
+- Validates both positive and negative cache scenarios
+- Provides timing-based validation of cache utilization
+- Uses deterministic task outputs for reliable testing
+- Includes comprehensive error reporting
+- Supports both local and CI/CD testing scenarios

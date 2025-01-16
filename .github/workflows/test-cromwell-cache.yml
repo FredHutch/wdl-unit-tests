@@ -18,14 +18,14 @@ jobs:
           
       - name: Download Cromwell
         run: |
-          wget https://github.com/broadinstitute/cromwell/releases/download/85/cromwell-85.jar
+          wget https://github.com/broadinstitute/cromwell/releases/download/86/cromwell-86.jar
           
       - name: First run
         id: first-run
         run: |
           echo "Running first execution..."
           start_time=$(date +%s)
-          java -Dconfig.file=cacheTest/cromwell.conf -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json
+          java -Dconfig.file=cacheTest/cromwell.conf -jar cromwell-86.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json
           end_time=$(date +%s)
           duration=$((end_time - start_time))
           echo "first_duration=$duration" >> $GITHUB_OUTPUT
@@ -46,7 +46,7 @@ jobs:
         run: |
           echo "Running second execution..."
           start_time=$(date +%s)
-          java -Dconfig.file=cacheTest/cromwell.conf -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json > cromwell.log 2>&1
+          java -Dconfig.file=cacheTest/cromwell.conf -jar cromwell-86.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json > cromwell.log 2>&1
           end_time=$(date +%s)
           duration=$((end_time - start_time))
           echo "second_duration=$duration" >> $GITHUB_OUTPUT
@@ -61,7 +61,7 @@ jobs:
         run: |
           echo '{
             "CacheTest.message": "Modified message to invalidate cache",
-            "CacheTest.sleep_time": 15
+            "CacheTest.sleep_time": 19
           }' > cacheTest/modified_inputs.json
           
       - name: Third run (should NOT use cache)
@@ -69,7 +69,7 @@ jobs:
         run: |
           echo "Running third execution with modified inputs..."
           start_time=$(date +%s)
-          java -Dconfig.file=cacheTest/cromwell.conf -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/modified_inputs.json -o cacheTest/options.json > cromwell_modified.log 2>&1
+          java -Dconfig.file=cacheTest/cromwell.conf -jar cromwell-86.jar run cacheTest/cacheTest.wdl -i cacheTest/modified_inputs.json -o cacheTest/options.json > cromwell_modified.log 2>&1
           end_time=$(date +%s)
           duration=$((end_time - start_time))
           echo "third_duration=$duration" >> $GITHUB_OUTPUT
