@@ -1,5 +1,6 @@
 import httpx
-from utils import PROOF_BASE_URL, TOKEN
+
+from utils import PROOF_BASE_URL, TOKEN, token_check
 
 
 class ProofApi(object):
@@ -7,7 +8,7 @@ class ProofApi(object):
 
     def __init__(self):
         self.base_url = PROOF_BASE_URL
-        self.token = TOKEN
+        self.token = token_check(TOKEN)
         self.headers = {"Authorization": f"Bearer {TOKEN}"}
 
     def status(self, timeout=10):
@@ -16,6 +17,7 @@ class ProofApi(object):
             headers=self.headers,
             timeout=timeout,
         )
+        res.raise_for_status()
         return res.json()
 
     def is_cromwell_server_up(self, timeout=10):

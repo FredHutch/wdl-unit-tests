@@ -87,7 +87,7 @@ miniwdl run arrayOperations.wdl \
   additional_strings='["foo", "bar"]' \
   nested_arrays='[["nested1", "nested2"], ["nested3", "nested4"]]' \
   numbers='[1, 2, 3, 4, 5]' \
-  input_files='["test1.txt", "test2.txt"]'
+  input_files='["data/test1.txt", "data/test2.txt"]'
 ```
 
 Example inputs.json:
@@ -101,9 +101,9 @@ Example inputs.json:
   ],
   "ArrayOperations.numbers": [1, 2, 3, 4, 5],
   "ArrayOperations.input_files": [
-    "test1.txt",
-    "test2.txt",
-    "test3.txt"
+    "data/test1.txt",
+    "data/test2.txt",
+    "data/test3.txt"
   ]
 }
 ```
