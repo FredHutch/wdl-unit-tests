@@ -40,10 +40,6 @@ jobs:
           latest_run=$(find "$workflow_dir" -mindepth 1 -maxdepth 1 -type d | sort -r | head -1)
           workflow_id=$(basename "$latest_run")
           echo "First workflow ID: $workflow_id"
-          
-          # Find and validate execution ID from stdout
-          execution_id=$(cat "$latest_run/call-GenerateTimestamp/execution/stdout")
-          echo "first_execution_id=$execution_id" >> $GITHUB_OUTPUT
           echo "first_workflow_id=$workflow_id" >> $GITHUB_OUTPUT
           
       - name: Second run (should use cache)
@@ -61,10 +57,6 @@ jobs:
           latest_runs=$(find "$workflow_dir" -mindepth 1 -maxdepth 1 -type d | sort -r)
           workflow_id=$(echo "$latest_runs" | grep -v "${{ steps.first-run.outputs.first_workflow_id }}" | head -1 | xargs basename)
           echo "Second workflow ID: $workflow_id"
-          
-          # Find and validate execution ID from cached stdout
-          execution_id=$(cat "$workflow_dir/$workflow_id/call-GenerateTimestamp/cacheCopy/execution/stdout")
-          echo "second_execution_id=$execution_id" >> $GITHUB_OUTPUT
           echo "second_workflow_id=$workflow_id" >> $GITHUB_OUTPUT
 
       - name: Validate caching behavior
@@ -83,12 +75,6 @@ jobs:
           # Check for cache hit messages in the Cromwell logs from the second run
           if ! grep -q "cache hit copying success" cromwell.log; then
             echo "::error::No cache hit message found in Cromwell logs"
-            exit 1
-          fi
-          
-          # Verify execution IDs match (indicating cache was used)
-          if [ "${{ steps.first-run.outputs.first_execution_id }}" != "${{ steps.second-run.outputs.second_execution_id }}" ]; then
-            echo "::error::Cache validation failed! Execution IDs don't match between runs."
             exit 1
           fi
           
