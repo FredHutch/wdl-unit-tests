@@ -25,19 +25,25 @@ jobs:
         run: |
           echo "Running first execution..."
           start_time=$(date +%s)
-          java -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json
+          # Capture Cromwell's output to get workflow ID
+          workflow_output=$(java -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json)
           end_time=$(date +%s)
           duration=$((end_time - start_time))
           echo "first_duration=$duration" >> $GITHUB_OUTPUT
           
-          # Find the most recent output file in cromwell-executions
-          output_file=$(find cromwell-executions -name "output.txt" | sort -r | head -n 1)
+          # Extract workflow ID from Cromwell output
+          workflow_id=$(echo "$workflow_output" | grep "started workflow" | sed 's/.*workflow \([^)]*\).*/\1/')
+          echo "First workflow ID: $workflow_id"
+          
+          # Find the output file for this specific workflow
+          output_file=$(find cromwell-executions/CacheTest/"$workflow_id" -name "output.txt")
           if [ -z "$output_file" ]; then
-            echo "::error::Could not find output.txt in cromwell-executions"
+            echo "::error::Could not find output.txt for workflow $workflow_id"
             exit 1
           fi
           execution_id=$(grep "Execution ID:" "$output_file" | cut -d' ' -f3)
           echo "first_execution_id=$execution_id" >> $GITHUB_OUTPUT
+          echo "first_workflow_id=$workflow_id" >> $GITHUB_OUTPUT
           echo "First run output file: $output_file"
           cat "$output_file"
           
@@ -46,19 +52,25 @@ jobs:
         run: |
           echo "Running second execution..."
           start_time=$(date +%s)
-          java -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json
+          # Capture Cromwell's output to get workflow ID
+          workflow_output=$(java -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json)
           end_time=$(date +%s)
           duration=$((end_time - start_time))
           echo "second_duration=$duration" >> $GITHUB_OUTPUT
           
-          # Find the most recent output file in cromwell-executions
-          output_file=$(find cromwell-executions -name "output.txt" | sort -r | head -n 1)
+          # Extract workflow ID from Cromwell output
+          workflow_id=$(echo "$workflow_output" | grep "started workflow" | sed 's/.*workflow \([^)]*\).*/\1/')
+          echo "Second workflow ID: $workflow_id"
+          
+          # Find the output file for this specific workflow
+          output_file=$(find cromwell-executions/CacheTest/"$workflow_id" -name "output.txt")
           if [ -z "$output_file" ]; then
-            echo "::error::Could not find output.txt in cromwell-executions"
+            echo "::error::Could not find output.txt for workflow $workflow_id"
             exit 1
           fi
           execution_id=$(grep "Execution ID:" "$output_file" | cut -d' ' -f3)
           echo "second_execution_id=$execution_id" >> $GITHUB_OUTPUT
+          echo "second_workflow_id=$workflow_id" >> $GITHUB_OUTPUT
           echo "Second run output file: $output_file"
           cat "$output_file"
 
@@ -86,4 +98,4 @@ jobs:
             exit 1
           fi
           
-          echo "Cache validation passed! ✅"
+          echo "Cache validation passed!"
