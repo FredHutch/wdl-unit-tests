@@ -1,0 +1,68 @@
+name: Validate Cromwell Caching
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate-cromwell-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+          
+      - name: Download Cromwell
+        run: |
+          wget https://github.com/broadinstitute/cromwell/releases/download/85/cromwell-85.jar
+          
+      - name: First run
+        id: first-run
+        run: |
+          echo "Running first execution..."
+          start_time=$(date +%s)
+          java -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json
+          end_time=$(date +%s)
+          duration=$((end_time - start_time))
+          echo "first_duration=$duration" >> $GITHUB_OUTPUT
+          # Extract execution ID from the output file
+          execution_id=$(grep "Execution ID:" output.txt | cut -d' ' -f3)
+          echo "first_execution_id=$execution_id" >> $GITHUB_OUTPUT
+          
+      - name: Second run (should use cache)
+        id: second-run
+        run: |
+          echo "Running second execution..."
+          start_time=$(date +%s)
+          java -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json
+          end_time=$(date +%s)
+          duration=$((end_time - start_time))
+          echo "second_duration=$duration" >> $GITHUB_OUTPUT
+          # Extract execution ID from the output file
+          execution_id=$(grep "Execution ID:" output.txt | cut -d' ' -f3)
+          echo "second_execution_id=$execution_id" >> $GITHUB_OUTPUT
+
+      - name: Validate caching behavior
+        run: |
+          echo "First run duration: ${{ steps.first-run.outputs.first_duration }} seconds"
+          echo "Second run duration: ${{ steps.second-run.outputs.second_duration }} seconds"
+          echo "First execution ID: ${{ steps.first-run.outputs.first_execution_id }}"
+          echo "Second execution ID: ${{ steps.second-run.outputs.second_execution_id }}"
+          
+          # Verify execution IDs match (indicating cache was used)
+          if [ "${{ steps.first-run.outputs.first_execution_id }}" != "${{ steps.second-run.outputs.second_execution_id }}" ]; then
+            echo "::error::Cache validation failed! Execution IDs don't match between runs."
+            exit 1
+          fi
+          
+          # Verify second run was significantly faster (< 50% of first run time)
+          if [ ${{ steps.second-run.outputs.second_duration }} -gt $(( ${{ steps.first-run.outputs.first_duration }} / 2 )) ]; then
+            echo "::error::Cache validation failed! Second run took too long (${steps.second-run.outputs.second_duration}s), suggesting cache wasn't used."
+            exit 1
+          fi
+          
+          echo "Cache validation passed! ✅"
