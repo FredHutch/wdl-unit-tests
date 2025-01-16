@@ -34,6 +34,7 @@ class Womtool(object):
 
         return True
 
+
 class CromwellJava(object):
     """Cromwell Java class - run Cromwell Java jar"""
 

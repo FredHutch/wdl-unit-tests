@@ -1,4 +1,5 @@
 import httpx
+
 from utils import PROOF_BASE_URL, TOKEN
 
 
