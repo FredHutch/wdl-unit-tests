@@ -30,13 +30,19 @@ jobs:
           duration=$((end_time - start_time))
           echo "first_duration=$duration" >> $GITHUB_OUTPUT
           
-          # Find the most recent workflow directory
-          workflow_dir=$(ls -td cromwell-executions/CacheTest/*/ | head -1)
-          workflow_id=$(basename "$workflow_dir")
+          # Find the workflow directory more robustly
+          workflow_dir=$(find . -type d -name "CacheTest" -path "*/cromwell-executions/*" | sort -r | head -1)
+          if [ -z "$workflow_dir" ]; then
+            echo "::error::Could not find workflow execution directory"
+            exit 1
+          fi
+          
+          latest_run=$(find "$workflow_dir" -mindepth 1 -maxdepth 1 -type d | sort -r | head -1)
+          workflow_id=$(basename "$latest_run")
           echo "First workflow ID: $workflow_id"
           
-          # Find the output file
-          output_file="$workflow_dir/call-GenerateTimestamp/execution/output.txt"
+          # Find and validate output file
+          output_file="$latest_run/call-GenerateTimestamp/execution/output.txt"
           if [ ! -f "$output_file" ]; then
             echo "::error::Could not find output.txt at $output_file"
             exit 1
@@ -57,13 +63,14 @@ jobs:
           duration=$((end_time - start_time))
           echo "second_duration=$duration" >> $GITHUB_OUTPUT
           
-          # Find the most recent workflow directory (different from the first one)
-          workflow_dir=$(ls -td cromwell-executions/CacheTest/*/ | grep -v "${{ steps.first-run.outputs.first_workflow_id }}" | head -1)
-          workflow_id=$(basename "$workflow_dir")
+          # Find the most recent workflow directory that's different from the first
+          workflow_dir=$(find . -type d -name "CacheTest" -path "*/cromwell-executions/*" | sort -r | head -1)
+          latest_runs=$(find "$workflow_dir" -mindepth 1 -maxdepth 1 -type d | sort -r)
+          workflow_id=$(echo "$latest_runs" | grep -v "${{ steps.first-run.outputs.first_workflow_id }}" | head -1 | xargs basename)
           echo "Second workflow ID: $workflow_id"
           
-          # Find the output file
-          output_file="$workflow_dir/call-GenerateTimestamp/execution/output.txt"
+          # Find and validate output file
+          output_file="$workflow_dir/$workflow_id/call-GenerateTimestamp/execution/output.txt"
           if [ ! -f "$output_file" ]; then
             echo "::error::Could not find output.txt at $output_file"
             exit 1
@@ -81,8 +88,16 @@ jobs:
           echo "First execution ID: ${{ steps.first-run.outputs.first_execution_id }}"
           echo "Second execution ID: ${{ steps.second-run.outputs.second_execution_id }}"
           
-          if [ -z "${{ steps.first-run.outputs.first_execution_id }}" ] || [ -z "${{ steps.second-run.outputs.second_execution_id }}" ]; then
-            echo "::error::Failed to extract execution IDs from output files"
+          # Verify both runs completed
+          if [ -z "${{ steps.first-run.outputs.first_workflow_id }}" ] || [ -z "${{ steps.second-run.outputs.second_workflow_id }}" ]; then
+            echo "::error::One or both workflow runs failed to complete"
+            exit 1
+          fi
+          
+          # Check for cache hit messages in the logs
+          second_workflow_dir=$(find . -type d -name "${{ steps.second-run.outputs.second_workflow_id }}" -path "*/cromwell-executions/*")
+          if ! grep -q "Cache hit" "$second_workflow_dir/call-GenerateTimestamp/execution/stdout"; then
+            echo "::error::No cache hit message found in logs"
             exit 1
           fi
           
@@ -92,7 +107,7 @@ jobs:
             exit 1
           fi
           
-          # Verify second run was significantly faster (< 50% of first run time)
+          # Verify second run was significantly faster
           if [ ${{ steps.second-run.outputs.second_duration }} -gt $(( ${{ steps.first-run.outputs.first_duration }} / 2 )) ]; then
             echo "::error::Cache validation failed! Second run took too long (${steps.second-run.outputs.second_duration}s), suggesting cache wasn't used."
             exit 1
