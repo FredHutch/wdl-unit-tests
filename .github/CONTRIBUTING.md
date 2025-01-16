@@ -22,7 +22,7 @@ New unit test suggestions are tracked as GitHub issues. When creating a unit tes
 4. Ensure your proposed WDL runs locally via `miniwdl run` or `java -jar cromwell-86.jar run`
 5. If you are user of PROOF, please also make sure to test that the WDL unit test runs via PROOF.
     - If your WDL succeeds locally but fails in PROOF, please report the issue in the [proof-api repo](https://github.com/FredHutch/proof-api/issues).
-6. Add the WDL to a subdirectory by the same name, i.e. `coolUnitTest/coolUnitTest.wdl`
+6. Add the WDL to a subdirectory by the same name, i.e. `coolUnitTest/coolUnitTest.wdl`. If the WDL is expected to fail WOMtool the subdirectory AND the WDL file name must start with `badVal`. If the WDL is expected to fail both WOMtool and a Cromwell run, then the subdirectory AND the WDL file name must start with `badRun`.
 7. Make sure to include an `inputs.json` and `options.json` if required and make sure that any other. input files referenced in `inputs.json` are provided in the same directory.
 8. Add a README to the WDL's subdirectory describing the unit test's functionality and purpose.
 9. Commit and push your proposed changes to GitHub.
