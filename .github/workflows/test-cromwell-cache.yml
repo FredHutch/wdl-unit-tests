@@ -41,24 +41,17 @@ jobs:
           workflow_id=$(basename "$latest_run")
           echo "First workflow ID: $workflow_id"
           
-          # Find and validate output file
-          output_file="$latest_run/call-GenerateTimestamp/execution/output.txt"
-          if [ ! -f "$output_file" ]; then
-            echo "::error::Could not find output.txt at $output_file"
-            exit 1
-          fi
-          execution_id=$(grep "Execution ID:" "$output_file" | cut -d' ' -f3)
+          # Find and validate execution ID from stdout
+          execution_id=$(cat "$latest_run/call-GenerateTimestamp/execution/stdout")
           echo "first_execution_id=$execution_id" >> $GITHUB_OUTPUT
           echo "first_workflow_id=$workflow_id" >> $GITHUB_OUTPUT
-          echo "First run output file: $output_file"
-          cat "$output_file"
           
       - name: Second run (should use cache)
         id: second-run
         run: |
           echo "Running second execution..."
           start_time=$(date +%s)
-          java -Dconfig.file=cacheTest/cromwell.conf -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json
+          java -Dconfig.file=cacheTest/cromwell.conf -jar cromwell-85.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json 2> cromwell.log
           end_time=$(date +%s)
           duration=$((end_time - start_time))
           echo "second_duration=$duration" >> $GITHUB_OUTPUT
@@ -69,17 +62,10 @@ jobs:
           workflow_id=$(echo "$latest_runs" | grep -v "${{ steps.first-run.outputs.first_workflow_id }}" | head -1 | xargs basename)
           echo "Second workflow ID: $workflow_id"
           
-          # Update the path to include cacheCopy
-          output_file="$workflow_dir/$workflow_id/call-GenerateTimestamp/cacheCopy/execution/output.txt"
-          if [ ! -f "$output_file" ]; then
-            echo "::error::Could not find output.txt at $output_file"
-            exit 1
-          fi
-          execution_id=$(grep "Execution ID:" "$output_file" | cut -d' ' -f3)
+          # Find and validate execution ID from cached stdout
+          execution_id=$(cat "$workflow_dir/$workflow_id/call-GenerateTimestamp/cacheCopy/execution/stdout")
           echo "second_execution_id=$execution_id" >> $GITHUB_OUTPUT
           echo "second_workflow_id=$workflow_id" >> $GITHUB_OUTPUT
-          echo "Second run output file: $output_file"
-          cat "$output_file"
 
       - name: Validate caching behavior
         run: |
@@ -94,10 +80,9 @@ jobs:
             exit 1
           fi
           
-          # Check for cache hit messages in the logs
-          second_workflow_dir=$(find . -type d -name "${{ steps.second-run.outputs.second_workflow_id }}" -path "*/cromwell-executions/*")
-          if ! grep -q "Cache hit" "$second_workflow_dir/call-GenerateTimestamp/cacheCopy/execution/stdout"; then
-            echo "::error::No cache hit message found in logs"
+          # Check for cache hit messages in the Cromwell logs from the second run
+          if ! grep -q "cache hit copying success" cromwell.log; then
+            echo "::error::No cache hit message found in Cromwell logs"
             exit 1
           fi
           
