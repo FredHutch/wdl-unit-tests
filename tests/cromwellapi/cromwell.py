@@ -40,15 +40,15 @@ class CromwellApi(object):
     def submit_workflow(
         self,
         wdl_path,
-        batch=None,
-        params=None,
+        inputs=None,
         labels=None,
+        options=None,
     ):
         files = {
             "workflowSource": as_file_object(path_as_string(wdl_path)),
-            "workflowInputs": as_file_object(path_as_string(batch)),
-            "workflowInputs_2": as_file_object(path_as_string(params)),
+            "workflowInputs": as_file_object(path_as_string(inputs)),
             "labels": as_file_object(path_as_string(labels)),
+            "workflowOptions": as_file_object(path_as_string(options)),
         }
         files = {k: v for k, v in files.items() if v}
         res = httpx.post(
@@ -82,10 +82,11 @@ class CromwellApi(object):
         res.raise_for_status()
         return res.json()
 
-    def validate(self, wdl_path, inputs=None):
+    def validate(self, wdl_path, inputs=None, options=None):
         files = {
             "workflowSource": as_file_object(path_as_string(wdl_path)),
             "workflowInputs": as_file_object(path_as_string(inputs)),
+            "workflowOptions": as_file_object(path_as_string(options)),
         }
         files = {k: v for k, v in files.items() if v}
         res = httpx.post(
