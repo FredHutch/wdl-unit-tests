@@ -58,7 +58,10 @@ A suite of tests for running WDLs against Cromwell are located in `tests/cromwel
 - activate the virtual environment: `source .venv/bin/activate`
 - check that you have the Python version in `.python-version`: `python --version`
 - set a PROOF token for the test user used for these tests as `PROOF_API_TOKEN_DEV`. the value is in 1password ([Secrets and env vars in 1password](https://developer.1password.com/docs/cli/secrets-environment-variables/)). Talk to Sean or Scott if you don't have access.
-- run tests, for example: `uv run pytest tests/cromwell-api/ --verbose` 
+    1. Open 1password and find the API key.
+    2. Right-click the key and select "Copy Secret Reference."
+    3. Run: `export PROOF_API_TOKEN_DEV="op://secret/reference/copied/from/1PW"`
+- run tests, for example: `op run -- uv run pytest tests/cromwell-api --verbose` 
 
 To add tests:
 
