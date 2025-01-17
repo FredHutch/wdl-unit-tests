@@ -2,11 +2,11 @@ version 1.0
 
 workflow testRemoteFileLocalization {
     input {
-        String string = "Hello, WDL!"  # String input
-        Int integer = 42               # Integer input
-        Float float = 3.14             # Float input
-        Boolean boolean = true         # Boolean input
-        File remote_file               # Remote file input
+        String string
+        Int integer
+        Float float
+        Boolean boolean
+        File remote_file
     }
 
     # Task 1: Test input localization and processing
@@ -25,8 +25,13 @@ workflow testRemoteFileLocalization {
             processed_file = testInputLocalization.processed_file
     }
 
+    # Workflow outputs: include all outputs from all tasks
     output {
         File localized_file = testInputLocalization.processed_file
+        File localized_string = testInputLocalization.outputStringfile
+        File localized_integer = testInputLocalization.outputIntegerfile
+        File localized_float = testInputLocalization.outputFloatfile
+        File localized_boolean = testInputLocalization.outputBooleanfile
         File renamed_file = testOutputUsage.renamed_file
     }
 }
@@ -41,23 +46,22 @@ task testInputLocalization {
     }
 
     command <<<
-        # Verify localization of inputs and process them
-        echo "${input_string}" > localized_string.txt
-        echo "${input_integer}" > localized_integer.txt
-        echo "${input_float}" > localized_float.txt
-        echo "${input_boolean}" > localized_boolean.txt
+        # Generate and verify input-based outputs
+        echo "~{input_string}" > localized_string.txt
+        echo "~{input_integer}" > localized_integer.txt
+        echo "~{input_float}" > localized_float.txt
+        echo "~{input_boolean}" > localized_boolean.txt
 
-        # Ensure the input_file exists and copy it
-        if [[ -f "${input_file}" ]]; then
-            cp "${input_file}" processed_file.txt
-        else
-            echo "Input file not found: ${input_file}" >&2
-            exit 1
-        fi
+        # Input file is expected to already be localized by WDL
+        ls -lh "~{input_file}"
     >>>
 
     output {
-        File processed_file = "processed_file.txt"
+        File outputStringfile = "localized_string.txt"
+        File outputIntegerfile = "localized_integer.txt"
+        File outputFloatfile = "localized_float.txt"
+        File outputBooleanfile = "localized_boolean.txt"
+        File processed_file = input_file  # Pass input file directly as output
     }
 
     runtime {
@@ -72,7 +76,7 @@ task testOutputUsage {
 
     command <<<
         # Rename the file received from the previous task
-        mv ${processed_file} renamed_file.txt
+        mv ~{processed_file} renamed_file.txt
     >>>
 
     output {
