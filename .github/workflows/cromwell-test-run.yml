@@ -6,7 +6,8 @@ on:
 
 jobs:
   generate-matrix:
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    runs-on: self-hosted
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
@@ -56,4 +57,5 @@ jobs:
       - name: Execute Test Run of WDL Workflows
         env:
           CROMWELL_PATH: cromwell-87.jar
+          CONFIG_PATH: cromwell.conf
         run: uv run pytest tests/cromwelljava/test-run.py --wdl-path=${{ matrix.wdl }} --verbose -s
