@@ -6,7 +6,6 @@ on:
 
 jobs:
   generate-matrix:
-    # runs-on: ubuntu-latest
     runs-on: self-hosted
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -25,7 +24,6 @@ jobs:
   testrun:
     needs: generate-matrix
     if: ${{ github.event.pull_request.head.repo.fork == false }}
-    # runs-on: ubuntu-latest
     runs-on: self-hosted
     permissions: write-all
     strategy:
