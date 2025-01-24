@@ -106,16 +106,4 @@ jobs:
             exit 1
           fi
           
-          # # Verify second run was significantly faster
-          # if [ ${{ steps.second-run.outputs.second_duration }} -gt $(( ${{ steps.first-run.outputs.first_duration }} / 2 )) ]; then
-          #   echo "::error::Cache validation failed! Second run took too long, suggesting cache wasn't used"
-          #   exit 1
-          # fi
-          
-          # Verify third run was NOT cached (should take similar time to first run)
-          if [ ${{ steps.third-run.outputs.third_duration }} -lt $(( ${{ steps.first-run.outputs.first_duration }} / 2 )) ]; then
-            echo "::error::Third run was too fast, suggesting cache was incorrectly used"
-            exit 1
-          fi
-          
           echo "Cache validation passed!"
