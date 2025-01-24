@@ -42,11 +42,12 @@ To run both sets of tests:
 - if you don't have `uv` installed, [install it][uvinstall]
 - create a virtual environment: `uv venv`. This should pick up the Python version specified in `.python-version`. If you do not have the version given in `.python-version` it will be installed by `uv`
 - activate the virtual environment: `source .venv/bin/activate`
+- install dependencies: `uv sync`
 - check that you have the Python version in `.python-version`: `python --version`
 
-Info:
-- [pytest][]
-- [uv][]
+Familiarity with two tools will help you run and especially contribute to tests:
+- [pytest][]: a Python test framework. when you run `uv sync` above you'll then have a cli binary `pytest` available
+- [uv][]: a Python package and project manager; manages dependencies, runs tests, etc.
 
 ### Java
 
@@ -88,5 +89,5 @@ Note that some of these tests run through all WDLs in this dir, while others onl
 
 [uvinstall]: https://docs.astral.sh/uv/getting-started/installation/
 [proofapi]: https://github.com/FredHutch/proof-api
-[pytest]: CROMWELL_PATH=/Users/schambe3/github/cromwell/cromwell-86.jar
+[pytest]: https://docs.pytest.org/en/stable/
 [uv]: https://docs.astral.sh/uv/
