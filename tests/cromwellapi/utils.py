@@ -6,6 +6,22 @@ PROOF_BASE_URL = "https://proof-api-dev.fredhutch.org"
 TOKEN = os.getenv("PROOF_API_TOKEN_DEV")
 
 metadata_response_keys = {
+    "running": [
+        "workflowName",
+        "workflowProcessingEvents",
+        "actualWorkflowLanguageVersion",
+        "submittedFiles",
+        "calls",
+        "outputs",
+        "workflowRoot",
+        "actualWorkflowLanguage",
+        "status",
+        "start",
+        "id",
+        "inputs",
+        "labels",
+        "submission",
+    ],
     "submitted": [
         "submittedFiles",
         "calls",
@@ -16,7 +32,33 @@ metadata_response_keys = {
         "labels",
         "submission",
     ],
-    "final": [
+    "aborted": [
+        "submittedFiles",
+        "calls",
+        "outputs",
+        "status",
+        "id",
+        "inputs",
+        "labels",
+        "submission",
+    ],
+    "failed": [
+        "workflowProcessingEvents",
+        "actualWorkflowLanguageVersion",
+        "submittedFiles",
+        "calls",
+        "outputs",
+        "actualWorkflowLanguage",
+        "status",
+        "failures",
+        "end",
+        "start",
+        "id",
+        "inputs",
+        "labels",
+        "submission",
+    ],
+    "succeeded": [
         "workflowName",
         "workflowProcessingEvents",
         "actualWorkflowLanguageVersion",
