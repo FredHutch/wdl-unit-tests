@@ -1,46 +1,56 @@
 # HelloDockerHostname WDL Workflow
 
 ## Overview
-A test workflow that demonstrates Docker container integration in WDL by returning the hostname of the compute node where the job is executed. This workflow extends the basic hostname test by running the command within a Docker container.
+A test workflow that validates Docker container execution in WDL by running commands within a specified container and verifying the container environment. The workflow confirms both the container image and version, while also capturing the hostname of the execution node.
 
 ## Workflow Components
 
 ### Workflow: `HelloDockerHostname`
-The main workflow executes a single task within a Docker container and returns its output.
+The main workflow executes a task within a specified Docker container and validates the container environment.
+
+**Inputs:**
+- `docker_image`: String specifying the Docker image (default: "ubuntu:20.04")
 
 **Outputs:**
-- `stdout`: File containing the hostname of the execution node
+- `stdout`: File containing container verification and hostname information
 
 ### Task: `Hostname`
-Executes the `hostname` command within an Ubuntu Docker container.
+Validates the Docker environment and executes commands within the container.
 
 **Runtime Requirements:**
 - CPU: 1 core
 - Memory: 1 GB
-- Docker: `ubuntu:latest`
+- Docker: Configurable via input (defaults to ubuntu:latest)
 
-**Outputs:**
-- `out`: File containing the hostname of the execution node
+**Validation Checks:**
+- Verifies Docker image name matches expected value
+- Confirms image version/tag matches specified version
 
 ## Usage
 ```bash
-# Execute with cromwell
+# Execute with default Ubuntu latest
 java -jar cromwell.jar run helloDockerHostname.wdl
 
-# Execute with miniwdl
-miniwdl run helloDockerHostname.wdl
+# Execute with specific Docker image
+java -jar cromwell.jar run helloDockerHostname.wdl -i inputs.json
+
+# Using miniwdl with specific image
+miniwdl run helloDockerHostname.wdl docker_image=ubuntu:20.04
+```
+
+Example inputs.json:
+```json
+{
+  "HelloDockerHostname.docker_image": "ubuntu:20.04"
+}
 ```
 
 ## Purpose
-This workflow serves as a test case for:
-- Docker container integration
-- Container runtime environment validation
-- Basic resource allocation testing
-- Output handling validation from containerized tasks
+- Docker container integration testing
+- Container environment validation
+- Image and version verification
+- Resource allocation validation
 - Backend Docker support verification
 
 ## Version
 WDL 1.0
-
-## Notes
-- Comparing outputs between this and the non-Docker version can help verify proper container execution

@@ -6,7 +6,7 @@ version 1.0
 
 workflow HelloDockerHostname {
   input {
-    String docker_image = "ubuntu:latest"  # Default value but can be overridden
+    String docker_image = "ubuntu:20.04"  # Default value but can be overridden
   }
 
   call Hostname {
@@ -31,23 +31,29 @@ task Hostname {
   }
 
   command <<<
-    # Extract just the image name without tag for comparison
-    EXPECTED_BASE_IMAGE=$(echo "~{expected_image}" | cut -d':' -f1)
-    
-    # Get Docker image info
+    # Split expected image into name and tag
+    EXPECTED_IMAGE_NAME=$(echo "~{expected_image}" | cut -d':' -f1)
+    EXPECTED_TAG=$(echo "~{expected_image}" | cut -d':' -f2)
+
+    # Get current image info
     CURRENT_IMAGE=$(grep "ID=" /etc/os-release | head -n1 | cut -d'=' -f2)
-    
-    # Assert it's the expected image
-    if [[ "$CURRENT_IMAGE" != "$EXPECTED_BASE_IMAGE" ]]; then
-      echo "Error: Expected Docker image $EXPECTED_BASE_IMAGE but got: $CURRENT_IMAGE"
+    CURRENT_VERSION=$(grep "VERSION_ID=" /etc/os-release | cut -d'"' -f2)
+
+    # Compare image name
+    if [[ "$CURRENT_IMAGE" != "$EXPECTED_IMAGE_NAME" ]]; then
+      echo "Error: Expected Docker image $EXPECTED_IMAGE_NAME but got: $CURRENT_IMAGE"
       exit 1
     fi
-    
-    # If assertion passes, print container info
-    echo "Verified Docker Image: $CURRENT_IMAGE"
-    echo "Expected Image: $EXPECTED_BASE_IMAGE"
+
+    # Compare version/tag
+    if [[ "$CURRENT_VERSION" != "$EXPECTED_TAG" ]]; then
+      echo "Error: Expected version $EXPECTED_TAG but got: $CURRENT_VERSION"
+      exit 1
+    fi
+
+    echo "Verified Docker Image: $CURRENT_IMAGE:$CURRENT_VERSION"
+    echo "Expected Image: ~{expected_image}"
     echo "Hostname: $(hostname)"
-    echo "Container ID: $(grep -o -E '[[:alnum:]]{64}' /proc/1/cpuset || echo 'Not found')"
   >>>
 
   output {
