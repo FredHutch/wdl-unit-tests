@@ -4,17 +4,32 @@ from pathlib import Path
 import pytest
 
 from mocks import MockProofApi
-
+from utils_cassettes import cassettes_last_modified
 from cromwell import CromwellApi
 from proof import ProofApi
 
 mocked_submissions = "tests/cromwellapi/mocked_submissions.json"
 
 
-@pytest.fixture(scope="session")
-def cromwell_api(request):
-    recording_mode = request.config.getoption("--record-mode", default=None)
+def pytest_report_header(config):
+    mode = config.getoption("--record-mode", default=None)
+    last_mod = cassettes_last_modified("tests/cromwellapi/cassettes")
+    retry_messages_warn = (
+        "" if recording_mode == "rewrite" else "(ignore Retry attempt messages)"
+    )
+    return [
+        f"vcr recording mode: {mode} {retry_messages_warn}",
+        f"vcr cassettes last recorded approx.: {last_mod}",
+    ]
 
+
+@pytest.fixture(scope="session")
+def recording_mode(request):
+    return request.config.getoption("--record-mode", default=None)
+
+
+@pytest.fixture(scope="session")
+def cromwell_api(recording_mode):
     if recording_mode != "rewrite":
         proof_api = MockProofApi()
     else:
@@ -22,19 +37,15 @@ def cromwell_api(request):
 
     cromwell_url = proof_api.cromwell_url()
 
-
-proof_api = ProofApi()
-cromwell_url = proof_api.cromwell_url()
+    return CromwellApi(url=cromwell_url)
 
 
 @pytest.fixture(scope="session")
-def submit_wdls(request, cromwell_api):
+def submit_wdls(recording_mode, cromwell_api):
     """
     This fixture runs automatically before any tests.
     Uses "session" scope to run only once for all tests.
     """
-    recording_mode = request.config.getoption("--record-mode", default=None)
-
     root = Path(__file__).parents[2].resolve()
     pattern = "**/*.wdl"
     wdl_paths = list(root.glob(pattern))
@@ -61,4 +72,10 @@ def submit_wdls(request, cromwell_api):
 
 @pytest.fixture(scope="module")
 def vcr_config():
-    return {"filter_headers": ["authorization"]}
+    return {
+        # completely removes Authorization header from all http requests
+        "filter_headers": ["authorization"],
+        # matches only on HTTP method, scheme (http/https), path (a/b/c), and query (?a=5)
+        # does not match on host (gizmoxxx.fhcrcc.org:<port>) b/c that can change
+        "match_on": ["method", "scheme", "path", "query"],
+    }

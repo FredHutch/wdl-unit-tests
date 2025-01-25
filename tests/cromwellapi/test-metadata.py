@@ -13,8 +13,12 @@ def test_metadata(cromwell_api, submit_wdls):
         assert isinstance(res, dict)
 
         if res["status"] in workflow_states["not_final"]:
-            assert list(res.keys()) == metadata_response_keys["submitted"]
+            assert sorted(list(res.keys())) == sorted(
+                metadata_response_keys[res["status"].lower()]
+            )
         elif res["status"] in workflow_states["final"]:
-            assert list(res.keys()) == metadata_response_keys["final"]
+            assert sorted(list(res.keys())) == sorted(
+                metadata_response_keys[res["status"].lower()]
+            )
         else:
             pass
