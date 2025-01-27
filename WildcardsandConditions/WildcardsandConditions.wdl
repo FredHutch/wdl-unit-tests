@@ -25,7 +25,7 @@ task wildcard_and_conditions_test {
     command <<<
         # Create multiple .txt files to test wildcard resolution
         for i in {1..3}; do
-            echo "File content $i" > ~{prefix}_$i.txt
+            echo "File content $i" > "~{prefix}_$i.txt"
         done
 
         # Create an extra file conditionally
