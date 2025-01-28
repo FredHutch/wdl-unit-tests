@@ -9,6 +9,36 @@ from tenacity import (
 from utils import PROOF_BASE_URL, TOKEN, token_check, before_sleep_message
 
 
+def cache_next_call_only(func):
+    """Cache the next call only
+
+    Examples:
+        import time
+
+        @cache_next_call_only
+        def expensive_function(x):
+            return time.sleep(x)
+
+        expensive_function(5)  # Expensive computation performed
+        expensive_function(5)  # Cached result returned
+        expensive_function(5)  # Expensive computation performed again
+    """
+    cache = {}
+
+    def wrapper(*args, **kwargs):
+        if "result" in cache:
+            print("result in cache, returning it")
+            result = cache.pop("result")
+            return result
+        else:
+            print("result not in cache")
+            result = func(*args, **kwargs)
+            cache["result"] = result
+            return result
+
+    return wrapper
+
+
 class ProofApi(object):
     """ProofApi class"""
 
@@ -17,6 +47,7 @@ class ProofApi(object):
         self.token = token_check(TOKEN)
         self.headers = {"Authorization": f"Bearer {TOKEN}"}
 
+    @cache_next_call_only
     @retry(
         retry=retry_if_exception_type((httpx.HTTPStatusError, httpx.ReadTimeout)),
         stop=stop_after_attempt(3),
