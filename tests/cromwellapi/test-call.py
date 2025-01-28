@@ -3,11 +3,12 @@ from unittest.mock import patch
 
 from utils import metadata_response_keys, workflow_states
 
+params = {"expandSubWorkflows": True}
+
 
 @pytest.mark.vcr
-def test_call(cromwell_api, submit_wdls, recording_mode):
-    """Getting workflow metadata with expandSubWorkflows:true works"""
-    params = {"expandSubWorkflows": True}
+def test_call_initial(cromwell_api, submit_wdls, recording_mode):
+    """Getting workflow metadata with expandSubWorkflows:true works | initial state"""
     ids = [wf["id"] for wf in submit_wdls]
     for x in ids:
         if recording_mode != "rewrite":
@@ -17,10 +18,18 @@ def test_call(cromwell_api, submit_wdls, recording_mode):
             res = cromwell_api.metadata(x, params=params)
 
         assert isinstance(res, dict)
+        assert sorted(list(res.keys())) == sorted(
+            metadata_response_keys[res["status"].lower()]
+        )
 
-        if res["status"] in workflow_states["not_final"]:
-            assert list(res.keys()) == metadata_response_keys["submitted"]
-        elif res["status"] in workflow_states["final"]:
-            assert list(res.keys()) == metadata_response_keys["final"]
-        else:
-            pass
+
+@pytest.mark.vcr
+def test_call_final(cromwell_api_final, submit_wdls):
+    """Getting workflow metadata with expandSubWorkflows:true works | final state"""
+    ids = [wf["id"] for wf in submit_wdls]
+    for x in ids:
+        res = cromwell_api_final.metadata(workflow_id=x, params=params)
+        assert isinstance(res, dict)
+        assert sorted(list(res.keys())) == sorted(
+            metadata_response_keys[res["status"].lower()]
+        )

@@ -6,7 +6,6 @@ from unittest.mock import patch
 from utils import workflow_states
 
 
-SLEEP_TIME = 5
 params = {
     "includeKey": [
         "status",
@@ -17,7 +16,7 @@ params = {
 
 
 @pytest.mark.vcr
-def test_failures_initial_state(cromwell_api, submit_wdls, recording_mode):
+def test_failures_initial(cromwell_api, submit_wdls, recording_mode):
     """Checking for failures works for initial state"""
     fail = list(filter(lambda x: "badRunParseBatchFile" in x["path"], submit_wdls))
 
@@ -45,24 +44,11 @@ def test_failures_initial_state(cromwell_api, submit_wdls, recording_mode):
 
 
 @pytest.mark.vcr
-def test_failures_final_state(cromwell_api, submit_wdls, recording_mode):
+def test_failures_final(cromwell_api_final, submit_wdls):
     """Checking for failures works for final state"""
     fail = list(filter(lambda x: "badRunParseBatchFile" in x["path"], submit_wdls))
-    # print(f"fail0: {fail[0]}")
-
-    not_final = True
-    while not_final:
-        time.sleep(SLEEP_TIME if recording_mode == "rewrite" else 0)
-        res = cromwell_api.metadata(fail[0]["id"], params=params)
-        if res.get("status") is not None:
-            not_final = res.get("status").lower() not in [
-                x.lower() for x in workflow_states["final"]
-            ]
-
-    # print(f"cromwell_api.metadata output:{res}")
-
+    res = cromwell_api_final.metadata(workflow_id=fail[0]["id"], params=params)
     fail_causedby_mssg = res["failures"][0]["causedBy"][0]["message"]
-    # fail_mssg = res["failures"]["message"]
     assert isinstance(res, dict)
     assert sorted(list(res.keys())) == sorted(
         [
@@ -73,4 +59,3 @@ def test_failures_final_state(cromwell_api, submit_wdls, recording_mode):
         ]
     )
     assert re.search("not specified", fail_causedby_mssg) is not None
-    # assert re.search("failed", fail_mssg) is not None
