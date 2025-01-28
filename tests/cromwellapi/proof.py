@@ -1,6 +1,12 @@
 import httpx
+from tenacity import (
+    retry,
+    retry_if_exception_type,
+    stop_after_attempt,
+    wait_exponential,
+)
 
-from utils import PROOF_BASE_URL, TOKEN, token_check
+from utils import PROOF_BASE_URL, TOKEN, token_check, before_sleep_message
 
 
 class ProofApi(object):
@@ -11,6 +17,12 @@ class ProofApi(object):
         self.token = token_check(TOKEN)
         self.headers = {"Authorization": f"Bearer {TOKEN}"}
 
+    @retry(
+        retry=retry_if_exception_type((httpx.HTTPStatusError, httpx.ReadTimeout)),
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=4, max=10),
+        before_sleep=before_sleep_message,
+    )
     def status(self, timeout=10):
         res = httpx.get(
             f"{self.base_url}/cromwell-server",
@@ -23,10 +35,17 @@ class ProofApi(object):
     def is_cromwell_server_up(self, timeout=10):
         return not self.status()["canJobStart"]
 
-    def start(self):
+    @retry(
+        retry=retry_if_exception_type((httpx.HTTPStatusError, httpx.ReadTimeout)),
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=4, max=10),
+        before_sleep=before_sleep_message,
+    )
+    def start(self, timeout=10):
         return httpx.post(
             f"{self.base_url}/cromwell-server",
             headers=self.headers,
+            timeout=timeout,
             json={"slurm_account": None},
         )
 
