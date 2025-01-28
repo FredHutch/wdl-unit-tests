@@ -40,7 +40,7 @@ jobs:
           java-version: '21'
 
       - name: Pull Cromwell Jarfile
-        run: wget -q https://github.com/broadinstitute/cromwell/releases/download/86/cromwell-86.jar
+        run: wget -q https://github.com/broadinstitute/cromwell/releases/download/87/cromwell-87.jar
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
@@ -55,5 +55,5 @@ jobs:
 
       - name: Execute Test Run of WDL Workflows
         env:
-          CROMWELL_PATH: cromwell-86.jar
+          CROMWELL_PATH: cromwell-87.jar
         run: uv run pytest tests/cromwelljava/test-run.py --wdl-path=${{ matrix.wdl }} --verbose -s

@@ -19,7 +19,7 @@ New unit test suggestions are tracked as GitHub issues. When creating a unit tes
 1. Once you have identified a new unit test and would like to contribute towards building this repository, begin by filing an issue in this repository. 
 2. Clone the repo locally and create a branch from `main`. Please name the branch using this convention: "issue#-issue-title"
 3. Create a very specific WDL unit test and make sure to add enough commentary in the code. 
-4. Ensure your proposed WDL runs locally via `miniwdl run` or `java -jar cromwell-86.jar run`
+4. Ensure your proposed WDL runs locally via `miniwdl run` or `java -jar cromwell-87.jar run`
 5. If you are user of PROOF, please also make sure to test that the WDL unit test runs via PROOF.
     - If your WDL succeeds locally but fails in PROOF, please report the issue in the [proof-api repo](https://github.com/FredHutch/proof-api/issues).
 6. Add the WDL to a subdirectory by the same name, i.e. `coolUnitTest/coolUnitTest.wdl`. If the WDL is expected to fail WOMtool the subdirectory AND the WDL file name must start with `badVal`. If the WDL is expected to fail both WOMtool and a Cromwell run, then the subdirectory AND the WDL file name must start with `badRun`.

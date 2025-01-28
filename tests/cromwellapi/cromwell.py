@@ -8,7 +8,7 @@ from tenacity import (
     wait_exponential,
 )
 
-from utils import past_date
+from utils import past_date, token_check
 from constants import TOKEN
 
 
@@ -35,7 +35,7 @@ class CromwellApi(object):
 
     def __init__(self, url):
         self.base_url = url.rstrip("/")
-        self.token = TOKEN
+        self.token = token_check(TOKEN)
         self.headers = {"Authorization": f"Bearer {TOKEN}"}
 
     def submit_workflow(

@@ -31,7 +31,7 @@ task Hostname {
   runtime {
     cpu: 1
     memory: "1 GB"
-    docker: "ubuntu:latest"
+    docker: "ubuntu:20.04"
   }
 
   parameter_meta {
