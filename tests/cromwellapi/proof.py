@@ -1,6 +1,6 @@
 import httpx
 
-from utils import PROOF_BASE_URL, TOKEN
+from constants import PROOF_BASE_URL, TOKEN
 
 
 class ProofApi(object):
@@ -17,17 +17,20 @@ class ProofApi(object):
             headers=self.headers,
             timeout=timeout,
         )
+        res.raise_for_status()
         return res.json()
 
     def is_cromwell_server_up(self, timeout=10):
         return not self.status()["canJobStart"]
 
     def start(self):
-        return httpx.post(
+        res = httpx.post(
             f"{self.base_url}/cromwell-server",
             headers=self.headers,
             json={"slurm_account": None},
         )
+        res.raise_for_status()
+        return res
 
     def start_if_not_up(self):
         if not self.is_cromwell_server_up():
