@@ -29,6 +29,7 @@ jobs:
       - name: Run tests
         env:
           PROOF_API_TOKEN_DEV: ${{ secrets.PROOF_API_TOKEN_DEV }}
+          PATH_ROOTS: ${{ secrets.PATH_ROOTS }}
         run: uv run pytest --record-mode=rewrite tests/cromwellapi/ --verbose -s
 
       - name: Commit new cassettes to main
