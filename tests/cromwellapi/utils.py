@@ -1,9 +1,5 @@
-import os
 from datetime import datetime, timedelta
 from pathlib import Path
-
-PROOF_BASE_URL = "https://proof-api-dev.fredhutch.org"
-TOKEN = os.getenv("PROOF_API_TOKEN_DEV")
 
 metadata_response_keys = {
     "running": [

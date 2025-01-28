@@ -8,7 +8,8 @@ from tenacity import (
     wait_exponential,
 )
 
-from utils import TOKEN, past_date
+from utils import past_date
+from constants import TOKEN
 
 
 def as_file_object(path=None):
