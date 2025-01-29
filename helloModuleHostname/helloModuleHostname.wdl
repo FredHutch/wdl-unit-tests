@@ -40,17 +40,14 @@ task Hostname {
     hostname
     
     # List loaded modules and verify our module is loaded
+    source /app/lmod/lmod/init/profile
     module list 2>&1 | tee module_list.txt
     
-    # Extract just the module name without version for more flexible matching
-    MODULE_BASE=$(echo "~{module_env}" | cut -d'/' -f1)
-    
     # Check if the module or its base name is in the loaded modules
-    if grep -q "~{module_env}\|${MODULE_BASE}/" module_list.txt; then
+    if grep -q "~{module_env}" module_list.txt; then
       echo "true" > module_verified.txt
       echo "Successfully verified module ~{module_env} is loaded"
     else
-      echo "false" > module_verified.txt
       echo "ERROR: Module ~{module_env} was not found in loaded modules:"
       cat module_list.txt
       exit 1
