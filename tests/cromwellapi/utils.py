@@ -116,3 +116,9 @@ def past_date(days):
     now = datetime.now()
     past_date = now - timedelta(days=days)
     return past_date.strftime("%Y-%m-%d")
+
+
+def before_sleep_message(state):
+    print(
+        f"Retrying in {state.next_action.sleep} seconds, attempt {state.attempt_number}"
+    )
