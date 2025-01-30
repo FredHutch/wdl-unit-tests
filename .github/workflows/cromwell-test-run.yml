@@ -30,6 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     strategy:
+      fail-fast: false
       matrix:
         wdl: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
     steps:
@@ -39,8 +40,8 @@ jobs:
       - name: Set Up Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '21'
+          distribution: "temurin"
+          java-version: "21"
 
       - name: Pull Cromwell Jarfile
         run: wget -q https://github.com/broadinstitute/cromwell/releases/download/87/cromwell-87.jar
