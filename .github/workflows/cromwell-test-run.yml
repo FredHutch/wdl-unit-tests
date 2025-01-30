@@ -30,6 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     strategy:
+      fail-fast: false
       matrix:
         wdl: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
     steps:
