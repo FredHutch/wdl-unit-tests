@@ -40,7 +40,7 @@ def proof_api(recording_mode):
 
 
 @pytest.fixture(scope="session")
-def cromwell_api(proof_api, recording_mode):
+def cromwell_api(proof_api):
     cromwell_url = proof_api.cromwell_url()
 
     return CromwellApi(url=cromwell_url)
