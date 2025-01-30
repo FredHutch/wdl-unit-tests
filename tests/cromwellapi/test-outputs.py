@@ -1,3 +1,7 @@
+import pytest
+
+
+@pytest.mark.vcr
 def test_outputs(cromwell_api, submit_wdls):
     """Getting workflow outputs works"""
     ids = [wf["id"] for wf in submit_wdls]

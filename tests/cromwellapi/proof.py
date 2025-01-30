@@ -6,7 +6,8 @@ from tenacity import (
     wait_exponential,
 )
 
-from utils import PROOF_BASE_URL, TOKEN, token_check, before_sleep_message
+from constants import PROOF_BASE_URL, TOKEN
+from utils import token_check, before_sleep_message
 
 
 def cache_next_call_only(func):
@@ -73,12 +74,14 @@ class ProofApi(object):
         before_sleep=before_sleep_message,
     )
     def start(self, timeout=10):
-        return httpx.post(
+        res = httpx.post(
             f"{self.base_url}/cromwell-server",
             headers=self.headers,
             timeout=timeout,
             json={"slurm_account": None},
         )
+        res.raise_for_status()
+        return res
 
     def start_if_not_up(self):
         if not self.is_cromwell_server_up():

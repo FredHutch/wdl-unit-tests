@@ -1,0 +1,398 @@
+interactions:
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok96.fhcrc.org:38031
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok96.fhcrc.org:38031/api/workflows/v1/b4c610ff-437a-40a5-9562-499ffbc50566/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowProcessingEvents":[{"cromwellId":"cromid-b65ea54","description":"Finished","timestamp":"2025-01-28T19:22:59.102Z","cromwellVersion":"87"},{"cromwellId":"cromid-b65ea54","description":"PickedUp","timestamp":"2025-01-28T19:22:59.066Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow ArrayOperations {\n    input {\n        # Input arrays for
+        different tests\n        Array[String] strings\n        Array[String] additional_strings
+        = []  # For testing array concatenation\n        Array[Array[String]] nested_arrays
+        = []  # For testing nested arrays\n        Array[Int] numbers = [1, 2, 3,
+        4, 5]  # Default integer array for numeric operations\n        Array[File]
+        input_files = [] # Array of files to test file operations\n    }\n    \n    #
+        Scatter operation to test processing of each element in an array\n    # Test
+        empty arrays (original operation still works with empty input)\n    scatter
+        (str in strings) {\n        call Uppercase { input: text = str }\n    }\n    \n    #
+        Test array indexing (accessing first and last elements)\n    if (length(strings)
+        > 0) {\n        call ValidateIndex { input: arr = strings }\n    }\n    \n    #
+        Test array functions like sorting, length calculation, and flattening\n    call
+        ArrayFunctions { \n        input: \n            arr = strings,\n            nested
+        = nested_arrays\n    }\n    \n    # Test array concatenation and verify the
+        combined length\n    Array[String] combined = flatten([strings, additional_strings])\n    call
+        ArrayConcat {\n        input: \n            arr1 = strings,\n            arr2
+        = additional_strings,\n            expected_length = length(combined)\n    }\n    \n    #
+        Test integer array operations like summation and combining arrays\n    Array[Int]
+        more_numbers = [6, 7, 8, 9, 10]  # Intermediate array declaration\n    call
+        IntegerArrayOps {\n        input:\n            numbers = numbers,\n            additional_numbers
+        = more_numbers\n    }\n\n    # Test file array operations like localization
+        and content reading\n    if (length(input_files) > 0) {\n        call FileArrayOps
+        {\n            input:\n                files = input_files\n        }\n    }\n    #
+        Outputs to capture results of the tests\n    output {\n        Array[String]
+        uppercased = Uppercase.out # Outputs from scatter task\n        Int? first_index
+        = ValidateIndex.first_index # First index in string array\n        Int? last_index
+        = ValidateIndex.last_index # Last index in string array\n        Array[String]
+        sorted_array = ArrayFunctions.sorted # Sorted array\n        Array[Array[String]]
+        processed_nested = ArrayFunctions.processed_nested # Processed nested array\n        Boolean
+        concat_test_passed = ArrayConcat.test_passed # Result of concatenation test\n        Int
+        array_length = ArrayFunctions.arr_length # Length of input array\n        Array[String]
+        flattened = ArrayFunctions.flattened # Flattened nested arrays\n        #
+        New outputs for integer array operations \n        Int sum_result = IntegerArrayOps.sum
+        # Sum of integer array\n        Array[Int] combined_numbers = IntegerArrayOps.combined
+        # Combined integer arrays\n        # New outputs for file array operations\n        Array[String]?
+        file_contents = FileArrayOps.contents # Contents of files\n        Boolean?
+        files_localized = FileArrayOps.localization_success # File localization status\n    }\n\n    parameter_meta
+        {\n        # Descriptions for inputs\n        strings: \"Primary array of
+        input strings\"\n        additional_strings: \"Secondary array for testing
+        concatenation\"\n        nested_arrays: \"Array of arrays for testing nested
+        array operations\"\n        numbers: \"Array of integers for testing numeric
+        operations\"\n        input_files: \"Array of input files for testing file
+        localization\"\n    }\n}\n\n# Task to convert string to uppercase (tests per-element
+        processing)\ntask Uppercase {\n    input {\n        String text\n    }\n    \n    command
+        <<<\n        echo \"~{text}\" | tr ''[:lower:]'' ''[:upper:]''\n    >>>\n    \n    output
+        {\n        String out = read_string(stdout())\n    }\n    \n    runtime {\n        cpu:
+        1\n        memory: \"1 GB\"\n    }\n}\n\n\n# Task to test indexing operations\ntask
+        ValidateIndex {\n    input {\n        Array[String] arr\n    }\n    \n    command
+        <<<\n        echo \"0\" > first_index.txt  # First index\n        echo \"~{length(arr)-1}\"
+        > last_index.txt  # Last index\n    >>>\n    \n    output {\n        Int first_index
+        = read_int(\"first_index.txt\")\n        Int last_index = read_int(\"last_index.txt\")\n    }\n    \n    runtime
+        {\n        cpu: 1\n        memory: \"1 GB\"\n    }\n}\n\n# Task to test array
+        functions\ntask ArrayFunctions {\n    input {\n        Array[String] arr\n        Array[Array[String]]
+        nested\n    }\n    \n    command <<<\n        # Sort the input array using
+        bash\n        echo \"~{sep=''\\n'' arr}\" | sort > sorted.txt\n        \n        #
+        Get array length\n        echo \"~{length(arr)}\" > length.txt\n        \n        #
+        Process nested arrays (flatten them)\n        echo \"~{sep=''\\n'' flatten(nested)}\"
+        > flattened.txt\n    >>>\n    \n    output {\n        Array[String] sorted
+        = read_lines(\"sorted.txt\")\n        Int arr_length = read_int(\"length.txt\")\n        Array[String]
+        flattened = read_lines(\"flattened.txt\")\n        Array[Array[String]] processed_nested
+        = nested  # Return the original nested array\n    }\n    \n    runtime {\n        cpu:
+        1\n        memory: \"1 GB\"\n    }\n}\n\n# Task to test concatenation of two
+        arrays\ntask ArrayConcat {\n    input {\n        Array[String] arr1\n        Array[String]
+        arr2\n        Int expected_length\n    }\n    \n    command <<<\n        actual_length=$((
+        ~{length(arr1)} + ~{length(arr2)} ))\n        if [ \"$actual_length\" -eq
+        ~{expected_length} ]; then\n            echo \"true\"\n        else\n            echo
+        \"false\"\n        fi\n    >>>\n    \n    output {\n        Boolean test_passed
+        = read_boolean(stdout())\n    }\n    \n    runtime {\n        cpu: 1\n        memory:
+        \"1 GB\"\n    }\n}\n\n# Task to test integer array operations\ntask IntegerArrayOps
+        {\n    input {\n        Array[Int] numbers\n        Array[Int] additional_numbers\n    }\n    \n    command
+        <<<\n        # Calculate sum of numbers to verify proper parsing\n        total=0\n        for
+        num in ~{sep='' '' numbers}; do\n            total=$((total + num))\n        done\n        echo
+        $total > sum.txt\n\n        # Combine arrays and write to file\n        echo
+        \"~{sep=''\\n'' flatten([numbers, additional_numbers])}\" > combined.txt\n    >>>\n    \n    output
+        {\n        Int sum = read_int(\"sum.txt\")\n        Array[Int] combined =
+        read_lines(\"combined.txt\")\n    }\n    \n    runtime {\n        cpu: 1\n        memory:
+        \"1 GB\"\n    }\n}\n\n# Task to test file array operations\ntask FileArrayOps
+        {\n    input {\n        Array[File] files\n    }\n    \n    command <<<\n        #
+        Test file localization by reading contents\n        for file in ~{sep='' ''
+        files}; do\n            if [ -f \"$file\" ]; then\n                cat \"$file\"
+        >> all_contents.txt\n                echo \"---\" >> all_contents.txt  # Separator
+        between files\n            else\n                echo \"false\" > localization_success.txt\n                exit
+        1\n            fi\n        done\n        echo \"true\" > localization_success.txt\n    >>>\n    \n    output
+        {\n        Array[String] contents = read_lines(\"all_contents.txt\")\n        Boolean
+        localization_success = read_boolean(\"localization_success.txt\")\n    }\n    \n    runtime
+        {\n        cpu: 1\n        memory: \"1 GB\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"actualWorkflowLanguage":"WDL","status":"Failed","failures":[{"causedBy":[{"causedBy":[],"message":"Required
+        workflow input ''ArrayOperations.strings'' not specified"}],"message":"Workflow
+        input processing failed"}],"end":"2025-01-28T19:22:59.102Z","start":"2025-01-28T19:22:59.067Z","id":"b4c610ff-437a-40a5-9562-499ffbc50566","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-b4c610ff-437a-40a5-9562-499ffbc50566"},"submission":"2025-01-28T19:20:42.442Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jan 2025 19:23:44 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '8300'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok96.fhcrc.org:38031
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok96.fhcrc.org:38031/api/workflows/v1/6a921318-d1b5-4e96-b311-6e389ac7dc62/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-b65ea54","description":"PickedUp","timestamp":"2025-01-28T19:22:19.017Z","cromwellVersion":"87"},{"cromwellId":"cromid-b65ea54","description":"Finished","timestamp":"2025-01-28T19:22:56.780Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"HelloHostname.stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/6a921318-d1b5-4e96-b311-6e389ac7dc62/call-Hostname/execution/stdout"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/6a921318-d1b5-4e96-b311-6e389ac7dc62","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-01-28T19:22:56.780Z","start":"2025-01-28T19:22:19.018Z","id":"6a921318-d1b5-4e96-b311-6e389ac7dc62","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-6a921318-d1b5-4e96-b311-6e389ac7dc62"},"submission":"2025-01-28T19:20:42.481Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jan 2025 19:23:44 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1805'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok96.fhcrc.org:38031
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok96.fhcrc.org:38031/api/workflows/v1/57bfb303-9a45-4661-825c-7c11d17a2240/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowProcessingEvents":[{"cromwellId":"cromid-b65ea54","description":"PickedUp","timestamp":"2025-01-28T19:21:58.996Z","cromwellVersion":"87"},{"cromwellId":"cromid-b65ea54","description":"Finished","timestamp":"2025-01-28T19:21:59.014Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n# This workflow takes a tab separated file where each row is a set of
+        data to be used in each \n# of the independent scattered task series that
+        you have as your workflow process.  This file \n# will, for example, have
+        column names `sampleName`, `bamLocation`, and `bedlocation`.  This\n# allows
+        you to know that regardless of the order of the columns in your batch file,
+        the correct\n# inputs will be used for the tasks you define.  \nworkflow parseBatchFile
+        {\n  input {\n  File batchFile\n  }\n    Array[Object] batchInfo = read_objects(batchFile)\n  scatter
+        (job in batchInfo){\n    String sampleName = job.sampleName\n    File bamFile
+        = job.bamLocation\n    File bedFile = job.bedLocation\n\n    ## INSERT YOUR
+        WORKFLOW TO RUN PER LINE IN YOUR BATCH FILE HERE!!!!\n    call test {\n        input:
+        in1=sampleName, in2=bamFile, in3=bedFile\n    }\n\n  }  # End Scatter over
+        the batch file\n# Outputs that will be retained when execution is complete\n  output
+        {\n    Array[File] outputArray = test.item_out\n    }\n# End workflow\n}\n\n####
+        TASK DEFINITIONS\n# echo some text to stdout, treats files as strings just
+        to echo them as a dummy example\ntask test {\n  input {\n    String in1\n    String
+        in2\n    String in3\n  }\n    command {\n    echo ~{in1}\n    echo ~{in2}\n    echo
+        ~{in3}\n    }\n    output {\n        File item_out = stdout()\n    }\n}","root":"","options":"{\n\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"actualWorkflowLanguage":"WDL","status":"Failed","failures":[{"causedBy":[{"causedBy":[],"message":"Required
+        workflow input ''parseBatchFile.batchFile'' not specified"}],"message":"Workflow
+        input processing failed"}],"end":"2025-01-28T19:21:59.014Z","start":"2025-01-28T19:21:58.997Z","id":"57bfb303-9a45-4661-825c-7c11d17a2240","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-57bfb303-9a45-4661-825c-7c11d17a2240"},"submission":"2025-01-28T19:20:42.520Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jan 2025 19:23:44 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2267'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok96.fhcrc.org:38031
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok96.fhcrc.org:38031/api/workflows/v1/06446845-f189-451d-9e8f-221af10dc37e/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloModuleHostname","workflowProcessingEvents":[{"cromwellId":"cromid-b65ea54","description":"PickedUp","timestamp":"2025-01-28T19:20:58.908Z","cromwellVersion":"87"},{"cromwellId":"cromid-b65ea54","description":"Finished","timestamp":"2025-01-28T19:22:45.040Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for module functionality on Gizmo.\n\n####
+        WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n\n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n    modules:
+        \"Python/3.7.4-foss-2019b-fh1\"\n  }\n\n  parameter_meta {\n    out: \"hostname
+        of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"HelloModuleHostname.stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloModuleHostname/06446845-f189-451d-9e8f-221af10dc37e/call-Hostname/execution/stdout"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloModuleHostname/06446845-f189-451d-9e8f-221af10dc37e","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-01-28T19:22:45.040Z","start":"2025-01-28T19:20:58.908Z","id":"06446845-f189-451d-9e8f-221af10dc37e","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-06446845-f189-451d-9e8f-221af10dc37e"},"submission":"2025-01-28T19:20:42.560Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jan 2025 19:23:45 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1890'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok96.fhcrc.org:38031
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok96.fhcrc.org:38031/api/workflows/v1/3daeca54-daf0-4498-af26-04c84a42641c/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowProcessingEvents":[{"cromwellId":"cromid-b65ea54","description":"Finished","timestamp":"2025-01-28T19:21:18.945Z","cromwellVersion":"87"},{"cromwellId":"cromid-b65ea54","description":"PickedUp","timestamp":"2025-01-28T19:21:18.938Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that fails against womtool.\n## From https://github.com/broadinstitute/cromwell\n\n####
+        WORKFLOW DEFINITION\n\nworkflow oops {\n  call oopsie\n}\n\n#### TASK DEFINITIONS\n\ntask
+        oopsie {\n  input {\n    String str\n  }\n  command { echo ${str} }\n  runtime
+        { docker: docker_image }\n}\n","root":"","options":"{\n\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"actualWorkflowLanguage":"WDL","status":"Failed","failures":[{"causedBy":[{"causedBy":[],"message":"Failed
+        to process task definition ''oopsie'' (reason 1 of 1): Cannot lookup value
+        ''docker_image'', it is never declared. Available values are: [''str'']"}],"message":"Workflow
+        input processing failed"}],"end":"2025-01-28T19:21:18.945Z","start":"2025-01-28T19:21:18.939Z","id":"3daeca54-daf0-4498-af26-04c84a42641c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-3daeca54-daf0-4498-af26-04c84a42641c"},"submission":"2025-01-28T19:20:42.598Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jan 2025 19:23:45 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1307'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok96.fhcrc.org:38031
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok96.fhcrc.org:38031/api/workflows/v1/7dd646ef-2577-4d8d-9596-3e3384f3b09d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"basicTaskTest","workflowProcessingEvents":[{"cromwellId":"cromid-b65ea54","description":"Finished","timestamp":"2025-01-28T19:22:44.170Z","cromwellVersion":"87"},{"cromwellId":"cromid-b65ea54","description":"PickedUp","timestamp":"2025-01-28T19:22:39.046Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n# The basicTaskTest workflow calls a task named simpleTask, which takes
+        a string input and writes it to a file called output.txt. It demonstrates
+        a basic execution of a task with file output.\n\n# This tests basic task execution,
+        input handling, and file output functionality. It ensures that a task can
+        successfully take an input and generate an output.\n\nworkflow basicTaskTest
+        {\n  input {\n    String text = \"Hello, World!\"\n  }\n\n  call simpleTask
+        {\n    input:\n      message = text\n  }\n}\n\ntask simpleTask {\n  input
+        {\n    String message\n  }\n\n  command <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output
+        {\n    File outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"basicTaskTest.simpleTask.outputFile":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicTaskTest/7dd646ef-2577-4d8d-9596-3e3384f3b09d/call-simpleTask/cacheCopy/execution/output.txt"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicTaskTest/7dd646ef-2577-4d8d-9596-3e3384f3b09d","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-01-28T19:22:44.170Z","start":"2025-01-28T19:22:39.046Z","id":"7dd646ef-2577-4d8d-9596-3e3384f3b09d","inputs":{"text":"Hello,
+        World!"},"labels":{"cromwell-workflow-id":"cromwell-7dd646ef-2577-4d8d-9596-3e3384f3b09d"},"submission":"2025-01-28T19:20:42.640Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jan 2025 19:23:45 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1847'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok96.fhcrc.org:38031
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok96.fhcrc.org:38031/api/workflows/v1/5150f1dc-5451-4dc4-b288-ef0ddf8da487/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloDockerHostname","workflowProcessingEvents":[{"cromwellId":"cromid-b65ea54","description":"PickedUp","timestamp":"2025-01-28T19:21:38.968Z","cromwellVersion":"87"},{"cromwellId":"cromid-b65ea54","description":"Finished","timestamp":"2025-01-28T19:23:24.051Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for Docker functionality on Gizmo.\n\n####
+        WORKFLOW DEFINITION\n\nworkflow HelloDockerHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n\n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n    docker:
+        \"ubuntu:latest\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node
+        the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"HelloDockerHostname.stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloDockerHostname/5150f1dc-5451-4dc4-b288-ef0ddf8da487/call-Hostname/execution/stdout"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloDockerHostname/5150f1dc-5451-4dc4-b288-ef0ddf8da487","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-01-28T19:23:24.050Z","start":"2025-01-28T19:21:38.969Z","id":"5150f1dc-5451-4dc4-b288-ef0ddf8da487","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-5150f1dc-5451-4dc4-b288-ef0ddf8da487"},"submission":"2025-01-28T19:20:42.683Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jan 2025 19:23:45 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1875'
+    status:
+      code: 200
+      message: OK
+version: 1

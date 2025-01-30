@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import httpx
 from tenacity import (
     retry,
@@ -6,7 +8,8 @@ from tenacity import (
     wait_exponential,
 )
 
-from utils import TOKEN, past_date, token_check, before_sleep_message
+from constants import TOKEN
+from utils import past_date, token_check, before_sleep_message
 
 
 def as_file_object(path=None):
@@ -48,7 +51,7 @@ class CromwellApi(object):
         )
         res.raise_for_status()
         data = res.json()
-        data["path"] = str(wdl_path)
+        data["path"] = str(wdl_path.relative_to(Path.cwd()))
         return data
 
     @retry(
