@@ -69,16 +69,22 @@ Adding tests shouldn't require any changes to the files in `tests/cromwelljava` 
 
 ### API
 
-These tests are run on GitHub Actions on each push to main/dev and each pull request via the `.github/workflows/api-tests.yml` workflow.
+These tests are run on GitHub Actions on each push to main/dev and each pull request via the `.github/workflows/api-tests.yml` workflow. This GH Action is run on our custom runner that runs on FH infrastructure so it has appropriate privileges.
 
-To run them locally:
+To run tests locally:
 
 - get on the Cisco VPN if working remotely or be on an FH campus network
 - set a PROOF token for the test user used for these tests as `PROOF_API_TOKEN_DEV`. the value is in 1password ([Secrets and env vars in 1password](https://developer.1password.com/docs/cli/secrets-environment-variables/)). Talk to Sean or Scott if you don't have access.
     1. Open 1password and find the API key.
     2. Right-click the key and select "Copy Secret Reference."
-    3. Run: `export PROOF_API_TOKEN_DEV="op://secret/reference/copied/from/1PW"`
-- run tests, for example: `op run -- uv run pytest tests/cromwellapi --verbose` 
+    3. Add the following line to your dot file (e.g., `.zshrc`): `export PROOF_API_TOKEN_DEV="op://secret/reference/copied/from/1PW"`
+- set an env var for paths to scrub in test fixtures as `PATH_ROOTS`. the value is in 1password ([Secrets and env vars in 1password](https://developer.1password.com/docs/cli/secrets-environment-variables/)).
+    1. Open 1password and find the entry.
+    2. Right-click the key and select "Copy Secret Reference."
+    3. Add the following line to your dot file (e.g., `.zshrc`): `export PATH_ROOTS="op://secret/reference/copied/from/1PW"`
+- reload your dot file in your terminal session so the new env vars are available
+- run tests using cached test fixtures: `make test_api_cached`
+- run tests while re-writing test fixtures: `make test_api_rewrite`
 
 To add tests:
 
