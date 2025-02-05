@@ -30,12 +30,14 @@ jobs:
       - name: Load secrets
         uses: 1password/load-secrets-action@v2
         with:
-          # Export loaded secrets as environment variables to subsequent steps
-          export-env: true
+          export-env: false
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           PROOF_API_TOKEN_DEV: ${{ secrets.PROOF_API_TOKEN_DEV }}
           PATH_ROOTS: ${{ secrets.PATH_ROOTS }}
 
       - name: Run tests
+        env:
+          PROOF_API_TOKEN_DEV: ${{ steps.load-secrets.outputs.PROOF_API_TOKEN_DEV }}
+          PATH_ROOTS: ${{ steps.load-secrets.outputs.PROOF_API_TOKEN_DEV }}
         run: make test_api_cached
