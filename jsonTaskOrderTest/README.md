@@ -1,8 +1,8 @@
-# Unit Test for JSON Input Handling & Task Order (jsonOrderTest)
+# Unit Test for JSON Input Handling & Task Order (jsonTaskOrderTest)
 
 ## Overview
 
-The `jsonOrderTest` workflow is a unit test designed to validate the behavior of JSON input handling in WDL (Workflow Description Language). It ensures that a JSON input string is correctly passed and utilized by multiple tasks while maintaining the correct execution order.
+The `jsonTaskOrderTest` workflow is a unit test designed to validate the behavior of JSON input handling in WDL (Workflow Description Language). It ensures that a JSON input string is correctly passed and utilized by multiple tasks while maintaining the correct execution order.
 
 ## Purpose
 
