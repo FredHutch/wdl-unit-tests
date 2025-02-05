@@ -27,8 +27,15 @@ jobs:
       - name: Install dependencies
         run: uv sync --all-extras
 
-      - name: Run tests
+      - name: Load secrets
+        uses: 1password/load-secrets-action@v2
+        with:
+          # Export loaded secrets as environment variables to subsequent steps
+          export-env: true
         env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           PROOF_API_TOKEN_DEV: ${{ secrets.PROOF_API_TOKEN_DEV }}
           PATH_ROOTS: ${{ secrets.PATH_ROOTS }}
-        run: uv run pytest --record-mode=once tests/cromwellapi/ --verbose -s
+
+      - name: Run tests
+        run: make test_api_cached
