@@ -67,7 +67,8 @@ task GpuTest {
     }
 
     runtime {
-        docker: "tensorflow/tensorflow:latest-gpu"
+        docker: "tensorflow/tensorflow:2.11.0-gpu"
+        # modules: "TensorFlow/2.11.0-foss-2022a-CUDA-11.7.0"
         gpus: "1"
     }
 
