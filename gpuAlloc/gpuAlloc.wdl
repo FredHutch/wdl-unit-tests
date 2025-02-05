@@ -30,7 +30,13 @@ task GpuTest {
 
         # Test GPU availability
         gpus = tf.config.experimental.list_physical_devices('GPU')
-        print(f"Number of GPUs detected: {len(gpus)}")
+        detected_gpus = len(gpus)
+        print(f"Number of GPUs detected: {detected_gpus}")
+
+        # Verify GPU allocation matches runtime specification
+        expected_gpus = 1  # Matches the runtime.gpus specification
+        if detected_gpus != expected_gpus:
+            raise RuntimeError(f"GPU allocation mismatch: Expected {expected_gpus} GPU(s), but found {detected_gpus}")
         
         # Create test matrices
         matrix_a = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[2, 3])
