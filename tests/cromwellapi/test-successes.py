@@ -1,9 +1,6 @@
 import time
-import re
 import pytest
 from unittest.mock import patch
-
-from utils import workflow_states
 
 
 params = {
