@@ -55,4 +55,5 @@ def test_successes_final(cromwell_api_final, submit_wdls):
                 "id",
             ]
         )
+        assert len(res["calls"]) > 0
         assert res["status"] == "Succeeded"
