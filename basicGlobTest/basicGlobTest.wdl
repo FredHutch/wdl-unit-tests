@@ -3,7 +3,7 @@ version 1.0
 workflow basicGlobTest {
     call create_files
     
-    if (length(create_files.txt_files) != 1) {
+    if (length(create_files.txt_files) != 2) {
         call fail_workflow { 
             input: message = "Expected 2 txt files but found " + length(create_files.txt_files) 
         }
