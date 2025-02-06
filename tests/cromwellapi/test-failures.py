@@ -61,6 +61,7 @@ def test_failures_final(cromwell_api_final, submit_wdls):
                 "id",
             ]
         )
+        assert len(res["calls"]) > 0
         wdl_name = job["path"].split("/")[0]
         if wdl_name in fail_check:
             assert fail_check[wdl_name] in fail_causedby_mssg
