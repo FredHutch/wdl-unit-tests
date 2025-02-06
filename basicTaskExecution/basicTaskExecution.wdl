@@ -21,8 +21,8 @@ task simpleTask {
   }
 
   command <<<
-    echo "${message}" > output.txt
-    >>>
+    echo "~{message}" > output.txt
+  >>>
 
   output {
     File outputFile = "output.txt"
