@@ -69,9 +69,11 @@ def submit_wdls(recording_mode, cromwell_api):
         print(f"\nSubmitting {len(wdl_paths)} wdls ...")
         out = []
         for path in wdl_paths:
+            inputs_path = path.parent / "inputs.json"
+            inputs_path = inputs_path if inputs_path.exists() else None
             opts_path = path.parent / "options.json"
             opts_path = opts_path if opts_path.exists() else None
-            res = cromwell_api.submit_workflow(wdl_path=path, options=opts_path)
+            res = cromwell_api.submit_workflow(wdl_path=path, inputs=inputs_path, options=opts_path)
             out.append(res)
         with open(mocked_submissions, "w") as f:
             json.dump(out, f, indent=4)
