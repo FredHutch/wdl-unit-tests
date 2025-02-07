@@ -1,0 +1,49 @@
+name: API Tests
+
+on:
+  workflow_dispatch:
+  # schedule only triggers if this file is on the default branch
+  # and will only run on the default branch
+  schedule:
+    # every Sunday at 3 am
+    - cron: "0 3 * * 0"
+
+jobs:
+  api-tests-rewrite:
+    if: ${{ ! github.event.pull_request.head.repo.fork && github.event_name == 'schedule' }}
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "0.5.8"
+
+      - name: Set up Python
+        run: uv python install 3.13
+
+      - name: Install
+        run: uv sync --all-extras
+
+      - name: Run tests
+        env:
+          PROOF_API_TOKEN_DEV: ${{ secrets.PROOF_API_TOKEN_DEV }}
+          PATH_ROOTS: ${{ secrets.PATH_ROOTS }}
+        run: uv run pytest --record-mode=rewrite tests/cromwellapi/ --verbose -s
+
+      - name: Commit new cassettes to main
+        run: |
+          if FILES_TO_COMMIT=($(git diff-index --name-only ${{ github.sha }} \
+              | egrep cassettes \
+              | egrep --ignore-case '\.(yaml|yml)$'))
+          then
+            git config --local user.name "$GITHUB_ACTOR"
+            git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
+            git add tests/cromwellapi/cassettes/
+            git commit ${FILES_TO_COMMIT[*]} -m 'updated vcr cassettes'
+            git pull --ff-only
+            git push origin
+          else
+            echo "No changes to commit"
+          fi
