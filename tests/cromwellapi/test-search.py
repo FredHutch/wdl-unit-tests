@@ -17,6 +17,15 @@ def contains_sublist(list1, list2):
     return set(list2).issubset(set(list1))
 
 
+# We need to not match on "query" here because CromwellApi.search
+# changes the date depending on what day the query is run, leading
+# to no match against the stored cassette
+VCR_SEARCH_CONFIG = {
+    "match_on": ["method", "scheme", "path"],
+}
+
+
+@pytest.mark.vcr(**VCR_SEARCH_CONFIG)
 def test_search_no_results(cromwell_api):
     """Checking that search works with no results"""
     out = cromwell_api.search(days=-2)
@@ -26,6 +35,7 @@ def test_search_no_results(cromwell_api):
     assert out["results"] == []
 
 
+@pytest.mark.vcr(**VCR_SEARCH_CONFIG)
 def test_search_results(cromwell_api):
     """Checking that search works when there MIGHT be results"""
     out = cromwell_api.search(days=1)
