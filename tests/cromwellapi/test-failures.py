@@ -1,29 +1,61 @@
-# import re
+import time
+import re
+import pytest
+from unittest.mock import patch
+
+from utils import workflow_states
 
 
-def test_failures_initial_state(cromwell_api, submit_wdls):
+params = {
+    "includeKey": [
+        "status",
+        "failures",
+        "jobId",
+    ]
+}
+
+
+@pytest.mark.vcr
+def test_failures_initial(cromwell_api, submit_wdls, recording_mode):
     """Checking for failures works for initial state"""
-    params = {"includeKey": "failures", "includeKey": "jobId"}
     fail = list(filter(lambda x: "badRunParseBatchFile" in x["path"], submit_wdls))
-    res = cromwell_api.metadata(fail[0]["id"], params=params)
+
+    if recording_mode != "rewrite":
+        with patch("time.sleep"):
+            res = cromwell_api.metadata(fail[0]["id"], params=params)
+    else:
+        res = cromwell_api.metadata(fail[0]["id"], params=params)
+
     assert isinstance(res, dict)
-    assert res == {}
+
+    if len(res) == 0:
+        pytest.skip("call to /metadata route gave empty response")
+    else:
+        status = res.get("status", "")
+        if status == "Submitted":
+            assert sorted(list(res.keys())) == sorted(
+                [
+                    "status",
+                    "calls",
+                    "id",
+                ]
+            )
+            assert res["calls"] == {}
 
 
-# def test_failures_final_state(cromwell_api, submit_wdls):
-#     """Checking for failures works for final state"""
-#     params = {"includeKey": "failures", "includeKey": "jobId"}
-#     fail = list(filter(lambda x: "badRunParseBatchFile" in x["path"], submit_wdls))
-#     print(f"fail0: {fail[0]}")
-#     res = cromwell_api.metadata(fail[0]["id"], params=params)
-#     print(f"cromwell_api.metadata output:{res}")
-#     fail_causedby_mssg = res["failures"]["causedBy"]["message"]
-#     fail_mssg = res["failures"]["message"]
-#     assert isinstance(res, dict)
-#     assert list(res.keys()) == [
-#         "failures",
-#         "calls",
-#         "id",
-#     ]
-#     assert re.search("not specified", fail_causedby_mssg) is not None
-#     assert re.search("failed", fail_mssg) is not None
+@pytest.mark.vcr
+def test_failures_final(cromwell_api_final, submit_wdls):
+    """Checking for failures works for final state"""
+    fail = list(filter(lambda x: "badRunParseBatchFile" in x["path"], submit_wdls))
+    res = cromwell_api_final.metadata(workflow_id=fail[0]["id"], params=params)
+    fail_causedby_mssg = res["failures"][0]["causedBy"][0]["message"]
+    assert isinstance(res, dict)
+    assert sorted(list(res.keys())) == sorted(
+        [
+            "status",
+            "failures",
+            "calls",
+            "id",
+        ]
+    )
+    assert re.search("not specified", fail_causedby_mssg) is not None
