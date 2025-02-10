@@ -46,7 +46,7 @@ task processSample {
     allSampleInfo="~{sample.sampleName} | ~{sample.aboutSample} | ~{sample.sampleDescription} | ~{sample.details.experimentType} | ~{sample.details.prepMethod} | ~{sample.details.tissueType}"
     
     # Output the concatenated sample info to a file
-    echo ${allSampleInfo} > ~{base_file_name}.allSampleInfo.txt
+    echo "${allSampleInfo}" > ~{base_file_name}.allSampleInfo.txt
   >>>
 
   output {
