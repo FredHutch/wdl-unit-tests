@@ -55,6 +55,6 @@ task processSample {
   }
 
   runtime {
-    docker: "ubuntu:latest"
+    docker: "ubuntu:20.04"
   }
 }
