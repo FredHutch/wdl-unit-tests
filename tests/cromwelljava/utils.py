@@ -1,7 +1,11 @@
+from io import StringIO
 import os
 from pathlib import Path
 
 import sh
+from colorama import Fore, Style, init
+
+init(autoreset=True)
 
 
 class Womtool(object):
@@ -39,6 +43,8 @@ class CromwellJava(object):
     """Cromwell Java class - run Cromwell Java jar"""
 
     def __init__(self):
+        self.stderr = StringIO()
+        self.stdout = StringIO()
         self.cromwell_path = os.getenv("CROMWELL_PATH")
         if not self.cromwell_path:
             raise Exception("failed setting CROMWELL_PATH")
@@ -64,9 +70,14 @@ class CromwellJava(object):
             self.has_options(wdl_path)
             if show_cmd:
                 print(self.cromwell)
-            self.cromwell()
+            self.cromwell(_out=self.stdout, _err=self.stderr)
         except sh.ErrorReturnCode as e:
-            print(f"Command {e.full_cmd} exited with {e.exit_code}")
+            print(Fore.RED + Style.BRIGHT + f"\nCommand {e.full_cmd} exited with {e.exit_code}\n")
+            print(Fore.RED + Style.BRIGHT + f"Dumping cromwell run output\n")
+            print(Fore.YELLOW + Style.BRIGHT + "STDERR output:\n")
+            print(self.stderr.getvalue())
+            print(Fore.YELLOW + Style.BRIGHT + "STDOUT output:\n")
+            print(self.stdout.getvalue())
             return False
 
         return True

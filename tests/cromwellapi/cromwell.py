@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import httpx
 from tenacity import (
     retry,
@@ -6,19 +8,14 @@ from tenacity import (
     wait_exponential,
 )
 
-from utils import TOKEN, past_date
+from constants import TOKEN
+from utils import past_date, token_check, before_sleep_message
 
 
 def as_file_object(path=None):
     if not path:
         return None
     return open(path, mode="rb")
-
-
-def my_before_sleep(state):
-    print(
-        f"Retrying in {state.next_action.sleep} seconds, attempt {state.attempt_number}"
-    )
 
 
 def path_as_string(x):
@@ -32,7 +29,7 @@ class CromwellApi(object):
 
     def __init__(self, url):
         self.base_url = url.rstrip("/")
-        self.token = TOKEN
+        self.token = token_check(TOKEN)
         self.headers = {"Authorization": f"Bearer {TOKEN}"}
 
     def submit_workflow(
@@ -54,14 +51,14 @@ class CromwellApi(object):
         )
         res.raise_for_status()
         data = res.json()
-        data["path"] = str(wdl_path)
+        data["path"] = str(wdl_path.relative_to(Path.cwd()))
         return data
 
     @retry(
         retry=retry_if_exception_type(httpx.HTTPStatusError),
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=4, max=10),
-        before_sleep=my_before_sleep,
+        before_sleep=before_sleep_message,
     )
     def metadata(self, workflow_id, params={}):
         res = httpx.get(
@@ -119,7 +116,7 @@ class CromwellApi(object):
         retry=retry_if_exception_type(httpx.HTTPStatusError),
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=4, max=10),
-        before_sleep=my_before_sleep,
+        before_sleep=before_sleep_message,
     )
     def outputs(self, workflow_id):
         res = httpx.get(
@@ -133,7 +130,7 @@ class CromwellApi(object):
         retry=retry_if_exception_type(httpx.HTTPStatusError),
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=4, max=10),
-        before_sleep=my_before_sleep,
+        before_sleep=before_sleep_message,
     )
     def labels(self, workflow_id):
         res = httpx.get(
