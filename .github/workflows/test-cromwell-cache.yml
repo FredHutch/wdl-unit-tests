@@ -1,0 +1,109 @@
+name: Validate Cromwell Caching
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate-cromwell-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+          
+      - name: Download Cromwell
+        run: |
+          wget https://github.com/broadinstitute/cromwell/releases/download/87/cromwell-87.jar
+          
+      - name: First run
+        id: first-run
+        run: |
+          echo "Running first execution..."
+          start_time=$(date +%s)
+          java -Dconfig.file=cacheTest/cromwell.conf -jar cromwell-87.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json
+          end_time=$(date +%s)
+          duration=$((end_time - start_time))
+          echo "first_duration=$duration" >> $GITHUB_OUTPUT
+          
+          workflow_dir=$(find . -type d -name "CacheTest" -path "*/cromwell-executions/*" | sort -r | head -1)
+          if [ -z "$workflow_dir" ]; then
+            echo "::error::Could not find workflow execution directory"
+            exit 1
+          fi
+          
+          latest_run=$(find "$workflow_dir" -mindepth 1 -maxdepth 1 -type d | sort -r | head -1)
+          workflow_id=$(basename "$latest_run")
+          echo "First workflow ID: $workflow_id"
+          echo "first_workflow_id=$workflow_id" >> $GITHUB_OUTPUT
+          
+      - name: Second run (should use cache)
+        id: second-run
+        run: |
+          echo "Running second execution..."
+          start_time=$(date +%s)
+          java -Dconfig.file=cacheTest/cromwell.conf -jar cromwell-87.jar run cacheTest/cacheTest.wdl -i cacheTest/inputs.json -o cacheTest/options.json > cromwell.log 2>&1
+          end_time=$(date +%s)
+          duration=$((end_time - start_time))
+          echo "second_duration=$duration" >> $GITHUB_OUTPUT
+          
+          workflow_dir=$(find . -type d -name "CacheTest" -path "*/cromwell-executions/*" | sort -r | head -1)
+          latest_runs=$(find "$workflow_dir" -mindepth 1 -maxdepth 1 -type d | sort -r)
+          workflow_id=$(echo "$latest_runs" | grep -v "${{ steps.first-run.outputs.first_workflow_id }}" | head -1 | xargs basename)
+          echo "Second workflow ID: $workflow_id"
+          echo "second_workflow_id=$workflow_id" >> $GITHUB_OUTPUT
+
+      - name: Create modified inputs
+        run: |
+          echo '{
+            "CacheTest.message": "Modified message to invalidate cache",
+            "CacheTest.sleep_time": 19
+          }' > cacheTest/modified_inputs.json
+          
+      - name: Third run (should NOT use cache)
+        id: third-run
+        run: |
+          echo "Running third execution with modified inputs..."
+          start_time=$(date +%s)
+          java -Dconfig.file=cacheTest/cromwell.conf -jar cromwell-87.jar run cacheTest/cacheTest.wdl -i cacheTest/modified_inputs.json -o cacheTest/options.json > cromwell_modified.log 2>&1
+          end_time=$(date +%s)
+          duration=$((end_time - start_time))
+          echo "third_duration=$duration" >> $GITHUB_OUTPUT
+          
+          workflow_dir=$(find . -type d -name "CacheTest" -path "*/cromwell-executions/*" | sort -r | head -1)
+          latest_runs=$(find "$workflow_dir" -mindepth 1 -maxdepth 1 -type d | sort -r)
+          workflow_id=$(echo "$latest_runs" | grep -v "${{ steps.first-run.outputs.first_workflow_id }}" | grep -v "${{ steps.second-run.outputs.second_workflow_id }}" | head -1 | xargs basename)
+          echo "Third workflow ID: $workflow_id"
+          echo "third_workflow_id=$workflow_id" >> $GITHUB_OUTPUT
+
+      - name: Validate caching behavior
+        run: |
+          echo "First run duration: ${{ steps.first-run.outputs.first_duration }} seconds"
+          echo "Second run duration: ${{ steps.second-run.outputs.second_duration }} seconds"
+          echo "Third run duration: ${{ steps.third-run.outputs.third_duration }} seconds"
+          
+          # Verify all runs completed
+          if [ -z "${{ steps.first-run.outputs.first_workflow_id }}" ] || \
+             [ -z "${{ steps.second-run.outputs.second_workflow_id }}" ] || \
+             [ -z "${{ steps.third-run.outputs.third_workflow_id }}" ]; then
+            echo "::error::One or more workflow runs failed to complete"
+            exit 1
+          fi
+          
+          # Check for cache hit in second run
+          if ! grep -q "cache hit copying success" cromwell.log; then
+            echo "::error::No cache hit message found in second run Cromwell logs"
+            exit 1
+          fi
+          
+          # Check that third run did NOT use cache
+          if grep -q "cache hit copying success" cromwell_modified.log; then
+            echo "::error::Cache hit found in third run when it should have been invalidated"
+            exit 1
+          fi
+          
+          echo "Cache validation passed!"
