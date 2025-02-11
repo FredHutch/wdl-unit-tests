@@ -3,6 +3,9 @@ name: WOMtool Validation of WDL Script
 on:
   pull_request:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   generate-matrix:
@@ -26,30 +29,34 @@ jobs:
     if: ${{ github.event.pull_request.head.repo.fork == false }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         wdl: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
     steps:
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v4
 
-      -
-        name: Set Up Java
+      - name: Set Up Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '21'
+          distribution: "temurin"
+          java-version: "21"
 
-      -
-        name: Pull WOMtool Jarfile
-        run: wget -q https://github.com/broadinstitute/cromwell/releases/download/86/womtool-86.jar
+      - name: Pull WOMtool Jarfile
+        run: wget -q https://github.com/broadinstitute/cromwell/releases/download/87/womtool-87.jar
 
-      - 
-        name: Validate WDL Scripts
-        run: |
-          cmd="java -jar womtool-86.jar validate ${{ matrix.wdl }}/${{ matrix.wdl }}.wdl"
-          if [[ -f "${{ matrix.wdl }}/inputs.json" ]]; then
-            cmd="$cmd -i ${{ matrix.wdl }}/inputs.json"
-          fi
-          echo "Running command: $cmd"
-          eval "$cmd"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "0.5.16"
+
+      - name: Set up Python
+        run: uv python install 3.13
+
+      - name: Install dependencies
+        run: uv sync --all-extras
+
+      - name: Validate WDL Scripts
+        env:
+          WOMTOOL_PATH: womtool-87.jar
+        run: uv run pytest tests/cromwelljava/test-validate.py --wdl-path=${{ matrix.wdl }} --verbose -s

@@ -24,7 +24,11 @@ jobs:
       - name: Set up Python
         run: uv python install 3.13
 
+      - name: Install dependencies
+        run: uv sync --all-extras
+
       - name: Run tests
         env:
           PROOF_API_TOKEN_DEV: ${{ secrets.PROOF_API_TOKEN_DEV }}
-        run: uv run pytest tests/cromwell-api/ --verbose
+          PATH_ROOTS: ${{ secrets.PATH_ROOTS }}
+        run: uv run pytest --record-mode=once tests/cromwellapi/ --verbose -s

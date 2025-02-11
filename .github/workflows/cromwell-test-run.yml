@@ -3,6 +3,9 @@ name: Cromwell Test Run
 on:
   pull_request:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   generate-matrix:
@@ -27,6 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     strategy:
+      fail-fast: false
       matrix:
         wdl: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
     steps:
@@ -36,21 +40,24 @@ jobs:
       - name: Set Up Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '21'
+          distribution: "temurin"
+          java-version: "21"
 
       - name: Pull Cromwell Jarfile
-        run: wget -q https://github.com/broadinstitute/cromwell/releases/download/86/cromwell-86.jar
+        run: wget -q https://github.com/broadinstitute/cromwell/releases/download/87/cromwell-87.jar
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "0.5.16"
+
+      - name: Set up Python
+        run: uv python install 3.13
+
+      - name: Install dependencies
+        run: uv sync --all-extras
 
       - name: Execute Test Run of WDL Workflows
-        run: |
-          cmd="java -jar cromwell-86.jar run ${{ matrix.wdl }}/${{ matrix.wdl }}.wdl"
-          if [[ -f "${{ matrix.wdl }}/inputs.json" ]]; then
-            cmd="$cmd -i ${{ matrix.wdl }}/inputs.json"
-          fi
-          if [[ -f "${{ matrix.wdl }}/options.json" ]]; then
-            cmd="$cmd -o ${{ matrix.wdl }}/options.json"
-          fi
-          echo "Running command: $cmd"
-          eval "$cmd"
-
+        env:
+          CROMWELL_PATH: cromwell-87.jar
+        run: uv run pytest tests/cromwelljava/test-run.py --wdl-path=${{ matrix.wdl }} --verbose -s
