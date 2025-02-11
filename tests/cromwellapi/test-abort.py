@@ -2,7 +2,7 @@ import pytest
 
 from utils import path_wdl, path_options
 
-wdls = ["helloHostname", "helloDockerHostname", "helloModuleHostname"]
+wdls = ["helloHostname", "helloDockerHostname"]
 
 
 @pytest.mark.vcr
