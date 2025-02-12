@@ -13,18 +13,16 @@ params = {
 
 
 @pytest.mark.vcr
-def test_failures_initial(cromwell_api, submit_wdls, recording_mode):
+def test_successes_initial(cromwell_api, submit_wdls, recording_mode):
     """Checking for failures works for initial state"""
-    fail = list(filter(lambda x: x["path"].startswith("bad"), submit_wdls))
-    for job in fail:
+    succeed = list(filter(lambda x: not x["path"].startswith("bad"), submit_wdls))
+    for job in succeed:
         if recording_mode != "rewrite":
             with patch("time.sleep"):
                 res = cromwell_api.metadata(job["id"], params=params)
         else:
             res = cromwell_api.metadata(job["id"], params=params)
-
         assert isinstance(res, dict)
-
         if len(res) == 0:
             pytest.skip("call to /metadata route gave empty response")
         else:
@@ -41,23 +39,18 @@ def test_failures_initial(cromwell_api, submit_wdls, recording_mode):
 
 
 @pytest.mark.vcr
-def test_failures_final(cromwell_api_final, submit_wdls):
+def test_successes_final(cromwell_api_final, submit_wdls):
     """Checking for failures works for final state"""
-    fail = list(filter(lambda x: x["path"].startswith("bad"), submit_wdls))
-    fail_check = {"badRunParseBatchFile":"Required workflow input 'parseBatchFile.batchFile' not specified",
-                  "badValMissingValue":"Cannot lookup value 'docker_image', it is never declared"}
-    for job in fail:
+    succeed = list(filter(lambda x: not x["path"].startswith("bad"), submit_wdls))
+    for job in succeed:
         res = cromwell_api_final.metadata(workflow_id=job["id"], params=params)
-        fail_causedby_mssg = res["failures"][0]["causedBy"][0]["message"]
         assert isinstance(res, dict)
         assert sorted(list(res.keys())) == sorted(
             [
                 "status",
-                "failures",
                 "calls",
                 "id",
             ]
         )
-        wdl_name = job["path"].split("/")[0]
-        if wdl_name in fail_check:
-            assert fail_check[wdl_name] in fail_causedby_mssg
+        assert len(res["calls"]) > 0
+        assert res["status"] == "Succeeded"
