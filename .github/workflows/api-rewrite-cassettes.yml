@@ -1,4 +1,4 @@
-name: API Tests
+name: API Tests - Rewrite Cassettes
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   api-tests-rewrite:
-    if: ${{ ! github.event.pull_request.head.repo.fork && github.event_name == 'schedule' }}
+    if: ${{ ! github.event.pull_request.head.repo.fork }}
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
@@ -26,11 +26,18 @@ jobs:
       - name: Install
         run: uv sync --all-extras
 
-      - name: Run tests
+      - name: Load secrets
+        uses: 1password/load-secrets-action@v2
+        with:
+          # Export loaded secrets as environment variables to subsequent steps
+          export-env: true
         env:
-          PROOF_API_TOKEN_DEV: ${{ secrets.PROOF_API_TOKEN_DEV }}
-          PATH_ROOTS: ${{ secrets.PATH_ROOTS }}
-        run: uv run pytest --record-mode=rewrite tests/cromwellapi/ --verbose -s
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          PROOF_API_TOKEN_DEV: "op://PROOF/PROOF_Test_User/dev token"
+          PATH_ROOTS: "op://PROOF/PROOF_PATH_ROOTS/credential"
+
+      - name: Run tests
+        run: make test_api_rewrite
 
       - name: Commit new cassettes to main
         run: |

@@ -35,8 +35,15 @@ jobs:
           echo PROOF-API SHA: ${{ github.event.client_payload.sha }}
           echo PROOF-API REF: ${{ github.event.client_payload.ref }}
 
-      - name: Run tests
+      - name: Load secrets
+        id: load-secrets
+        uses: 1password/load-secrets-action@v2
+        with:
+          export-env: true
         env:
-          PROOF_API_TOKEN_DEV: ${{ secrets.PROOF_API_TOKEN_DEV }}
-          PATH_ROOTS: ${{ secrets.PATH_ROOTS }}
-        run: uv run pytest --record-mode=once tests/cromwellapi/ --verbose -s
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          PROOF_API_TOKEN_DEV: "op://PROOF/PROOF_Test_User/dev token"
+          PATH_ROOTS: "op://PROOF/PROOF_PATH_ROOTS/credential"
+
+      - name: Run tests
+        run: make test_api_cached
