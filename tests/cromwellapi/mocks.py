@@ -1,6 +1,7 @@
-import yaml
 from pathlib import Path
 from urllib.parse import urlparse, urlunparse
+
+import yaml
 
 
 class MockProofApi(object):

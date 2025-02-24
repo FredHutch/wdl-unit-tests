@@ -1,15 +1,14 @@
-import os
 import json
+import os
 from pathlib import Path
 
 import pytest
-
-from mocks import MockProofApi
 from constants import SLEEP_FINAL_STATE
-from utils_cassettes import cassettes_last_modified
 from cromwell import CromwellApi
 from cromwell_final import CromwellApiFinal
+from mocks import MockProofApi
 from proof import ProofApi
+from utils_cassettes import cassettes_last_modified
 
 mocked_submissions = "tests/cromwellapi/mocked_submissions.json"
 
