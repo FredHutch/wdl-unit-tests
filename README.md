@@ -49,6 +49,8 @@ Familiarity with two tools will help you run and especially contribute to tests:
 - [pytest][]: a Python test framework. when you run `uv sync` above you'll then have a cli binary `pytest` available
 - [uv][]: a Python package and project manager; manages dependencies, runs tests, etc.
 
+If you make any changes to Python files in `tests/` make sure to run `make lint-check` and `make format-check` and make any changes as suggested by those commands
+
 ### Java
 
 These tests are run on GitHub Actions on each pull request via the `.github/workflows/cromwell-test-run.yml` and `.github/workflows/womtools-validate.yml` workflows.
