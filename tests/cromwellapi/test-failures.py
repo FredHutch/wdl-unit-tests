@@ -1,10 +1,9 @@
-import time
 import re
-import pytest
+import time
 from unittest.mock import patch
 
+import pytest
 from utils import workflow_states
-
 
 params = {
     "includeKey": [

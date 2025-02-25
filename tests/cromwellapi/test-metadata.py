@@ -1,5 +1,4 @@
 import pytest
-
 from utils import metadata_response_keys, workflow_states
 
 params = {"expandSubWorkflows": False, "excludeKey": "calls"}

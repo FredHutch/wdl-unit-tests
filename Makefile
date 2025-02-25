@@ -16,8 +16,11 @@ lint-fix:
 lint-check:
 	uv run ruff check --select I tests/
 
-format:
+format-fix:
 	uv run ruff format tests/
+
+format-check:
+	uv run ruff format --check tests/
 
 check_env_vars:
 	$(call check_defined, PATH_ROOTS, env var for which paths to scrub in vcr cassettes)
