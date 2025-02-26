@@ -1,6 +1,6 @@
-import pytest
 from unittest.mock import patch
 
+import pytest
 from utils import metadata_response_keys, workflow_states
 
 params = {"expandSubWorkflows": True}

@@ -1,7 +1,6 @@
 from pathlib import Path
 import pytest
-
-from utils import path_wdl, path_options
+from utils import path_options, path_wdl
 
 root = Path(__file__).parents[2].resolve()
 pattern = "**/*.wdl"
