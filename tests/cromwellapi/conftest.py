@@ -1,15 +1,14 @@
-import os
 import json
+import os
 from pathlib import Path
 
 import pytest
-
-from mocks import MockProofApi
 from constants import SLEEP_FINAL_STATE
-from utils_cassettes import cassettes_last_modified
 from cromwell import CromwellApi
 from cromwell_final import CromwellApiFinal
+from mocks import MockProofApi
 from proof import ProofApi
+from utils_cassettes import cassettes_last_modified
 
 mocked_submissions = "tests/cromwellapi/mocked_submissions.json"
 
@@ -17,9 +16,7 @@ mocked_submissions = "tests/cromwellapi/mocked_submissions.json"
 def pytest_report_header(config):
     mode = config.getoption("--record-mode", default=None)
     last_mod = cassettes_last_modified("tests/cromwellapi/cassettes")
-    retry_messages_warn = (
-        "" if mode == "rewrite" else "(ignore Retry attempt messages)"
-    )
+    retry_messages_warn = "" if mode == "rewrite" else "(ignore Retry attempt messages)"
     return [
         f"vcr recording mode: {mode} {retry_messages_warn}",
         f"vcr cassettes last recorded approx.: {last_mod}",
@@ -87,6 +84,7 @@ def submit_wdls(recording_mode, cromwell_api):
 
 class EnvironmentVariableError(Exception):
     """Custom error class for a missing environment variable"""
+
     pass
 
 

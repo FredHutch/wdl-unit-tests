@@ -1,15 +1,14 @@
 from pathlib import Path
 
 import httpx
+from constants import TOKEN
 from tenacity import (
     retry,
     retry_if_exception_type,
     stop_after_attempt,
     wait_exponential,
 )
-
-from constants import TOKEN
-from utils import past_date, token_check, before_sleep_message
+from utils import before_sleep_message, past_date, token_check
 
 
 def as_file_object(path=None):
