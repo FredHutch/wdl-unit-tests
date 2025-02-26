@@ -47,14 +47,22 @@ jobs:
           title: "Update vcr cassettes"
           commit-message: "updated vcr cassettes"
           delete-branch: true
-          assignees: sckott
           add-paths: |
             tests/cromwellapi/cassettes/*
             tests/cromwellapi/mocked_submissions.json
+          assignees: sckott
           reviewers: |
             sckott
             seankross
           body: |
             Updated vcr cassettes
-            - From event: ${{ github.event_name }}
-            - Review, then either merge or close this PR
+
+            Via event: ${{ github.event_name }}
+            - If "workflow_dispatch" it was triggered by a person clicking the "Run workflow" button in the GitHub UI Actions tab
+            - If "schedule" it was triggered by a scheduled event (see the `.github/workflows/api-rewrite-cassettes.yml` file for the schedule)
+
+            Review, then either merge or close this PR
+            - A cursory review is sufficient (e.g., just look at a few cassette `*yml` files; though if anything is concerning, please investigate and discuss with Scott or Sean)
+
+            What is this?
+            - This is a pull request that updates the vcr cassettes for the Cromwell API tests. Read more about how tests work in the [README](https://github.com/FredHutch/wdl-unit-tests?tab=readme-ov-file#tests). We use the `vcrpy` Python library to record and replay HTTP requests and responses (called "cassettes"). These cassettes need to be re-recorded every so often to ensure that tests reflect the reality of the PROOF and Cromwell APIs.
