@@ -15,7 +15,7 @@ class Womtool(object):
         self.womtool_path = os.getenv("WOMTOOL_PATH")
         if not self.womtool_path:
             raise Exception("failed setting WOMTOOL_PATH")
-        self.womtool = sh.Command("java").bake("-jar","-Dconfig.file=cromwell.conf", self.womtool_path)
+        self.womtool = sh.Command("java").bake("-jar", self.womtool_path)
 
     def has_inputs(self, wdl_path):
         path = Path(f"{wdl_path}/inputs.json")
@@ -48,7 +48,7 @@ class CromwellJava(object):
         self.cromwell_path = os.getenv("CROMWELL_PATH")
         if not self.cromwell_path:
             raise Exception("failed setting CROMWELL_PATH")
-        self.cromwell = sh.Command("java").bake("-jar", self.cromwell_path)
+        self.cromwell = sh.Command("java").bake("-jar", "-Dconfig.file=cromwell.conf", self.cromwell_path)
 
     def has_inputs(self, wdl_path):
         path = Path(f"{wdl_path}/inputs.json")
