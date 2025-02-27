@@ -41,7 +41,7 @@ The main workflow demonstrates how to localize and manipulate files, with valida
 The `options.json` file specifies the location for storing all final workflow outputs:
 ```json
 {
-    "final_workflow_outputs_dir": "/hpc/temp/_DaSL/remoteOutputstorage",
+    "final_workflow_outputs_dir": "/fh/fast/_DaSL/proof_testing",
     "use_relative_output_paths": true
 }
 ```
@@ -85,7 +85,7 @@ Create an `inputs.json` file:
   "testRemoteFileLocalization.integer": 123,
   "testRemoteFileLocalization.float": 9.81,
   "testRemoteFileLocalization.boolean": false,
-  "testRemoteFileLocalization.remote_file": "/hpc/temp/_DaSL/remote_file.txt"
+  "testRemoteFileLocalization.remote_file": "/fh/fast/_DaSL/proof_testing/remote_file.txt"
 }
 ```
 
@@ -93,7 +93,7 @@ Create an `inputs.json` file:
 Create an `options.json` file:
 ```json
 {
-    "final_workflow_outputs_dir": "/hpc/temp/_DaSL/remoteOutputstorage",
+    "final_workflow_outputs_dir": "/fh/fast/_DaSL/proof_testing/remoteOutputstorage",
     "use_relative_output_paths": true
 }
 ```
