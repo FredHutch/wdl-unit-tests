@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--f5b14f28c876dfc21ac75af9451f08ec\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--a8272eb1501beb8acafa788101d9459e\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"nonstandardOutputs.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow test_nonstandard_outputs {\n    call generate_diverse_outputs\n
       \   \n    output {\n        File special_chars = generate_diverse_outputs.file_special_chars\n
@@ -19,7 +19,7 @@ interactions:
       \       File file_no_extension = \"datafile\"\n        File nested_file = \"nested/dir/test.txt\"\n
       \       File symlink_output = \"link.txt\"\n        Array[File] pattern_files
       = glob(\"pattern_*.out\")\n    }\n\n    runtime {\n        docker: \"ubuntu:noble-20241118.1\"\n
-      \   }\n}\n\r\n--f5b14f28c876dfc21ac75af9451f08ec--\r\n"
+      \   }\n}\n\r\n--a8272eb1501beb8acafa788101d9459e--\r\n"
     headers:
       accept:
       - '*/*'
@@ -30,13 +30,13 @@ interactions:
       content-length:
       - '1587'
       content-type:
-      - multipart/form-data; boundary=f5b14f28c876dfc21ac75af9451f08ec
+      - multipart/form-data; boundary=a8272eb1501beb8acafa788101d9459e
       host:
-      - gizmoj32.fhcrc.org:35541
+      - gizmok92.fhcrc.org:38409
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj32.fhcrc.org:35541/api/womtool/v1/describe
+    uri: https://gizmok92.fhcrc.org:38409/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"test_nonstandard_outputs","inputs":[],"outputs":[{"name":"glob_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"},{"name":"nested_output","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"no_extension","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"special_chars","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"symlink_file","valueType":{"typeName":"File"},"typeDisplayName":"File"}],"images":["\"ubuntu:noble-20241118.1\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
@@ -48,14 +48,14 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2025 07:52:25 GMT
+      - Thu, 27 Feb 2025 15:45:35 GMT
       Server:
       - nginx/1.25.3
     status:
       code: 200
       message: OK
 - request:
-    body: "--8699744551fffc99ba1a90766fd7d1b7\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--ecc35b89ce79daa7ab742973ba02b699\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"arrayOperations.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow ArrayOperations {\n    input {\n        # Input arrays for different
       tests\n        Array[String] strings\n        Array[String] additional_strings
@@ -145,7 +145,7 @@ interactions:
       \       done\n        echo \"true\" > localization_success.txt\n    >>>\n    \n
       \   output {\n        Array[String] contents = read_lines(\"all_contents.txt\")\n
       \       Boolean localization_success = read_boolean(\"localization_success.txt\")\n
-      \   }\n    \n    runtime {\n        cpu: 1\n        memory: \"1 GB\"\n    }\n}\n\r\n--8699744551fffc99ba1a90766fd7d1b7--\r\n"
+      \   }\n    \n    runtime {\n        cpu: 1\n        memory: \"1 GB\"\n    }\n}\n\r\n--ecc35b89ce79daa7ab742973ba02b699--\r\n"
     headers:
       accept:
       - '*/*'
@@ -156,13 +156,13 @@ interactions:
       content-length:
       - '7177'
       content-type:
-      - multipart/form-data; boundary=8699744551fffc99ba1a90766fd7d1b7
+      - multipart/form-data; boundary=ecc35b89ce79daa7ab742973ba02b699
       host:
-      - gizmoj32.fhcrc.org:35541
+      - gizmok92.fhcrc.org:38409
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj32.fhcrc.org:35541/api/womtool/v1/describe
+    uri: https://gizmok92.fhcrc.org:38409/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"ArrayOperations","inputs":[{"name":"additional_strings","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]","optional":true,"default":"[]"},{"name":"input_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]","optional":true,"default":"[]"},{"name":"nested_arrays","valueType":{"typeName":"Array","arrayType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"nonEmpty":false},"typeDisplayName":"Array[Array[String]]","optional":true,"default":"[]"},{"name":"numbers","valueType":{"typeName":"Array","arrayType":{"typeName":"Int"},"nonEmpty":false},"typeDisplayName":"Array[Int]","optional":true,"default":"[1,
@@ -179,14 +179,101 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2025 07:52:25 GMT
+      - Thu, 27 Feb 2025 15:45:35 GMT
       Server:
       - nginx/1.25.3
     status:
       code: 200
       message: OK
 - request:
-    body: "--190c0279be099ab432c7f297461f1f68\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--f5877498b5ab752786f8ee9a715bbe4f\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"mapTypeTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow enhanced_map_test {\n    input {\n        # Original inputs\n
+      \       Array[String] samples\n        Map[String, String] sample_metadata\n
+      \       Map[String, Int] read_lengths\n\n        # New test inputs\n        Map[String,
+      Map[String, String]] nested_map = {\n            \"patient1\": {\n                \"sample1\":
+      \"normal\",\n                \"sample2\": \"tumor\"\n            },\n            \"patient2\":
+      {\n                \"sample3\": \"normal\",\n                \"sample4\": \"tumor\"\n
+      \           }\n        }\n        # We need to provide keys as arrays since
+      WDL 1.0 doesn't have a keys() function\n        Array[String] patient_ids =
+      [\"patient1\", \"patient2\"]\n    }\n\n    # Test nested map processing\n    scatter
+      (patient_id in patient_ids) {\n        call process_nested_map {\n            input:\n
+      \               patient_id = patient_id,\n                patient_data = nested_map[patient_id],\n
+      \               # We need to provide the sample names explicitly\n                samples_for_patient
+      = if patient_id == \"patient1\" then [\"sample1\", \"sample2\"] else [\"sample3\",
+      \"sample4\"]\n        }\n    }\n\n    # Original sample processing with output
+      map generation\n    scatter (sample in samples) {\n        call process_sample
+      {\n            input:\n                sample_name = sample,\n                sample_type
+      = sample_metadata[sample],\n                read_length = read_lengths[sample]\n
+      \       }\n    }\n\n    # Aggregate results into a map\n    call create_result_map
+      {\n        input:\n            sample_names = samples,\n            processing_messages
+      = process_sample.message\n    }\n\n    output {\n        Map[String, String]
+      result_map = create_result_map.output_map\n        Array[String] nested_map_results
+      = process_nested_map.message\n    }\n}\n\ntask process_nested_map {\n    input
+      {\n        String patient_id\n        Map[String, String] patient_data\n        Array[String]
+      samples_for_patient\n    }\n\n    # First get the first sample ID\n    String
+      first_sample = samples_for_patient[0]\n    # Then use it to index the patient
+      data\n    String sample_type = patient_data[first_sample]\n\n    command {\n
+      \       echo \"Processing patient ${patient_id} with sample type ${sample_type}\"\n
+      \       for sample in ${sep=' ' samples_for_patient}; do\n            echo \"Sample:
+      $sample\"\n        done\n    }\n\n    output {\n        String message = read_string(stdout())\n
+      \   }\n\n    runtime {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\ntask
+      process_sample {\n    input {\n        String sample_name\n        String sample_type\n
+      \       Int read_length\n    }\n\n    command <<<\n        echo \"Processing
+      ~{sample_name} (~{sample_type}) with read length ~{read_length}\"\n    >>>\n\n
+      \   output {\n        String message = read_string(stdout())\n    }\n\n    runtime
+      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\ntask create_result_map
+      {\n    input {\n        Array[String] sample_names\n        Array[String] processing_messages\n
+      \   }\n\n    command <<<\n        python <<CODE\n        samples = '~{sep=\",\"
+      sample_names}'.split(',')\n        messages = '~{sep=\",\" processing_messages}'.split(',')\n
+      \       result = dict(zip(samples, messages))\n        with open('output.txt',
+      'w') as f:\n            for sample, message in result.items():\n                f.write(f\"{sample}\\t{message}\\n\")\n
+      \       CODE\n    >>>\n\n    output {\n        Map[String, String] output_map
+      = read_map('output.txt')\n    }\n\n    runtime {\n        docker: \"python:3.8-slim\"\n
+      \   }\n}\r\n--f5877498b5ab752786f8ee9a715bbe4f--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '3609'
+      content-type:
+      - multipart/form-data; boundary=f5877498b5ab752786f8ee9a715bbe4f
+      host:
+      - gizmok92.fhcrc.org:38409
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok92.fhcrc.org:38409/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"enhanced_map_test","inputs":[{"name":"nested_map","valueType":{"typeName":"Map","mapType":{"keyType":{"typeName":"String"},"valueType":{"typeName":"Map","mapType":{"keyType":{"typeName":"String"},"valueType":{"typeName":"String"}}}}},"typeDisplayName":"Map[String,
+        Map[String, String]]","optional":true,"default":"{ \"patient1\": { \"sample1\":
+        \"normal\", \"sample2\": \"tumor\" }, \"patient2\": { \"sample3\": \"normal\",
+        \"sample4\": \"tumor\" } }"},{"name":"patient_ids","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]","optional":true,"default":"[\"patient1\",
+        \"patient2\"]"},{"name":"read_lengths","valueType":{"typeName":"Map","mapType":{"keyType":{"typeName":"String"},"valueType":{"typeName":"Int"}}},"typeDisplayName":"Map[String,
+        Int]","optional":false,"default":null},{"name":"sample_metadata","valueType":{"typeName":"Map","mapType":{"keyType":{"typeName":"String"},"valueType":{"typeName":"String"}}},"typeDisplayName":"Map[String,
+        String]","optional":false,"default":null},{"name":"samples","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]","optional":false,"default":null}],"outputs":[{"name":"nested_map_results","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]"},{"name":"result_map","valueType":{"typeName":"Map","mapType":{"keyType":{"typeName":"String"},"valueType":{"typeName":"String"}}},"typeDisplayName":"Map[String,
+        String]"}],"images":["\"ubuntu:noble-20241118.1\"","\"ubuntu:noble-20241118.1\"","\"python:3.8-slim\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1872'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 27 Feb 2025 15:45:35 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--88c521b956b12c316e3c74a8a8ff93c4\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"jsonTaskOrderTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow jsonTaskOrderTest {\n  input {\n    String input_json  # JSON
       string used as input for both tasks\n  }\n\n  call Task1 { input: input_json
@@ -201,7 +288,7 @@ interactions:
       \   echo \"Processing JSON in Task2: ~{input_json}\" > task2_output.txt\n    echo
       \"Task2 completed after Task1\" >> task2_output.txt\n    cat ~{previous_output}
       >> task2_output.txt\n  >>>\n  \n  output {\n    File output_file = \"task2_output.txt\"\n
-      \ }\n  \n  runtime {\n    cpu: 1\n    memory: \"2G\"\n  }\n}\n\r\n--190c0279be099ab432c7f297461f1f68--\r\n"
+      \ }\n  \n  runtime {\n    cpu: 1\n    memory: \"2G\"\n  }\n}\n\r\n--88c521b956b12c316e3c74a8a8ff93c4--\r\n"
     headers:
       accept:
       - '*/*'
@@ -212,13 +299,13 @@ interactions:
       content-length:
       - '1247'
       content-type:
-      - multipart/form-data; boundary=190c0279be099ab432c7f297461f1f68
+      - multipart/form-data; boundary=88c521b956b12c316e3c74a8a8ff93c4
       host:
-      - gizmoj32.fhcrc.org:35541
+      - gizmok92.fhcrc.org:38409
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj32.fhcrc.org:35541/api/womtool/v1/describe
+    uri: https://gizmok92.fhcrc.org:38409/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"jsonTaskOrderTest","inputs":[{"name":"input_json","valueType":{"typeName":"String"},"typeDisplayName":"String","optional":false,"default":null}],"outputs":[{"name":"task1_output","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"task2_output","valueType":{"typeName":"File"},"typeDisplayName":"File"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
@@ -230,19 +317,19 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2025 07:52:25 GMT
+      - Thu, 27 Feb 2025 15:45:35 GMT
       Server:
       - nginx/1.25.3
     status:
       code: 200
       message: OK
 - request:
-    body: "--50ef95c5efb183287b434ce39d1c59a3\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--d02d66b8c28d1f63762549f7393d6123\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"globNonmatching.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow globNonmatching {\n    call create_files\n    output {\n        Array[File]
       unmatched_files = create_files.unmatched_files\n    }\n}\n\ntask create_files
       {\n    command <<<\n        echo \"Test file\" > test.txt\n    >>>\n    output
-      {\n        Array[File] unmatched_files = glob(\"*.log\")\n    }\n}\n\r\n--50ef95c5efb183287b434ce39d1c59a3--\r\n"
+      {\n        Array[File] unmatched_files = glob(\"*.log\")\n    }\n}\n\r\n--d02d66b8c28d1f63762549f7393d6123--\r\n"
     headers:
       accept:
       - '*/*'
@@ -253,13 +340,13 @@ interactions:
       content-length:
       - '509'
       content-type:
-      - multipart/form-data; boundary=50ef95c5efb183287b434ce39d1c59a3
+      - multipart/form-data; boundary=d02d66b8c28d1f63762549f7393d6123
       host:
-      - gizmoj32.fhcrc.org:35541
+      - gizmok92.fhcrc.org:38409
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj32.fhcrc.org:35541/api/womtool/v1/describe
+    uri: https://gizmok92.fhcrc.org:38409/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"globNonmatching","inputs":[],"outputs":[{"name":"unmatched_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
@@ -271,19 +358,19 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2025 07:52:25 GMT
+      - Thu, 27 Feb 2025 15:45:35 GMT
       Server:
       - nginx/1.25.3
     status:
       code: 200
       message: OK
 - request:
-    body: "--062e225759c0a279e70965009216fa03\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--b73f185eefec80451e1af24f3838a745\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"basicGlobTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow basicGlobTest {\n    call create_files\n    output {\n        Array[File]
       matched_files = create_files.txt_files\n    }\n}\n\ntask create_files {\n    command
       <<<\n        echo \"File 1\" > file1.txt\n        echo \"File 2\" > file2.txt\n
-      \   >>>\n    output {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n\r\n--062e225759c0a279e70965009216fa03--\r\n"
+      \   >>>\n    output {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n\r\n--b73f185eefec80451e1af24f3838a745--\r\n"
     headers:
       accept:
       - '*/*'
@@ -294,13 +381,13 @@ interactions:
       content-length:
       - '523'
       content-type:
-      - multipart/form-data; boundary=062e225759c0a279e70965009216fa03
+      - multipart/form-data; boundary=b73f185eefec80451e1af24f3838a745
       host:
-      - gizmoj32.fhcrc.org:35541
+      - gizmok92.fhcrc.org:38409
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj32.fhcrc.org:35541/api/womtool/v1/describe
+    uri: https://gizmok92.fhcrc.org:38409/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"basicGlobTest","inputs":[],"outputs":[{"name":"matched_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
@@ -312,14 +399,14 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2025 07:52:25 GMT
+      - Thu, 27 Feb 2025 15:45:35 GMT
       Server:
       - nginx/1.25.3
     status:
       code: 200
       message: OK
 - request:
-    body: "--d82ea99c45fb59739c4ee808af7434db\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--d01665e13e1fd49e03fd1f0c49d296e9\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"helloHostname.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n## This is a test workflow that returns the hostname of the node \n## the
       job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow
@@ -328,7 +415,7 @@ interactions:
       to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo
       $(hostname)\n  >>>\n\n  output {\n    File out = stdout()\n  }\n  \n  runtime
       {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname
-      of the node the job was submitted to\"\n  }\n}\n\r\n--d82ea99c45fb59739c4ee808af7434db--\r\n"
+      of the node the job was submitted to\"\n  }\n}\n\r\n--d01665e13e1fd49e03fd1f0c49d296e9--\r\n"
     headers:
       accept:
       - '*/*'
@@ -339,13 +426,13 @@ interactions:
       content-length:
       - '802'
       content-type:
-      - multipart/form-data; boundary=d82ea99c45fb59739c4ee808af7434db
+      - multipart/form-data; boundary=d01665e13e1fd49e03fd1f0c49d296e9
       host:
-      - gizmoj32.fhcrc.org:35541
+      - gizmok92.fhcrc.org:38409
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj32.fhcrc.org:35541/api/womtool/v1/describe
+    uri: https://gizmok92.fhcrc.org:38409/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"HelloHostname","inputs":[],"outputs":[{"name":"stdout","valueType":{"typeName":"File"},"typeDisplayName":"File"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{"stdout":"hostname
@@ -358,14 +445,14 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2025 07:52:25 GMT
+      - Thu, 27 Feb 2025 15:45:35 GMT
       Server:
       - nginx/1.25.3
     status:
       code: 200
       message: OK
 - request:
-    body: "--c0649e2a99855e66a37bfe00197b2013\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--045cf224dcce0c4e85d161944344b7d4\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"testNestedJsonArray.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\n# Define the structure for sampleDetails\nstruct sampleDetails {\n    String
       experimentType\n    String prepMethod\n    String tissueType\n}\n\n# Define
@@ -386,7 +473,7 @@ interactions:
       > ~{base_file_name}.allSampleInfo.txt\n  >>>\n\n  output {\n    # Read all sample
       info from the file and output it as an Array of Strings\n    File allSampleInfo
       = \"${base_file_name}.allSampleInfo.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n
-      \ }\n}\n\r\n--c0649e2a99855e66a37bfe00197b2013--\r\n"
+      \ }\n}\n\r\n--045cf224dcce0c4e85d161944344b7d4--\r\n"
     headers:
       accept:
       - '*/*'
@@ -397,13 +484,13 @@ interactions:
       content-length:
       - '1750'
       content-type:
-      - multipart/form-data; boundary=c0649e2a99855e66a37bfe00197b2013
+      - multipart/form-data; boundary=045cf224dcce0c4e85d161944344b7d4
       host:
-      - gizmoj32.fhcrc.org:35541
+      - gizmok92.fhcrc.org:38409
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj32.fhcrc.org:35541/api/womtool/v1/describe
+    uri: https://gizmok92.fhcrc.org:38409/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"testNestedJsonArray","inputs":[{"name":"batchOfSamples","valueType":{"typeName":"Array","arrayType":{"typeName":"Object","objectFieldTypes":[{"fieldName":"sampleName","fieldType":{"typeName":"String"}},{"fieldName":"aboutSample","fieldType":{"typeName":"String"}},{"fieldName":"sampleDescription","fieldType":{"typeName":"String"}},{"fieldName":"details","fieldType":{"typeName":"Object","objectFieldTypes":[{"fieldName":"experimentType","fieldType":{"typeName":"String"}},{"fieldName":"prepMethod","fieldType":{"typeName":"String"}},{"fieldName":"tissueType","fieldType":{"typeName":"String"}}]}}]},"nonEmpty":false},"typeDisplayName":"Array[WomCompositeType
@@ -418,14 +505,14 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2025 07:52:25 GMT
+      - Thu, 27 Feb 2025 15:45:35 GMT
       Server:
       - nginx/1.25.3
     status:
       code: 200
       message: OK
 - request:
-    body: "--be5f6c5fc585bd261bd1a52b3d9ea001\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--d765cbdbed8c1ba01d566ce5b3c5155f\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"conditionalTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n## This workflow demonstrates the usage of conditional statements in WDL\n##
       by selectively processing samples based on their properties\n\nstruct SampleInfo
@@ -464,7 +551,7 @@ interactions:
       \   }\n\n    command <<<\n        echo \"~{report}\"\n        echo \"Number
       of samples processed: ~{length(messages)}\"\n    >>>\n\n    output {\n        String
       summary = read_string(stdout())\n    }\n\n    runtime {\n        docker: \"ubuntu:noble-20241118.1\"\n
-      \   }\n}\n\r\n--be5f6c5fc585bd261bd1a52b3d9ea001--\r\n"
+      \   }\n}\n\r\n--d765cbdbed8c1ba01d566ce5b3c5155f--\r\n"
     headers:
       accept:
       - '*/*'
@@ -475,13 +562,13 @@ interactions:
       content-length:
       - '3118'
       content-type:
-      - multipart/form-data; boundary=be5f6c5fc585bd261bd1a52b3d9ea001
+      - multipart/form-data; boundary=d765cbdbed8c1ba01d566ce5b3c5155f
       host:
-      - gizmoj32.fhcrc.org:35541
+      - gizmok92.fhcrc.org:38409
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj32.fhcrc.org:35541/api/womtool/v1/describe
+    uri: https://gizmok92.fhcrc.org:38409/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"conditional_example","inputs":[{"name":"quality_threshold","valueType":{"typeName":"Float"},"typeDisplayName":"Float","optional":false,"default":null},{"name":"samples","valueType":{"typeName":"Array","arrayType":{"typeName":"Object","objectFieldTypes":[{"fieldName":"name","fieldType":{"typeName":"String"}},{"fieldName":"quality_score","fieldType":{"typeName":"Float"}},{"fieldName":"type","fieldType":{"typeName":"String"}}]},"nonEmpty":false},"typeDisplayName":"Array[WomCompositeType
@@ -494,14 +581,14 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2025 07:52:25 GMT
+      - Thu, 27 Feb 2025 15:45:35 GMT
       Server:
       - nginx/1.25.3
     status:
       code: 200
       message: OK
 - request:
-    body: "--6ddd8a30e7bbd9163f6cacbd2883eff9\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--244fc13de51b2fe66bf2111f98cb6152\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"badRunParseBatchFile.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n# This workflow takes a tab separated file where each row is a set of data
       to be used in each \n# of the independent scattered task series that you have
@@ -520,7 +607,7 @@ interactions:
       files as strings just to echo them as a dummy example\ntask test {\n  input
       {\n    String in1\n    String in2\n    String in3\n  }\n    command {\n    echo
       ~{in1}\n    echo ~{in2}\n    echo ~{in3}\n    }\n    output {\n        File
-      item_out = stdout()\n    }\n}\r\n--6ddd8a30e7bbd9163f6cacbd2883eff9--\r\n"
+      item_out = stdout()\n    }\n}\r\n--244fc13de51b2fe66bf2111f98cb6152--\r\n"
     headers:
       accept:
       - '*/*'
@@ -531,13 +618,13 @@ interactions:
       content-length:
       - '1534'
       content-type:
-      - multipart/form-data; boundary=6ddd8a30e7bbd9163f6cacbd2883eff9
+      - multipart/form-data; boundary=244fc13de51b2fe66bf2111f98cb6152
       host:
-      - gizmoj32.fhcrc.org:35541
+      - gizmok92.fhcrc.org:38409
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj32.fhcrc.org:35541/api/womtool/v1/describe
+    uri: https://gizmok92.fhcrc.org:38409/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"parseBatchFile","inputs":[{"name":"batchFile","valueType":{"typeName":"File"},"typeDisplayName":"File","optional":false,"default":null}],"outputs":[{"name":"outputArray","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
@@ -549,21 +636,21 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2025 07:52:25 GMT
+      - Thu, 27 Feb 2025 15:45:35 GMT
       Server:
       - nginx/1.25.3
     status:
       code: 200
       message: OK
 - request:
-    body: "--5e3db1c389403b44cdf18314a3b7d817\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--0a22237fa98919242e55baaf5044c3a7\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"globSubdir.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
       matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n
       \   }\n}\n\ntask create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n
       \       echo \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n
       \   >>>\n    output {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n
-      \       Array[File] matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n\r\n--5e3db1c389403b44cdf18314a3b7d817--\r\n"
+      \       Array[File] matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n\r\n--0a22237fa98919242e55baaf5044c3a7--\r\n"
     headers:
       accept:
       - '*/*'
@@ -574,13 +661,13 @@ interactions:
       content-length:
       - '730'
       content-type:
-      - multipart/form-data; boundary=5e3db1c389403b44cdf18314a3b7d817
+      - multipart/form-data; boundary=0a22237fa98919242e55baaf5044c3a7
       host:
-      - gizmoj32.fhcrc.org:35541
+      - gizmok92.fhcrc.org:38409
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj32.fhcrc.org:35541/api/womtool/v1/describe
+    uri: https://gizmok92.fhcrc.org:38409/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"globSubdir","inputs":[],"outputs":[{"name":"matched_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
@@ -592,19 +679,19 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2025 07:52:25 GMT
+      - Thu, 27 Feb 2025 15:45:35 GMT
       Server:
       - nginx/1.25.3
     status:
       code: 200
       message: OK
 - request:
-    body: "--4aeb30da5dc5c82adae7811fa543566b\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--9badab36b581635864ed77cabb312fc6\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"emptyGlobTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow emptyGlobTest {\n    call create_empty_directory\n\n    output
       {\n        Array[File] no_files = create_empty_directory.no_files\n    }\n}\n\ntask
       create_empty_directory {\n    command {\n        mkdir empty_dir\n    }\n    output
-      {\n        Array[File] no_files = glob(\"empty_dir/*.txt\")\n    }\n}\n\r\n--4aeb30da5dc5c82adae7811fa543566b--\r\n"
+      {\n        Array[File] no_files = glob(\"empty_dir/*.txt\")\n    }\n}\n\r\n--9badab36b581635864ed77cabb312fc6--\r\n"
     headers:
       accept:
       - '*/*'
@@ -615,13 +702,13 @@ interactions:
       content-length:
       - '509'
       content-type:
-      - multipart/form-data; boundary=4aeb30da5dc5c82adae7811fa543566b
+      - multipart/form-data; boundary=9badab36b581635864ed77cabb312fc6
       host:
-      - gizmoj32.fhcrc.org:35541
+      - gizmok92.fhcrc.org:38409
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj32.fhcrc.org:35541/api/womtool/v1/describe
+    uri: https://gizmok92.fhcrc.org:38409/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"emptyGlobTest","inputs":[],"outputs":[{"name":"no_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
@@ -633,14 +720,14 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2025 07:52:25 GMT
+      - Thu, 27 Feb 2025 15:45:35 GMT
       Server:
       - nginx/1.25.3
     status:
       code: 200
       message: OK
 - request:
-    body: "--8def02fb7a2aea14ac3a230d77dc1fce\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--7ceddb0a90289ef1bf11c58061512e5b\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"WildcardsandConditions.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow WildcardsandConditions {\n    input {\n        String prefix
       \ # Required input for the file prefix (no default value)\n    }\n\n    call
@@ -659,7 +746,7 @@ interactions:
       ~{prefix}\" > parsed_output.txt\n    >>>\n\n    output {\n        Array[File]
       txt_files = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
       = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
-      {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\r\n--8def02fb7a2aea14ac3a230d77dc1fce--\r\n"
+      {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\r\n--7ceddb0a90289ef1bf11c58061512e5b--\r\n"
     headers:
       accept:
       - '*/*'
@@ -670,13 +757,13 @@ interactions:
       content-length:
       - '1573'
       content-type:
-      - multipart/form-data; boundary=8def02fb7a2aea14ac3a230d77dc1fce
+      - multipart/form-data; boundary=7ceddb0a90289ef1bf11c58061512e5b
       host:
-      - gizmoj32.fhcrc.org:35541
+      - gizmok92.fhcrc.org:38409
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj32.fhcrc.org:35541/api/womtool/v1/describe
+    uri: https://gizmok92.fhcrc.org:38409/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"WildcardsandConditions","inputs":[{"name":"prefix","valueType":{"typeName":"String"},"typeDisplayName":"String","optional":false,"default":null},{"name":"wildcard_and_conditions_test.create_extra_file","valueType":{"typeName":"Boolean"},"typeDisplayName":"Boolean","optional":true,"default":"true"}],"outputs":[{"name":"conditional_result","valueType":{"typeName":"String"},"typeDisplayName":"String"},{"name":"txt_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"}],"images":["\"ubuntu:20.04\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
@@ -688,14 +775,83 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2025 07:52:25 GMT
+      - Thu, 27 Feb 2025 15:45:36 GMT
       Server:
       - nginx/1.25.3
     status:
       code: 200
       message: OK
 - request:
-    body: "--662743c68ca694f603938cf3a1532fd2\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--9e53c65744b88af8182ea213975b7d28\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"structTypeTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\n## This workflow demonstrates advanced struct features in WDL including:\n##
+      1. Optional fields\n## 2. Nested structs\n## 3. Default values (handled in the
+      workflow)\n\n#### STRUCT DEFINITIONS\n\n# Nested struct for sequencing metadata\nstruct
+      SequencingInfo {\n    String platform\n    String? flowcell_id\n    Int? lane_number\n}\n\n#
+      Nested struct for quality metrics\nstruct QualityMetrics {\n    Float quality_score\n
+      \   Float? gc_content\n    Int? duplicate_rate\n}\n\n# Main struct with nested
+      structures and optional fields\nstruct SampleInfo {\n    String name\n    String?
+      type\n    Int? read_length\n    String? library_prep\n    SequencingInfo sequencing\n
+      \   QualityMetrics metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow struct_example
+      {\n    input {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter
+      (sample_info in sample_information) {\n        SampleInfo processed_sample =
+      object {\n            name: sample_info.name,\n            type: select_first([sample_info.type,
+      \"normal\"]),\n            read_length: select_first([sample_info.read_length,
+      100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+      sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n
+      \       call process_sample {\n            input:\n                sample =
+      processed_sample\n        }\n    }\n}\n\n#### TASK DEFINITIONS\n\ntask process_sample
+      {\n    input {\n        SampleInfo sample\n    }\n\n    command <<<\n        echo
+      \"Processing ~{sample.name} (~{sample.type})\"\n        echo \"Read Length:
+      ~{sample.read_length}\"\n        echo \"Sequencing Platform: ~{sample.sequencing.platform}\"\n
+      \       echo \"Flowcell ID: ~{select_first([sample.sequencing.flowcell_id, 'N/A'])}\"\n
+      \       echo \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n
+      \       echo \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo
+      \"GC Content: ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo
+      \"Duplicate Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+      \"Library Prep: ~{select_first([sample.library_prep, 'Standard'])}\"\n    >>>\n\n
+      \   output {\n        String message = read_string(stdout())\n    }\n\n    runtime
+      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\r\n--9e53c65744b88af8182ea213975b7d28--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '2417'
+      content-type:
+      - multipart/form-data; boundary=9e53c65744b88af8182ea213975b7d28
+      host:
+      - gizmok92.fhcrc.org:38409
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok92.fhcrc.org:38409/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"struct_example","inputs":[{"name":"sample_information","valueType":{"typeName":"Array","arrayType":{"typeName":"Object","objectFieldTypes":[{"fieldName":"name","fieldType":{"typeName":"String"}},{"fieldName":"sequencing","fieldType":{"typeName":"Object","objectFieldTypes":[{"fieldName":"platform","fieldType":{"typeName":"String"}},{"fieldName":"flowcell_id","fieldType":{"typeName":"Optional","optionalType":{"typeName":"String"}}},{"fieldName":"lane_number","fieldType":{"typeName":"Optional","optionalType":{"typeName":"Int"}}}]}},{"fieldName":"metrics","fieldType":{"typeName":"Object","objectFieldTypes":[{"fieldName":"quality_score","fieldType":{"typeName":"Float"}},{"fieldName":"gc_content","fieldType":{"typeName":"Optional","optionalType":{"typeName":"Float"}}},{"fieldName":"duplicate_rate","fieldType":{"typeName":"Optional","optionalType":{"typeName":"Int"}}}]}},{"fieldName":"type","fieldType":{"typeName":"Optional","optionalType":{"typeName":"String"}}},{"fieldName":"library_prep","fieldType":{"typeName":"Optional","optionalType":{"typeName":"String"}}},{"fieldName":"read_length","fieldType":{"typeName":"Optional","optionalType":{"typeName":"Int"}}}]},"nonEmpty":false},"typeDisplayName":"Array[WomCompositeType
+        {\n name -> String\nsequencing -> WomCompositeType {\n platform -> String\nflowcell_id
+        -> String?\nlane_number -> Int? \n}\nmetrics -> WomCompositeType {\n quality_score
+        -> Float\ngc_content -> Float?\nduplicate_rate -> Int? \n}\ntype -> String?\nlibrary_prep
+        -> String?\nread_length -> Int? \n}]","optional":false,"default":null}],"outputs":[],"images":["\"ubuntu:noble-20241118.1\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1839'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 27 Feb 2025 15:45:36 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--a30cf00f296ee4bcf19fbcfc42f4a82d\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"testFileoperations.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow testFileoperations {\n    call file_operations\n\n    output
       {\n        File created_file1 = file_operations.created_file1\n        File
@@ -711,7 +867,7 @@ interactions:
       The first file remains unchanged\n        File moved_file = \"output_dir/file2.txt\"
       \         # The second file after being moved\n        File renamed_file = \"file3_renamed.txt\"
       \          # The third file after being renamed\n    }\n\n    runtime {\n        docker:
-      \"ubuntu:20.04\"\n    }\n}\n\r\n--662743c68ca694f603938cf3a1532fd2--\r\n"
+      \"ubuntu:20.04\"\n    }\n}\n\r\n--a30cf00f296ee4bcf19fbcfc42f4a82d--\r\n"
     headers:
       accept:
       - '*/*'
@@ -722,13 +878,13 @@ interactions:
       content-length:
       - '1355'
       content-type:
-      - multipart/form-data; boundary=662743c68ca694f603938cf3a1532fd2
+      - multipart/form-data; boundary=a30cf00f296ee4bcf19fbcfc42f4a82d
       host:
-      - gizmoj32.fhcrc.org:35541
+      - gizmok92.fhcrc.org:38409
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj32.fhcrc.org:35541/api/womtool/v1/describe
+    uri: https://gizmok92.fhcrc.org:38409/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"testFileoperations","inputs":[],"outputs":[{"name":"created_file1","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"moved_file","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"renamed_file","valueType":{"typeName":"File"},"typeDisplayName":"File"}],"images":["\"ubuntu:20.04\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
@@ -740,14 +896,14 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2025 07:52:25 GMT
+      - Thu, 27 Feb 2025 15:45:36 GMT
       Server:
       - nginx/1.25.3
     status:
       code: 200
       message: OK
 - request:
-    body: "--520bec430cca5058f8871f2981ec541b\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--5e5ace79a9670a3d41199cee23c9075b\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"basicTaskExecution.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\n# The basicTaskTest workflow calls a task named simpleTask, which takes
       a string input and writes it to a file called output.txt. It demonstrates a
@@ -758,7 +914,7 @@ interactions:
       \     message = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n
       \ }\n\n  command <<<\n    echo \"~{message}\" > output.txt\n  >>>\n\n  output
       {\n    File outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n
-      \ }\n}\n\r\n--520bec430cca5058f8871f2981ec541b--\r\n"
+      \ }\n}\n\r\n--5e5ace79a9670a3d41199cee23c9075b--\r\n"
     headers:
       accept:
       - '*/*'
@@ -769,13 +925,13 @@ interactions:
       content-length:
       - '912'
       content-type:
-      - multipart/form-data; boundary=520bec430cca5058f8871f2981ec541b
+      - multipart/form-data; boundary=5e5ace79a9670a3d41199cee23c9075b
       host:
-      - gizmoj32.fhcrc.org:35541
+      - gizmok92.fhcrc.org:38409
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj32.fhcrc.org:35541/api/womtool/v1/describe
+    uri: https://gizmok92.fhcrc.org:38409/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"basicTaskTest","inputs":[{"name":"text","valueType":{"typeName":"String"},"typeDisplayName":"String","optional":true,"default":"\"Hello,
@@ -788,14 +944,14 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2025 07:52:25 GMT
+      - Thu, 27 Feb 2025 15:45:36 GMT
       Server:
       - nginx/1.25.3
     status:
       code: 200
       message: OK
 - request:
-    body: "--f5af751762e84789fce229d1c7a7ffc7\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--97c17c9f3149487b85cece0356a65a88\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"helloDockerHostname.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n## This is a test workflow that returns the Docker image name and tag\n##
       and measures execution time of the Hostname task.\n\n#### WORKFLOW DEFINITION\n\nworkflow
@@ -840,7 +996,7 @@ interactions:
       \   echo \"Expected Image: ~{expected_image}\"\n    echo \"Hostname: $(hostname)\"\n
       \ >>>\n\n  output {\n    File out = stdout()\n  }\n\n  runtime {\n    cpu: 1\n
       \   memory: \"1 GB\"\n    docker: \"~{expected_image}\"\n  }\n\n  parameter_meta
-      {\n    expected_image: \"Docker image that should be running this task\"\n  }\n}\n\r\n--f5af751762e84789fce229d1c7a7ffc7--\r\n"
+      {\n    expected_image: \"Docker image that should be running this task\"\n  }\n}\n\r\n--97c17c9f3149487b85cece0356a65a88--\r\n"
     headers:
       accept:
       - '*/*'
@@ -851,13 +1007,13 @@ interactions:
       content-length:
       - '3635'
       content-type:
-      - multipart/form-data; boundary=f5af751762e84789fce229d1c7a7ffc7
+      - multipart/form-data; boundary=97c17c9f3149487b85cece0356a65a88
       host:
-      - gizmoj32.fhcrc.org:35541
+      - gizmok92.fhcrc.org:38409
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj32.fhcrc.org:35541/api/womtool/v1/describe
+    uri: https://gizmok92.fhcrc.org:38409/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"HelloDockerHostname","inputs":[{"name":"docker_image","valueType":{"typeName":"String"},"typeDisplayName":"String","optional":true,"default":"\"ubuntu:20.04\""}],"outputs":[{"name":"execution_time_seconds","valueType":{"typeName":"Float"},"typeDisplayName":"Float"},{"name":"stdout","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"within_time_limit","valueType":{"typeName":"Boolean"},"typeDisplayName":"Boolean"}],"images":["\"ubuntu:20.04\"","\"ubuntu:20.04\"","\"~{expected_image}\"","\"ubuntu:20.04\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{"docker_image":"Docker
@@ -870,7 +1026,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Feb 2025 07:52:25 GMT
+      - Thu, 27 Feb 2025 15:45:36 GMT
       Server:
       - nginx/1.25.3
     status:
