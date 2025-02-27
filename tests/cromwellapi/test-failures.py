@@ -46,8 +46,10 @@ def test_failures_initial(cromwell_api, submit_wdls, recording_mode):
 def test_failures_final(cromwell_api_final, submit_wdls):
     """Checking for failures works for final state"""
     fail = list(filter(lambda x: x["path"].startswith("bad"), submit_wdls))
-    fail_check = {"badRunParseBatchFile":"Required workflow input 'parseBatchFile.batchFile' not specified",
-                  "badValMissingValue":"Cannot lookup value 'docker_image', it is never declared"}
+    fail_check = {
+        "badRunParseBatchFile": "Required workflow input 'parseBatchFile.batchFile' not specified",
+        "badValMissingValue": "Cannot lookup value 'docker_image', it is never declared",
+    }
     for job in fail:
         res = cromwell_api_final.metadata(workflow_id=job["id"], params=params)
         fail_causedby_mssg = res["failures"][0]["causedBy"][0]["message"]

@@ -7,6 +7,7 @@ root = Path(__file__).parents[2].resolve()
 pattern = "**/*.wdl"
 wdl_paths = list(root.glob(pattern))
 
+
 @pytest.mark.vcr
 def test_validate_good_wdl(cromwell_api):
     """Checking that validate works - final state is quick"""
