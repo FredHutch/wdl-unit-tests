@@ -13,33 +13,41 @@ interactions:
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/0ab308de-6ffc-44f9-8c9c-bd6c8a007185/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/f5af3445-e980-4a14-bef9-f2d0671d803e/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
-      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-02-26T22:23:15.697Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-02-26T22:22:34.815Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
-        1.0\n## This is a test workflow that returns the hostname of the node \n##
-        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
-        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
-        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
-        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
-        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
-        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
-        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+      string: '{"workflowName":"test_nonstandard_outputs","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-03-01T04:08:18.017Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-03-01T04:06:16.603Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow test_nonstandard_outputs {\n    call generate_diverse_outputs\n    \n    output
+        {\n        File special_chars = generate_diverse_outputs.file_special_chars\n        File
+        no_extension = generate_diverse_outputs.file_no_extension\n        File nested_output
+        = generate_diverse_outputs.nested_file\n        File symlink_file = generate_diverse_outputs.symlink_output\n        Array[File]
+        glob_files = generate_diverse_outputs.pattern_files\n    }\n}\n\ntask generate_diverse_outputs
+        {\n    command <<<\n        # File with special characters\n        echo \"test
+        content\" > \"test@file#1.txt\"\n        \n        # File without extension\n        echo
+        \"no extension\" > datafile\n        \n        # Nested directory output\n        mkdir
+        -p nested/dir\n        echo \"nested content\" > nested/dir/test.txt\n        \n        #
+        Create a symlink\n        echo \"original\" > original.txt\n        ln -s
+        original.txt link.txt\n        \n        # Multiple pattern files\n        for
+        i in {1..3}; do\n            echo \"pattern $i\" > \"pattern_$i.out\"\n        done\n    >>>\n\n    output
+        {\n        File file_special_chars = \"test@file#1.txt\"\n        File file_no_extension
+        = \"datafile\"\n        File nested_file = \"nested/dir/test.txt\"\n        File
+        symlink_output = \"link.txt\"\n        Array[File] pattern_files = glob(\"pattern_*.out\")\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"HelloHostname.stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/0ab308de-6ffc-44f9-8c9c-bd6c8a007185/call-Hostname/execution/stdout"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/0ab308de-6ffc-44f9-8c9c-bd6c8a007185","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-02-26T22:23:15.697Z","start":"2025-02-26T22:22:34.823Z","id":"0ab308de-6ffc-44f9-8c9c-bd6c8a007185","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0ab308de-6ffc-44f9-8c9c-bd6c8a007185"},"submission":"2025-02-26T22:22:25.031Z"}'
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"test_nonstandard_outputs.symlink_file":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/test_nonstandard_outputs/f5af3445-e980-4a14-bef9-f2d0671d803e/call-generate_diverse_outputs/execution/link.txt","test_nonstandard_outputs.nested_output":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/test_nonstandard_outputs/f5af3445-e980-4a14-bef9-f2d0671d803e/call-generate_diverse_outputs/execution/nested/dir/test.txt","test_nonstandard_outputs.glob_files":["/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/test_nonstandard_outputs/f5af3445-e980-4a14-bef9-f2d0671d803e/call-generate_diverse_outputs/execution/glob-4ded3a97b6654226f2cdd04e2711b93c/pattern_1.out","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/test_nonstandard_outputs/f5af3445-e980-4a14-bef9-f2d0671d803e/call-generate_diverse_outputs/execution/glob-4ded3a97b6654226f2cdd04e2711b93c/pattern_2.out","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/test_nonstandard_outputs/f5af3445-e980-4a14-bef9-f2d0671d803e/call-generate_diverse_outputs/execution/glob-4ded3a97b6654226f2cdd04e2711b93c/pattern_3.out"],"test_nonstandard_outputs.no_extension":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/test_nonstandard_outputs/f5af3445-e980-4a14-bef9-f2d0671d803e/call-generate_diverse_outputs/execution/datafile","test_nonstandard_outputs.special_chars":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/test_nonstandard_outputs/f5af3445-e980-4a14-bef9-f2d0671d803e/call-generate_diverse_outputs/execution/test@file#1.txt"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/test_nonstandard_outputs/f5af3445-e980-4a14-bef9-f2d0671d803e","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-03-01T04:08:18.017Z","start":"2025-03-01T04:06:16.604Z","id":"f5af3445-e980-4a14-bef9-f2d0671d803e","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-f5af3445-e980-4a14-bef9-f2d0671d803e"},"submission":"2025-03-01T04:02:20.303Z"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Wed, 26 Feb 2025 22:30:30 GMT
+      - Sat, 01 Mar 2025 04:15:12 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
       - chunked
       content-length:
-      - '1805'
+      - '3987'
     status:
       code: 200
       message: OK
@@ -57,63 +65,10 @@ interactions:
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/fd02ca92-818d-40da-8b39-8e8e1666042d/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/b36509fa-b8a2-403a-9852-e6702125fc3e/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
-      string: '{"workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-02-26T22:28:15.315Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-02-26T22:28:15.294Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
-        1.0\n\nworkflow WildcardsandConditions {\n    input {\n        String prefix  #
-        Required input for the file prefix (no default value)\n    }\n\n    call wildcard_and_conditions_test
-        {\n        input:\n            prefix = prefix  # Explicitly pass the workflow
-        input to the task\n    }\n\n    output {\n        Array[File] txt_files =
-        wildcard_and_conditions_test.txt_files\n        String conditional_result
-        = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask wildcard_and_conditions_test
-        {\n    input {\n        String prefix  # Required input for file creation\n        Boolean
-        create_extra_file = true  # Default value for conditional logic\n    }\n\n    command
-        <<<\n        # Create multiple .txt files to test wildcard resolution\n        for
-        i in {1..3}; do\n            echo \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        #
-        Create an extra file conditionally\n        if [[ ~{create_extra_file} ==
-        \"true\" ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
-        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
-        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
-        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
-        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
-        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"actualWorkflowLanguage":"WDL","status":"Failed","failures":[{"causedBy":[{"causedBy":[],"message":"Required
-        workflow input ''WildcardsandConditions.prefix'' not specified"}],"message":"Workflow
-        input processing failed"}],"end":"2025-02-26T22:28:15.315Z","start":"2025-02-26T22:28:15.294Z","id":"fd02ca92-818d-40da-8b39-8e8e1666042d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-fd02ca92-818d-40da-8b39-8e8e1666042d"},"submission":"2025-02-26T22:22:25.072Z"}'
-    headers:
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 26 Feb 2025 22:30:36 GMT
-      Server:
-      - nginx/1.25.3
-      Transfer-Encoding:
-      - chunked
-      content-length:
-      - '2328'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: ''
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      connection:
-      - keep-alive
-      host:
-      - gizmok92.fhcrc.org:38409
-      user-agent:
-      - python-httpx/0.28.1
-    method: GET
-    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/626d1502-f95c-42dd-a364-6257818dd175/metadata?expandSubWorkflows=false&excludeKey=calls
-  response:
-    body:
-      string: '{"workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-02-26T22:23:54.933Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-02-26T22:23:54.985Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+      string: '{"workflowName":"ArrayOperations","workflowProcessingEvents":[{"description":"Finished","cromwellVersion":"87","cromwellId":"cromid-2f25be4","timestamp":"2025-03-01T04:07:09.147Z"},{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-03-01T04:04:56.484Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
         1.0\n\nworkflow ArrayOperations {\n    input {\n        # Input arrays for
         different tests\n        Array[String] strings\n        Array[String] additional_strings
         = []  # For testing array concatenation\n        Array[Array[String]] nested_arrays
@@ -201,22 +156,21 @@ interactions:
         localization_success = read_boolean(\"localization_success.txt\")\n    }\n    \n    runtime
         {\n        cpu: 1\n        memory: \"1 GB\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"actualWorkflowLanguage":"WDL","status":"Failed","failures":[{"causedBy":[{"causedBy":[],"message":"Required
-        workflow input ''ArrayOperations.strings'' not specified"}],"message":"Workflow
-        input processing failed"}],"end":"2025-02-26T22:23:54.985Z","start":"2025-02-26T22:23:54.934Z","id":"626d1502-f95c-42dd-a364-6257818dd175","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-626d1502-f95c-42dd-a364-6257818dd175"},"submission":"2025-02-26T22:22:25.114Z"}'
+        false\n}","inputs":"{\"ArrayOperations.additional_strings\":[\"foo\",\"bar\"],\"ArrayOperations.input_files\":[\"arrayOperations/data/test1.txt\",\"arrayOperations/data/test2.txt\",\"arrayOperations/data/test3.txt\"],\"ArrayOperations.nested_arrays\":[[\"nested1\",\"nested2\"],[\"nested3\",\"nested4\"]],\"ArrayOperations.numbers\":[1,2,3,4,5],\"ArrayOperations.strings\":[\"hello\",\"world\",\"test\"]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"ArrayOperations.first_index":0,"ArrayOperations.processed_nested":[["nested1","nested2"],["nested3","nested4"]],"ArrayOperations.uppercased":["HELLO","WORLD","TEST"],"ArrayOperations.files_localized":true,"ArrayOperations.concat_test_passed":true,"ArrayOperations.last_index":2,"ArrayOperations.file_contents":["Hello...---","...
+        is it me you''re ...---","... looking for???---"],"ArrayOperations.flattened":["nested1","nested2","nested3","nested4"],"ArrayOperations.sorted_array":["hello","test","world"],"ArrayOperations.combined_numbers":[1,2,3,4,5,6,7,8,9,10],"ArrayOperations.array_length":3,"ArrayOperations.sum_result":15},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/ArrayOperations/b36509fa-b8a2-403a-9852-e6702125fc3e","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-03-01T04:07:09.147Z","start":"2025-03-01T04:04:56.484Z","id":"b36509fa-b8a2-403a-9852-e6702125fc3e","inputs":{"input_files":["arrayOperations/data/test1.txt","arrayOperations/data/test2.txt","arrayOperations/data/test3.txt"],"additional_strings":["foo","bar"],"numbers":[1,2,3,4,5],"strings":["hello","world","test"],"nested_arrays":[["nested1","nested2"],["nested3","nested4"]]},"labels":{"cromwell-workflow-id":"cromwell-b36509fa-b8a2-403a-9852-e6702125fc3e"},"submission":"2025-03-01T04:02:20.350Z"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Wed, 26 Feb 2025 22:30:41 GMT
+      - Sat, 01 Mar 2025 04:15:17 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
       - chunked
       content-length:
-      - '8300'
+      - '9572'
     status:
       code: 200
       message: OK
@@ -234,80 +188,72 @@ interactions:
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/6cb0a219-9b72-462a-93be-dfcf07456d01/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/1e5601f2-e1d9-4207-a7c5-0a16e9edaad6/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
-      string: '{"workflowName":"testFileoperations","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-02-26T22:24:24.176Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-02-26T22:24:14.952Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
-        1.0\n\nworkflow testFileoperations {\n    call file_operations\n\n    output
-        {\n        File created_file1 = file_operations.created_file1\n        File
-        moved_file = file_operations.moved_file\n        File renamed_file = file_operations.renamed_file\n    }\n}\n\ntask
-        file_operations {\n    command <<<\n        # Create three different files\n        echo
-        \"This is the first created file.\" > file1.txt\n        echo \"This is the
-        second file that will be moved.\" > file2.txt\n        echo \"This is the
-        third file that will be renamed.\" > file3.txt\n        \n        # Move the
-        second file to a new directory\n        mkdir -p output_dir\n        mv file2.txt
-        output_dir/\n        \n        # Rename the third file\n        mv file3.txt
-        file3_renamed.txt\n    >>>\n\n    output {\n        # Output the actual existing
-        files\n        File created_file1 = \"file1.txt\"                  # The first
-        file remains unchanged\n        File moved_file = \"output_dir/file2.txt\"          #
-        The second file after being moved\n        File renamed_file = \"file3_renamed.txt\"           #
-        The third file after being renamed\n    }\n\n    runtime {\n        docker:
-        \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"testFileoperations.created_file1":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/6cb0a219-9b72-462a-93be-dfcf07456d01/call-file_operations/cacheCopy/execution/file1.txt","testFileoperations.renamed_file":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/6cb0a219-9b72-462a-93be-dfcf07456d01/call-file_operations/cacheCopy/execution/file3_renamed.txt","testFileoperations.moved_file":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/6cb0a219-9b72-462a-93be-dfcf07456d01/call-file_operations/cacheCopy/execution/output_dir/file2.txt"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/6cb0a219-9b72-462a-93be-dfcf07456d01","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-02-26T22:24:24.176Z","start":"2025-02-26T22:24:14.953Z","id":"6cb0a219-9b72-462a-93be-dfcf07456d01","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-6cb0a219-9b72-462a-93be-dfcf07456d01"},"submission":"2025-02-26T22:22:25.155Z"}'
-    headers:
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 26 Feb 2025 22:30:46 GMT
-      Server:
-      - nginx/1.25.3
-      Transfer-Encoding:
-      - chunked
-      content-length:
-      - '2701'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: ''
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      connection:
-      - keep-alive
-      host:
-      - gizmok92.fhcrc.org:38409
-      user-agent:
-      - python-httpx/0.28.1
-    method: GET
-    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/ac181a44-3a7a-4635-9881-84057b4beca0/metadata?expandSubWorkflows=false&excludeKey=calls
-  response:
-    body:
-      string: '{"workflowName":"globSubdir","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-02-26T22:26:51.897Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-02-26T22:26:15.135Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
-        1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
-        matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n    }\n}\n\ntask
-        create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n        echo
-        \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n    >>>\n    output
-        {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n        Array[File]
-        matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+      string: '{"workflowName":"enhanced_map_test","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-03-01T04:02:36.298Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-03-01T04:06:33.027Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow enhanced_map_test {\n    input {\n        # Original inputs\n        Array[String]
+        samples\n        Map[String, String] sample_metadata\n        Map[String,
+        Int] read_lengths\n\n        # New test inputs\n        Map[String, Map[String,
+        String]] nested_map = {\n            \"patient1\": {\n                \"sample1\":
+        \"normal\",\n                \"sample2\": \"tumor\"\n            },\n            \"patient2\":
+        {\n                \"sample3\": \"normal\",\n                \"sample4\":
+        \"tumor\"\n            }\n        }\n        # We need to provide keys as
+        arrays since WDL 1.0 doesn''t have a keys() function\n        Array[String]
+        patient_ids = [\"patient1\", \"patient2\"]\n    }\n\n    # Test nested map
+        processing\n    scatter (patient_id in patient_ids) {\n        call process_nested_map
+        {\n            input:\n                patient_id = patient_id,\n                patient_data
+        = nested_map[patient_id],\n                # We need to provide the sample
+        names explicitly\n                samples_for_patient = if patient_id == \"patient1\"
+        then [\"sample1\", \"sample2\"] else [\"sample3\", \"sample4\"]\n        }\n    }\n\n    #
+        Original sample processing with output map generation\n    scatter (sample
+        in samples) {\n        call process_sample {\n            input:\n                sample_name
+        = sample,\n                sample_type = sample_metadata[sample],\n                read_length
+        = read_lengths[sample]\n        }\n    }\n\n    # Aggregate results into a
+        map\n    call create_result_map {\n        input:\n            sample_names
+        = samples,\n            processing_messages = process_sample.message\n    }\n\n    output
+        {\n        Map[String, String] result_map = create_result_map.output_map\n        Array[String]
+        nested_map_results = process_nested_map.message\n    }\n}\n\ntask process_nested_map
+        {\n    input {\n        String patient_id\n        Map[String, String] patient_data\n        Array[String]
+        samples_for_patient\n    }\n\n    # First get the first sample ID\n    String
+        first_sample = samples_for_patient[0]\n    # Then use it to index the patient
+        data\n    String sample_type = patient_data[first_sample]\n\n    command {\n        echo
+        \"Processing patient ${patient_id} with sample type ${sample_type}\"\n        for
+        sample in ${sep='' '' samples_for_patient}; do\n            echo \"Sample:
+        $sample\"\n        done\n    }\n\n    output {\n        String message = read_string(stdout())\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\ntask process_sample
+        {\n    input {\n        String sample_name\n        String sample_type\n        Int
+        read_length\n    }\n\n    command <<<\n        echo \"Processing ~{sample_name}
+        (~{sample_type}) with read length ~{read_length}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n\ntask create_result_map {\n    input
+        {\n        Array[String] sample_names\n        Array[String] processing_messages\n    }\n\n    command
+        <<<\n        python <<CODE\n        samples = ''~{sep=\",\" sample_names}''.split('','')\n        messages
+        = ''~{sep=\",\" processing_messages}''.split('','')\n        result = dict(zip(samples,
+        messages))\n        with open(''output.txt'', ''w'') as f:\n            for
+        sample, message in result.items():\n                f.write(f\"{sample}\\t{message}\\n\")\n        CODE\n    >>>\n\n    output
+        {\n        Map[String, String] output_map = read_map(''output.txt'')\n    }\n\n    runtime
+        {\n        docker: \"python:3.8-slim\"\n    }\n}","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"globSubdir.matched_files":["/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/ac181a44-3a7a-4635-9881-84057b4beca0/call-create_nested_files/execution/glob-ee3a9c1c6860f417d1e9ff1a72d2b62d/file2.txt","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/ac181a44-3a7a-4635-9881-84057b4beca0/call-create_nested_files/execution/glob-4c0cd9dc6b12aa01233bbc214341aae1/file1.txt"]},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/ac181a44-3a7a-4635-9881-84057b4beca0","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-02-26T22:26:51.897Z","start":"2025-02-26T22:26:15.136Z","id":"ac181a44-3a7a-4635-9881-84057b4beca0","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-ac181a44-3a7a-4635-9881-84057b4beca0"},"submission":"2025-02-26T22:22:25.201Z"}'
+        false\n}","inputs":"{\"enhanced_map_test.nested_map\":{\"patient1\":{\"sample1\":\"normal\",\"sample2\":\"tumor\"},\"patient2\":{\"sample3\":\"normal\",\"sample4\":\"tumor\"}},\"enhanced_map_test.patient_ids\":[\"patient1\",\"patient2\"],\"enhanced_map_test.read_lengths\":{\"sample1\":100,\"sample2\":150,\"sample3\":100},\"enhanced_map_test.sample_metadata\":{\"sample1\":\"normal\",\"sample2\":\"tumor\",\"sample3\":\"normal\"},\"enhanced_map_test.samples\":[\"sample1\",\"sample2\",\"sample3\"]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"enhanced_map_test.result_map":{"sample2":"Processing
+        sample2 (tumor) with read length 150","sample1":"Processing sample1 (normal)
+        with read length 100","sample3":"Processing sample3 (normal) with read length
+        100"},"enhanced_map_test.nested_map_results":["Processing patient patient1
+        with sample type normal\nSample: sample1\nSample: sample2","Processing patient
+        patient2 with sample type normal\nSample: sample3\nSample: sample4"]},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/enhanced_map_test/1e5601f2-e1d9-4207-a7c5-0a16e9edaad6","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-03-01T04:06:33.027Z","start":"2025-03-01T04:02:36.299Z","id":"1e5601f2-e1d9-4207-a7c5-0a16e9edaad6","inputs":{"read_lengths":{"sample2":150,"sample1":100,"sample3":100},"samples":["sample1","sample2","sample3"],"nested_map":{"patient2":{"sample4":"tumor","sample3":"normal"},"patient1":{"sample2":"tumor","sample1":"normal"}},"patient_ids":["patient1","patient2"],"sample_metadata":{"sample2":"tumor","sample1":"normal","sample3":"normal"}},"labels":{"cromwell-workflow-id":"cromwell-1e5601f2-e1d9-4207-a7c5-0a16e9edaad6"},"submission":"2025-03-01T04:02:20.405Z"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Wed, 26 Feb 2025 22:30:51 GMT
+      - Sat, 01 Mar 2025 04:15:22 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
       - chunked
       content-length:
-      - '1953'
+      - '5839'
     status:
       code: 200
       message: OK
@@ -325,10 +271,255 @@ interactions:
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/f53b93ef-62ae-4cad-b78a-9996f93c24e7/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/96e0d00c-f33a-4c25-86f2-e3d889fb8cb0/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
-      string: '{"workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-02-26T22:27:55.263Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-02-26T22:27:55.292Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+      string: '{"workflowName":"jsonTaskOrderTest","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-03-01T04:08:11.066Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-03-01T04:04:16.433Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow jsonTaskOrderTest {\n  input {\n    String input_json  # JSON
+        string used as input for both tasks\n  }\n\n  call Task1 { input: input_json
+        = input_json }\n  call Task2 { input: input_json = input_json, previous_output
+        = Task1.output_file }\n\n  output {\n    File task1_output = Task1.output_file\n    File
+        task2_output = Task2.output_file\n  }\n}\n\ntask Task1 {\n  input {\n    String
+        input_json\n  }\n  \n  command <<<\n    echo \"Processing JSON in Task1: ~{input_json}\"
+        > task1_output.txt\n    echo \"Task1 completed\" >> task1_output.txt\n  >>>\n  \n  output
+        {\n    File output_file = \"task1_output.txt\"\n  }\n  \n  runtime {\n    cpu:
+        1\n    memory: \"2G\"\n  }\n}\n\ntask Task2 {\n  input {\n    String input_json\n    File
+        previous_output\n  }\n  \n  command <<<\n    echo \"Processing JSON in Task2:
+        ~{input_json}\" > task2_output.txt\n    echo \"Task2 completed after Task1\"
+        >> task2_output.txt\n    cat ~{previous_output} >> task2_output.txt\n  >>>\n  \n  output
+        {\n    File output_file = \"task2_output.txt\"\n  }\n  \n  runtime {\n    cpu:
+        1\n    memory: \"2G\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonTaskOrderTest.input_json\":\"I am the text that
+        from input.json\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"jsonTaskOrderTest.task1_output":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonTaskOrderTest/96e0d00c-f33a-4c25-86f2-e3d889fb8cb0/call-Task1/execution/task1_output.txt","jsonTaskOrderTest.task2_output":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonTaskOrderTest/96e0d00c-f33a-4c25-86f2-e3d889fb8cb0/call-Task2/execution/task2_output.txt"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonTaskOrderTest/96e0d00c-f33a-4c25-86f2-e3d889fb8cb0","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-03-01T04:08:11.066Z","start":"2025-03-01T04:04:16.434Z","id":"96e0d00c-f33a-4c25-86f2-e3d889fb8cb0","inputs":{"input_json":"I
+        am the text that from input.json"},"labels":{"cromwell-workflow-id":"cromwell-96e0d00c-f33a-4c25-86f2-e3d889fb8cb0"},"submission":"2025-03-01T04:02:20.457Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 01 Mar 2025 04:15:27 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2604'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok92.fhcrc.org:38409
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/6df7bfcf-93c4-4b70-8648-6c08977fbad2/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"globNonmatching","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-03-01T04:03:36.384Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-03-01T04:04:14.157Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow globNonmatching {\n    call create_files\n    output {\n        Array[File]
+        unmatched_files = create_files.unmatched_files\n    }\n}\n\ntask create_files
+        {\n    command <<<\n        echo \"Test file\" > test.txt\n    >>>\n    output
+        {\n        Array[File] unmatched_files = glob(\"*.log\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"globNonmatching.unmatched_files":[]},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globNonmatching/6df7bfcf-93c4-4b70-8648-6c08977fbad2","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-03-01T04:04:14.157Z","start":"2025-03-01T04:03:36.385Z","id":"6df7bfcf-93c4-4b70-8648-6c08977fbad2","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-6df7bfcf-93c4-4b70-8648-6c08977fbad2"},"submission":"2025-03-01T04:02:20.500Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 01 Mar 2025 04:15:32 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1367'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok92.fhcrc.org:38409
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/db4d03e4-fb4c-4560-8def-924cf224955f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"basicGlobTest","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-03-01T04:08:45.930Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-03-01T04:05:56.580Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow basicGlobTest {\n    call create_files\n    output {\n        Array[File]
+        matched_files = create_files.txt_files\n    }\n}\n\ntask create_files {\n    command
+        <<<\n        echo \"File 1\" > file1.txt\n        echo \"File 2\" > file2.txt\n    >>>\n    output
+        {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"basicGlobTest.matched_files":["/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/db4d03e4-fb4c-4560-8def-924cf224955f/call-create_files/execution/glob-ef5df339533c1334f081dc8cc75ee4f3/file1.txt","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/db4d03e4-fb4c-4560-8def-924cf224955f/call-create_files/execution/glob-ef5df339533c1334f081dc8cc75ee4f3/file2.txt"]},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/db4d03e4-fb4c-4560-8def-924cf224955f","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-03-01T04:08:45.930Z","start":"2025-03-01T04:05:56.580Z","id":"db4d03e4-fb4c-4560-8def-924cf224955f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-db4d03e4-fb4c-4560-8def-924cf224955f"},"submission":"2025-03-01T04:02:20.547Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 01 Mar 2025 04:15:37 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1741'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok92.fhcrc.org:38409
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/89e8e84c-9e39-404b-898b-2709945e5f85/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-03-01T04:06:56.986Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-03-01T04:03:56.412Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"HelloHostname.stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/89e8e84c-9e39-404b-898b-2709945e5f85/call-Hostname/execution/stdout"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/89e8e84c-9e39-404b-898b-2709945e5f85","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-03-01T04:06:56.986Z","start":"2025-03-01T04:03:56.413Z","id":"89e8e84c-9e39-404b-898b-2709945e5f85","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-89e8e84c-9e39-404b-898b-2709945e5f85"},"submission":"2025-03-01T04:02:20.589Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 01 Mar 2025 04:15:42 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1805'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok92.fhcrc.org:38409
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/b82c1079-37f6-434d-bc2a-ac4af52cd96b/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testNestedJsonArray","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-03-01T04:06:10.616Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-03-01T04:05:16.514Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n# Define the structure for sampleDetails\nstruct sampleDetails {\n    String
+        experimentType\n    String prepMethod\n    String tissueType\n}\n\n# Define
+        the main structure for the single sample\nstruct singleSample {\n    String
+        sampleName\n    String aboutSample\n    String sampleDescription\n    sampleDetails
+        details  # Use the sampleDetails struct here\n}\n\nworkflow testNestedJsonArray
+        {\n  input {\n    String cellNumber\n    Array[singleSample] batchOfSamples  #
+        Array of objects representing each sample\n  }\n\n  scatter (sample in batchOfSamples)
+        {\n    call processSample {\n      input:\n        sample = sample,\n        base_file_name
+        = sample.sampleName \n    }\n  }\n\n  output {\n    # Collect all the fields
+        together from each sample into one list\n    Array[File] result_allSampleInfo
+        = processSample.allSampleInfo\n  }\n}\n\ntask processSample {\n  input {\n    singleSample
+        sample  # Use singleSample type, not Object\n    String base_file_name\n  }\n\n  command
+        <<<\n    # Format the sample information as a single string\n    allSampleInfo=\"~{sample.sampleName}
+        | ~{sample.aboutSample} | ~{sample.sampleDescription} | ~{sample.details.experimentType}
+        | ~{sample.details.prepMethod} | ~{sample.details.tissueType}\"\n    \n    #
+        Output the concatenated sample info to a file\n    echo \"${allSampleInfo}\"
+        > ~{base_file_name}.allSampleInfo.txt\n  >>>\n\n  output {\n    # Read all
+        sample info from the file and output it as an Array of Strings\n    File allSampleInfo
+        = \"${base_file_name}.allSampleInfo.txt\"\n  }\n\n  runtime {\n    docker:
+        \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testNestedJsonArray.batchOfSamples\":[{\"aboutSample\":\"This
+        is sample 1\",\"details\":{\"experimentType\":\"RNA-Seq\",\"prepMethod\":\"TruSeq\",\"tissueType\":\"blood\"},\"sampleDescription\":\"Description
+        of sample 1: A detailed description of the first sample.\",\"sampleName\":\"Sample1\"},{\"aboutSample\":\"This
+        is sample 2\",\"details\":{\"experimentType\":\"DNA-Seq\",\"prepMethod\":\"Nextera\",\"tissueType\":\"tissue
+        biopsy\"},\"sampleDescription\":\"Description of sample 2: A detailed description
+        of the second sample.\",\"sampleName\":\"Sample2\"},{\"aboutSample\":\"This
+        is sample 3\",\"details\":{\"experimentType\":\"ChIP-Seq\",\"prepMethod\":\"Epigenome\",\"tissueType\":\"brain\"},\"sampleDescription\":\"Description
+        of sample 3: A detailed description of the third sample.\",\"sampleName\":\"Sample3\"}],\"testNestedJsonArray.cellNumber\":\"10000\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"testNestedJsonArray.result_allSampleInfo":["/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testNestedJsonArray/b82c1079-37f6-434d-bc2a-ac4af52cd96b/call-processSample/shard-0/execution/Sample1.allSampleInfo.txt","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testNestedJsonArray/b82c1079-37f6-434d-bc2a-ac4af52cd96b/call-processSample/shard-1/execution/Sample2.allSampleInfo.txt","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testNestedJsonArray/b82c1079-37f6-434d-bc2a-ac4af52cd96b/call-processSample/shard-2/execution/Sample3.allSampleInfo.txt"]},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testNestedJsonArray/b82c1079-37f6-434d-bc2a-ac4af52cd96b","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-03-01T04:06:10.616Z","start":"2025-03-01T04:05:16.515Z","id":"b82c1079-37f6-434d-bc2a-ac4af52cd96b","inputs":{"batchOfSamples":[{"aboutSample":"This
+        is sample 1","sampleName":"Sample1","sampleDescription":"Description of sample
+        1: A detailed description of the first sample.","details":{"prepMethod":"TruSeq","experimentType":"RNA-Seq","tissueType":"blood"}},{"aboutSample":"This
+        is sample 2","sampleName":"Sample2","sampleDescription":"Description of sample
+        2: A detailed description of the second sample.","details":{"prepMethod":"Nextera","experimentType":"DNA-Seq","tissueType":"tissue
+        biopsy"}},{"aboutSample":"This is sample 3","sampleName":"Sample3","sampleDescription":"Description
+        of sample 3: A detailed description of the third sample.","details":{"prepMethod":"Epigenome","experimentType":"ChIP-Seq","tissueType":"brain"}}],"cellNumber":"10000"},"labels":{"cromwell-workflow-id":"cromwell-b82c1079-37f6-434d-bc2a-ac4af52cd96b"},"submission":"2025-03-01T04:02:20.635Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 01 Mar 2025 04:15:47 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '4808'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok92.fhcrc.org:38409
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/4e0fd54c-3225-4add-a8e7-356a6c0ba845/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"conditional_example","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-03-01T04:02:56.323Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-03-01T04:06:45.866Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
         1.0\n## This workflow demonstrates the usage of conditional statements in
         WDL\n## by selectively processing samples based on their properties\n\nstruct
         SampleInfo {\n    String name\n    Float quality_score\n    String type\n}\n\nworkflow
@@ -366,23 +557,21 @@ interactions:
         ~{length(messages)}\"\n    >>>\n\n    output {\n        String summary = read_string(stdout())\n    }\n\n    runtime
         {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"actualWorkflowLanguage":"WDL","status":"Failed","failures":[{"message":"Workflow
-        input processing failed","causedBy":[{"message":"Required workflow input ''conditional_example.samples''
-        not specified","causedBy":[]},{"causedBy":[],"message":"Required workflow
-        input ''conditional_example.quality_threshold'' not specified"}]}],"end":"2025-02-26T22:27:55.292Z","start":"2025-02-26T22:27:55.264Z","id":"f53b93ef-62ae-4cad-b78a-9996f93c24e7","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-f53b93ef-62ae-4cad-b78a-9996f93c24e7"},"submission":"2025-02-26T22:22:25.244Z"}'
+        false\n}","inputs":"{\"conditional_example.quality_threshold\":90.0,\"conditional_example.samples\":[{\"name\":\"sample1\",\"quality_score\":95.5,\"type\":\"normal\"},{\"name\":\"sample2\",\"quality_score\":85.3,\"type\":\"tumor\"},{\"name\":\"sample3\",\"quality_score\":92.1,\"type\":\"normal\"}]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"conditional_example.final_summary":"Multiple
+        high-quality samples processed\nNumber of samples processed: 2","conditional_example.qc_report":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/conditional_example/4e0fd54c-3225-4add-a8e7-356a6c0ba845/call-run_qc_report/execution/report.csv"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/conditional_example/4e0fd54c-3225-4add-a8e7-356a6c0ba845","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-03-01T04:06:45.866Z","start":"2025-03-01T04:02:56.324Z","id":"4e0fd54c-3225-4add-a8e7-356a6c0ba845","inputs":{"quality_threshold":90.0,"samples":[{"quality_score":95.5,"name":"sample1","type":"normal"},{"quality_score":85.3,"name":"sample2","type":"tumor"},{"quality_score":92.1,"name":"sample3","type":"normal"}]},"labels":{"cromwell-workflow-id":"cromwell-4e0fd54c-3225-4add-a8e7-356a6c0ba845"},"submission":"2025-03-01T04:02:20.683Z"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Wed, 26 Feb 2025 22:30:56 GMT
+      - Sat, 01 Mar 2025 04:15:52 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
       - chunked
       content-length:
-      - '4186'
+      - '4851'
     status:
       code: 200
       message: OK
@@ -400,41 +589,44 @@ interactions:
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/f1a52023-aef8-4dbf-bbf7-b1bed4d9e92c/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/d1921f48-6215-4a3a-a681-0b598cdf08f3/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
-      string: '{"workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-02-26T22:27:35.234Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-02-26T22:27:35.259Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
-        1.0\n\nworkflow jsonTaskOrderTest {\n  input {\n    String input_json  # JSON
-        string used as input for both tasks\n  }\n\n  call Task1 { input: input_json
-        = input_json }\n  call Task2 { input: input_json = input_json, previous_output
-        = Task1.output_file }\n\n  output {\n    File task1_output = Task1.output_file\n    File
-        task2_output = Task2.output_file\n  }\n}\n\ntask Task1 {\n  input {\n    String
-        input_json\n  }\n  \n  command <<<\n    echo \"Processing JSON in Task1: ~{input_json}\"
-        > task1_output.txt\n    echo \"Task1 completed\" >> task1_output.txt\n  >>>\n  \n  output
-        {\n    File output_file = \"task1_output.txt\"\n  }\n  \n  runtime {\n    cpu:
-        1\n    memory: \"2G\"\n  }\n}\n\ntask Task2 {\n  input {\n    String input_json\n    File
-        previous_output\n  }\n  \n  command <<<\n    echo \"Processing JSON in Task2:
-        ~{input_json}\" > task2_output.txt\n    echo \"Task2 completed after Task1\"
-        >> task2_output.txt\n    cat ~{previous_output} >> task2_output.txt\n  >>>\n  \n  output
-        {\n    File output_file = \"task2_output.txt\"\n  }\n  \n  runtime {\n    cpu:
-        1\n    memory: \"2G\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+      string: '{"workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-03-01T04:05:36.545Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-03-01T04:05:36.562Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n# This workflow takes a tab separated file where each row is a set of
+        data to be used in each \n# of the independent scattered task series that
+        you have as your workflow process.  This file \n# will, for example, have
+        column names `sampleName`, `bamLocation`, and `bedlocation`.  This\n# allows
+        you to know that regardless of the order of the columns in your batch file,
+        the correct\n# inputs will be used for the tasks you define.  \nworkflow parseBatchFile
+        {\n  input {\n  File batchFile\n  }\n    Array[Object] batchInfo = read_objects(batchFile)\n  scatter
+        (job in batchInfo){\n    String sampleName = job.sampleName\n    File bamFile
+        = job.bamLocation\n    File bedFile = job.bedLocation\n\n    ## INSERT YOUR
+        WORKFLOW TO RUN PER LINE IN YOUR BATCH FILE HERE!!!!\n    call test {\n        input:
+        in1=sampleName, in2=bamFile, in3=bedFile\n    }\n\n  }  # End Scatter over
+        the batch file\n# Outputs that will be retained when execution is complete\n  output
+        {\n    Array[File] outputArray = test.item_out\n    }\n# End workflow\n}\n\n####
+        TASK DEFINITIONS\n# echo some text to stdout, treats files as strings just
+        to echo them as a dummy example\ntask test {\n  input {\n    String in1\n    String
+        in2\n    String in3\n  }\n    command {\n    echo ~{in1}\n    echo ~{in2}\n    echo
+        ~{in3}\n    }\n    output {\n        File item_out = stdout()\n    }\n}","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
         false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"actualWorkflowLanguage":"WDL","status":"Failed","failures":[{"causedBy":[{"causedBy":[],"message":"Required
-        workflow input ''jsonTaskOrderTest.input_json'' not specified"}],"message":"Workflow
-        input processing failed"}],"end":"2025-02-26T22:27:35.259Z","start":"2025-02-26T22:27:35.235Z","id":"f1a52023-aef8-4dbf-bbf7-b1bed4d9e92c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-f1a52023-aef8-4dbf-bbf7-b1bed4d9e92c"},"submission":"2025-02-26T22:22:25.287Z"}'
+        workflow input ''parseBatchFile.batchFile'' not specified"}],"message":"Workflow
+        input processing failed"}],"end":"2025-03-01T04:05:36.562Z","start":"2025-03-01T04:05:36.545Z","id":"d1921f48-6215-4a3a-a681-0b598cdf08f3","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d1921f48-6215-4a3a-a681-0b598cdf08f3"},"submission":"2025-03-01T04:02:20.727Z"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Wed, 26 Feb 2025 22:31:01 GMT
+      - Sat, 01 Mar 2025 04:15:57 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
       - chunked
       content-length:
-      - '2130'
+      - '2382'
     status:
       code: 200
       message: OK
@@ -452,23 +644,108 @@ interactions:
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/e97ae0ae-90cb-4e1a-b367-1a6f21ad438d/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/98b974bd-686f-4f1d-a887-20b60eef618e/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
-      string: '{"workflowName":"emptyGlobTest","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-02-26T22:27:15.213Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-02-26T22:28:01.127Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+      string: '{"workflowName":"globSubdir","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-03-01T04:06:23.596Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-03-01T04:04:36.463Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
+        matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n    }\n}\n\ntask
+        create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n        echo
+        \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n    >>>\n    output
+        {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n        Array[File]
+        matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"globSubdir.matched_files":["/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/98b974bd-686f-4f1d-a887-20b60eef618e/call-create_nested_files/execution/glob-ee3a9c1c6860f417d1e9ff1a72d2b62d/file2.txt","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/98b974bd-686f-4f1d-a887-20b60eef618e/call-create_nested_files/execution/glob-4c0cd9dc6b12aa01233bbc214341aae1/file1.txt"]},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/98b974bd-686f-4f1d-a887-20b60eef618e","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-03-01T04:06:23.596Z","start":"2025-03-01T04:04:36.464Z","id":"98b974bd-686f-4f1d-a887-20b60eef618e","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-98b974bd-686f-4f1d-a887-20b60eef618e"},"submission":"2025-03-01T04:02:20.920Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 01 Mar 2025 04:16:02 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1953'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok92.fhcrc.org:38409
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/512d33d1-637d-4dff-8cae-5cf6cc352408/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-03-01T04:03:16.366Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-03-01T04:03:16.357Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that fails against womtool.\n## From https://github.com/broadinstitute/cromwell\n\n####
+        WORKFLOW DEFINITION\n\nworkflow oops {\n  call oopsie\n}\n\n#### TASK DEFINITIONS\n\ntask
+        oopsie {\n  input {\n    String str\n  }\n  command { echo ${str} }\n  runtime
+        { docker: docker_image }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"actualWorkflowLanguage":"WDL","status":"Failed","failures":[{"causedBy":[{"causedBy":[],"message":"Failed
+        to process task definition ''oopsie'' (reason 1 of 1): Cannot lookup value
+        ''docker_image'', it is never declared. Available values are: [''str'']"}],"message":"Workflow
+        input processing failed"}],"end":"2025-03-01T04:03:16.366Z","start":"2025-03-01T04:03:16.358Z","id":"512d33d1-637d-4dff-8cae-5cf6cc352408","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-512d33d1-637d-4dff-8cae-5cf6cc352408"},"submission":"2025-03-01T04:02:20.971Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 01 Mar 2025 04:16:07 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1422'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok92.fhcrc.org:38409
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/e6ee4e46-b91d-44bb-b2e3-9902a4a7cb8d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"emptyGlobTest","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-03-01T04:08:16.774Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-03-01T04:11:14.276Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
         1.0\n\nworkflow emptyGlobTest {\n    call create_empty_directory\n\n    output
         {\n        Array[File] no_files = create_empty_directory.no_files\n    }\n}\n\ntask
         create_empty_directory {\n    command {\n        mkdir empty_dir\n    }\n    output
         {\n        Array[File] no_files = glob(\"empty_dir/*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"emptyGlobTest.no_files":[]},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/emptyGlobTest/e97ae0ae-90cb-4e1a-b367-1a6f21ad438d","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-02-26T22:28:01.127Z","start":"2025-02-26T22:27:15.214Z","id":"e97ae0ae-90cb-4e1a-b367-1a6f21ad438d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e97ae0ae-90cb-4e1a-b367-1a6f21ad438d"},"submission":"2025-02-26T22:22:25.328Z"}'
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"emptyGlobTest.no_files":[]},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/emptyGlobTest/e6ee4e46-b91d-44bb-b2e3-9902a4a7cb8d","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-03-01T04:11:14.276Z","start":"2025-03-01T04:08:16.774Z","id":"e6ee4e46-b91d-44bb-b2e3-9902a4a7cb8d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e6ee4e46-b91d-44bb-b2e3-9902a4a7cb8d"},"submission":"2025-03-01T04:02:21.029Z"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Wed, 26 Feb 2025 22:31:06 GMT
+      - Sat, 01 Mar 2025 04:16:13 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
@@ -492,10 +769,230 @@ interactions:
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/bd479cb8-15bf-41e9-8f9d-98473cdb2b58/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/c39eac0a-12c3-4435-9d57-784e6b348f64/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
-      string: '{"workflowName":"HelloDockerHostname","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-02-26T22:29:26.537Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-02-26T22:26:35.164Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+      string: '{"workflowName":"WildcardsandConditions","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-03-01T04:07:16.693Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-03-01T04:09:04.836Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow WildcardsandConditions {\n    input {\n        String prefix  #
+        Required input for the file prefix (no default value)\n    }\n\n    call wildcard_and_conditions_test
+        {\n        input:\n            prefix = prefix  # Explicitly pass the workflow
+        input to the task\n    }\n\n    output {\n        Array[File] txt_files =
+        wildcard_and_conditions_test.txt_files\n        String conditional_result
+        = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask wildcard_and_conditions_test
+        {\n    input {\n        String prefix  # Required input for file creation\n        Boolean
+        create_extra_file = true  # Default value for conditional logic\n    }\n\n    command
+        <<<\n        # Create multiple .txt files to test wildcard resolution\n        for
+        i in {1..3}; do\n            echo \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        #
+        Create an extra file conditionally\n        if [[ ~{create_extra_file} ==
+        \"true\" ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"WildcardsandConditions.txt_files":["/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/WildcardsandConditions/c39eac0a-12c3-4435-9d57-784e6b348f64/call-wildcard_and_conditions_test/execution/glob-ef5df339533c1334f081dc8cc75ee4f3/parsed_output.txt","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/WildcardsandConditions/c39eac0a-12c3-4435-9d57-784e6b348f64/call-wildcard_and_conditions_test/execution/glob-ef5df339533c1334f081dc8cc75ee4f3/testfile_1.txt","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/WildcardsandConditions/c39eac0a-12c3-4435-9d57-784e6b348f64/call-wildcard_and_conditions_test/execution/glob-ef5df339533c1334f081dc8cc75ee4f3/testfile_2.txt","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/WildcardsandConditions/c39eac0a-12c3-4435-9d57-784e6b348f64/call-wildcard_and_conditions_test/execution/glob-ef5df339533c1334f081dc8cc75ee4f3/testfile_3.txt","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/WildcardsandConditions/c39eac0a-12c3-4435-9d57-784e6b348f64/call-wildcard_and_conditions_test/execution/glob-ef5df339533c1334f081dc8cc75ee4f3/testfile_extra.txt"],"WildcardsandConditions.conditional_result":"Parsed
+        prefix: testfile"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/WildcardsandConditions/c39eac0a-12c3-4435-9d57-784e6b348f64","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-03-01T04:09:04.836Z","start":"2025-03-01T04:07:16.694Z","id":"c39eac0a-12c3-4435-9d57-784e6b348f64","inputs":{"WildcardsandConditions.wildcard_and_conditions_test.create_extra_file":true,"prefix":"testfile"},"labels":{"cromwell-workflow-id":"cromwell-c39eac0a-12c3-4435-9d57-784e6b348f64"},"submission":"2025-03-01T04:02:21.076Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 01 Mar 2025 04:16:18 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3760'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok92.fhcrc.org:38409
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/b96fea28-a731-4c22-9f90-54712f84ede6/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"struct_example","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-03-01T04:09:01.137Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-03-01T04:06:56.665Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n## This workflow demonstrates advanced struct features in WDL including:\n##
+        1. Optional fields\n## 2. Nested structs\n## 3. Default values (handled in
+        the workflow)\n\n#### STRUCT DEFINITIONS\n\n# Nested struct for sequencing
+        metadata\nstruct SequencingInfo {\n    String platform\n    String? flowcell_id\n    Int?
+        lane_number\n}\n\n# Nested struct for quality metrics\nstruct QualityMetrics
+        {\n    Float quality_score\n    Float? gc_content\n    Int? duplicate_rate\n}\n\n#
+        Main struct with nested structures and optional fields\nstruct SampleInfo
+        {\n    String name\n    String? type\n    Int? read_length\n    String? library_prep\n    SequencingInfo
+        sequencing\n    QualityMetrics metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow
+        struct_example {\n    input {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter
+        (sample_info in sample_information) {\n        SampleInfo processed_sample
+        = object {\n            name: sample_info.name,\n            type: select_first([sample_info.type,
+        \"normal\"]),\n            read_length: select_first([sample_info.read_length,
+        100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"struct_example.processed_sample":[{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":"normal","library_prep":null,"read_length":100},{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}],"struct_example.process_sample.message":["Processing
+        sample1 (normal)\nRead Length: 100\nSequencing Platform: NovaSeq\nFlowcell
+        ID: H5K5YDSXX\nLane Number: 1\nQuality Score: 95.5\nGC Content: 45.2\nDuplicate
+        Rate: 2%\nLibrary Prep: Standard","Processing sample2 (tumor)\nRead Length:
+        150\nSequencing Platform: NovaSeq\nFlowcell ID: N/A\nLane Number: -1\nQuality
+        Score: 92.3\nGC Content: 0.0\nDuplicate Rate: 0%\nLibrary Prep: PCR-free"]},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/b96fea28-a731-4c22-9f90-54712f84ede6","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-03-01T04:09:01.137Z","start":"2025-03-01T04:06:56.665Z","id":"b96fea28-a731-4c22-9f90-54712f84ede6","inputs":{"sample_information":[{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":null,"library_prep":null,"read_length":null},{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}]},"labels":{"cromwell-workflow-id":"cromwell-b96fea28-a731-4c22-9f90-54712f84ede6"},"submission":"2025-03-01T04:02:21.129Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 01 Mar 2025 04:16:23 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '5107'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok92.fhcrc.org:38409
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/aa460cdd-1e72-44d4-900d-ae7dbc16785a/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testFileoperations","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-03-01T04:06:36.643Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-03-01T04:08:16.626Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testFileoperations {\n    call file_operations\n\n    output
+        {\n        File created_file1 = file_operations.created_file1\n        File
+        moved_file = file_operations.moved_file\n        File renamed_file = file_operations.renamed_file\n    }\n}\n\ntask
+        file_operations {\n    command <<<\n        # Create three different files\n        echo
+        \"This is the first created file.\" > file1.txt\n        echo \"This is the
+        second file that will be moved.\" > file2.txt\n        echo \"This is the
+        third file that will be renamed.\" > file3.txt\n        \n        # Move the
+        second file to a new directory\n        mkdir -p output_dir\n        mv file2.txt
+        output_dir/\n        \n        # Rename the third file\n        mv file3.txt
+        file3_renamed.txt\n    >>>\n\n    output {\n        # Output the actual existing
+        files\n        File created_file1 = \"file1.txt\"                  # The first
+        file remains unchanged\n        File moved_file = \"output_dir/file2.txt\"          #
+        The second file after being moved\n        File renamed_file = \"file3_renamed.txt\"           #
+        The third file after being renamed\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"testFileoperations.created_file1":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/aa460cdd-1e72-44d4-900d-ae7dbc16785a/call-file_operations/execution/file1.txt","testFileoperations.renamed_file":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/aa460cdd-1e72-44d4-900d-ae7dbc16785a/call-file_operations/execution/file3_renamed.txt","testFileoperations.moved_file":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/aa460cdd-1e72-44d4-900d-ae7dbc16785a/call-file_operations/execution/output_dir/file2.txt"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/aa460cdd-1e72-44d4-900d-ae7dbc16785a","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-03-01T04:08:16.626Z","start":"2025-03-01T04:06:36.643Z","id":"aa460cdd-1e72-44d4-900d-ae7dbc16785a","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-aa460cdd-1e72-44d4-900d-ae7dbc16785a"},"submission":"2025-03-01T04:02:21.177Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 01 Mar 2025 04:16:28 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2786'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok92.fhcrc.org:38409
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/e055cc61-92d1-48bc-81fa-be08a6475978/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"basicTaskTest","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-03-01T04:10:50.176Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-03-01T04:07:56.745Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n# The basicTaskTest workflow calls a task named simpleTask, which takes
+        a string input and writes it to a file called output.txt. It demonstrates
+        a basic execution of a task with file output.\n\n# This tests basic task execution,
+        input handling, and file output functionality. It ensures that a task can
+        successfully take an input and generate an output.\n\nworkflow basicTaskTest
+        {\n  input {\n    String text = \"Hello, World!\"\n  }\n\n  call simpleTask
+        {\n    input:\n      message = text\n  }\n}\n\ntask simpleTask {\n  input
+        {\n    String message\n  }\n\n  command <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output
+        {\n    File outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"basicTaskTest.simpleTask.outputFile":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicTaskTest/e055cc61-92d1-48bc-81fa-be08a6475978/call-simpleTask/execution/output.txt"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicTaskTest/e055cc61-92d1-48bc-81fa-be08a6475978","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-03-01T04:10:50.176Z","start":"2025-03-01T04:07:56.745Z","id":"e055cc61-92d1-48bc-81fa-be08a6475978","inputs":{"text":"Hello,
+        World!"},"labels":{"cromwell-workflow-id":"cromwell-e055cc61-92d1-48bc-81fa-be08a6475978"},"submission":"2025-03-01T04:02:21.224Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 01 Mar 2025 04:16:33 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1952'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok92.fhcrc.org:38409
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/d58b0ba4-6e5d-4856-97d7-c5dbce150cac/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloDockerHostname","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-03-01T04:07:36.715Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-03-01T04:14:50.249Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
         1.0\n## This is a test workflow that returns the Docker image name and tag\n##
         and measures execution time of the Hostname task.\n\n#### WORKFLOW DEFINITION\n\nworkflow
         HelloDockerHostname {\n  input {\n    String docker_image = \"ubuntu:20.04\"  #
@@ -540,497 +1037,20 @@ interactions:
         {\n    cpu: 1\n    memory: \"1 GB\"\n    docker: \"~{expected_image}\"\n  }\n\n  parameter_meta
         {\n    expected_image: \"Docker image that should be running this task\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"HelloDockerHostname.stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloDockerHostname/bd479cb8-15bf-41e9-8f9d-98473cdb2b58/call-Hostname/execution/stdout","HelloDockerHostname.execution_time_seconds":77.894,"HelloDockerHostname.within_time_limit":true},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloDockerHostname/bd479cb8-15bf-41e9-8f9d-98473cdb2b58","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-02-26T22:29:26.537Z","start":"2025-02-26T22:26:35.165Z","id":"bd479cb8-15bf-41e9-8f9d-98473cdb2b58","inputs":{"docker_image":"ubuntu:20.04"},"labels":{"cromwell-workflow-id":"cromwell-bd479cb8-15bf-41e9-8f9d-98473cdb2b58"},"submission":"2025-02-26T22:22:25.370Z"}'
+        false\n}","inputs":"{\"HelloDockerHostname.docker_image\":\"ubuntu:20.04\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"HelloDockerHostname.within_time_limit":false,"HelloDockerHostname.stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloDockerHostname/d58b0ba4-6e5d-4856-97d7-c5dbce150cac/call-Hostname/execution/stdout","HelloDockerHostname.execution_time_seconds":245.458},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloDockerHostname/d58b0ba4-6e5d-4856-97d7-c5dbce150cac","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-03-01T04:14:50.249Z","start":"2025-03-01T04:07:36.715Z","id":"d58b0ba4-6e5d-4856-97d7-c5dbce150cac","inputs":{"docker_image":"ubuntu:20.04"},"labels":{"cromwell-workflow-id":"cromwell-d58b0ba4-6e5d-4856-97d7-c5dbce150cac"},"submission":"2025-03-01T04:02:21.268Z"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Wed, 26 Feb 2025 22:31:11 GMT
+      - Sat, 01 Mar 2025 04:16:38 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
       - chunked
       content-length:
-      - '4957'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: ''
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      connection:
-      - keep-alive
-      host:
-      - gizmok92.fhcrc.org:38409
-      user-agent:
-      - python-httpx/0.28.1
-    method: GET
-    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/826b54df-2d82-4365-adf0-ae03996b055d/metadata?expandSubWorkflows=false&excludeKey=calls
-  response:
-    body:
-      string: '{"workflowName":"globNonmatching","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-02-26T22:25:33.807Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-02-26T22:24:55.015Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
-        1.0\n\nworkflow globNonmatching {\n    call create_files\n    output {\n        Array[File]
-        unmatched_files = create_files.unmatched_files\n    }\n}\n\ntask create_files
-        {\n    command <<<\n        echo \"Test file\" > test.txt\n    >>>\n    output
-        {\n        Array[File] unmatched_files = glob(\"*.log\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
-        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"globNonmatching.unmatched_files":[]},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globNonmatching/826b54df-2d82-4365-adf0-ae03996b055d","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-02-26T22:25:33.807Z","start":"2025-02-26T22:24:55.016Z","id":"826b54df-2d82-4365-adf0-ae03996b055d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-826b54df-2d82-4365-adf0-ae03996b055d"},"submission":"2025-02-26T22:22:25.411Z"}'
-    headers:
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 26 Feb 2025 22:31:16 GMT
-      Server:
-      - nginx/1.25.3
-      Transfer-Encoding:
-      - chunked
-      content-length:
-      - '1367'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: ''
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      connection:
-      - keep-alive
-      host:
-      - gizmok92.fhcrc.org:38409
-      user-agent:
-      - python-httpx/0.28.1
-    method: GET
-    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/36ba03c5-f562-4ea9-ad1d-c17b5b31eb2e/metadata?expandSubWorkflows=false&excludeKey=calls
-  response:
-    body:
-      string: '{"workflowName":"test_nonstandard_outputs","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-02-26T22:22:54.845Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-02-26T22:23:39.768Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
-        1.0\n\nworkflow test_nonstandard_outputs {\n    call generate_diverse_outputs\n    \n    output
-        {\n        File special_chars = generate_diverse_outputs.file_special_chars\n        File
-        no_extension = generate_diverse_outputs.file_no_extension\n        File nested_output
-        = generate_diverse_outputs.nested_file\n        File symlink_file = generate_diverse_outputs.symlink_output\n        Array[File]
-        glob_files = generate_diverse_outputs.pattern_files\n    }\n}\n\ntask generate_diverse_outputs
-        {\n    command <<<\n        # File with special characters\n        echo \"test
-        content\" > \"test@file#1.txt\"\n        \n        # File without extension\n        echo
-        \"no extension\" > datafile\n        \n        # Nested directory output\n        mkdir
-        -p nested/dir\n        echo \"nested content\" > nested/dir/test.txt\n        \n        #
-        Create a symlink\n        echo \"original\" > original.txt\n        ln -s
-        original.txt link.txt\n        \n        # Multiple pattern files\n        for
-        i in {1..3}; do\n            echo \"pattern $i\" > \"pattern_$i.out\"\n        done\n    >>>\n\n    output
-        {\n        File file_special_chars = \"test@file#1.txt\"\n        File file_no_extension
-        = \"datafile\"\n        File nested_file = \"nested/dir/test.txt\"\n        File
-        symlink_output = \"link.txt\"\n        Array[File] pattern_files = glob(\"pattern_*.out\")\n    }\n\n    runtime
-        {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
-        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"test_nonstandard_outputs.symlink_file":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/test_nonstandard_outputs/36ba03c5-f562-4ea9-ad1d-c17b5b31eb2e/call-generate_diverse_outputs/execution/link.txt","test_nonstandard_outputs.nested_output":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/test_nonstandard_outputs/36ba03c5-f562-4ea9-ad1d-c17b5b31eb2e/call-generate_diverse_outputs/execution/nested/dir/test.txt","test_nonstandard_outputs.glob_files":["/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/test_nonstandard_outputs/36ba03c5-f562-4ea9-ad1d-c17b5b31eb2e/call-generate_diverse_outputs/execution/glob-4ded3a97b6654226f2cdd04e2711b93c/pattern_1.out","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/test_nonstandard_outputs/36ba03c5-f562-4ea9-ad1d-c17b5b31eb2e/call-generate_diverse_outputs/execution/glob-4ded3a97b6654226f2cdd04e2711b93c/pattern_2.out","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/test_nonstandard_outputs/36ba03c5-f562-4ea9-ad1d-c17b5b31eb2e/call-generate_diverse_outputs/execution/glob-4ded3a97b6654226f2cdd04e2711b93c/pattern_3.out"],"test_nonstandard_outputs.no_extension":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/test_nonstandard_outputs/36ba03c5-f562-4ea9-ad1d-c17b5b31eb2e/call-generate_diverse_outputs/execution/datafile","test_nonstandard_outputs.special_chars":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/test_nonstandard_outputs/36ba03c5-f562-4ea9-ad1d-c17b5b31eb2e/call-generate_diverse_outputs/execution/test@file#1.txt"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/test_nonstandard_outputs/36ba03c5-f562-4ea9-ad1d-c17b5b31eb2e","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-02-26T22:23:39.768Z","start":"2025-02-26T22:22:54.847Z","id":"36ba03c5-f562-4ea9-ad1d-c17b5b31eb2e","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-36ba03c5-f562-4ea9-ad1d-c17b5b31eb2e"},"submission":"2025-02-26T22:22:25.452Z"}'
-    headers:
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 26 Feb 2025 22:31:21 GMT
-      Server:
-      - nginx/1.25.3
-      Transfer-Encoding:
-      - chunked
-      content-length:
-      - '3987'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: ''
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      connection:
-      - keep-alive
-      host:
-      - gizmok92.fhcrc.org:38409
-      user-agent:
-      - python-httpx/0.28.1
-    method: GET
-    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/c4747ccd-c78a-4c47-8873-83b63e0334ab/metadata?expandSubWorkflows=false&excludeKey=calls
-  response:
-    body:
-      string: '{"workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-02-26T22:26:55.217Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-02-26T22:26:55.193Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
-        1.0\n\n## This workflow demonstrates advanced struct features in WDL including:\n##
-        1. Optional fields\n## 2. Nested structs\n## 3. Default values (handled in
-        the workflow)\n\n#### STRUCT DEFINITIONS\n\n# Nested struct for sequencing
-        metadata\nstruct SequencingInfo {\n    String platform\n    String? flowcell_id\n    Int?
-        lane_number\n}\n\n# Nested struct for quality metrics\nstruct QualityMetrics
-        {\n    Float quality_score\n    Float? gc_content\n    Int? duplicate_rate\n}\n\n#
-        Main struct with nested structures and optional fields\nstruct SampleInfo
-        {\n    String name\n    String? type\n    Int? read_length\n    String? library_prep\n    SequencingInfo
-        sequencing\n    QualityMetrics metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow
-        struct_example {\n    input {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter
-        (sample_info in sample_information) {\n        SampleInfo processed_sample
-        = object {\n            name: sample_info.name,\n            type: select_first([sample_info.type,
-        \"normal\"]),\n            read_length: select_first([sample_info.read_length,
-        100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
-        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
-        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
-        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
-        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
-        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
-        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
-        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
-        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
-        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
-        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
-        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
-        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
-        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
-        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
-        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"actualWorkflowLanguage":"WDL","status":"Failed","failures":[{"causedBy":[{"causedBy":[],"message":"Required
-        workflow input ''struct_example.sample_information'' not specified"}],"message":"Workflow
-        input processing failed"}],"end":"2025-02-26T22:26:55.217Z","start":"2025-02-26T22:26:55.194Z","id":"c4747ccd-c78a-4c47-8873-83b63e0334ab","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-c4747ccd-c78a-4c47-8873-83b63e0334ab"},"submission":"2025-02-26T22:22:25.494Z"}'
-    headers:
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 26 Feb 2025 22:31:26 GMT
-      Server:
-      - nginx/1.25.3
-      Transfer-Encoding:
-      - chunked
-      content-length:
-      - '3341'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: ''
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      connection:
-      - keep-alive
-      host:
-      - gizmok92.fhcrc.org:38409
-      user-agent:
-      - python-httpx/0.28.1
-    method: GET
-    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/43845110-ee3b-4503-a08c-3bb165ee8635/metadata?expandSubWorkflows=false&excludeKey=calls
-  response:
-    body:
-      string: '{"workflowName":"basicTaskTest","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-02-26T22:23:14.873Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-02-26T22:23:23.067Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
-        1.0\n\n# The basicTaskTest workflow calls a task named simpleTask, which takes
-        a string input and writes it to a file called output.txt. It demonstrates
-        a basic execution of a task with file output.\n\n# This tests basic task execution,
-        input handling, and file output functionality. It ensures that a task can
-        successfully take an input and generate an output.\n\nworkflow basicTaskTest
-        {\n  input {\n    String text = \"Hello, World!\"\n  }\n\n  call simpleTask
-        {\n    input:\n      message = text\n  }\n}\n\ntask simpleTask {\n  input
-        {\n    String message\n  }\n\n  command <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output
-        {\n    File outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"basicTaskTest.simpleTask.outputFile":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicTaskTest/43845110-ee3b-4503-a08c-3bb165ee8635/call-simpleTask/cacheCopy/execution/output.txt"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicTaskTest/43845110-ee3b-4503-a08c-3bb165ee8635","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-02-26T22:23:23.067Z","start":"2025-02-26T22:23:14.874Z","id":"43845110-ee3b-4503-a08c-3bb165ee8635","inputs":{"text":"Hello,
-        World!"},"labels":{"cromwell-workflow-id":"cromwell-43845110-ee3b-4503-a08c-3bb165ee8635"},"submission":"2025-02-26T22:22:25.535Z"}'
-    headers:
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 26 Feb 2025 22:31:31 GMT
-      Server:
-      - nginx/1.25.3
-      Transfer-Encoding:
-      - chunked
-      content-length:
-      - '1847'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: ''
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      connection:
-      - keep-alive
-      host:
-      - gizmok92.fhcrc.org:38409
-      user-agent:
-      - python-httpx/0.28.1
-    method: GET
-    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/52bdecf2-4a27-443f-8748-af12730327d8/metadata?expandSubWorkflows=false&excludeKey=calls
-  response:
-    body:
-      string: '{"workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-02-26T22:23:34.905Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-02-26T22:23:34.936Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
-        1.0\n\nworkflow enhanced_map_test {\n    input {\n        # Original inputs\n        Array[String]
-        samples\n        Map[String, String] sample_metadata\n        Map[String,
-        Int] read_lengths\n\n        # New test inputs\n        Map[String, Map[String,
-        String]] nested_map = {\n            \"patient1\": {\n                \"sample1\":
-        \"normal\",\n                \"sample2\": \"tumor\"\n            },\n            \"patient2\":
-        {\n                \"sample3\": \"normal\",\n                \"sample4\":
-        \"tumor\"\n            }\n        }\n        # We need to provide keys as
-        arrays since WDL 1.0 doesn''t have a keys() function\n        Array[String]
-        patient_ids = [\"patient1\", \"patient2\"]\n    }\n\n    # Test nested map
-        processing\n    scatter (patient_id in patient_ids) {\n        call process_nested_map
-        {\n            input:\n                patient_id = patient_id,\n                patient_data
-        = nested_map[patient_id],\n                # We need to provide the sample
-        names explicitly\n                samples_for_patient = if patient_id == \"patient1\"
-        then [\"sample1\", \"sample2\"] else [\"sample3\", \"sample4\"]\n        }\n    }\n\n    #
-        Original sample processing with output map generation\n    scatter (sample
-        in samples) {\n        call process_sample {\n            input:\n                sample_name
-        = sample,\n                sample_type = sample_metadata[sample],\n                read_length
-        = read_lengths[sample]\n        }\n    }\n\n    # Aggregate results into a
-        map\n    call create_result_map {\n        input:\n            sample_names
-        = samples,\n            processing_messages = process_sample.message\n    }\n\n    output
-        {\n        Map[String, String] result_map = create_result_map.output_map\n        Array[String]
-        nested_map_results = process_nested_map.message\n    }\n}\n\ntask process_nested_map
-        {\n    input {\n        String patient_id\n        Map[String, String] patient_data\n        Array[String]
-        samples_for_patient\n    }\n\n    # First get the first sample ID\n    String
-        first_sample = samples_for_patient[0]\n    # Then use it to index the patient
-        data\n    String sample_type = patient_data[first_sample]\n\n    command {\n        echo
-        \"Processing patient ${patient_id} with sample type ${sample_type}\"\n        for
-        sample in ${sep='' '' samples_for_patient}; do\n            echo \"Sample:
-        $sample\"\n        done\n    }\n\n    output {\n        String message = read_string(stdout())\n    }\n\n    runtime
-        {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\ntask process_sample
-        {\n    input {\n        String sample_name\n        String sample_type\n        Int
-        read_length\n    }\n\n    command <<<\n        echo \"Processing ~{sample_name}
-        (~{sample_type}) with read length ~{read_length}\"\n    >>>\n\n    output
-        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
-        \"ubuntu:noble-20241118.1\"\n    }\n}\n\ntask create_result_map {\n    input
-        {\n        Array[String] sample_names\n        Array[String] processing_messages\n    }\n\n    command
-        <<<\n        python <<CODE\n        samples = ''~{sep=\",\" sample_names}''.split('','')\n        messages
-        = ''~{sep=\",\" processing_messages}''.split('','')\n        result = dict(zip(samples,
-        messages))\n        with open(''output.txt'', ''w'') as f:\n            for
-        sample, message in result.items():\n                f.write(f\"{sample}\\t{message}\\n\")\n        CODE\n    >>>\n\n    output
-        {\n        Map[String, String] output_map = read_map(''output.txt'')\n    }\n\n    runtime
-        {\n        docker: \"python:3.8-slim\"\n    }\n}","root":"","options":"{\n  \"read_from_cache\":
-        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"actualWorkflowLanguage":"WDL","status":"Failed","failures":[{"causedBy":[{"causedBy":[],"message":"Required
-        workflow input ''enhanced_map_test.read_lengths'' not specified"},{"causedBy":[],"message":"Required
-        workflow input ''enhanced_map_test.sample_metadata'' not specified"},{"causedBy":[],"message":"Required
-        workflow input ''enhanced_map_test.samples'' not specified"}],"message":"Workflow
-        input processing failed"}],"end":"2025-02-26T22:23:34.936Z","start":"2025-02-26T22:23:34.906Z","id":"52bdecf2-4a27-443f-8748-af12730327d8","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-52bdecf2-4a27-443f-8748-af12730327d8"},"submission":"2025-02-26T22:22:25.577Z"}'
-    headers:
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 26 Feb 2025 22:31:37 GMT
-      Server:
-      - nginx/1.25.3
-      Transfer-Encoding:
-      - chunked
-      content-length:
-      - '4807'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: ''
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      connection:
-      - keep-alive
-      host:
-      - gizmok92.fhcrc.org:38409
-      user-agent:
-      - python-httpx/0.28.1
-    method: GET
-    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/96bdebd9-cded-49d8-a73c-aba36b2282dc/metadata?expandSubWorkflows=false&excludeKey=calls
-  response:
-    body:
-      string: '{"workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-02-26T22:25:35.073Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-02-26T22:25:35.092Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
-        1.0\n\n# Define the structure for sampleDetails\nstruct sampleDetails {\n    String
-        experimentType\n    String prepMethod\n    String tissueType\n}\n\n# Define
-        the main structure for the single sample\nstruct singleSample {\n    String
-        sampleName\n    String aboutSample\n    String sampleDescription\n    sampleDetails
-        details  # Use the sampleDetails struct here\n}\n\nworkflow testNestedJsonArray
-        {\n  input {\n    String cellNumber\n    Array[singleSample] batchOfSamples  #
-        Array of objects representing each sample\n  }\n\n  scatter (sample in batchOfSamples)
-        {\n    call processSample {\n      input:\n        sample = sample,\n        base_file_name
-        = sample.sampleName \n    }\n  }\n\n  output {\n    # Collect all the fields
-        together from each sample into one list\n    Array[File] result_allSampleInfo
-        = processSample.allSampleInfo\n  }\n}\n\ntask processSample {\n  input {\n    singleSample
-        sample  # Use singleSample type, not Object\n    String base_file_name\n  }\n\n  command
-        <<<\n    # Format the sample information as a single string\n    allSampleInfo=\"~{sample.sampleName}
-        | ~{sample.aboutSample} | ~{sample.sampleDescription} | ~{sample.details.experimentType}
-        | ~{sample.details.prepMethod} | ~{sample.details.tissueType}\"\n    \n    #
-        Output the concatenated sample info to a file\n    echo \"${allSampleInfo}\"
-        > ~{base_file_name}.allSampleInfo.txt\n  >>>\n\n  output {\n    # Read all
-        sample info from the file and output it as an Array of Strings\n    File allSampleInfo
-        = \"${base_file_name}.allSampleInfo.txt\"\n  }\n\n  runtime {\n    docker:
-        \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
-        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"actualWorkflowLanguage":"WDL","status":"Failed","failures":[{"causedBy":[{"causedBy":[],"message":"Required
-        workflow input ''testNestedJsonArray.cellNumber'' not specified"},{"causedBy":[],"message":"Required
-        workflow input ''testNestedJsonArray.batchOfSamples'' not specified"}],"message":"Workflow
-        input processing failed"}],"end":"2025-02-26T22:25:35.092Z","start":"2025-02-26T22:25:35.074Z","id":"96bdebd9-cded-49d8-a73c-aba36b2282dc","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-96bdebd9-cded-49d8-a73c-aba36b2282dc"},"submission":"2025-02-26T22:22:25.619Z"}'
-    headers:
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 26 Feb 2025 22:31:42 GMT
-      Server:
-      - nginx/1.25.3
-      Transfer-Encoding:
-      - chunked
-      content-length:
-      - '2731'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: ''
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      connection:
-      - keep-alive
-      host:
-      - gizmok92.fhcrc.org:38409
-      user-agent:
-      - python-httpx/0.28.1
-    method: GET
-    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/95d1ea6f-f6b7-452e-9ee1-650a661cce7b/metadata?expandSubWorkflows=false&excludeKey=calls
-  response:
-    body:
-      string: '{"workflowName":"basicGlobTest","workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-02-26T22:25:15.045Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-02-26T22:25:53.863Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
-        1.0\n\nworkflow basicGlobTest {\n    call create_files\n    output {\n        Array[File]
-        matched_files = create_files.txt_files\n    }\n}\n\ntask create_files {\n    command
-        <<<\n        echo \"File 1\" > file1.txt\n        echo \"File 2\" > file2.txt\n    >>>\n    output
-        {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
-        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"basicGlobTest.matched_files":["/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/95d1ea6f-f6b7-452e-9ee1-650a661cce7b/call-create_files/execution/glob-ef5df339533c1334f081dc8cc75ee4f3/file1.txt","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/95d1ea6f-f6b7-452e-9ee1-650a661cce7b/call-create_files/execution/glob-ef5df339533c1334f081dc8cc75ee4f3/file2.txt"]},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/95d1ea6f-f6b7-452e-9ee1-650a661cce7b","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-02-26T22:25:53.863Z","start":"2025-02-26T22:25:15.046Z","id":"95d1ea6f-f6b7-452e-9ee1-650a661cce7b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-95d1ea6f-f6b7-452e-9ee1-650a661cce7b"},"submission":"2025-02-26T22:22:25.660Z"}'
-    headers:
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 26 Feb 2025 22:31:47 GMT
-      Server:
-      - nginx/1.25.3
-      Transfer-Encoding:
-      - chunked
-      content-length:
-      - '1741'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: ''
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      connection:
-      - keep-alive
-      host:
-      - gizmok92.fhcrc.org:38409
-      user-agent:
-      - python-httpx/0.28.1
-    method: GET
-    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/96c23315-8890-4eed-a885-394958a2312e/metadata?expandSubWorkflows=false&excludeKey=calls
-  response:
-    body:
-      string: '{"workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-02-26T22:25:55.122Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-02-26T22:25:55.104Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
-        1.0\n# This workflow takes a tab separated file where each row is a set of
-        data to be used in each \n# of the independent scattered task series that
-        you have as your workflow process.  This file \n# will, for example, have
-        column names `sampleName`, `bamLocation`, and `bedlocation`.  This\n# allows
-        you to know that regardless of the order of the columns in your batch file,
-        the correct\n# inputs will be used for the tasks you define.  \nworkflow parseBatchFile
-        {\n  input {\n  File batchFile\n  }\n    Array[Object] batchInfo = read_objects(batchFile)\n  scatter
-        (job in batchInfo){\n    String sampleName = job.sampleName\n    File bamFile
-        = job.bamLocation\n    File bedFile = job.bedLocation\n\n    ## INSERT YOUR
-        WORKFLOW TO RUN PER LINE IN YOUR BATCH FILE HERE!!!!\n    call test {\n        input:
-        in1=sampleName, in2=bamFile, in3=bedFile\n    }\n\n  }  # End Scatter over
-        the batch file\n# Outputs that will be retained when execution is complete\n  output
-        {\n    Array[File] outputArray = test.item_out\n    }\n# End workflow\n}\n\n####
-        TASK DEFINITIONS\n# echo some text to stdout, treats files as strings just
-        to echo them as a dummy example\ntask test {\n  input {\n    String in1\n    String
-        in2\n    String in3\n  }\n    command {\n    echo ~{in1}\n    echo ~{in2}\n    echo
-        ~{in3}\n    }\n    output {\n        File item_out = stdout()\n    }\n}","root":"","options":"{\n\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"actualWorkflowLanguage":"WDL","status":"Failed","failures":[{"causedBy":[{"causedBy":[],"message":"Required
-        workflow input ''parseBatchFile.batchFile'' not specified"}],"message":"Workflow
-        input processing failed"}],"end":"2025-02-26T22:25:55.122Z","start":"2025-02-26T22:25:55.105Z","id":"96c23315-8890-4eed-a885-394958a2312e","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-96c23315-8890-4eed-a885-394958a2312e"},"submission":"2025-02-26T22:22:25.701Z"}'
-    headers:
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 26 Feb 2025 22:31:52 GMT
-      Server:
-      - nginx/1.25.3
-      Transfer-Encoding:
-      - chunked
-      content-length:
-      - '2267'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: ''
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      connection:
-      - keep-alive
-      host:
-      - gizmok92.fhcrc.org:38409
-      user-agent:
-      - python-httpx/0.28.1
-    method: GET
-    uri: https://gizmok92.fhcrc.org:38409/api/workflows/v1/7d18588e-1455-4741-8e5d-d1b15c998a83/metadata?expandSubWorkflows=false&excludeKey=calls
-  response:
-    body:
-      string: '{"workflowProcessingEvents":[{"cromwellId":"cromid-2f25be4","description":"PickedUp","timestamp":"2025-02-26T22:24:34.985Z","cromwellVersion":"87"},{"cromwellId":"cromid-2f25be4","description":"Finished","timestamp":"2025-02-26T22:24:35.003Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
-        1.0\n## This is a test workflow that fails against womtool.\n## From https://github.com/broadinstitute/cromwell\n\n####
-        WORKFLOW DEFINITION\n\nworkflow oops {\n  call oopsie\n}\n\n#### TASK DEFINITIONS\n\ntask
-        oopsie {\n  input {\n    String str\n  }\n  command { echo ${str} }\n  runtime
-        { docker: docker_image }\n}\n","root":"","options":"{\n\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"actualWorkflowLanguage":"WDL","status":"Failed","failures":[{"causedBy":[{"causedBy":[],"message":"Failed
-        to process task definition ''oopsie'' (reason 1 of 1): Cannot lookup value
-        ''docker_image'', it is never declared. Available values are: [''str'']"}],"message":"Workflow
-        input processing failed"}],"end":"2025-02-26T22:24:35.003Z","start":"2025-02-26T22:24:34.986Z","id":"7d18588e-1455-4741-8e5d-d1b15c998a83","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-7d18588e-1455-4741-8e5d-d1b15c998a83"},"submission":"2025-02-26T22:22:25.741Z"}'
-    headers:
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 26 Feb 2025 22:31:57 GMT
-      Server:
-      - nginx/1.25.3
-      Transfer-Encoding:
-      - chunked
-      content-length:
-      - '1307'
+      - '5012'
     status:
       code: 200
       message: OK
