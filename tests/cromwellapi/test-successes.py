@@ -44,10 +44,6 @@ def test_successes_final(cromwell_api_final, submit_wdls):
     succeed = list(filter(lambda x: not x["path"].startswith("bad"), submit_wdls))
     for job in succeed:
         res = cromwell_api_final.metadata(workflow_id=job["id"], params=params)
-
-        print(job["path"])
-        print(res)
-
         assert isinstance(res, dict)
         assert sorted(list(res.keys())) == sorted(
             [
