@@ -102,6 +102,14 @@ Note that some of these tests run through all WDLs in this dir, while others onl
 >
 > PR reviewers can largely ignore changes in cassettes - though they should be given a cursory look to check for anything that should be discussed
 
+### WDL Unit Test Guidelines
+
+- Each unit test gets its own subdirectory with the same name as the WDL file.
+- Inputs should be provided (when necessary) via a json file specifically named `inputs.json`.
+- Caching behaviors should be provided via a json file specifically named`options.json`.
+- If you expect the WDL to fail both validation and execution, the WDL name should start with `badVal` (e.g. `badValMissingValue`).
+- If you expect the WDL to pass validation but fail execution, the WDL name should just start with `bad` (e.g. `badRunParseBatchFile`).
+
 [uvinstall]: https://docs.astral.sh/uv/getting-started/installation/
 [proofapi]: https://github.com/FredHutch/proof-api
 [pytest]: https://docs.pytest.org/en/stable/
