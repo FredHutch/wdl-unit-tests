@@ -32,6 +32,10 @@ New unit test suggestions are tracked as GitHub issues. When creating a unit tes
 13. Address all comments/requested changes from these reviews.
 14. Once the PR has been approved and all checks have passed, merge the PR into `main`.
 
+## Reviewing
+
+- If a PR includes changes to files in `tests/cromwellapi/cassettes`: changes in cassettes should only happen when new HTTP requests are made. PR reviewers can largely ignore changes in cassettes - though they should be given a cursory look to check for anything that should be discussed.
+
 ## Style Guidelines
 
 - Follow [WILDS WDL Style Guide](https://getwilds.org/guide/wdlconfig.html)

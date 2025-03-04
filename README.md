@@ -95,6 +95,13 @@ To add tests:
 
 Note that some of these tests run through all WDLs in this dir, while others only run through one or some subset of WDLs.
 
+> [!IMPORTANT]
+> Some notes about vcr "cassetttes" in `tests/cromwellapi/cassettes`:
+>
+> Changes in cassettes should only happen when new HTTP requests are made.
+>
+> PR reviewers can largely ignore changes in cassettes - though they should be given a cursory look to check for anything that should be discussed
+
 [uvinstall]: https://docs.astral.sh/uv/getting-started/installation/
 [proofapi]: https://github.com/FredHutch/proof-api
 [pytest]: https://docs.pytest.org/en/stable/
