@@ -48,7 +48,10 @@ class CromwellJava(object):
         self.cromwell_path = os.getenv("CROMWELL_PATH")
         if not self.cromwell_path:
             raise Exception("failed setting CROMWELL_PATH")
-        self.cromwell = sh.Command("java").bake("-jar", self.cromwell_path)
+        self.config_path = os.getenv("CONFIG_PATH")
+        if not self.config_path:
+            raise Exception("failed setting CONFIG_PATH")
+        self.cromwell = sh.Command("java").bake(f"-Dconfig.file={self.config_path}","-jar", self.cromwell_path)
 
     def has_inputs(self, wdl_path):
         path = Path(f"{wdl_path}/inputs.json")
