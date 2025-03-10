@@ -3,6 +3,9 @@ name: Cromwell Test Run
 on:
   pull_request:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   generate-matrix:
@@ -27,6 +30,7 @@ jobs:
     runs-on: self-hosted
     permissions: write-all
     strategy:
+      fail-fast: false
       matrix:
         wdl: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
     steps:
@@ -36,8 +40,8 @@ jobs:
       - name: Set Up Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '21'
+          distribution: "temurin"
+          java-version: "21"
 
       - name: Pull Cromwell Jarfile
         run: wget -q https://github.com/broadinstitute/cromwell/releases/download/87/cromwell-87.jar

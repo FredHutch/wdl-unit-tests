@@ -1,0 +1,70 @@
+name: API Tests - Rewrite Cassettes
+
+on:
+  workflow_dispatch:
+  # schedule only triggers if this file is on the default branch
+  # and will only run on the default branch
+  schedule:
+    # every Sunday at 3 am
+    - cron: "0 3 * * 0"
+
+jobs:
+  api-tests-rewrite:
+    if: ${{ ! github.event.pull_request.head.repo.fork }}
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "0.6.3"
+
+      - name: Set up Python
+        run: uv python install 3.13
+
+      - name: Install
+        run: uv sync --all-extras
+
+      - name: Load secrets
+        uses: 1password/load-secrets-action@v2
+        with:
+          # Export loaded secrets as environment variables to subsequent steps
+          export-env: true
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          PROOF_API_TOKEN_DEV: "op://PROOF/PROOF_Test_User/dev token"
+          PATH_ROOTS: "op://PROOF/PROOF_PATH_ROOTS/credential"
+
+      - name: Run tests
+        run: make test_api_rewrite
+
+      - name: Create a pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: create-pull-request/rewrite-cassettes
+          title: "Update vcr cassettes"
+          commit-message: "updated vcr cassettes"
+          delete-branch: true
+          add-paths: |
+            tests/cromwellapi/cassettes/*
+            tests/cromwellapi/mocked_submissions.json
+          assignees: sckott
+          reviewers: |
+            sckott
+            seankross
+          body: |
+            Updated vcr cassettes
+
+            Via event: ${{ github.event_name }}
+            - If "workflow_dispatch" it was triggered by a person clicking the "Run workflow" button in the GitHub UI Actions tab
+            - If "schedule" it was triggered by a scheduled event (see the `.github/workflows/api-rewrite-cassettes.yml` file for the schedule)
+
+            Review, then either merge or close this PR
+            - A cursory review is sufficient (e.g., just look at a few cassette `*yml` files; though if anything is concerning, please investigate and discuss with Scott or Sean)
+
+            What is this?
+            - This is a pull request that updates the vcr cassettes for the Cromwell API tests. Read more about how tests work in the [README](https://github.com/FredHutch/wdl-unit-tests?tab=readme-ov-file#tests). We use the `vcrpy` Python library to record and replay HTTP requests and responses (called "cassettes"). These cassettes need to be re-recorded every so often to ensure that tests reflect the reality of the PROOF and Cromwell APIs.
+
+            Note that workflows are not run for this PR because [actions cannot trigger other workflows](https://github.com/peter-evans/create-pull-request/issues/48)

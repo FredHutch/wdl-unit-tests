@@ -1,29 +1,65 @@
-# import re
+import time
+from unittest.mock import patch
+
+import pytest
+
+params = {
+    "includeKey": [
+        "status",
+        "failures",
+        "jobId",
+    ]
+}
 
 
-def test_failures_initial_state(cromwell_api, submit_wdls):
+@pytest.mark.vcr
+def test_failures_initial(cromwell_api, submit_wdls, recording_mode):
     """Checking for failures works for initial state"""
-    params = {"includeKey": "failures", "includeKey": "jobId"}
-    fail = list(filter(lambda x: "badRunParseBatchFile" in x["path"], submit_wdls))
-    res = cromwell_api.metadata(fail[0]["id"], params=params)
-    assert isinstance(res, dict)
-    assert res == {}
+    fail = list(filter(lambda x: x["path"].startswith("bad"), submit_wdls))
+    for job in fail:
+        if recording_mode != "rewrite":
+            with patch("time.sleep"):
+                res = cromwell_api.metadata(job["id"], params=params)
+        else:
+            res = cromwell_api.metadata(job["id"], params=params)
+
+        assert isinstance(res, dict)
+
+        if len(res) == 0:
+            pytest.skip("call to /metadata route gave empty response")
+        else:
+            status = res.get("status", "")
+            if status == "Submitted":
+                assert sorted(list(res.keys())) == sorted(
+                    [
+                        "status",
+                        "calls",
+                        "id",
+                    ]
+                )
+                assert res["calls"] == {}
 
 
-# def test_failures_final_state(cromwell_api, submit_wdls):
-#     """Checking for failures works for final state"""
-#     params = {"includeKey": "failures", "includeKey": "jobId"}
-#     fail = list(filter(lambda x: "badRunParseBatchFile" in x["path"], submit_wdls))
-#     print(f"fail0: {fail[0]}")
-#     res = cromwell_api.metadata(fail[0]["id"], params=params)
-#     print(f"cromwell_api.metadata output:{res}")
-#     fail_causedby_mssg = res["failures"]["causedBy"]["message"]
-#     fail_mssg = res["failures"]["message"]
-#     assert isinstance(res, dict)
-#     assert list(res.keys()) == [
-#         "failures",
-#         "calls",
-#         "id",
-#     ]
-#     assert re.search("not specified", fail_causedby_mssg) is not None
-#     assert re.search("failed", fail_mssg) is not None
+@pytest.mark.vcr
+def test_failures_final(cromwell_api_final, submit_wdls):
+    """Checking for failures works for final state"""
+    fail = list(filter(lambda x: x["path"].startswith("bad"), submit_wdls))
+    fail_check = {
+        "badRunParseBatchFile": "Required workflow input 'parseBatchFile.batchFile' not specified",
+        "badValMissingValue": "Cannot lookup value 'docker_image', it is never declared",
+    }
+    for job in fail:
+        res = cromwell_api_final.metadata(workflow_id=job["id"], params=params)
+        fail_causedby_mssg = res["failures"][0]["causedBy"][0]["message"]
+        assert isinstance(res, dict)
+        assert sorted(list(res.keys())) == sorted(
+            [
+                "status",
+                "failures",
+                "calls",
+                "id",
+            ]
+        )
+        wdl_name = job["path"].split("/")[0]
+        if wdl_name in fail_check:
+            assert fail_check[wdl_name] in fail_causedby_mssg

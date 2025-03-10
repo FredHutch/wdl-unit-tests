@@ -1,5 +1,5 @@
-from io import StringIO
 import os
+from io import StringIO
 from pathlib import Path
 
 import sh
@@ -75,7 +75,11 @@ class CromwellJava(object):
                 print(self.cromwell)
             self.cromwell(_out=self.stdout, _err=self.stderr)
         except sh.ErrorReturnCode as e:
-            print(Fore.RED + Style.BRIGHT + f"\nCommand {e.full_cmd} exited with {e.exit_code}\n")
+            print(
+                Fore.RED
+                + Style.BRIGHT
+                + f"\nCommand {e.full_cmd} exited with {e.exit_code}\n"
+            )
             print(Fore.RED + Style.BRIGHT + f"Dumping cromwell run output\n")
             print(Fore.YELLOW + Style.BRIGHT + "STDERR output:\n")
             print(self.stderr.getvalue())
