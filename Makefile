@@ -31,3 +31,11 @@ test_api_cached: check_env_vars
 
 test_api_rewrite: check_env_vars
 	op run -- uv run pytest --color=yes --record-mode=rewrite --verbose -s tests/cromwellapi/
+
+ipython: check_env_vars
+	cd tests/cromwellapi/ && \
+	op run --no-masking -- uv run --with rich --with ipython python -m IPython
+
+py: check_env_vars
+	cd tests/cromwellapi/ && \
+	op run --no-masking -- uv run python
