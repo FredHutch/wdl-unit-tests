@@ -8,9 +8,7 @@ wdl_paths = list(root.glob(pattern))
 
 
 @pytest.mark.vcr
-@pytest.mark.parametrize(
-    "wdl_path", wdl_paths, ids=lambda x: x.name
-)
+@pytest.mark.parametrize("wdl_path", wdl_paths, ids=lambda x: x.name)
 def test_validate_good_wdl(cromwell_api, wdl_path):
     """Checking that validate works - final state is quick"""
     if not wdl_path.name.startswith("badVal"):
@@ -22,9 +20,7 @@ def test_validate_good_wdl(cromwell_api, wdl_path):
 
 
 @pytest.mark.vcr
-@pytest.mark.parametrize(
-    "wdl_path", wdl_paths, ids=lambda x: x.name
-)
+@pytest.mark.parametrize("wdl_path", wdl_paths, ids=lambda x: x.name)
 def test_validate_bad_wdl(cromwell_api, wdl_path):
     """Checking that validate works - final state is quick"""
     message_check = {"badValMissingValue.wdl": "Cannot lookup value 'docker_image'"}
