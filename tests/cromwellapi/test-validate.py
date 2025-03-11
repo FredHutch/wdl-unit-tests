@@ -11,7 +11,7 @@ wdl_paths = list(root.glob(pattern))
 @pytest.mark.parametrize("wdl_path", wdl_paths, ids=lambda x: x.name)
 def test_validate_good_wdl(cromwell_api, wdl_path):
     """
-    Parametrized pytest used to ensure that each WDL unit test passes validation, 
+    Parametrized pytest used to ensure that each WDL unit test passes validation
     with the exception of WDL's that are expected to fail (name starts with "badVal")
 
     Args:
@@ -30,7 +30,7 @@ def test_validate_good_wdl(cromwell_api, wdl_path):
 @pytest.mark.parametrize("wdl_path", wdl_paths, ids=lambda x: x.name)
 def test_validate_bad_wdl(cromwell_api, wdl_path):
     """
-    Parametrized pytest used to ensure that all WDL unit tests that are expected to fail validation 
+    Parametrized pytest used to ensure that all WDL unit tests that are expected to fail validation
     (name starts with "badVal") actually fail validation via WOMtool.
 
     Args:
