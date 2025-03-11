@@ -1,0 +1,45 @@
+interactions:
+- request:
+    body: "--d0fea42d202cdbb96610faaa051dd756\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"globSubdir.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
+      matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n
+      \   }\n}\n\ntask create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n
+      \       echo \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n
+      \   >>>\n    output {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n
+      \       Array[File] matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n\r\n--d0fea42d202cdbb96610faaa051dd756--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '730'
+      content-type:
+      - multipart/form-data; boundary=d0fea42d202cdbb96610faaa051dd756
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"globSubdir","inputs":[],"outputs":[{"name":"matched_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '407'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Mar 2025 22:23:32 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+version: 1

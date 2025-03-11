@@ -1,0 +1,57 @@
+interactions:
+- request:
+    body: "--f940531564ef0c1adbcce1ed1b0ae96a\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"WildcardsandConditions.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow WildcardsandConditions {\n    input {\n        String prefix
+      \ # Required input for the file prefix (no default value)\n    }\n\n    call
+      wildcard_and_conditions_test {\n        input:\n            prefix = prefix
+      \ # Explicitly pass the workflow input to the task\n    }\n\n    output {\n
+      \       Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+      conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+      wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+      input for file creation\n        Boolean create_extra_file = true  # Default
+      value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+      .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+      \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+      an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+      ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n
+      \       # Parse inputs directly in the command\n        echo \"Parsed prefix:
+      ~{prefix}\" > parsed_output.txt\n    >>>\n\n    output {\n        Array[File]
+      txt_files = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+      = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+      {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\r\n--f940531564ef0c1adbcce1ed1b0ae96a--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '1573'
+      content-type:
+      - multipart/form-data; boundary=f940531564ef0c1adbcce1ed1b0ae96a
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"WildcardsandConditions","inputs":[{"name":"prefix","valueType":{"typeName":"String"},"typeDisplayName":"String","optional":false,"default":null},{"name":"wildcard_and_conditions_test.create_extra_file","valueType":{"typeName":"Boolean"},"typeDisplayName":"Boolean","optional":true,"default":"true"}],"outputs":[{"name":"conditional_result","valueType":{"typeName":"String"},"typeDisplayName":"String"},{"name":"txt_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"}],"images":["\"ubuntu:20.04\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '788'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Mar 2025 22:23:32 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+version: 1
