@@ -1,18 +1,25 @@
 interactions:
 - request:
-    body: "--06eab470b929435ea13ed2f09df0d870\r\nContent-Disposition: form-data; name=\"workflowSource\";
-      filename=\"helloHostname.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
-      1.0\n## This is a test workflow that returns the hostname of the node \n## the
-      job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow
-      HelloHostname {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n
-      \ }\n\n  parameter_meta {\n    stdout: \"hostname of the node the job was submitted
-      to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo
-      $(hostname)\n  >>>\n\n  output {\n    File out = stdout()\n  }\n  \n  runtime
-      {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname
-      of the node the job was submitted to\"\n  }\n}\n\r\n--06eab470b929435ea13ed2f09df0d870\r\nContent-Disposition:
-      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
-      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--06eab470b929435ea13ed2f09df0d870--\r\n"
+    body: "--49e90e9907fda1b4a7d039468ea1a681\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"nonstandardOutputs.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow test_nonstandard_outputs {\n    call generate_diverse_outputs\n
+      \   \n    output {\n        File special_chars = generate_diverse_outputs.file_special_chars\n
+      \       File no_extension = generate_diverse_outputs.file_no_extension\n        File
+      nested_output = generate_diverse_outputs.nested_file\n        File symlink_file
+      = generate_diverse_outputs.symlink_output\n        Array[File] glob_files =
+      generate_diverse_outputs.pattern_files\n    }\n}\n\ntask generate_diverse_outputs
+      {\n    command <<<\n        # File with special characters\n        echo \"test
+      content\" > \"test@file#1.txt\"\n        \n        # File without extension\n
+      \       echo \"no extension\" > datafile\n        \n        # Nested directory
+      output\n        mkdir -p nested/dir\n        echo \"nested content\" > nested/dir/test.txt\n
+      \       \n        # Create a symlink\n        echo \"original\" > original.txt\n
+      \       ln -s original.txt link.txt\n        \n        # Multiple pattern files\n
+      \       for i in {1..3}; do\n            echo \"pattern $i\" > \"pattern_$i.out\"\n
+      \       done\n    >>>\n\n    output {\n        File file_special_chars = \"test@file#1.txt\"\n
+      \       File file_no_extension = \"datafile\"\n        File nested_file = \"nested/dir/test.txt\"\n
+      \       File symlink_output = \"link.txt\"\n        Array[File] pattern_files
+      = glob(\"pattern_*.out\")\n    }\n\n    runtime {\n        docker: \"ubuntu:noble-20241118.1\"\n
+      \   }\n}\n\r\n--49e90e9907fda1b4a7d039468ea1a681--\r\n"
     headers:
       accept:
       - '*/*'
@@ -23,7 +30,403 @@ interactions:
       content-length:
       - '1587'
       content-type:
-      - multipart/form-data; boundary=06eab470b929435ea13ed2f09df0d870
+      - multipart/form-data; boundary=49e90e9907fda1b4a7d039468ea1a681
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"test_nonstandard_outputs","inputs":[],"outputs":[{"name":"glob_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"},{"name":"nested_output","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"no_extension","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"special_chars","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"symlink_file","valueType":{"typeName":"File"},"typeDisplayName":"File"}],"images":["\"ubuntu:noble-20241118.1\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '773'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Mar 2025 05:52:04 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--01a32cdfbc675cd0fcac3cddb2b8174f\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"arrayOperations.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow ArrayOperations {\n    input {\n        # Input arrays for different
+      tests\n        Array[String] strings\n        Array[String] additional_strings
+      = []  # For testing array concatenation\n        Array[Array[String]] nested_arrays
+      = []  # For testing nested arrays\n        Array[Int] numbers = [1, 2, 3, 4,
+      5]  # Default integer array for numeric operations\n        Array[File] input_files
+      = [] # Array of files to test file operations\n    }\n    \n    # Scatter operation
+      to test processing of each element in an array\n    # Test empty arrays (original
+      operation still works with empty input)\n    scatter (str in strings) {\n        call
+      Uppercase { input: text = str }\n    }\n    \n    # Test array indexing (accessing
+      first and last elements)\n    if (length(strings) > 0) {\n        call ValidateIndex
+      { input: arr = strings }\n    }\n    \n    # Test array functions like sorting,
+      length calculation, and flattening\n    call ArrayFunctions { \n        input:
+      \n            arr = strings,\n            nested = nested_arrays\n    }\n    \n
+      \   # Test array concatenation and verify the combined length\n    Array[String]
+      combined = flatten([strings, additional_strings])\n    call ArrayConcat {\n
+      \       input: \n            arr1 = strings,\n            arr2 = additional_strings,\n
+      \           expected_length = length(combined)\n    }\n    \n    # Test integer
+      array operations like summation and combining arrays\n    Array[Int] more_numbers
+      = [6, 7, 8, 9, 10]  # Intermediate array declaration\n    call IntegerArrayOps
+      {\n        input:\n            numbers = numbers,\n            additional_numbers
+      = more_numbers\n    }\n\n    # Test file array operations like localization
+      and content reading\n    if (length(input_files) > 0) {\n        call FileArrayOps
+      {\n            input:\n                files = input_files\n        }\n    }\n
+      \   # Outputs to capture results of the tests\n    output {\n        Array[String]
+      uppercased = Uppercase.out # Outputs from scatter task\n        Int? first_index
+      = ValidateIndex.first_index # First index in string array\n        Int? last_index
+      = ValidateIndex.last_index # Last index in string array\n        Array[String]
+      sorted_array = ArrayFunctions.sorted # Sorted array\n        Array[Array[String]]
+      processed_nested = ArrayFunctions.processed_nested # Processed nested array\n
+      \       Boolean concat_test_passed = ArrayConcat.test_passed # Result of concatenation
+      test\n        Int array_length = ArrayFunctions.arr_length # Length of input
+      array\n        Array[String] flattened = ArrayFunctions.flattened # Flattened
+      nested arrays\n        # New outputs for integer array operations \n        Int
+      sum_result = IntegerArrayOps.sum # Sum of integer array\n        Array[Int]
+      combined_numbers = IntegerArrayOps.combined # Combined integer arrays\n        #
+      New outputs for file array operations\n        Array[String]? file_contents
+      = FileArrayOps.contents # Contents of files\n        Boolean? files_localized
+      = FileArrayOps.localization_success # File localization status\n    }\n\n    parameter_meta
+      {\n        # Descriptions for inputs\n        strings: \"Primary array of input
+      strings\"\n        additional_strings: \"Secondary array for testing concatenation\"\n
+      \       nested_arrays: \"Array of arrays for testing nested array operations\"\n
+      \       numbers: \"Array of integers for testing numeric operations\"\n        input_files:
+      \"Array of input files for testing file localization\"\n    }\n}\n\n# Task to
+      convert string to uppercase (tests per-element processing)\ntask Uppercase {\n
+      \   input {\n        String text\n    }\n    \n    command <<<\n        echo
+      \"~{text}\" | tr '[:lower:]' '[:upper:]'\n    >>>\n    \n    output {\n        String
+      out = read_string(stdout())\n    }\n    \n    runtime {\n        cpu: 1\n        memory:
+      \"1 GB\"\n    }\n}\n\n\n# Task to test indexing operations\ntask ValidateIndex
+      {\n    input {\n        Array[String] arr\n    }\n    \n    command <<<\n        echo
+      \"0\" > first_index.txt  # First index\n        echo \"~{length(arr)-1}\" >
+      last_index.txt  # Last index\n    >>>\n    \n    output {\n        Int first_index
+      = read_int(\"first_index.txt\")\n        Int last_index = read_int(\"last_index.txt\")\n
+      \   }\n    \n    runtime {\n        cpu: 1\n        memory: \"1 GB\"\n    }\n}\n\n#
+      Task to test array functions\ntask ArrayFunctions {\n    input {\n        Array[String]
+      arr\n        Array[Array[String]] nested\n    }\n    \n    command <<<\n        #
+      Sort the input array using bash\n        echo \"~{sep='\\n' arr}\" | sort >
+      sorted.txt\n        \n        # Get array length\n        echo \"~{length(arr)}\"
+      > length.txt\n        \n        # Process nested arrays (flatten them)\n        echo
+      \"~{sep='\\n' flatten(nested)}\" > flattened.txt\n    >>>\n    \n    output
+      {\n        Array[String] sorted = read_lines(\"sorted.txt\")\n        Int arr_length
+      = read_int(\"length.txt\")\n        Array[String] flattened = read_lines(\"flattened.txt\")\n
+      \       Array[Array[String]] processed_nested = nested  # Return the original
+      nested array\n    }\n    \n    runtime {\n        cpu: 1\n        memory: \"1
+      GB\"\n    }\n}\n\n# Task to test concatenation of two arrays\ntask ArrayConcat
+      {\n    input {\n        Array[String] arr1\n        Array[String] arr2\n        Int
+      expected_length\n    }\n    \n    command <<<\n        actual_length=$(( ~{length(arr1)}
+      + ~{length(arr2)} ))\n        if [ \"$actual_length\" -eq ~{expected_length}
+      ]; then\n            echo \"true\"\n        else\n            echo \"false\"\n
+      \       fi\n    >>>\n    \n    output {\n        Boolean test_passed = read_boolean(stdout())\n
+      \   }\n    \n    runtime {\n        cpu: 1\n        memory: \"1 GB\"\n    }\n}\n\n#
+      Task to test integer array operations\ntask IntegerArrayOps {\n    input {\n
+      \       Array[Int] numbers\n        Array[Int] additional_numbers\n    }\n    \n
+      \   command <<<\n        # Calculate sum of numbers to verify proper parsing\n
+      \       total=0\n        for num in ~{sep=' ' numbers}; do\n            total=$((total
+      + num))\n        done\n        echo $total > sum.txt\n\n        # Combine arrays
+      and write to file\n        echo \"~{sep='\\n' flatten([numbers, additional_numbers])}\"
+      > combined.txt\n    >>>\n    \n    output {\n        Int sum = read_int(\"sum.txt\")\n
+      \       Array[Int] combined = read_lines(\"combined.txt\")\n    }\n    \n    runtime
+      {\n        cpu: 1\n        memory: \"1 GB\"\n    }\n}\n\n# Task to test file
+      array operations\ntask FileArrayOps {\n    input {\n        Array[File] files\n
+      \   }\n    \n    command <<<\n        # Test file localization by reading contents\n
+      \       for file in ~{sep=' ' files}; do\n            if [ -f \"$file\" ]; then\n
+      \               cat \"$file\" >> all_contents.txt\n                echo \"---\"
+      >> all_contents.txt  # Separator between files\n            else\n                echo
+      \"false\" > localization_success.txt\n                exit 1\n            fi\n
+      \       done\n        echo \"true\" > localization_success.txt\n    >>>\n    \n
+      \   output {\n        Array[String] contents = read_lines(\"all_contents.txt\")\n
+      \       Boolean localization_success = read_boolean(\"localization_success.txt\")\n
+      \   }\n    \n    runtime {\n        cpu: 1\n        memory: \"1 GB\"\n    }\n}\n\r\n--01a32cdfbc675cd0fcac3cddb2b8174f--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '7177'
+      content-type:
+      - multipart/form-data; boundary=01a32cdfbc675cd0fcac3cddb2b8174f
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"ArrayOperations","inputs":[{"name":"additional_strings","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]","optional":true,"default":"[]"},{"name":"input_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]","optional":true,"default":"[]"},{"name":"nested_arrays","valueType":{"typeName":"Array","arrayType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"nonEmpty":false},"typeDisplayName":"Array[Array[String]]","optional":true,"default":"[]"},{"name":"numbers","valueType":{"typeName":"Array","arrayType":{"typeName":"Int"},"nonEmpty":false},"typeDisplayName":"Array[Int]","optional":true,"default":"[1,
+        2, 3, 4, 5]"},{"name":"strings","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]","optional":false,"default":null}],"outputs":[{"name":"array_length","valueType":{"typeName":"Int"},"typeDisplayName":"Int"},{"name":"combined_numbers","valueType":{"typeName":"Array","arrayType":{"typeName":"Int"},"nonEmpty":false},"typeDisplayName":"Array[Int]"},{"name":"concat_test_passed","valueType":{"typeName":"Boolean"},"typeDisplayName":"Boolean"},{"name":"file_contents","valueType":{"typeName":"Optional","optionalType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false}},"typeDisplayName":"Array[String]?"},{"name":"files_localized","valueType":{"typeName":"Optional","optionalType":{"typeName":"Boolean"}},"typeDisplayName":"Boolean?"},{"name":"first_index","valueType":{"typeName":"Optional","optionalType":{"typeName":"Int"}},"typeDisplayName":"Int?"},{"name":"flattened","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]"},{"name":"last_index","valueType":{"typeName":"Optional","optionalType":{"typeName":"Int"}},"typeDisplayName":"Int?"},{"name":"processed_nested","valueType":{"typeName":"Array","arrayType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"nonEmpty":false},"typeDisplayName":"Array[Array[String]]"},{"name":"sorted_array","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]"},{"name":"sum_result","valueType":{"typeName":"Int"},"typeDisplayName":"Int"},{"name":"uppercased","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{"input_files":"Array
+        of input files for testing file localization","additional_strings":"Secondary
+        array for testing concatenation","numbers":"Array of integers for testing
+        numeric operations","strings":"Primary array of input strings","nested_arrays":"Array
+        of arrays for testing nested array operations"},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '3060'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Mar 2025 05:52:04 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--b61702da42cedcb80c47b143da57ab75\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"mapTypeTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow enhanced_map_test {\n    input {\n        # Original inputs\n
+      \       Array[String] samples\n        Map[String, String] sample_metadata\n
+      \       Map[String, Int] read_lengths\n\n        # New test inputs\n        Map[String,
+      Map[String, String]] nested_map = {\n            \"patient1\": {\n                \"sample1\":
+      \"normal\",\n                \"sample2\": \"tumor\"\n            },\n            \"patient2\":
+      {\n                \"sample3\": \"normal\",\n                \"sample4\": \"tumor\"\n
+      \           }\n        }\n        # We need to provide keys as arrays since
+      WDL 1.0 doesn't have a keys() function\n        Array[String] patient_ids =
+      [\"patient1\", \"patient2\"]\n    }\n\n    # Test nested map processing\n    scatter
+      (patient_id in patient_ids) {\n        call process_nested_map {\n            input:\n
+      \               patient_id = patient_id,\n                patient_data = nested_map[patient_id],\n
+      \               # We need to provide the sample names explicitly\n                samples_for_patient
+      = if patient_id == \"patient1\" then [\"sample1\", \"sample2\"] else [\"sample3\",
+      \"sample4\"]\n        }\n    }\n\n    # Original sample processing with output
+      map generation\n    scatter (sample in samples) {\n        call process_sample
+      {\n            input:\n                sample_name = sample,\n                sample_type
+      = sample_metadata[sample],\n                read_length = read_lengths[sample]\n
+      \       }\n    }\n\n    # Aggregate results into a map\n    call create_result_map
+      {\n        input:\n            sample_names = samples,\n            processing_messages
+      = process_sample.message\n    }\n\n    output {\n        Map[String, String]
+      result_map = create_result_map.output_map\n        Array[String] nested_map_results
+      = process_nested_map.message\n    }\n}\n\ntask process_nested_map {\n    input
+      {\n        String patient_id\n        Map[String, String] patient_data\n        Array[String]
+      samples_for_patient\n    }\n\n    # First get the first sample ID\n    String
+      first_sample = samples_for_patient[0]\n    # Then use it to index the patient
+      data\n    String sample_type = patient_data[first_sample]\n\n    command {\n
+      \       echo \"Processing patient ${patient_id} with sample type ${sample_type}\"\n
+      \       for sample in ${sep=' ' samples_for_patient}; do\n            echo \"Sample:
+      $sample\"\n        done\n    }\n\n    output {\n        String message = read_string(stdout())\n
+      \   }\n\n    runtime {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\ntask
+      process_sample {\n    input {\n        String sample_name\n        String sample_type\n
+      \       Int read_length\n    }\n\n    command <<<\n        echo \"Processing
+      ~{sample_name} (~{sample_type}) with read length ~{read_length}\"\n    >>>\n\n
+      \   output {\n        String message = read_string(stdout())\n    }\n\n    runtime
+      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\ntask create_result_map
+      {\n    input {\n        Array[String] sample_names\n        Array[String] processing_messages\n
+      \   }\n\n    command <<<\n        python <<CODE\n        samples = '~{sep=\",\"
+      sample_names}'.split(',')\n        messages = '~{sep=\",\" processing_messages}'.split(',')\n
+      \       result = dict(zip(samples, messages))\n        with open('output.txt',
+      'w') as f:\n            for sample, message in result.items():\n                f.write(f\"{sample}\\t{message}\\n\")\n
+      \       CODE\n    >>>\n\n    output {\n        Map[String, String] output_map
+      = read_map('output.txt')\n    }\n\n    runtime {\n        docker: \"python:3.8-slim\"\n
+      \   }\n}\r\n--b61702da42cedcb80c47b143da57ab75--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '3609'
+      content-type:
+      - multipart/form-data; boundary=b61702da42cedcb80c47b143da57ab75
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"enhanced_map_test","inputs":[{"name":"nested_map","valueType":{"typeName":"Map","mapType":{"keyType":{"typeName":"String"},"valueType":{"typeName":"Map","mapType":{"keyType":{"typeName":"String"},"valueType":{"typeName":"String"}}}}},"typeDisplayName":"Map[String,
+        Map[String, String]]","optional":true,"default":"{ \"patient1\": { \"sample1\":
+        \"normal\", \"sample2\": \"tumor\" }, \"patient2\": { \"sample3\": \"normal\",
+        \"sample4\": \"tumor\" } }"},{"name":"patient_ids","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]","optional":true,"default":"[\"patient1\",
+        \"patient2\"]"},{"name":"read_lengths","valueType":{"typeName":"Map","mapType":{"keyType":{"typeName":"String"},"valueType":{"typeName":"Int"}}},"typeDisplayName":"Map[String,
+        Int]","optional":false,"default":null},{"name":"sample_metadata","valueType":{"typeName":"Map","mapType":{"keyType":{"typeName":"String"},"valueType":{"typeName":"String"}}},"typeDisplayName":"Map[String,
+        String]","optional":false,"default":null},{"name":"samples","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]","optional":false,"default":null}],"outputs":[{"name":"nested_map_results","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]"},{"name":"result_map","valueType":{"typeName":"Map","mapType":{"keyType":{"typeName":"String"},"valueType":{"typeName":"String"}}},"typeDisplayName":"Map[String,
+        String]"}],"images":["\"ubuntu:noble-20241118.1\"","\"ubuntu:noble-20241118.1\"","\"python:3.8-slim\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1872'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Mar 2025 05:52:04 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--8e745d73f9be9e8a3c410281031fe463\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"jsonTaskOrderTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow jsonTaskOrderTest {\n  input {\n    String input_json  # JSON
+      string used as input for both tasks\n  }\n\n  call Task1 { input: input_json
+      = input_json }\n  call Task2 { input: input_json = input_json, previous_output
+      = Task1.output_file }\n\n  output {\n    File task1_output = Task1.output_file\n
+      \   File task2_output = Task2.output_file\n  }\n}\n\ntask Task1 {\n  input {\n
+      \   String input_json\n  }\n  \n  command <<<\n    echo \"Processing JSON in
+      Task1: ~{input_json}\" > task1_output.txt\n    echo \"Task1 completed\" >> task1_output.txt\n
+      \ >>>\n  \n  output {\n    File output_file = \"task1_output.txt\"\n  }\n  \n
+      \ runtime {\n    cpu: 1\n    memory: \"2G\"\n  }\n}\n\ntask Task2 {\n  input
+      {\n    String input_json\n    File previous_output\n  }\n  \n  command <<<\n
+      \   echo \"Processing JSON in Task2: ~{input_json}\" > task2_output.txt\n    echo
+      \"Task2 completed after Task1\" >> task2_output.txt\n    cat ~{previous_output}
+      >> task2_output.txt\n  >>>\n  \n  output {\n    File output_file = \"task2_output.txt\"\n
+      \ }\n  \n  runtime {\n    cpu: 1\n    memory: \"2G\"\n  }\n}\n\r\n--8e745d73f9be9e8a3c410281031fe463--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '1247'
+      content-type:
+      - multipart/form-data; boundary=8e745d73f9be9e8a3c410281031fe463
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"jsonTaskOrderTest","inputs":[{"name":"input_json","valueType":{"typeName":"String"},"typeDisplayName":"String","optional":false,"default":null}],"outputs":[{"name":"task1_output","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"task2_output","valueType":{"typeName":"File"},"typeDisplayName":"File"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '551'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Mar 2025 05:52:04 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--fc61190addbf4b46ed84fde722e70191\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"globNonmatching.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow globNonmatching {\n    call create_files\n    output {\n        Array[File]
+      unmatched_files = create_files.unmatched_files\n    }\n}\n\ntask create_files
+      {\n    command <<<\n        echo \"Test file\" > test.txt\n    >>>\n    output
+      {\n        Array[File] unmatched_files = glob(\"*.log\")\n    }\n}\n\r\n--fc61190addbf4b46ed84fde722e70191--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '509'
+      content-type:
+      - multipart/form-data; boundary=fc61190addbf4b46ed84fde722e70191
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"globNonmatching","inputs":[],"outputs":[{"name":"unmatched_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '414'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Mar 2025 05:52:04 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--4d7ce1102c399132c19ae4a57d78a2e6\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"basicGlobTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow basicGlobTest {\n    call create_files\n    output {\n        Array[File]
+      matched_files = create_files.txt_files\n    }\n}\n\ntask create_files {\n    command
+      <<<\n        echo \"File 1\" > file1.txt\n        echo \"File 2\" > file2.txt\n
+      \   >>>\n    output {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n\r\n--4d7ce1102c399132c19ae4a57d78a2e6--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '523'
+      content-type:
+      - multipart/form-data; boundary=4d7ce1102c399132c19ae4a57d78a2e6
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"basicGlobTest","inputs":[],"outputs":[{"name":"matched_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '410'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Mar 2025 05:52:05 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--01ae043682381988b0cc0d896119af5c\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"helloHostname.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n## This is a test workflow that returns the hostname of the node \n## the
+      job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow
+      HelloHostname {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n
+      \ }\n\n  parameter_meta {\n    stdout: \"hostname of the node the job was submitted
+      to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo
+      $(hostname)\n  >>>\n\n  output {\n    File out = stdout()\n  }\n  \n  runtime
+      {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname
+      of the node the job was submitted to\"\n  }\n}\n\r\n--01ae043682381988b0cc0d896119af5c--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '802'
+      content-type:
+      - multipart/form-data; boundary=01ae043682381988b0cc0d896119af5c
       host:
       - gizmok12.fhcrc.org:34115
       user-agent:
@@ -42,7 +445,588 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 10 Mar 2025 16:11:00 GMT
+      - Tue, 11 Mar 2025 05:52:05 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--8268472c748d9d50aeb554ee6b56ecea\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"testNestedJsonArray.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\n# Define the structure for sampleDetails\nstruct sampleDetails {\n    String
+      experimentType\n    String prepMethod\n    String tissueType\n}\n\n# Define
+      the main structure for the single sample\nstruct singleSample {\n    String
+      sampleName\n    String aboutSample\n    String sampleDescription\n    sampleDetails
+      details  # Use the sampleDetails struct here\n}\n\nworkflow testNestedJsonArray
+      {\n  input {\n    String cellNumber\n    Array[singleSample] batchOfSamples
+      \ # Array of objects representing each sample\n  }\n\n  scatter (sample in batchOfSamples)
+      {\n    call processSample {\n      input:\n        sample = sample,\n        base_file_name
+      = sample.sampleName \n    }\n  }\n\n  output {\n    # Collect all the fields
+      together from each sample into one list\n    Array[File] result_allSampleInfo
+      = processSample.allSampleInfo\n  }\n}\n\ntask processSample {\n  input {\n    singleSample
+      sample  # Use singleSample type, not Object\n    String base_file_name\n  }\n\n
+      \ command <<<\n    # Format the sample information as a single string\n    allSampleInfo=\"~{sample.sampleName}
+      | ~{sample.aboutSample} | ~{sample.sampleDescription} | ~{sample.details.experimentType}
+      | ~{sample.details.prepMethod} | ~{sample.details.tissueType}\"\n    \n    #
+      Output the concatenated sample info to a file\n    echo \"${allSampleInfo}\"
+      > ~{base_file_name}.allSampleInfo.txt\n  >>>\n\n  output {\n    # Read all sample
+      info from the file and output it as an Array of Strings\n    File allSampleInfo
+      = \"${base_file_name}.allSampleInfo.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n
+      \ }\n}\n\r\n--8268472c748d9d50aeb554ee6b56ecea--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '1750'
+      content-type:
+      - multipart/form-data; boundary=8268472c748d9d50aeb554ee6b56ecea
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"testNestedJsonArray","inputs":[{"name":"batchOfSamples","valueType":{"typeName":"Array","arrayType":{"typeName":"Object","objectFieldTypes":[{"fieldName":"sampleName","fieldType":{"typeName":"String"}},{"fieldName":"aboutSample","fieldType":{"typeName":"String"}},{"fieldName":"sampleDescription","fieldType":{"typeName":"String"}},{"fieldName":"details","fieldType":{"typeName":"Object","objectFieldTypes":[{"fieldName":"experimentType","fieldType":{"typeName":"String"}},{"fieldName":"prepMethod","fieldType":{"typeName":"String"}},{"fieldName":"tissueType","fieldType":{"typeName":"String"}}]}}]},"nonEmpty":false},"typeDisplayName":"Array[WomCompositeType
+        {\n sampleName -> String\naboutSample -> String\nsampleDescription -> String\ndetails
+        -> WomCompositeType {\n experimentType -> String\nprepMethod -> String\ntissueType
+        -> String \n} \n}]","optional":false,"default":null},{"name":"cellNumber","valueType":{"typeName":"String"},"typeDisplayName":"String","optional":false,"default":null}],"outputs":[{"name":"result_allSampleInfo","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"}],"images":["\"ubuntu:20.04\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1406'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Mar 2025 05:52:05 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--2234bc36c39eaf695b9774f71b8859c8\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"conditionalTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n## This workflow demonstrates the usage of conditional statements in WDL\n##
+      by selectively processing samples based on their properties\n\nstruct SampleInfo
+      {\n    String name\n    Float quality_score\n    String type\n}\n\nworkflow
+      conditional_example {\n    input {\n        Array[SampleInfo] samples\n        Float
+      quality_threshold\n    }\n\n    # Demonstrate if statement in scatter\n    scatter
+      (sample in samples) {\n        if (sample.quality_score >= quality_threshold)
+      {\n            call process_high_quality {\n                input:\n                    sample
+      = sample\n            }\n        }\n    }\n\n    # Create string arrays for
+      the QC report\n    scatter (sample in samples) {\n        String sample_line
+      = \"~{sample.name},~{sample.type},~{sample.quality_score}\"\n    }\n\n    #
+      Demonstrate single conditional task\n    call run_qc_report {\n        input:\n
+      \           sample_lines = sample_line\n    }\n\n    # Calculate number of high
+      quality samples\n    Int num_high_quality = length(select_all(process_high_quality.message))\n\n
+      \   # Demonstrate separate conditional blocks (WDL 1.0 approach instead of if/else)\n
+      \   Boolean has_multiple_samples = num_high_quality > 1\n    \n    if (has_multiple_samples)
+      {\n        call summarize {\n            input:\n                messages =
+      select_all(process_high_quality.message),\n                report = \"Multiple
+      high-quality samples processed\"\n        }\n    }\n\n    if (!has_multiple_samples)
+      {\n        call summarize as summarize_few {\n            input:\n                messages
+      = select_all(process_high_quality.message),\n                report = \"Few
+      or no high-quality samples found\"\n        }\n    }\n\n    output {\n        String
+      final_summary = select_first([summarize.summary, summarize_few.summary])\n        File
+      qc_report = run_qc_report.report_csv\n    }\n}\n\ntask process_high_quality
+      {\n    input {\n        SampleInfo sample\n    }\n\n    command <<<\n        echo
+      \"Processing high quality ~{sample.type} sample ~{sample.name} (Q=~{sample.quality_score})\"\n
+      \   >>>\n\n    output {\n        String message = read_string(stdout())\n    }\n\n
+      \   runtime {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\ntask
+      run_qc_report {\n    input {\n        Array[String] sample_lines\n    }\n\n
+      \   command <<<\n        echo \"Quality Score Summary:\"\n        echo \"Sample
+      Name,Type,Quality Score\" > report.csv\n        ~{sep=\"\\n\" sample_lines}
+      >> report.csv\n        cat report.csv\n    >>>\n\n    output {\n        String
+      report = read_string(stdout())\n        File report_csv = \"report.csv\"\n    }\n\n
+      \   runtime {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\ntask
+      summarize {\n    input {\n        Array[String] messages\n        String report\n
+      \   }\n\n    command <<<\n        echo \"~{report}\"\n        echo \"Number
+      of samples processed: ~{length(messages)}\"\n    >>>\n\n    output {\n        String
+      summary = read_string(stdout())\n    }\n\n    runtime {\n        docker: \"ubuntu:noble-20241118.1\"\n
+      \   }\n}\n\r\n--2234bc36c39eaf695b9774f71b8859c8--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '3118'
+      content-type:
+      - multipart/form-data; boundary=2234bc36c39eaf695b9774f71b8859c8
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"conditional_example","inputs":[{"name":"quality_threshold","valueType":{"typeName":"Float"},"typeDisplayName":"Float","optional":false,"default":null},{"name":"samples","valueType":{"typeName":"Array","arrayType":{"typeName":"Object","objectFieldTypes":[{"fieldName":"name","fieldType":{"typeName":"String"}},{"fieldName":"quality_score","fieldType":{"typeName":"Float"}},{"fieldName":"type","fieldType":{"typeName":"String"}}]},"nonEmpty":false},"typeDisplayName":"Array[WomCompositeType
+        {\n name -> String\nquality_score -> Float\ntype -> String \n}]","optional":false,"default":null}],"outputs":[{"name":"final_summary","valueType":{"typeName":"String"},"typeDisplayName":"String"},{"name":"qc_report","valueType":{"typeName":"File"},"typeDisplayName":"File"}],"images":["\"ubuntu:noble-20241118.1\"","\"ubuntu:noble-20241118.1\"","\"ubuntu:noble-20241118.1\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1085'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Mar 2025 05:52:05 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--c562e2dec28ad75d3c1c7583ed898d6b\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"badRunParseBatchFile.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n# This workflow takes a tab separated file where each row is a set of data
+      to be used in each \n# of the independent scattered task series that you have
+      as your workflow process.  This file \n# will, for example, have column names
+      `sampleName`, `bamLocation`, and `bedlocation`.  This\n# allows you to know
+      that regardless of the order of the columns in your batch file, the correct\n#
+      inputs will be used for the tasks you define.  \nworkflow parseBatchFile {\n
+      \ input {\n  File batchFile\n  }\n    Array[Object] batchInfo = read_objects(batchFile)\n
+      \ scatter (job in batchInfo){\n    String sampleName = job.sampleName\n    File
+      bamFile = job.bamLocation\n    File bedFile = job.bedLocation\n\n    ## INSERT
+      YOUR WORKFLOW TO RUN PER LINE IN YOUR BATCH FILE HERE!!!!\n    call test {\n
+      \       input: in1=sampleName, in2=bamFile, in3=bedFile\n    }\n\n  }  # End
+      Scatter over the batch file\n# Outputs that will be retained when execution
+      is complete\n  output {\n    Array[File] outputArray = test.item_out\n    }\n#
+      End workflow\n}\n\n#### TASK DEFINITIONS\n# echo some text to stdout, treats
+      files as strings just to echo them as a dummy example\ntask test {\n  input
+      {\n    String in1\n    String in2\n    String in3\n  }\n    command {\n    echo
+      ~{in1}\n    echo ~{in2}\n    echo ~{in3}\n    }\n    output {\n        File
+      item_out = stdout()\n    }\n}\r\n--c562e2dec28ad75d3c1c7583ed898d6b--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '1534'
+      content-type:
+      - multipart/form-data; boundary=c562e2dec28ad75d3c1c7583ed898d6b
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"parseBatchFile","inputs":[{"name":"batchFile","valueType":{"typeName":"File"},"typeDisplayName":"File","optional":false,"default":null}],"outputs":[{"name":"outputArray","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '518'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Mar 2025 05:52:05 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--7a2c49ad4773914f2ec24cc36fbde46f\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"globSubdir.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
+      matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n
+      \   }\n}\n\ntask create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n
+      \       echo \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n
+      \   >>>\n    output {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n
+      \       Array[File] matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n\r\n--7a2c49ad4773914f2ec24cc36fbde46f--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '730'
+      content-type:
+      - multipart/form-data; boundary=7a2c49ad4773914f2ec24cc36fbde46f
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"globSubdir","inputs":[],"outputs":[{"name":"matched_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '407'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Mar 2025 05:52:05 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--600553d392048ff645ee70616609e975\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"emptyGlobTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow emptyGlobTest {\n    call create_empty_directory\n\n    output
+      {\n        Array[File] no_files = create_empty_directory.no_files\n    }\n}\n\ntask
+      create_empty_directory {\n    command {\n        mkdir empty_dir\n    }\n    output
+      {\n        Array[File] no_files = glob(\"empty_dir/*.txt\")\n    }\n}\n\r\n--600553d392048ff645ee70616609e975--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '509'
+      content-type:
+      - multipart/form-data; boundary=600553d392048ff645ee70616609e975
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"emptyGlobTest","inputs":[],"outputs":[{"name":"no_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '405'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Mar 2025 05:52:05 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--4d7d87d7611e0f101a2474606db4f06f\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"WildcardsandConditions.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow WildcardsandConditions {\n    input {\n        String prefix
+      \ # Required input for the file prefix (no default value)\n    }\n\n    call
+      wildcard_and_conditions_test {\n        input:\n            prefix = prefix
+      \ # Explicitly pass the workflow input to the task\n    }\n\n    output {\n
+      \       Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+      conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+      wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+      input for file creation\n        Boolean create_extra_file = true  # Default
+      value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+      .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+      \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+      an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+      ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n
+      \       # Parse inputs directly in the command\n        echo \"Parsed prefix:
+      ~{prefix}\" > parsed_output.txt\n    >>>\n\n    output {\n        Array[File]
+      txt_files = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+      = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+      {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\r\n--4d7d87d7611e0f101a2474606db4f06f--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '1573'
+      content-type:
+      - multipart/form-data; boundary=4d7d87d7611e0f101a2474606db4f06f
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"WildcardsandConditions","inputs":[{"name":"prefix","valueType":{"typeName":"String"},"typeDisplayName":"String","optional":false,"default":null},{"name":"wildcard_and_conditions_test.create_extra_file","valueType":{"typeName":"Boolean"},"typeDisplayName":"Boolean","optional":true,"default":"true"}],"outputs":[{"name":"conditional_result","valueType":{"typeName":"String"},"typeDisplayName":"String"},{"name":"txt_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"}],"images":["\"ubuntu:20.04\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '788'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Mar 2025 05:52:05 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--66080be606e74a71893cf8acd25d8ff7\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"structTypeTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\n## This workflow demonstrates advanced struct features in WDL including:\n##
+      1. Optional fields\n## 2. Nested structs\n## 3. Default values (handled in the
+      workflow)\n\n#### STRUCT DEFINITIONS\n\n# Nested struct for sequencing metadata\nstruct
+      SequencingInfo {\n    String platform\n    String? flowcell_id\n    Int? lane_number\n}\n\n#
+      Nested struct for quality metrics\nstruct QualityMetrics {\n    Float quality_score\n
+      \   Float? gc_content\n    Int? duplicate_rate\n}\n\n# Main struct with nested
+      structures and optional fields\nstruct SampleInfo {\n    String name\n    String?
+      type\n    Int? read_length\n    String? library_prep\n    SequencingInfo sequencing\n
+      \   QualityMetrics metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow struct_example
+      {\n    input {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter
+      (sample_info in sample_information) {\n        SampleInfo processed_sample =
+      object {\n            name: sample_info.name,\n            type: select_first([sample_info.type,
+      \"normal\"]),\n            read_length: select_first([sample_info.read_length,
+      100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+      sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n
+      \       call process_sample {\n            input:\n                sample =
+      processed_sample\n        }\n    }\n}\n\n#### TASK DEFINITIONS\n\ntask process_sample
+      {\n    input {\n        SampleInfo sample\n    }\n\n    command <<<\n        echo
+      \"Processing ~{sample.name} (~{sample.type})\"\n        echo \"Read Length:
+      ~{sample.read_length}\"\n        echo \"Sequencing Platform: ~{sample.sequencing.platform}\"\n
+      \       echo \"Flowcell ID: ~{select_first([sample.sequencing.flowcell_id, 'N/A'])}\"\n
+      \       echo \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n
+      \       echo \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo
+      \"GC Content: ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo
+      \"Duplicate Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+      \"Library Prep: ~{select_first([sample.library_prep, 'Standard'])}\"\n    >>>\n\n
+      \   output {\n        String message = read_string(stdout())\n    }\n\n    runtime
+      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\r\n--66080be606e74a71893cf8acd25d8ff7--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '2417'
+      content-type:
+      - multipart/form-data; boundary=66080be606e74a71893cf8acd25d8ff7
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"struct_example","inputs":[{"name":"sample_information","valueType":{"typeName":"Array","arrayType":{"typeName":"Object","objectFieldTypes":[{"fieldName":"name","fieldType":{"typeName":"String"}},{"fieldName":"sequencing","fieldType":{"typeName":"Object","objectFieldTypes":[{"fieldName":"platform","fieldType":{"typeName":"String"}},{"fieldName":"flowcell_id","fieldType":{"typeName":"Optional","optionalType":{"typeName":"String"}}},{"fieldName":"lane_number","fieldType":{"typeName":"Optional","optionalType":{"typeName":"Int"}}}]}},{"fieldName":"metrics","fieldType":{"typeName":"Object","objectFieldTypes":[{"fieldName":"quality_score","fieldType":{"typeName":"Float"}},{"fieldName":"gc_content","fieldType":{"typeName":"Optional","optionalType":{"typeName":"Float"}}},{"fieldName":"duplicate_rate","fieldType":{"typeName":"Optional","optionalType":{"typeName":"Int"}}}]}},{"fieldName":"type","fieldType":{"typeName":"Optional","optionalType":{"typeName":"String"}}},{"fieldName":"library_prep","fieldType":{"typeName":"Optional","optionalType":{"typeName":"String"}}},{"fieldName":"read_length","fieldType":{"typeName":"Optional","optionalType":{"typeName":"Int"}}}]},"nonEmpty":false},"typeDisplayName":"Array[WomCompositeType
+        {\n name -> String\nsequencing -> WomCompositeType {\n platform -> String\nflowcell_id
+        -> String?\nlane_number -> Int? \n}\nmetrics -> WomCompositeType {\n quality_score
+        -> Float\ngc_content -> Float?\nduplicate_rate -> Int? \n}\ntype -> String?\nlibrary_prep
+        -> String?\nread_length -> Int? \n}]","optional":false,"default":null}],"outputs":[],"images":["\"ubuntu:noble-20241118.1\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1839'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Mar 2025 05:52:05 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--6e68529b1c92a0fe12be21c77c86b6d9\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"testFileoperations.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow testFileoperations {\n    call file_operations\n\n    output
+      {\n        File created_file1 = file_operations.created_file1\n        File
+      moved_file = file_operations.moved_file\n        File renamed_file = file_operations.renamed_file\n
+      \   }\n}\n\ntask file_operations {\n    command <<<\n        # Create three
+      different files\n        echo \"This is the first created file.\" > file1.txt\n
+      \       echo \"This is the second file that will be moved.\" > file2.txt\n        echo
+      \"This is the third file that will be renamed.\" > file3.txt\n        \n        #
+      Move the second file to a new directory\n        mkdir -p output_dir\n        mv
+      file2.txt output_dir/\n        \n        # Rename the third file\n        mv
+      file3.txt file3_renamed.txt\n    >>>\n\n    output {\n        # Output the actual
+      existing files\n        File created_file1 = \"file1.txt\"                  #
+      The first file remains unchanged\n        File moved_file = \"output_dir/file2.txt\"
+      \         # The second file after being moved\n        File renamed_file = \"file3_renamed.txt\"
+      \          # The third file after being renamed\n    }\n\n    runtime {\n        docker:
+      \"ubuntu:20.04\"\n    }\n}\n\r\n--6e68529b1c92a0fe12be21c77c86b6d9--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '1355'
+      content-type:
+      - multipart/form-data; boundary=6e68529b1c92a0fe12be21c77c86b6d9
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"testFileoperations","inputs":[],"outputs":[{"name":"created_file1","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"moved_file","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"renamed_file","valueType":{"typeName":"File"},"typeDisplayName":"File"}],"images":["\"ubuntu:20.04\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '536'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Mar 2025 05:52:05 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--36cff7f9513b5f582a0603f9dba293de\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"basicTaskExecution.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\n# The basicTaskTest workflow calls a task named simpleTask, which takes
+      a string input and writes it to a file called output.txt. It demonstrates a
+      basic execution of a task with file output.\n\n# This tests basic task execution,
+      input handling, and file output functionality. It ensures that a task can successfully
+      take an input and generate an output.\n\nworkflow basicTaskTest {\n  input {\n
+      \   String text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n
+      \     message = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n
+      \ }\n\n  command <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output
+      {\n    File outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n
+      \ }\n}\n\r\n--36cff7f9513b5f582a0603f9dba293de--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '914'
+      content-type:
+      - multipart/form-data; boundary=36cff7f9513b5f582a0603f9dba293de
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"basicTaskTest","inputs":[{"name":"text","valueType":{"typeName":"String"},"typeDisplayName":"String","optional":true,"default":"\"Hello,
+        World!\""}],"outputs":[],"images":["\"ubuntu:20.04\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '412'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Mar 2025 05:52:05 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--d39b17b1fb09037ff5936a48af35e8eb\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"helloDockerHostname.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n## This is a test workflow that returns the Docker image name and tag\n##
+      and measures execution time of the Hostname task.\n\n#### WORKFLOW DEFINITION\n\nworkflow
+      HelloDockerHostname {\n  input {\n    String docker_image = \"ubuntu:20.04\"
+      \ # Default value but can be overridden\n  }\n\n  call GetStartTime\n\n  call
+      Hostname {\n    input:\n      expected_image = docker_image,\n      start_time
+      = GetStartTime.timestamp  # Add dependency on start time\n  }\n\n  call GetEndTime
+      {\n    input:\n      hostname_done = Hostname.out  # Add dependency on Hostname
+      completion\n  }\n\n  call ValidateExecutionTime {\n    input:\n      start_time
+      = GetStartTime.timestamp,\n      end_time = GetEndTime.timestamp\n  }\n\n  output
+      {\n    File stdout = Hostname.out\n    Float execution_time_seconds = ValidateExecutionTime.duration_seconds\n
+      \   Boolean within_time_limit = ValidateExecutionTime.within_limit\n  }\n\n
+      \ parameter_meta {\n    docker_image: \"Docker image to run the task in (e.g.
+      ubuntu:latest)\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask GetStartTime {\n  command
+      <<<\n    date +%s.%N\n  >>>\n\n  output {\n    Float timestamp = read_float(stdout())\n
+      \ }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n    cpu: 1\n    memory: \"1
+      GB\"\n  }\n}\n\ntask GetEndTime {\n  input {\n    File hostname_done  # Add
+      dependency on Hostname completion\n  }\n\n  command <<<\n    date +%s.%N\n  >>>\n\n
+      \ output {\n    Float timestamp = read_float(stdout())\n  }\n\n  runtime {\n
+      \   docker: \"ubuntu:20.04\"\n    cpu: 1\n    memory: \"1 GB\"\n  }\n}\n\ntask
+      ValidateExecutionTime {\n  input {\n    Float start_time\n    Float end_time\n
+      \ }\n\n  command <<<\n    # Calculate duration using awk for floating point
+      arithmetic\n    duration=$(awk \"BEGIN {print ~{end_time} - ~{start_time}}\")\n
+      \   echo \"$duration\" > duration.txt\n    \n    # Check if duration is less
+      than 120 seconds (2 minutes)\n    awk -v dur=\"$duration\" 'BEGIN {if (dur <
+      120) exit 0; exit 1}'\n    if [ $? -eq 0 ]; then\n      echo \"true\" > within_limit.txt\n
+      \   else\n      echo \"false\" > within_limit.txt\n    fi\n  >>>\n\n  output
+      {\n    Float duration_seconds = read_float(\"duration.txt\")\n    Boolean within_limit
+      = read_boolean(\"within_limit.txt\")\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n
+      \   cpu: 1\n    memory: \"1 GB\"\n  }\n}\n\ntask Hostname {\n  input {\n    String
+      expected_image\n    Float start_time  # Add start_time as input to create dependency\n
+      \ }\n\n  command <<<\n    # Split expected image into name and tag\n    EXPECTED_IMAGE_NAME=$(echo
+      \"~{expected_image}\" | cut -d':' -f1)\n    EXPECTED_TAG=$(echo \"~{expected_image}\"
+      | cut -d':' -f2)\n\n    # Get current image info\n    CURRENT_IMAGE=$(grep \"ID=\"
+      /etc/os-release | head -n1 | cut -d'=' -f2)\n    CURRENT_VERSION=$(grep \"VERSION_ID=\"
+      /etc/os-release | cut -d'\"' -f2)\n\n    # Compare image name\n    if [[ \"$CURRENT_IMAGE\"
+      != \"$EXPECTED_IMAGE_NAME\" ]]; then\n      echo \"Error: Expected Docker image
+      $EXPECTED_IMAGE_NAME but got: $CURRENT_IMAGE\"\n      exit 1\n    fi\n\n    #
+      Compare version/tag\n    if [[ \"$CURRENT_VERSION\" != \"$EXPECTED_TAG\" ]];
+      then\n      echo \"Error: Expected version $EXPECTED_TAG but got: $CURRENT_VERSION\"\n
+      \     exit 1\n    fi\n\n    echo \"Verified Docker Image: $CURRENT_IMAGE:$CURRENT_VERSION\"\n
+      \   echo \"Expected Image: ~{expected_image}\"\n    echo \"Hostname: $(hostname)\"\n
+      \ >>>\n\n  output {\n    File out = stdout()\n  }\n\n  runtime {\n    cpu: 1\n
+      \   memory: \"1 GB\"\n    docker: \"~{expected_image}\"\n  }\n\n  parameter_meta
+      {\n    expected_image: \"Docker image that should be running this task\"\n  }\n}\n\r\n--d39b17b1fb09037ff5936a48af35e8eb--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '3635'
+      content-type:
+      - multipart/form-data; boundary=d39b17b1fb09037ff5936a48af35e8eb
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"HelloDockerHostname","inputs":[{"name":"docker_image","valueType":{"typeName":"String"},"typeDisplayName":"String","optional":true,"default":"\"ubuntu:20.04\""}],"outputs":[{"name":"execution_time_seconds","valueType":{"typeName":"Float"},"typeDisplayName":"Float"},{"name":"stdout","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"within_time_limit","valueType":{"typeName":"Boolean"},"typeDisplayName":"Boolean"}],"images":["\"ubuntu:20.04\"","\"ubuntu:20.04\"","\"~{expected_image}\"","\"ubuntu:20.04\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{"docker_image":"Docker
+        image to run the task in (e.g. ubuntu:latest)"},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '815'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Mar 2025 05:52:05 GMT
       Server:
       - nginx/1.25.3
     status:
