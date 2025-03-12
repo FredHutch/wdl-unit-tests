@@ -77,7 +77,7 @@ class CromwellJava(object):
                 + Style.BRIGHT
                 + f"\nCommand {e.full_cmd} exited with {e.exit_code}\n"
             )
-            print(Fore.RED + Style.BRIGHT + f"Dumping cromwell run output\n")
+            print(Fore.RED + Style.BRIGHT + "Dumping cromwell run output\n")
             print(Fore.YELLOW + Style.BRIGHT + "STDERR output:\n")
             print(self.stderr.getvalue())
             print(Fore.YELLOW + Style.BRIGHT + "STDOUT output:\n")

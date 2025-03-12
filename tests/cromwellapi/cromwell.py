@@ -46,7 +46,9 @@ class CromwellApi(object):
         }
         files = {k: v for k, v in files.items() if v}
         res = httpx.post(
-            f"{self.base_url}/api/workflows/v1", headers=self.headers, files=files
+            f"{self.base_url}/api/workflows/v1",
+            headers=self.headers,
+            files=files,
         )
         res.raise_for_status()
         data = res.json()

@@ -20,8 +20,9 @@ jobs:
         run: uv sync --all-extras
 
       # Include `--output-format=github` to enable automatic inline annotations.
+      # included rules that are check specified in pyproject.toml
       - name: Run Ruff linter
-        run: uv run ruff check --output-format=github --select I tests/
+        run: uv run ruff check --output-format=github tests/
 
       # Include `--output-format=github` to enable automatic inline annotations.
       - name: Run Ruff formatter
