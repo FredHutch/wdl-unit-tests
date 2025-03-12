@@ -25,7 +25,9 @@ def test_successes_initial(cromwell_api, submit_wdls, recording_mode):
         submit_wdls: pytest fixture containing details about WDL submissions to PROOF (defined in conftest.py)
         recording_mode (str): string indicating if the cassettes are getting rewritten or not
     """
-    succeed = list(filter(lambda x: not x["path"].startswith("bad"), submit_wdls))
+    succeed = list(
+        filter(lambda x: not x["path"].startswith("bad"), submit_wdls)
+    )
     for job in succeed:
         if recording_mode != "rewrite":
             with patch("time.sleep"):
@@ -60,7 +62,9 @@ def test_successes_final(cromwell_api_final, submit_wdls):
         cromwell_api (CromwellApi): PROOF server being used to execute WDL unit tests (class defined in cromwell.py)
         submit_wdls: pytest fixture containing details about WDL submissions to PROOF (defined in conftest.py)
     """
-    succeed = list(filter(lambda x: not x["path"].startswith("bad"), submit_wdls))
+    succeed = list(
+        filter(lambda x: not x["path"].startswith("bad"), submit_wdls)
+    )
     for job in succeed:
         res = cromwell_api_final.metadata(workflow_id=job["id"], params=params)
         assert isinstance(res, dict)
