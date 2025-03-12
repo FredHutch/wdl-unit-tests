@@ -16,7 +16,9 @@ mocked_submissions = "tests/cromwellapi/mocked_submissions.json"
 def pytest_report_header(config):
     mode = config.getoption("--record-mode", default=None)
     last_mod = cassettes_last_modified("tests/cromwellapi/cassettes")
-    retry_messages_warn = "" if mode == "rewrite" else "(ignore Retry attempt messages)"
+    retry_messages_warn = (
+        "" if mode == "rewrite" else "(ignore Retry attempt messages)"
+    )
     return [
         f"vcr recording mode: {mode} {retry_messages_warn}",
         f"vcr cassettes last recorded approx.: {last_mod}",
