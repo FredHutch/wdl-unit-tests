@@ -3,6 +3,8 @@ from unittest.mock import patch
 
 import pytest
 
+# Parameters included during the PROOF metadata query 
+# Dictates which fields come through in the response
 params = {
     "includeKey": [
         "status",
@@ -15,12 +17,13 @@ params = {
 @pytest.mark.vcr
 def test_successes_initial(cromwell_api, submit_wdls, recording_mode):
     """
-    Parametrized pytest used to ensure that each WDL unit test got submitted successfully
-    with the exception of WDL's that are expected to fail (name starts with "bad")
+    Ensures that each WDL unit test got submitted successfully with the
+    exception of WDL's that are expected to fail (name starts with "bad")
 
     Args:
         cromwell_api (CromwellApi): PROOF server being used to submit WDL unit tests (class defined in cromwell.py)
-        wdl_path (PosixPath): location of the WDL script to submit via PROOF
+        submit_wdls: pytest fixture containing details about WDL submissions to PROOF (defined in conftest.py)
+        recording_mode (str): string indicating if the cassettes are getting rewritten or not
     """
     succeed = list(filter(lambda x: not x["path"].startswith("bad"), submit_wdls))
     for job in succeed:
@@ -50,12 +53,12 @@ def test_successes_initial(cromwell_api, submit_wdls, recording_mode):
 @pytest.mark.vcr
 def test_successes_final(cromwell_api_final, submit_wdls):
     """
-    Parametrized pytest used to ensure that each WDL unit test executes successfully
-    with the exception of WDL's that are expected to fail (name starts with "bad")
+    Ensures that each WDL unit test executes successfully with the 
+    exception of WDL's that are expected to fail (name starts with "bad")
 
     Args:
         cromwell_api (CromwellApi): PROOF server being used to execute WDL unit tests (class defined in cromwell.py)
-        wdl_path (PosixPath): location of the WDL script to execute via PROOF
+        submit_wdls: pytest fixture containing details about WDL submissions to PROOF (defined in conftest.py)
     """
     succeed = list(filter(lambda x: not x["path"].startswith("bad"), submit_wdls))
     for job in succeed:
