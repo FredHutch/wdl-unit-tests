@@ -12,9 +12,10 @@ __check_defined = \
 lint-fix:
 	uv run ruff check --select I --fix tests/
 
-# include sort imports via `--select I`
+# included rules that are check specified in pyproject.toml
+# see https://docs.astral.sh/ruff/rules/ for rules
 lint-check:
-	uv run ruff check --select I tests/
+	uv run ruff check tests/
 
 format-fix:
 	uv run ruff format tests/
