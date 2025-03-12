@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 import pytest
 
-# Parameters included during the PROOF metadata query 
+# Parameters included during the PROOF metadata query
 # Dictates which fields come through in the response
 params = {
     "includeKey": [
@@ -53,7 +53,7 @@ def test_successes_initial(cromwell_api, submit_wdls, recording_mode):
 @pytest.mark.vcr
 def test_successes_final(cromwell_api_final, submit_wdls):
     """
-    Ensures that each WDL unit test executes successfully with the 
+    Ensures that each WDL unit test executes successfully with the
     exception of WDL's that are expected to fail (name starts with "bad")
 
     Args:
