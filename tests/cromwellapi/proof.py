@@ -49,7 +49,9 @@ class ProofApi(object):
 
     @cache_next_call_only
     @retry(
-        retry=retry_if_exception_type((httpx.HTTPStatusError, httpx.ReadTimeout)),
+        retry=retry_if_exception_type(
+            (httpx.HTTPStatusError, httpx.ReadTimeout)
+        ),
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=4, max=10),
         before_sleep=before_sleep_message,
@@ -64,10 +66,12 @@ class ProofApi(object):
         return res.json()
 
     def is_cromwell_server_up(self, timeout=10):
-        return not self.status()["canJobStart"]
+        return not self.status(timeout=timeout)["canJobStart"]
 
     @retry(
-        retry=retry_if_exception_type((httpx.HTTPStatusError, httpx.ReadTimeout)),
+        retry=retry_if_exception_type(
+            (httpx.HTTPStatusError, httpx.ReadTimeout)
+        ),
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=4, max=10),
         before_sleep=before_sleep_message,
