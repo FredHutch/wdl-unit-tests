@@ -58,4 +58,6 @@ class CromwellApiFinal(CromwellApi):
 
     def metadata(self, workflow_id, params):
         """metadata: call CromwellApi.metadata until returns a final state"""
-        return self.until_final("metadata", workflow_id=workflow_id, params=params)
+        return self.until_final(
+            "metadata", workflow_id=workflow_id, params=params
+        )

@@ -37,7 +37,9 @@ def test_validate_bad_wdl(cromwell_api, wdl_path):
         cromwell_api (CromwellApi): PROOF server being used to validate WDL unit tests (class defined in cromwell.py)
         wdl_path (PosixPath): location of the WDL script to validate via PROOF
     """
-    message_check = {"badValMissingValue.wdl": "Cannot lookup value 'docker_image'"}
+    message_check = {
+        "badValMissingValue.wdl": "Cannot lookup value 'docker_image'"
+    }
     if wdl_path.name.startswith("badVal"):
         res = cromwell_api.validate(wdl_path=wdl_path)
         assert isinstance(res, dict)
