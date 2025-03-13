@@ -1,0 +1,573 @@
+interactions:
+- request:
+    body: "--8ce701496125ee915dd7f479f209e3d7\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"globSubdir.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
+      matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n
+      \   }\n}\n\ntask create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n
+      \       echo \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n
+      \   >>>\n    output {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n
+      \       Array[File] matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n\r\n--8ce701496125ee915dd7f479f209e3d7\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--8ce701496125ee915dd7f479f209e3d7--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '999'
+      content-type:
+      - multipart/form-data; boundary=8ce701496125ee915dd7f479f209e3d7
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"7b1f5928-020d-428b-b20e-12c6341f8c6c","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:33:40 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/7b1f5928-020d-428b-b20e-12c6341f8c6c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\nworkflow globSubdir {\n    call
+        create_nested_files\n    output {\n        Array[File] matched_files = flatten([create_nested_files.matched_files_top,
+        create_nested_files.matched_files_nested])\n    }\n}\n\ntask create_nested_files
+        {\n    command <<<\n        mkdir -p subdir/nested\n        echo \"Hello\"
+        > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n    >>>\n    output
+        {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n        Array[File]
+        matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"7b1f5928-020d-428b-b20e-12c6341f8c6c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-7b1f5928-020d-428b-b20e-12c6341f8c6c"},"submission":"2025-03-13T20:33:40.423Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:33:45 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1003'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/7b1f5928-020d-428b-b20e-12c6341f8c6c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\nworkflow globSubdir {\n    call
+        create_nested_files\n    output {\n        Array[File] matched_files = flatten([create_nested_files.matched_files_top,
+        create_nested_files.matched_files_nested])\n    }\n}\n\ntask create_nested_files
+        {\n    command <<<\n        mkdir -p subdir/nested\n        echo \"Hello\"
+        > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n    >>>\n    output
+        {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n        Array[File]
+        matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"7b1f5928-020d-428b-b20e-12c6341f8c6c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-7b1f5928-020d-428b-b20e-12c6341f8c6c"},"submission":"2025-03-13T20:33:40.423Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:33:50 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1003'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/7b1f5928-020d-428b-b20e-12c6341f8c6c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\nworkflow globSubdir {\n    call
+        create_nested_files\n    output {\n        Array[File] matched_files = flatten([create_nested_files.matched_files_top,
+        create_nested_files.matched_files_nested])\n    }\n}\n\ntask create_nested_files
+        {\n    command <<<\n        mkdir -p subdir/nested\n        echo \"Hello\"
+        > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n    >>>\n    output
+        {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n        Array[File]
+        matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"7b1f5928-020d-428b-b20e-12c6341f8c6c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-7b1f5928-020d-428b-b20e-12c6341f8c6c"},"submission":"2025-03-13T20:33:40.423Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:33:55 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1003'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/7b1f5928-020d-428b-b20e-12c6341f8c6c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"globSubdir","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:33:54.756Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
+        matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n    }\n}\n\ntask
+        create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n        echo
+        \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n    >>>\n    output
+        {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n        Array[File]
+        matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"globSubdir.create_nested_files":[{"executionStatus":"QueuedInCromwell","shardIndex":-1,"backend":"gizmo","attempt":1,"start":"2025-03-13T20:33:55.803Z"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:33:54.757Z","id":"7b1f5928-020d-428b-b20e-12c6341f8c6c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-7b1f5928-020d-428b-b20e-12c6341f8c6c"},"submission":"2025-03-13T20:33:40.423Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:34:00 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1553'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/7b1f5928-020d-428b-b20e-12c6341f8c6c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"globSubdir","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:33:54.756Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
+        matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n    }\n}\n\ntask
+        create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n        echo
+        \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n    >>>\n    output
+        {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n        Array[File]
+        matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"globSubdir.create_nested_files":[{"executionStatus":"QueuedInCromwell","shardIndex":-1,"backend":"gizmo","attempt":1,"start":"2025-03-13T20:33:55.803Z"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:33:54.757Z","id":"7b1f5928-020d-428b-b20e-12c6341f8c6c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-7b1f5928-020d-428b-b20e-12c6341f8c6c"},"submission":"2025-03-13T20:33:40.423Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:34:05 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1553'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/7b1f5928-020d-428b-b20e-12c6341f8c6c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"globSubdir","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:33:54.756Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
+        matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n    }\n}\n\ntask
+        create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n        echo
+        \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n    >>>\n    output
+        {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n        Array[File]
+        matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"globSubdir.create_nested_files":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files/execution/stdout","commandLine":"mkdir
+        -p subdir/nested\necho \"Hello\" > subdir/nested/file1.txt\necho \"World\"
+        > subdir/file2.txt","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"backend":"gizmo","attempt":1,"start":"2025-03-13T20:33:55.803Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:33:54.757Z","id":"7b1f5928-020d-428b-b20e-12c6341f8c6c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-7b1f5928-020d-428b-b20e-12c6341f8c6c"},"submission":"2025-03-13T20:33:40.423Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:34:10 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2375'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/7b1f5928-020d-428b-b20e-12c6341f8c6c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"globSubdir","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:33:54.756Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
+        matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n    }\n}\n\ntask
+        create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n        echo
+        \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n    >>>\n    output
+        {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n        Array[File]
+        matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"globSubdir.create_nested_files":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files/execution/stdout","backendStatus":"Running","commandLine":"mkdir
+        -p subdir/nested\necho \"Hello\" > subdir/nested/file1.txt\necho \"World\"
+        > subdir/file2.txt","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"14396649","backend":"gizmo","attempt":1,"start":"2025-03-13T20:33:55.803Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:33:54.757Z","id":"7b1f5928-020d-428b-b20e-12c6341f8c6c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-7b1f5928-020d-428b-b20e-12c6341f8c6c"},"submission":"2025-03-13T20:33:40.423Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:34:15 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2420'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/7b1f5928-020d-428b-b20e-12c6341f8c6c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"globSubdir","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:33:54.756Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
+        matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n    }\n}\n\ntask
+        create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n        echo
+        \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n    >>>\n    output
+        {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n        Array[File]
+        matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"globSubdir.create_nested_files":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files/execution/stdout","backendStatus":"Running","commandLine":"mkdir
+        -p subdir/nested\necho \"Hello\" > subdir/nested/file1.txt\necho \"World\"
+        > subdir/file2.txt","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"14396649","backend":"gizmo","attempt":1,"start":"2025-03-13T20:33:55.803Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:33:54.757Z","id":"7b1f5928-020d-428b-b20e-12c6341f8c6c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-7b1f5928-020d-428b-b20e-12c6341f8c6c"},"submission":"2025-03-13T20:33:40.423Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:34:20 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2420'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/7b1f5928-020d-428b-b20e-12c6341f8c6c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"globSubdir","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:33:54.756Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
+        matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n    }\n}\n\ntask
+        create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n        echo
+        \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n    >>>\n    output
+        {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n        Array[File]
+        matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"globSubdir.create_nested_files":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files/execution/stdout","backendStatus":"Running","commandLine":"mkdir
+        -p subdir/nested\necho \"Hello\" > subdir/nested/file1.txt\necho \"World\"
+        > subdir/file2.txt","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"14396649","backend":"gizmo","attempt":1,"start":"2025-03-13T20:33:55.803Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:33:54.757Z","id":"7b1f5928-020d-428b-b20e-12c6341f8c6c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-7b1f5928-020d-428b-b20e-12c6341f8c6c"},"submission":"2025-03-13T20:33:40.423Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:34:26 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2420'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/7b1f5928-020d-428b-b20e-12c6341f8c6c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"globSubdir","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:33:54.756Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
+        matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n    }\n}\n\ntask
+        create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n        echo
+        \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n    >>>\n    output
+        {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n        Array[File]
+        matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"globSubdir.create_nested_files":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files/execution/stdout","backendStatus":"Running","commandLine":"mkdir
+        -p subdir/nested\necho \"Hello\" > subdir/nested/file1.txt\necho \"World\"
+        > subdir/file2.txt","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"14396649","backend":"gizmo","attempt":1,"start":"2025-03-13T20:33:55.803Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:33:54.757Z","id":"7b1f5928-020d-428b-b20e-12c6341f8c6c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-7b1f5928-020d-428b-b20e-12c6341f8c6c"},"submission":"2025-03-13T20:33:40.423Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:34:31 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2420'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/7b1f5928-020d-428b-b20e-12c6341f8c6c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"globSubdir","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:33:54.756Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
+        matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n    }\n}\n\ntask
+        create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n        echo
+        \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n    >>>\n    output
+        {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n        Array[File]
+        matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"globSubdir.create_nested_files":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files/execution/stdout","backendStatus":"Running","commandLine":"mkdir
+        -p subdir/nested\necho \"Hello\" > subdir/nested/file1.txt\necho \"World\"
+        > subdir/file2.txt","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"14396649","backend":"gizmo","attempt":1,"start":"2025-03-13T20:33:55.803Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:33:54.757Z","id":"7b1f5928-020d-428b-b20e-12c6341f8c6c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-7b1f5928-020d-428b-b20e-12c6341f8c6c"},"submission":"2025-03-13T20:33:40.423Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:34:36 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2420'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/7b1f5928-020d-428b-b20e-12c6341f8c6c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"globSubdir","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"Finished","timestamp":"2025-03-13T20:34:34.560Z","cromwellVersion":"87"},{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:33:54.756Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
+        matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n    }\n}\n\ntask
+        create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n        echo
+        \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n    >>>\n    output
+        {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n        Array[File]
+        matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"globSubdir.create_nested_files":[{"executionStatus":"Done","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files/execution/stdout","backendStatus":"Done","commandLine":"mkdir
+        -p subdir/nested\necho \"Hello\" > subdir/nested/file1.txt\necho \"World\"
+        > subdir/file2.txt","shardIndex":-1,"outputs":{"matched_files_top":["/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files/execution/glob-ee3a9c1c6860f417d1e9ff1a72d2b62d/file2.txt"],"matched_files_nested":["/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files/execution/glob-4c0cd9dc6b12aa01233bbc214341aae1/file1.txt"]},"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"returnCode":0,"jobId":"14396649","backend":"gizmo","end":"2025-03-13T20:34:33.433Z","start":"2025-03-13T20:33:55.803Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files","attempt":1,"executionEvents":[{"startTime":"2025-03-13T20:34:01.877Z","description":"PreparingJob","endTime":"2025-03-13T20:34:01.888Z"},{"startTime":"2025-03-13T20:34:01.888Z","description":"RunningJob","endTime":"2025-03-13T20:34:32.699Z"},{"startTime":"2025-03-13T20:33:55.803Z","description":"Pending","endTime":"2025-03-13T20:33:55.803Z"},{"startTime":"2025-03-13T20:34:01.877Z","description":"WaitingForValueStore","endTime":"2025-03-13T20:34:01.877Z"},{"startTime":"2025-03-13T20:33:55.803Z","description":"RequestingExecutionToken","endTime":"2025-03-13T20:34:01.877Z"},{"startTime":"2025-03-13T20:34:32.699Z","description":"UpdatingJobStore","endTime":"2025-03-13T20:34:33.433Z"}]}]},"outputs":{"globSubdir.matched_files":["/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files/execution/glob-ee3a9c1c6860f417d1e9ff1a72d2b62d/file2.txt","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c/call-create_nested_files/execution/glob-4c0cd9dc6b12aa01233bbc214341aae1/file1.txt"]},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/globSubdir/7b1f5928-020d-428b-b20e-12c6341f8c6c","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-03-13T20:34:34.560Z","start":"2025-03-13T20:33:54.757Z","id":"7b1f5928-020d-428b-b20e-12c6341f8c6c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-7b1f5928-020d-428b-b20e-12c6341f8c6c"},"submission":"2025-03-13T20:33:40.423Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:34:41 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '4126'
+    status:
+      code: 200
+      message: OK
+version: 1

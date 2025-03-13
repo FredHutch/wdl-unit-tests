@@ -1,35 +1,38 @@
 from unittest.mock import patch
 
 import pytest
-from utils import metadata_response_keys
+from submit_wdl import submit_wdl
+from utils import fetch_wdl_paths, metadata_response_keys
 
 params = {"expandSubWorkflows": True}
 
+wdl_paths = fetch_wdl_paths()
+
 
 @pytest.mark.vcr
-def test_call_initial(cromwell_api, submit_wdls, recording_mode):
+@pytest.mark.parametrize("wdl_path", wdl_paths, ids=lambda x: x.name)
+def test_call_initial(wdl_path, cromwell_api, recording_mode, test_name):
     """Getting workflow metadata with expandSubWorkflows:true works | initial state"""
-    ids = [wf["id"] for wf in submit_wdls]
-    for x in ids:
-        if recording_mode != "rewrite":
-            with patch("time.sleep"):
-                res = cromwell_api.metadata(x, params=params)
-        else:
-            res = cromwell_api.metadata(x, params=params)
+    job = submit_wdl(wdl_path, recording_mode, cromwell_api, test_name)
+    if recording_mode != "rewrite":
+        with patch("time.sleep"):
+            res = cromwell_api.metadata(job["id"], params=params)
+    else:
+        res = cromwell_api.metadata(job["id"], params=params)
 
-        assert isinstance(res, dict)
-        assert sorted(list(res.keys())) == sorted(
-            metadata_response_keys[res["status"].lower()]
-        )
+    assert isinstance(res, dict)
+    assert sorted(list(res.keys())) == sorted(
+        metadata_response_keys[res["status"].lower()]
+    )
 
 
 @pytest.mark.vcr
-def test_call_final(cromwell_api_final, submit_wdls):
+@pytest.mark.parametrize("wdl_path", wdl_paths, ids=lambda x: x.name)
+def test_call_final(wdl_path, cromwell_api_final, recording_mode, test_name):
     """Getting workflow metadata with expandSubWorkflows:true works | final state"""
-    ids = [wf["id"] for wf in submit_wdls]
-    for x in ids:
-        res = cromwell_api_final.metadata(workflow_id=x, params=params)
-        assert isinstance(res, dict)
-        assert sorted(list(res.keys())) == sorted(
-            metadata_response_keys[res["status"].lower()]
-        )
+    job = submit_wdl(wdl_path, recording_mode, cromwell_api_final, test_name)
+    res = cromwell_api_final.metadata(workflow_id=job["id"], params=params)
+    assert isinstance(res, dict)
+    assert sorted(list(res.keys())) == sorted(
+        metadata_response_keys[res["status"].lower()]
+    )

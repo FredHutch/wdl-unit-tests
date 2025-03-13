@@ -132,3 +132,8 @@ def vcr_config():
         # remove parts of paths that start with PATH_ROOTS
         "before_record_response": filter_response_bodies,
     }
+
+
+@pytest.fixture
+def test_name(request):
+    return request.node.name

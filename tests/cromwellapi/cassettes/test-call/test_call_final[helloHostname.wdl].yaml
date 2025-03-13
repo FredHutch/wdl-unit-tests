@@ -1,0 +1,548 @@
+interactions:
+- request:
+    body: "--62933a666fdcf0227617c178431ecdd7\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"helloHostname.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n## This is a test workflow that returns the hostname of the node \n## the
+      job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow
+      HelloHostname {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n
+      \ }\n\n  parameter_meta {\n    stdout: \"hostname of the node the job was submitted
+      to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo
+      $(hostname)\n  >>>\n\n  output {\n    File out = stdout()\n  }\n  \n  runtime
+      {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname
+      of the node the job was submitted to\"\n  }\n}\n\r\n--62933a666fdcf0227617c178431ecdd7\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--62933a666fdcf0227617c178431ecdd7--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '1071'
+      content-type:
+      - multipart/form-data; boundary=62933a666fdcf0227617c178431ecdd7
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"e10fd077-65b8-47ee-b7aa-0bad0876e1a3","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:29:21 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e10fd077-65b8-47ee-b7aa-0bad0876e1a3","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e10fd077-65b8-47ee-b7aa-0bad0876e1a3"},"submission":"2025-03-13T20:29:21.570Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:29:26 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e10fd077-65b8-47ee-b7aa-0bad0876e1a3","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e10fd077-65b8-47ee-b7aa-0bad0876e1a3"},"submission":"2025-03-13T20:29:21.570Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:29:31 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:29:34.477Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"HelloHostname.Hostname":[{"executionStatus":"QueuedInCromwell","shardIndex":-1,"backend":"gizmo","attempt":1,"start":"2025-03-13T20:29:35.522Z"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:29:34.477Z","id":"e10fd077-65b8-47ee-b7aa-0bad0876e1a3","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e10fd077-65b8-47ee-b7aa-0bad0876e1a3"},"submission":"2025-03-13T20:29:21.570Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:29:36 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1638'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:29:34.477Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"HelloHostname.Hostname":[{"executionStatus":"QueuedInCromwell","shardIndex":-1,"backend":"gizmo","attempt":1,"start":"2025-03-13T20:29:35.522Z"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:29:34.477Z","id":"e10fd077-65b8-47ee-b7aa-0bad0876e1a3","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e10fd077-65b8-47ee-b7aa-0bad0876e1a3"},"submission":"2025-03-13T20:29:21.570Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:29:41 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1638'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:29:34.477Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"HelloHostname.Hostname":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname/execution/stdout","commandLine":"echo
+        $(hostname)","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"backend":"gizmo","attempt":1,"start":"2025-03-13T20:29:35.522Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:29:34.477Z","id":"e10fd077-65b8-47ee-b7aa-0bad0876e1a3","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e10fd077-65b8-47ee-b7aa-0bad0876e1a3"},"submission":"2025-03-13T20:29:21.570Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:29:46 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2346'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:29:34.477Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"HelloHostname.Hostname":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname/execution/stdout","backendStatus":"Running","commandLine":"echo
+        $(hostname)","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"14396179","backend":"gizmo","attempt":1,"start":"2025-03-13T20:29:35.522Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:29:34.477Z","id":"e10fd077-65b8-47ee-b7aa-0bad0876e1a3","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e10fd077-65b8-47ee-b7aa-0bad0876e1a3"},"submission":"2025-03-13T20:29:21.570Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:29:51 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2391'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:29:34.477Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"HelloHostname.Hostname":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname/execution/stdout","backendStatus":"Running","commandLine":"echo
+        $(hostname)","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"14396179","backend":"gizmo","attempt":1,"start":"2025-03-13T20:29:35.522Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:29:34.477Z","id":"e10fd077-65b8-47ee-b7aa-0bad0876e1a3","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e10fd077-65b8-47ee-b7aa-0bad0876e1a3"},"submission":"2025-03-13T20:29:21.570Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:29:57 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2391'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:29:34.477Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"HelloHostname.Hostname":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname/execution/stdout","backendStatus":"Running","commandLine":"echo
+        $(hostname)","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"14396179","backend":"gizmo","attempt":1,"start":"2025-03-13T20:29:35.522Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:29:34.477Z","id":"e10fd077-65b8-47ee-b7aa-0bad0876e1a3","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e10fd077-65b8-47ee-b7aa-0bad0876e1a3"},"submission":"2025-03-13T20:29:21.570Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:30:02 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2391'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:29:34.477Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"HelloHostname.Hostname":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname/execution/stdout","backendStatus":"Running","commandLine":"echo
+        $(hostname)","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"14396179","backend":"gizmo","attempt":1,"start":"2025-03-13T20:29:35.522Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:29:34.477Z","id":"e10fd077-65b8-47ee-b7aa-0bad0876e1a3","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e10fd077-65b8-47ee-b7aa-0bad0876e1a3"},"submission":"2025-03-13T20:29:21.570Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:30:07 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2391'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:29:34.477Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"HelloHostname.Hostname":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname/execution/stdout","backendStatus":"Running","commandLine":"echo
+        $(hostname)","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"14396179","backend":"gizmo","attempt":1,"start":"2025-03-13T20:29:35.522Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:29:34.477Z","id":"e10fd077-65b8-47ee-b7aa-0bad0876e1a3","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e10fd077-65b8-47ee-b7aa-0bad0876e1a3"},"submission":"2025-03-13T20:29:21.570Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:30:12 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2391'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:29:34.477Z","cromwellVersion":"87"},{"cromwellId":"cromid-e9996c4","description":"Finished","timestamp":"2025-03-13T20:30:15.300Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"HelloHostname.Hostname":[{"executionStatus":"Done","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname/execution/stdout","backendStatus":"Done","commandLine":"echo
+        $(hostname)","shardIndex":-1,"outputs":{"out":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname/execution/stdout"},"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"returnCode":0,"jobId":"14396179","backend":"gizmo","end":"2025-03-13T20:30:13.433Z","start":"2025-03-13T20:29:35.522Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname","attempt":1,"executionEvents":[{"startTime":"2025-03-13T20:29:41.877Z","description":"PreparingJob","endTime":"2025-03-13T20:29:41.886Z"},{"startTime":"2025-03-13T20:29:41.886Z","description":"RunningJob","endTime":"2025-03-13T20:30:12.627Z"},{"startTime":"2025-03-13T20:29:41.877Z","description":"WaitingForValueStore","endTime":"2025-03-13T20:29:41.877Z"},{"startTime":"2025-03-13T20:30:12.627Z","description":"UpdatingJobStore","endTime":"2025-03-13T20:30:13.433Z"},{"startTime":"2025-03-13T20:29:35.523Z","description":"Pending","endTime":"2025-03-13T20:29:35.523Z"},{"startTime":"2025-03-13T20:29:35.523Z","description":"RequestingExecutionToken","endTime":"2025-03-13T20:29:41.877Z"}]}]},"outputs":{"HelloHostname.stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3/call-Hostname/execution/stdout"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/e10fd077-65b8-47ee-b7aa-0bad0876e1a3","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-03-13T20:30:15.299Z","start":"2025-03-13T20:29:34.477Z","id":"e10fd077-65b8-47ee-b7aa-0bad0876e1a3","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e10fd077-65b8-47ee-b7aa-0bad0876e1a3"},"submission":"2025-03-13T20:29:21.570Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:30:17 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3580'
+    status:
+      code: 200
+      message: OK
+version: 1

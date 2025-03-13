@@ -1,0 +1,132 @@
+interactions:
+- request:
+    body: "--6d1e0aa4844adc747d5f67fed9f28305\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"basicTaskExecution.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\n# The basicTaskTest workflow calls a task named simpleTask, which takes
+      a string input and writes it to a file called output.txt. It demonstrates a
+      basic execution of a task with file output.\n\n# This tests basic task execution,
+      input handling, and file output functionality. It ensures that a task can successfully
+      take an input and generate an output.\n\nworkflow basicTaskTest {\n  input {\n
+      \   String text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n
+      \     message = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n
+      \ }\n\n  command <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output
+      {\n    File outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n
+      \ }\n}\n\r\n--6d1e0aa4844adc747d5f67fed9f28305\r\nContent-Disposition: form-data;
+      name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type: application/json\r\n\r\n{\n
+      \   \"workflow_failure_mode\": \"ContinueWhilePossible\",\n    \"write_to_cache\":
+      false,\n    \"read_from_cache\": false\n}\n\r\n--6d1e0aa4844adc747d5f67fed9f28305--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '1183'
+      content-type:
+      - multipart/form-data; boundary=6d1e0aa4844adc747d5f67fed9f28305
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"f9221172-99f2-4f0e-ac8a-9044bb2aad68","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:17:08 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/f9221172-99f2-4f0e-ac8a-9044bb2aad68/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: f9221172-99f2-4f0e-ac8a-9044bb2aad68\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:17:08 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '101'
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/f9221172-99f2-4f0e-ac8a-9044bb2aad68/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"f9221172-99f2-4f0e-ac8a-9044bb2aad68","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-f9221172-99f2-4f0e-ac8a-9044bb2aad68"},"submission":"2025-03-13T20:17:08.253Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:17:12 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+version: 1

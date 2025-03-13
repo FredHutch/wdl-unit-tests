@@ -1,0 +1,125 @@
+interactions:
+- request:
+    body: "--69c6f222d434691659fab44dfa76baaa\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"globSubdir.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
+      matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n
+      \   }\n}\n\ntask create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n
+      \       echo \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n
+      \   >>>\n    output {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n
+      \       Array[File] matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n\r\n--69c6f222d434691659fab44dfa76baaa\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--69c6f222d434691659fab44dfa76baaa--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '999'
+      content-type:
+      - multipart/form-data; boundary=69c6f222d434691659fab44dfa76baaa
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"75639013-afe8-47b5-a7de-95e2537e10fe","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:16:39 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/75639013-afe8-47b5-a7de-95e2537e10fe/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: 75639013-afe8-47b5-a7de-95e2537e10fe\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:16:39 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '101'
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/75639013-afe8-47b5-a7de-95e2537e10fe/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\nworkflow globSubdir {\n    call
+        create_nested_files\n    output {\n        Array[File] matched_files = flatten([create_nested_files.matched_files_top,
+        create_nested_files.matched_files_nested])\n    }\n}\n\ntask create_nested_files
+        {\n    command <<<\n        mkdir -p subdir/nested\n        echo \"Hello\"
+        > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n    >>>\n    output
+        {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n        Array[File]
+        matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"75639013-afe8-47b5-a7de-95e2537e10fe","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-75639013-afe8-47b5-a7de-95e2537e10fe"},"submission":"2025-03-13T20:16:39.170Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:16:43 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1003'
+    status:
+      code: 200
+      message: OK
+version: 1

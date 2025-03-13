@@ -122,3 +122,8 @@ def before_sleep_message(state):
     print(
         f"Retrying in {state.next_action.sleep} seconds, attempt {state.attempt_number}"
     )
+
+
+def fetch_wdl_paths():
+    root = Path(__file__).parents[2].resolve()
+    return list(root.glob("**/*.wdl"))

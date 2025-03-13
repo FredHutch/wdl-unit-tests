@@ -1,0 +1,500 @@
+interactions:
+- request:
+    body: "--c46b08f703efc851d9372ddb96a9bc52\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"basicGlobTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow basicGlobTest {\n    call create_files\n    output {\n        Array[File]
+      matched_files = create_files.txt_files\n    }\n}\n\ntask create_files {\n    command
+      <<<\n        echo \"File 1\" > file1.txt\n        echo \"File 2\" > file2.txt\n
+      \   >>>\n    output {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n\r\n--c46b08f703efc851d9372ddb96a9bc52\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--c46b08f703efc851d9372ddb96a9bc52--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '792'
+      content-type:
+      - multipart/form-data; boundary=c46b08f703efc851d9372ddb96a9bc52
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"63a9ae29-b97c-49a6-80ef-fae16878403c","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:28:25 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/63a9ae29-b97c-49a6-80ef-fae16878403c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow basicGlobTest
+        {\n    call create_files\n    output {\n        Array[File] matched_files
+        = create_files.txt_files\n    }\n}\n\ntask create_files {\n    command <<<\n        echo
+        \"File 1\" > file1.txt\n        echo \"File 2\" > file2.txt\n    >>>\n    output
+        {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"63a9ae29-b97c-49a6-80ef-fae16878403c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-63a9ae29-b97c-49a6-80ef-fae16878403c"},"submission":"2025-03-13T20:28:25.799Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:28:30 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '790'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/63a9ae29-b97c-49a6-80ef-fae16878403c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow basicGlobTest
+        {\n    call create_files\n    output {\n        Array[File] matched_files
+        = create_files.txt_files\n    }\n}\n\ntask create_files {\n    command <<<\n        echo
+        \"File 1\" > file1.txt\n        echo \"File 2\" > file2.txt\n    >>>\n    output
+        {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"63a9ae29-b97c-49a6-80ef-fae16878403c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-63a9ae29-b97c-49a6-80ef-fae16878403c"},"submission":"2025-03-13T20:28:25.799Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:28:35 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '790'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/63a9ae29-b97c-49a6-80ef-fae16878403c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"basicGlobTest","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:28:34.417Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow basicGlobTest {\n    call create_files\n    output {\n        Array[File]
+        matched_files = create_files.txt_files\n    }\n}\n\ntask create_files {\n    command
+        <<<\n        echo \"File 1\" > file1.txt\n        echo \"File 2\" > file2.txt\n    >>>\n    output
+        {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"basicGlobTest.create_files":[{"executionStatus":"QueuedInCromwell","shardIndex":-1,"backend":"gizmo","attempt":1,"start":"2025-03-13T20:28:35.458Z"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:28:34.417Z","id":"63a9ae29-b97c-49a6-80ef-fae16878403c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-63a9ae29-b97c-49a6-80ef-fae16878403c"},"submission":"2025-03-13T20:28:25.799Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:28:40 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1342'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/63a9ae29-b97c-49a6-80ef-fae16878403c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"basicGlobTest","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:28:34.417Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow basicGlobTest {\n    call create_files\n    output {\n        Array[File]
+        matched_files = create_files.txt_files\n    }\n}\n\ntask create_files {\n    command
+        <<<\n        echo \"File 1\" > file1.txt\n        echo \"File 2\" > file2.txt\n    >>>\n    output
+        {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"basicGlobTest.create_files":[{"executionStatus":"QueuedInCromwell","shardIndex":-1,"backend":"gizmo","attempt":1,"start":"2025-03-13T20:28:35.458Z"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:28:34.417Z","id":"63a9ae29-b97c-49a6-80ef-fae16878403c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-63a9ae29-b97c-49a6-80ef-fae16878403c"},"submission":"2025-03-13T20:28:25.799Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:28:46 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1342'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/63a9ae29-b97c-49a6-80ef-fae16878403c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"basicGlobTest","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:28:34.417Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow basicGlobTest {\n    call create_files\n    output {\n        Array[File]
+        matched_files = create_files.txt_files\n    }\n}\n\ntask create_files {\n    command
+        <<<\n        echo \"File 1\" > file1.txt\n        echo \"File 2\" > file2.txt\n    >>>\n    output
+        {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"basicGlobTest.create_files":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files/execution/stdout","commandLine":"echo
+        \"File 1\" > file1.txt\necho \"File 2\" > file2.txt","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"backend":"gizmo","attempt":1,"start":"2025-03-13T20:28:35.458Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:28:34.417Z","id":"63a9ae29-b97c-49a6-80ef-fae16878403c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-63a9ae29-b97c-49a6-80ef-fae16878403c"},"submission":"2025-03-13T20:28:25.799Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:28:51 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2109'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/63a9ae29-b97c-49a6-80ef-fae16878403c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"basicGlobTest","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:28:34.417Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow basicGlobTest {\n    call create_files\n    output {\n        Array[File]
+        matched_files = create_files.txt_files\n    }\n}\n\ntask create_files {\n    command
+        <<<\n        echo \"File 1\" > file1.txt\n        echo \"File 2\" > file2.txt\n    >>>\n    output
+        {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"basicGlobTest.create_files":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files/execution/stdout","backendStatus":"Running","commandLine":"echo
+        \"File 1\" > file1.txt\necho \"File 2\" > file2.txt","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"14396178","backend":"gizmo","attempt":1,"start":"2025-03-13T20:28:35.458Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:28:34.417Z","id":"63a9ae29-b97c-49a6-80ef-fae16878403c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-63a9ae29-b97c-49a6-80ef-fae16878403c"},"submission":"2025-03-13T20:28:25.799Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:28:56 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2154'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/63a9ae29-b97c-49a6-80ef-fae16878403c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"basicGlobTest","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:28:34.417Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow basicGlobTest {\n    call create_files\n    output {\n        Array[File]
+        matched_files = create_files.txt_files\n    }\n}\n\ntask create_files {\n    command
+        <<<\n        echo \"File 1\" > file1.txt\n        echo \"File 2\" > file2.txt\n    >>>\n    output
+        {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"basicGlobTest.create_files":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files/execution/stdout","backendStatus":"Running","commandLine":"echo
+        \"File 1\" > file1.txt\necho \"File 2\" > file2.txt","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"14396178","backend":"gizmo","attempt":1,"start":"2025-03-13T20:28:35.458Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:28:34.417Z","id":"63a9ae29-b97c-49a6-80ef-fae16878403c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-63a9ae29-b97c-49a6-80ef-fae16878403c"},"submission":"2025-03-13T20:28:25.799Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:29:01 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2154'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/63a9ae29-b97c-49a6-80ef-fae16878403c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"basicGlobTest","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:28:34.417Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow basicGlobTest {\n    call create_files\n    output {\n        Array[File]
+        matched_files = create_files.txt_files\n    }\n}\n\ntask create_files {\n    command
+        <<<\n        echo \"File 1\" > file1.txt\n        echo \"File 2\" > file2.txt\n    >>>\n    output
+        {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"basicGlobTest.create_files":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files/execution/stdout","backendStatus":"Running","commandLine":"echo
+        \"File 1\" > file1.txt\necho \"File 2\" > file2.txt","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"14396178","backend":"gizmo","attempt":1,"start":"2025-03-13T20:28:35.458Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:28:34.417Z","id":"63a9ae29-b97c-49a6-80ef-fae16878403c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-63a9ae29-b97c-49a6-80ef-fae16878403c"},"submission":"2025-03-13T20:28:25.799Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:29:06 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2154'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/63a9ae29-b97c-49a6-80ef-fae16878403c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"basicGlobTest","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:28:34.417Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow basicGlobTest {\n    call create_files\n    output {\n        Array[File]
+        matched_files = create_files.txt_files\n    }\n}\n\ntask create_files {\n    command
+        <<<\n        echo \"File 1\" > file1.txt\n        echo \"File 2\" > file2.txt\n    >>>\n    output
+        {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"basicGlobTest.create_files":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files/execution/stdout","backendStatus":"Running","commandLine":"echo
+        \"File 1\" > file1.txt\necho \"File 2\" > file2.txt","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"14396178","backend":"gizmo","attempt":1,"start":"2025-03-13T20:28:35.458Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:28:34.417Z","id":"63a9ae29-b97c-49a6-80ef-fae16878403c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-63a9ae29-b97c-49a6-80ef-fae16878403c"},"submission":"2025-03-13T20:28:25.799Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:29:11 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2154'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/63a9ae29-b97c-49a6-80ef-fae16878403c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"basicGlobTest","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:28:34.417Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow basicGlobTest {\n    call create_files\n    output {\n        Array[File]
+        matched_files = create_files.txt_files\n    }\n}\n\ntask create_files {\n    command
+        <<<\n        echo \"File 1\" > file1.txt\n        echo \"File 2\" > file2.txt\n    >>>\n    output
+        {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"basicGlobTest.create_files":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files/execution/stdout","backendStatus":"Running","commandLine":"echo
+        \"File 1\" > file1.txt\necho \"File 2\" > file2.txt","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"14396178","backend":"gizmo","attempt":1,"start":"2025-03-13T20:28:35.458Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-03-13T20:28:34.417Z","id":"63a9ae29-b97c-49a6-80ef-fae16878403c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-63a9ae29-b97c-49a6-80ef-fae16878403c"},"submission":"2025-03-13T20:28:25.799Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:29:16 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2154'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/63a9ae29-b97c-49a6-80ef-fae16878403c/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"basicGlobTest","workflowProcessingEvents":[{"cromwellId":"cromid-e9996c4","description":"PickedUp","timestamp":"2025-03-13T20:28:34.417Z","cromwellVersion":"87"},{"cromwellId":"cromid-e9996c4","description":"Finished","timestamp":"2025-03-13T20:29:20.341Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow basicGlobTest {\n    call create_files\n    output {\n        Array[File]
+        matched_files = create_files.txt_files\n    }\n}\n\ntask create_files {\n    command
+        <<<\n        echo \"File 1\" > file1.txt\n        echo \"File 2\" > file2.txt\n    >>>\n    output
+        {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"basicGlobTest.create_files":[{"executionStatus":"Done","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files/execution/stdout","backendStatus":"Done","commandLine":"echo
+        \"File 1\" > file1.txt\necho \"File 2\" > file2.txt","shardIndex":-1,"outputs":{"txt_files":["/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files/execution/glob-ef5df339533c1334f081dc8cc75ee4f3/file1.txt","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files/execution/glob-ef5df339533c1334f081dc8cc75ee4f3/file2.txt"]},"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"returnCode":0,"jobId":"14396178","backend":"gizmo","end":"2025-03-13T20:29:18.433Z","start":"2025-03-13T20:28:35.458Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files","attempt":1,"executionEvents":[{"startTime":"2025-03-13T20:28:35.458Z","description":"RequestingExecutionToken","endTime":"2025-03-13T20:28:41.877Z"},{"startTime":"2025-03-13T20:28:41.877Z","description":"WaitingForValueStore","endTime":"2025-03-13T20:28:41.877Z"},{"startTime":"2025-03-13T20:28:41.877Z","description":"PreparingJob","endTime":"2025-03-13T20:28:41.888Z"},{"startTime":"2025-03-13T20:29:17.572Z","description":"UpdatingJobStore","endTime":"2025-03-13T20:29:18.433Z"},{"startTime":"2025-03-13T20:28:41.888Z","description":"RunningJob","endTime":"2025-03-13T20:29:17.572Z"},{"startTime":"2025-03-13T20:28:35.458Z","description":"Pending","endTime":"2025-03-13T20:28:35.458Z"}]}]},"outputs":{"basicGlobTest.matched_files":["/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files/execution/glob-ef5df339533c1334f081dc8cc75ee4f3/file1.txt","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c/call-create_files/execution/glob-ef5df339533c1334f081dc8cc75ee4f3/file2.txt"]},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicGlobTest/63a9ae29-b97c-49a6-80ef-fae16878403c","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-03-13T20:29:20.341Z","start":"2025-03-13T20:28:34.417Z","id":"63a9ae29-b97c-49a6-80ef-fae16878403c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-63a9ae29-b97c-49a6-80ef-fae16878403c"},"submission":"2025-03-13T20:28:25.799Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Mar 2025 20:29:21 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3814'
+    status:
+      code: 200
+      message: OK
+version: 1
