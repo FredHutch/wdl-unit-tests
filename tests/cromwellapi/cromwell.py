@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import httpx
 from constants import TOKEN
 from tenacity import (
@@ -8,7 +6,12 @@ from tenacity import (
     stop_after_attempt,
     wait_exponential,
 )
-from utils import before_sleep_message, past_date, token_check
+from utils import (
+    before_sleep_message,
+    find_project_root,
+    past_date,
+    token_check,
+)
 
 
 def as_file_object(path=None):
@@ -52,7 +55,7 @@ class CromwellApi(object):
         )
         res.raise_for_status()
         data = res.json()
-        data["path"] = str(wdl_path.relative_to(Path.cwd()))
+        data["path"] = str(wdl_path.relative_to(find_project_root()))
         return data
 
     @retry(
