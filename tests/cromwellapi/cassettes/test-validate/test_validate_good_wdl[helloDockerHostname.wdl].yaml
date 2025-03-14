@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--24a2f862ab24ef0b61b4e421e3f3b72d\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--d4bb86b116df26f87cc1ae26053efd9d\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"helloDockerHostname.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n## This is a test workflow that returns the Docker image name and tag\n##
       and measures execution time of the Hostname task.\n\n#### WORKFLOW DEFINITION\n\nworkflow
@@ -45,10 +45,7 @@ interactions:
       \   echo \"Expected Image: ~{expected_image}\"\n    echo \"Hostname: $(hostname)\"\n
       \ >>>\n\n  output {\n    File out = stdout()\n  }\n\n  runtime {\n    cpu: 1\n
       \   memory: \"1 GB\"\n    docker: \"~{expected_image}\"\n  }\n\n  parameter_meta
-      {\n    expected_image: \"Docker image that should be running this task\"\n  }\n}\n\r\n--24a2f862ab24ef0b61b4e421e3f3b72d\r\nContent-Disposition:
-      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
-      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--24a2f862ab24ef0b61b4e421e3f3b72d--\r\n"
+      {\n    expected_image: \"Docker image that should be running this task\"\n  }\n}\n\r\n--d4bb86b116df26f87cc1ae26053efd9d--\r\n"
     headers:
       accept:
       - '*/*'
@@ -57,61 +54,28 @@ interactions:
       connection:
       - keep-alive
       content-length:
-      - '3904'
+      - '3635'
       content-type:
-      - multipart/form-data; boundary=24a2f862ab24ef0b61b4e421e3f3b72d
+      - multipart/form-data; boundary=d4bb86b116df26f87cc1ae26053efd9d
       host:
       - gizmok12.fhcrc.org:34115
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
   response:
     body:
-      string: '{"id":"20bbcd6d-54dd-484c-94f0-0c5ff9a0cba4","status":"Submitted"}'
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"HelloDockerHostname","inputs":[{"name":"docker_image","valueType":{"typeName":"String"},"typeDisplayName":"String","optional":true,"default":"\"ubuntu:20.04\""}],"outputs":[{"name":"execution_time_seconds","valueType":{"typeName":"Float"},"typeDisplayName":"Float"},{"name":"stdout","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"within_time_limit","valueType":{"typeName":"Boolean"},"typeDisplayName":"Boolean"}],"images":["\"ubuntu:20.04\"","\"ubuntu:20.04\"","\"~{expected_image}\"","\"ubuntu:20.04\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{"docker_image":"Docker
+        image to run the task in (e.g. ubuntu:latest)"},"isRunnableWorkflow":true}'
     headers:
       Connection:
       - keep-alive
       Content-Length:
-      - '66'
+      - '815'
       Content-Type:
       - application/json
       Date:
-      - Tue, 11 Mar 2025 22:12:19 GMT
-      Server:
-      - nginx/1.25.3
-    status:
-      code: 201
-      message: Created
-- request:
-    body: ''
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      connection:
-      - keep-alive
-      content-length:
-      - '0'
-      host:
-      - gizmok12.fhcrc.org:34115
-      user-agent:
-      - python-httpx/0.28.1
-    method: POST
-    uri: https://gizmok12.fhcrc.org:34115/api/workflows/v1/20bbcd6d-54dd-484c-94f0-0c5ff9a0cba4/abort
-  response:
-    body:
-      string: '{"id":"20bbcd6d-54dd-484c-94f0-0c5ff9a0cba4","status":"Aborted"}'
-    headers:
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '64'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 11 Mar 2025 22:12:19 GMT
+      - Tue, 11 Mar 2025 22:23:32 GMT
       Server:
       - nginx/1.25.3
     status:
