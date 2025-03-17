@@ -22,3 +22,29 @@ def test_labels(cromwell_api, recording_mode):
         res = cromwell_api.labels(workflow_id=job["id"])
 
     assert isinstance(res, dict)
+    assert len(res["labels"]) > 1
+    assert sorted(list(res["labels"].keys())) == sorted(
+        ["Label", "cromwell-workflow-id", "secondaryLabel", "workflowType"]
+    )
+
+
+@pytest.mark.vcr
+def test_labels_no_labels(cromwell_api, recording_mode):
+    """Workflow labels are empty except for workflow id when no labels submitted"""
+    job = cromwell_api.submit_workflow(
+        wdl_path=path_wdl("helloHostname"),
+        options=path_options("helloHostname"),
+    )
+    if recording_mode != "rewrite":
+        with patch("time.sleep"):
+            res = cromwell_api.labels(workflow_id=job["id"])
+    else:
+        res = cromwell_api.labels(workflow_id=job["id"])
+
+    assert isinstance(res, dict)
+    assert len(res["labels"]) == 1
+    assert sorted(list(res["labels"].keys())) == sorted(
+        [
+            "cromwell-workflow-id",
+        ]
+    )
