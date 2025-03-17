@@ -1,0 +1,89 @@
+interactions:
+- request:
+    body: "--38a25e28fb492325153651a23542f9b9\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"mapTypeTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow enhanced_map_test {\n    input {\n        # Original inputs\n
+      \       Array[String] samples\n        Map[String, String] sample_metadata\n
+      \       Map[String, Int] read_lengths\n\n        # New test inputs\n        Map[String,
+      Map[String, String]] nested_map = {\n            \"patient1\": {\n                \"sample1\":
+      \"normal\",\n                \"sample2\": \"tumor\"\n            },\n            \"patient2\":
+      {\n                \"sample3\": \"normal\",\n                \"sample4\": \"tumor\"\n
+      \           }\n        }\n        # We need to provide keys as arrays since
+      WDL 1.0 doesn't have a keys() function\n        Array[String] patient_ids =
+      [\"patient1\", \"patient2\"]\n    }\n\n    # Test nested map processing\n    scatter
+      (patient_id in patient_ids) {\n        call process_nested_map {\n            input:\n
+      \               patient_id = patient_id,\n                patient_data = nested_map[patient_id],\n
+      \               # We need to provide the sample names explicitly\n                samples_for_patient
+      = if patient_id == \"patient1\" then [\"sample1\", \"sample2\"] else [\"sample3\",
+      \"sample4\"]\n        }\n    }\n\n    # Original sample processing with output
+      map generation\n    scatter (sample in samples) {\n        call process_sample
+      {\n            input:\n                sample_name = sample,\n                sample_type
+      = sample_metadata[sample],\n                read_length = read_lengths[sample]\n
+      \       }\n    }\n\n    # Aggregate results into a map\n    call create_result_map
+      {\n        input:\n            sample_names = samples,\n            processing_messages
+      = process_sample.message\n    }\n\n    output {\n        Map[String, String]
+      result_map = create_result_map.output_map\n        Array[String] nested_map_results
+      = process_nested_map.message\n    }\n}\n\ntask process_nested_map {\n    input
+      {\n        String patient_id\n        Map[String, String] patient_data\n        Array[String]
+      samples_for_patient\n    }\n\n    # First get the first sample ID\n    String
+      first_sample = samples_for_patient[0]\n    # Then use it to index the patient
+      data\n    String sample_type = patient_data[first_sample]\n\n    command {\n
+      \       echo \"Processing patient ${patient_id} with sample type ${sample_type}\"\n
+      \       for sample in ${sep=' ' samples_for_patient}; do\n            echo \"Sample:
+      $sample\"\n        done\n    }\n\n    output {\n        String message = read_string(stdout())\n
+      \   }\n\n    runtime {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\ntask
+      process_sample {\n    input {\n        String sample_name\n        String sample_type\n
+      \       Int read_length\n    }\n\n    command <<<\n        echo \"Processing
+      ~{sample_name} (~{sample_type}) with read length ~{read_length}\"\n    >>>\n\n
+      \   output {\n        String message = read_string(stdout())\n    }\n\n    runtime
+      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\ntask create_result_map
+      {\n    input {\n        Array[String] sample_names\n        Array[String] processing_messages\n
+      \   }\n\n    command <<<\n        python <<CODE\n        samples = '~{sep=\",\"
+      sample_names}'.split(',')\n        messages = '~{sep=\",\" processing_messages}'.split(',')\n
+      \       result = dict(zip(samples, messages))\n        with open('output.txt',
+      'w') as f:\n            for sample, message in result.items():\n                f.write(f\"{sample}\\t{message}\\n\")\n
+      \       CODE\n    >>>\n\n    output {\n        Map[String, String] output_map
+      = read_map('output.txt')\n    }\n\n    runtime {\n        docker: \"python:3.8-slim\"\n
+      \   }\n}\r\n--38a25e28fb492325153651a23542f9b9--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '3609'
+      content-type:
+      - multipart/form-data; boundary=38a25e28fb492325153651a23542f9b9
+      host:
+      - gizmok12.fhcrc.org:34115
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok12.fhcrc.org:34115/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"enhanced_map_test","inputs":[{"name":"nested_map","valueType":{"typeName":"Map","mapType":{"keyType":{"typeName":"String"},"valueType":{"typeName":"Map","mapType":{"keyType":{"typeName":"String"},"valueType":{"typeName":"String"}}}}},"typeDisplayName":"Map[String,
+        Map[String, String]]","optional":true,"default":"{ \"patient1\": { \"sample1\":
+        \"normal\", \"sample2\": \"tumor\" }, \"patient2\": { \"sample3\": \"normal\",
+        \"sample4\": \"tumor\" } }"},{"name":"patient_ids","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]","optional":true,"default":"[\"patient1\",
+        \"patient2\"]"},{"name":"read_lengths","valueType":{"typeName":"Map","mapType":{"keyType":{"typeName":"String"},"valueType":{"typeName":"Int"}}},"typeDisplayName":"Map[String,
+        Int]","optional":false,"default":null},{"name":"sample_metadata","valueType":{"typeName":"Map","mapType":{"keyType":{"typeName":"String"},"valueType":{"typeName":"String"}}},"typeDisplayName":"Map[String,
+        String]","optional":false,"default":null},{"name":"samples","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]","optional":false,"default":null}],"outputs":[{"name":"nested_map_results","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]"},{"name":"result_map","valueType":{"typeName":"Map","mapType":{"keyType":{"typeName":"String"},"valueType":{"typeName":"String"}}},"typeDisplayName":"Map[String,
+        String]"}],"images":["\"ubuntu:noble-20241118.1\"","\"ubuntu:noble-20241118.1\"","\"python:3.8-slim\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1872'
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 16 Mar 2025 03:31:00 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+version: 1
