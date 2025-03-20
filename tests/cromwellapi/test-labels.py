@@ -21,11 +21,15 @@ def test_labels(cromwell_api, recording_mode):
     else:
         res = cromwell_api.labels(workflow_id=job["id"])
 
+    expected_labels = [
+        "Label",
+        "cromwell-workflow-id",
+        "secondaryLabel",
+        "workflowType",
+    ]
     assert isinstance(res, dict)
-    assert len(res["labels"]) > 1
-    assert sorted(list(res["labels"].keys())) == sorted(
-        ["Label", "cromwell-workflow-id", "secondaryLabel", "workflowType"]
-    )
+    assert len(res["labels"]) == len(expected_labels)
+    assert sorted(list(res["labels"].keys())) == sorted(expected_labels)
 
 
 @pytest.mark.vcr
