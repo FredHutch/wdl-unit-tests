@@ -21,6 +21,11 @@ def test_call_initial(cromwell_api, submit_wdls, recording_mode):
         assert sorted(list(res.keys())) == sorted(
             metadata_response_keys[res["status"].lower()]
         )
+        for k, v in res["calls"].items():
+            assert (
+                v[0]["callCaching"]["effectiveCallCachingMode"]
+                == "CallCachingOff"
+            )
 
 
 @pytest.mark.vcr
@@ -33,3 +38,8 @@ def test_call_final(cromwell_api_final, submit_wdls):
         assert sorted(list(res.keys())) == sorted(
             metadata_response_keys[res["status"].lower()]
         )
+        for k, v in res["calls"].items():
+            assert (
+                v[0]["callCaching"]["effectiveCallCachingMode"]
+                == "CallCachingOff"
+            )
