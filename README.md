@@ -30,7 +30,7 @@ See our [CONTRIBUTING.md](.github/CONTRIBUTING.md) for exact details on how to c
 ## Tests
 
 > [!TIP]
-> [See the architecture doc](docs/architecture.md) to better understand the design of this test suite.
+> See the [architecture doc](docs/architecture.md) to better understand the design of this test suite.
 
 There are two sets of tests for running WDLs against Cromwell using Python:
 

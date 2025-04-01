@@ -70,6 +70,8 @@ tests/cromwellapi
 - `mocked_submissions.json`: metadata stored for when we run vcr using cached cassettes
 - `test-*.py`:  all tests that pytest runs
 
+Tests within all `test-*.py` files have their own documentation that lives with the test code - if you're curious what those tests do read their docstrings; if they need more docs please open an issue or PR.
+
 ## How code flows together
 
 ```mermaid
