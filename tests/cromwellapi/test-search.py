@@ -27,7 +27,11 @@ VCR_SEARCH_CONFIG = {
 
 @pytest.mark.vcr(**VCR_SEARCH_CONFIG)
 def test_search_no_results(cromwell_api):
-    """Checking that search works with no results"""
+    """
+    Checking that search works with no results
+
+    Cromwell query route (/api/workflows/v1/query)
+    """
     out = cromwell_api.search(days=-2)
     # There should not be any results for a query for jobs
     # started in the future
@@ -37,7 +41,11 @@ def test_search_no_results(cromwell_api):
 
 @pytest.mark.vcr(**VCR_SEARCH_CONFIG)
 def test_search_results(cromwell_api):
-    """Checking that search works when there MIGHT be results"""
+    """
+    Checking that search works when there MIGHT be results
+
+    Cromwell query route (/api/workflows/v1/query)
+    """
     out = cromwell_api.search(days=1)
     # There may or may not be results, we can't gaurantee it
     if out["totalResultsCount"] == 0:

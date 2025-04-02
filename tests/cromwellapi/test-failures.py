@@ -14,7 +14,11 @@ params = {
 
 @pytest.mark.vcr
 def test_failures_initial(cromwell_api, submit_wdls, recording_mode):
-    """Checking for failures works for initial state"""
+    """
+    Checking for failures works for initial state
+
+    Cromwell metadata route (/api/workflows/v1/{workflow_id}/metadata)
+    """
     fail = list(filter(lambda x: x["path"].startswith("bad"), submit_wdls))
     for job in fail:
         if recording_mode != "rewrite":
@@ -42,7 +46,11 @@ def test_failures_initial(cromwell_api, submit_wdls, recording_mode):
 
 @pytest.mark.vcr
 def test_failures_final(cromwell_api_final, submit_wdls):
-    """Checking for failures works for final state"""
+    """
+    Checking for failures works for final state
+
+    Cromwell metadata route (/api/workflows/v1/{workflow_id}/metadata)
+    """
     fail = list(filter(lambda x: x["path"].startswith("bad"), submit_wdls))
     fail_check = {
         "badRunParseBatchFile": "Required workflow input 'parseBatchFile.batchFile' not specified",

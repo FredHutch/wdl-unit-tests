@@ -8,7 +8,11 @@ params = {"expandSubWorkflows": True}
 
 @pytest.mark.vcr
 def test_call_initial(cromwell_api, submit_wdls, recording_mode):
-    """Getting workflow metadata with expandSubWorkflows:true works | initial state"""
+    """
+    Getting workflow metadata with expandSubWorkflows:true works | initial state
+
+    Cromwell metadata route (/api/workflows/v1/{workflow_id}/metadata)
+    """
     ids = [wf["id"] for wf in submit_wdls]
     for x in ids:
         if recording_mode != "rewrite":
@@ -30,7 +34,11 @@ def test_call_initial(cromwell_api, submit_wdls, recording_mode):
 
 @pytest.mark.vcr
 def test_call_final(cromwell_api_final, submit_wdls):
-    """Getting workflow metadata with expandSubWorkflows:true works | final state"""
+    """
+    Getting workflow metadata with expandSubWorkflows:true works | final state
+
+    Cromwell metadata route (/api/workflows/v1/{workflow_id}/metadata)
+    """
     ids = [wf["id"] for wf in submit_wdls]
     for x in ids:
         res = cromwell_api_final.metadata(workflow_id=x, params=params)
