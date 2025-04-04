@@ -31,6 +31,8 @@ tests
 - `cromwellapi` : Run tests against the PROOF & Cromwell APIs running on Fred Hutch clusters
 - `cromwelljava`: Run tests against a locally running java cromwell.jar file  (whether that be your machine or GH Actions)
 
+If a WDL unit test fails both `cromwelljava` and `cromwellapi` pytests, either Cromwell's underlying functionality has changed or something is wrong with the WDL itself. If a WDL unit test succeeds in `cromwelljava` but fails in `cromwellapi`, this is a PROOF-specific issue that will need to be addressed by our development team at Fred Hutch (OCDO/SciComp).
+
 Within `cromwelljava`
 
 ```
