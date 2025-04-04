@@ -9,7 +9,11 @@ LABELS_FILE_1 = Path("tests/cromwellapi/labels1.json")
 
 @pytest.mark.vcr
 def test_labels(cromwell_api, recording_mode):
-    """Getting workflow labels works"""
+    """
+    Getting workflow labels works
+
+    Cromwell labels route (/api/workflows/v1/{workflow_id}/labels)
+    """
     job = cromwell_api.submit_workflow(
         wdl_path=path_wdl("helloHostname"),
         labels=LABELS_FILE_1,
@@ -34,7 +38,11 @@ def test_labels(cromwell_api, recording_mode):
 
 @pytest.mark.vcr
 def test_labels_no_labels(cromwell_api, recording_mode):
-    """Workflow labels are empty except for workflow id when no labels submitted"""
+    """
+    Workflow labels are empty except for workflow id when no labels submitted
+
+    Cromwell labels route (/api/workflows/v1/{workflow_id}/labels)
+    """
     job = cromwell_api.submit_workflow(
         wdl_path=path_wdl("helloHostname"),
         options=path_options("helloHostname"),

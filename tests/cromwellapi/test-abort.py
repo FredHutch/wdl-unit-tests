@@ -7,7 +7,11 @@ wdls = ["helloHostname", "helloDockerHostname"]
 @pytest.mark.vcr
 @pytest.mark.parametrize("wdl", wdls)
 def test_abort(cromwell_api, wdl):
-    """Checking that abort works"""
+    """
+    Checking that abort works
+
+    Cromwell abort route (/api/workflows/v1/{workflow_id}/abort)
+    """
     workflow = cromwell_api.submit_workflow(
         wdl_path=path_wdl(wdl), options=path_options(wdl)
     )

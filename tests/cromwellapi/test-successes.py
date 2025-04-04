@@ -19,6 +19,8 @@ def test_successes_initial(cromwell_api, submit_wdls, recording_mode):
     Ensures that each WDL unit test got submitted successfully with the
     exception of WDL's that are expected to fail (name starts with "bad")
 
+    Cromwell metadata route (/api/workflows/v1/{workflow_id}/metadata)
+
     Args:
         cromwell_api (CromwellApi): PROOF server being used to submit WDL unit tests (class defined in cromwell.py)
         submit_wdls: pytest fixture containing details about WDL submissions to PROOF (defined in conftest.py)
@@ -56,6 +58,8 @@ def test_successes_final(cromwell_api_final, submit_wdls):
     """
     Ensures that each WDL unit test executes successfully with the
     exception of WDL's that are expected to fail (name starts with "bad")
+
+    Cromwell metadata route (/api/workflows/v1/{workflow_id}/metadata)
 
     Args:
         cromwell_api (CromwellApi): PROOF server being used to execute WDL unit tests (class defined in cromwell.py)

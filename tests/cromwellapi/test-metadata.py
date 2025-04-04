@@ -6,7 +6,11 @@ params = {"expandSubWorkflows": False, "excludeKey": "calls"}
 
 @pytest.mark.vcr
 def test_metadata_initial(cromwell_api, submit_wdls):
-    """Getting workflow metadata works - Initial states"""
+    """
+    Getting workflow metadata works - Initial states
+
+    Cromwell metadata route (/api/workflows/v1/{workflow_id}/metadata)
+    """
     ids = [wf["id"] for wf in submit_wdls]
     for x in ids:
         res = cromwell_api.metadata(workflow_id=x, params=params)
@@ -18,7 +22,11 @@ def test_metadata_initial(cromwell_api, submit_wdls):
 
 @pytest.mark.vcr
 def test_metadata_final(cromwell_api_final, submit_wdls):
-    """Getting workflow metadata works - Final states"""
+    """
+    Getting workflow metadata works - Final states
+
+    Cromwell metadata route (/api/workflows/v1/{workflow_id}/metadata)
+    """
     ids = [wf["id"] for wf in submit_wdls]
     for x in ids:
         res = cromwell_api_final.metadata(workflow_id=x, params=params)
