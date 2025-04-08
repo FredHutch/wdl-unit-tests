@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--c4fb4488cea56824802795e22b5d52b1\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--23a083f700650ba2634aba1c4c767cdb\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"helloHostname.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n## This is a test workflow that returns the hostname of the node \n## the
       job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow
@@ -9,10 +9,7 @@ interactions:
       to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo
       $(hostname)\n  >>>\n\n  output {\n    File out = stdout()\n  }\n  \n  runtime
       {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname
-      of the node the job was submitted to\"\n  }\n}\n\r\n--c4fb4488cea56824802795e22b5d52b1\r\nContent-Disposition:
-      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
-      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--c4fb4488cea56824802795e22b5d52b1--\r\n"
+      of the node the job was submitted to\"\n  }\n}\n\r\n--23a083f700650ba2634aba1c4c767cdb--\r\n"
     headers:
       accept:
       - '*/*'
@@ -21,30 +18,31 @@ interactions:
       connection:
       - keep-alive
       content-length:
-      - '1071'
+      - '802'
       content-type:
-      - multipart/form-data; boundary=c4fb4488cea56824802795e22b5d52b1
+      - multipart/form-data; boundary=23a083f700650ba2634aba1c4c767cdb
       host:
       - gizmok29.fhcrc.org:41041
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmok29.fhcrc.org:41041/api/workflows/v1
+    uri: https://gizmok29.fhcrc.org:41041/api/womtool/v1/describe
   response:
     body:
-      string: '{"id":"0caf7f61-e668-40cd-9deb-58a908e274dc","status":"Submitted"}'
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"HelloHostname","inputs":[],"outputs":[{"name":"stdout","valueType":{"typeName":"File"},"typeDisplayName":"File"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{"stdout":"hostname
+        of the node the job was submitted to"},"isRunnableWorkflow":true}'
     headers:
       Connection:
       - keep-alive
       Content-Length:
-      - '66'
+      - '402'
       Content-Type:
       - application/json
       Date:
-      - Sun, 30 Mar 2025 03:33:41 GMT
+      - Sun, 30 Mar 2025 03:35:06 GMT
       Server:
       - nginx/1.25.3
     status:
-      code: 201
-      message: Created
+      code: 200
+      message: OK
 version: 1

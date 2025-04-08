@@ -19,11 +19,15 @@ def test_call_initial(wdl_path, cromwell_api, recording_mode, test_name):
             res = cromwell_api.metadata(job["id"], params=params)
     else:
         res = cromwell_api.metadata(job["id"], params=params)
-
-    assert isinstance(res, dict)
-    assert sorted(list(res.keys())) == sorted(
-        metadata_response_keys[res["status"].lower()]
-    )
+        assert isinstance(res, dict)
+        assert sorted(list(res.keys())) == sorted(
+            metadata_response_keys[res["status"].lower()]
+        )
+        for k, v in res["calls"].items():
+            assert (
+                v[0]["callCaching"]["effectiveCallCachingMode"]
+                == "CallCachingOff"
+            )
 
 
 @pytest.mark.vcr

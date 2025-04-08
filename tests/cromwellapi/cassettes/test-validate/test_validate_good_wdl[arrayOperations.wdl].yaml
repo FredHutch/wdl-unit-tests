@@ -1,0 +1,133 @@
+interactions:
+- request:
+    body: "--412582f966915b9a3fe0cf5e4abab2f3\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"arrayOperations.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow ArrayOperations {\n    input {\n        # Input arrays for different
+      tests\n        Array[String] strings\n        Array[String] additional_strings
+      = []  # For testing array concatenation\n        Array[Array[String]] nested_arrays
+      = []  # For testing nested arrays\n        Array[Int] numbers = [1, 2, 3, 4,
+      5]  # Default integer array for numeric operations\n        Array[File] input_files
+      = [] # Array of files to test file operations\n    }\n    \n    # Scatter operation
+      to test processing of each element in an array\n    # Test empty arrays (original
+      operation still works with empty input)\n    scatter (str in strings) {\n        call
+      Uppercase { input: text = str }\n    }\n    \n    # Test array indexing (accessing
+      first and last elements)\n    if (length(strings) > 0) {\n        call ValidateIndex
+      { input: arr = strings }\n    }\n    \n    # Test array functions like sorting,
+      length calculation, and flattening\n    call ArrayFunctions { \n        input:
+      \n            arr = strings,\n            nested = nested_arrays\n    }\n    \n
+      \   # Test array concatenation and verify the combined length\n    Array[String]
+      combined = flatten([strings, additional_strings])\n    call ArrayConcat {\n
+      \       input: \n            arr1 = strings,\n            arr2 = additional_strings,\n
+      \           expected_length = length(combined)\n    }\n    \n    # Test integer
+      array operations like summation and combining arrays\n    Array[Int] more_numbers
+      = [6, 7, 8, 9, 10]  # Intermediate array declaration\n    call IntegerArrayOps
+      {\n        input:\n            numbers = numbers,\n            additional_numbers
+      = more_numbers\n    }\n\n    # Test file array operations like localization
+      and content reading\n    if (length(input_files) > 0) {\n        call FileArrayOps
+      {\n            input:\n                files = input_files\n        }\n    }\n
+      \   # Outputs to capture results of the tests\n    output {\n        Array[String]
+      uppercased = Uppercase.out # Outputs from scatter task\n        Int? first_index
+      = ValidateIndex.first_index # First index in string array\n        Int? last_index
+      = ValidateIndex.last_index # Last index in string array\n        Array[String]
+      sorted_array = ArrayFunctions.sorted # Sorted array\n        Array[Array[String]]
+      processed_nested = ArrayFunctions.processed_nested # Processed nested array\n
+      \       Boolean concat_test_passed = ArrayConcat.test_passed # Result of concatenation
+      test\n        Int array_length = ArrayFunctions.arr_length # Length of input
+      array\n        Array[String] flattened = ArrayFunctions.flattened # Flattened
+      nested arrays\n        # New outputs for integer array operations \n        Int
+      sum_result = IntegerArrayOps.sum # Sum of integer array\n        Array[Int]
+      combined_numbers = IntegerArrayOps.combined # Combined integer arrays\n        #
+      New outputs for file array operations\n        Array[String]? file_contents
+      = FileArrayOps.contents # Contents of files\n        Boolean? files_localized
+      = FileArrayOps.localization_success # File localization status\n    }\n\n    parameter_meta
+      {\n        # Descriptions for inputs\n        strings: \"Primary array of input
+      strings\"\n        additional_strings: \"Secondary array for testing concatenation\"\n
+      \       nested_arrays: \"Array of arrays for testing nested array operations\"\n
+      \       numbers: \"Array of integers for testing numeric operations\"\n        input_files:
+      \"Array of input files for testing file localization\"\n    }\n}\n\n# Task to
+      convert string to uppercase (tests per-element processing)\ntask Uppercase {\n
+      \   input {\n        String text\n    }\n    \n    command <<<\n        echo
+      \"~{text}\" | tr '[:lower:]' '[:upper:]'\n    >>>\n    \n    output {\n        String
+      out = read_string(stdout())\n    }\n    \n    runtime {\n        cpu: 1\n        memory:
+      \"1 GB\"\n    }\n}\n\n\n# Task to test indexing operations\ntask ValidateIndex
+      {\n    input {\n        Array[String] arr\n    }\n    \n    command <<<\n        echo
+      \"0\" > first_index.txt  # First index\n        echo \"~{length(arr)-1}\" >
+      last_index.txt  # Last index\n    >>>\n    \n    output {\n        Int first_index
+      = read_int(\"first_index.txt\")\n        Int last_index = read_int(\"last_index.txt\")\n
+      \   }\n    \n    runtime {\n        cpu: 1\n        memory: \"1 GB\"\n    }\n}\n\n#
+      Task to test array functions\ntask ArrayFunctions {\n    input {\n        Array[String]
+      arr\n        Array[Array[String]] nested\n    }\n    \n    command <<<\n        #
+      Sort the input array using bash\n        echo \"~{sep='\\n' arr}\" | sort >
+      sorted.txt\n        \n        # Get array length\n        echo \"~{length(arr)}\"
+      > length.txt\n        \n        # Process nested arrays (flatten them)\n        echo
+      \"~{sep='\\n' flatten(nested)}\" > flattened.txt\n    >>>\n    \n    output
+      {\n        Array[String] sorted = read_lines(\"sorted.txt\")\n        Int arr_length
+      = read_int(\"length.txt\")\n        Array[String] flattened = read_lines(\"flattened.txt\")\n
+      \       Array[Array[String]] processed_nested = nested  # Return the original
+      nested array\n    }\n    \n    runtime {\n        cpu: 1\n        memory: \"1
+      GB\"\n    }\n}\n\n# Task to test concatenation of two arrays\ntask ArrayConcat
+      {\n    input {\n        Array[String] arr1\n        Array[String] arr2\n        Int
+      expected_length\n    }\n    \n    command <<<\n        actual_length=$(( ~{length(arr1)}
+      + ~{length(arr2)} ))\n        if [ \"$actual_length\" -eq ~{expected_length}
+      ]; then\n            echo \"true\"\n        else\n            echo \"false\"\n
+      \       fi\n    >>>\n    \n    output {\n        Boolean test_passed = read_boolean(stdout())\n
+      \   }\n    \n    runtime {\n        cpu: 1\n        memory: \"1 GB\"\n    }\n}\n\n#
+      Task to test integer array operations\ntask IntegerArrayOps {\n    input {\n
+      \       Array[Int] numbers\n        Array[Int] additional_numbers\n    }\n    \n
+      \   command <<<\n        # Calculate sum of numbers to verify proper parsing\n
+      \       total=0\n        for num in ~{sep=' ' numbers}; do\n            total=$((total
+      + num))\n        done\n        echo $total > sum.txt\n\n        # Combine arrays
+      and write to file\n        echo \"~{sep='\\n' flatten([numbers, additional_numbers])}\"
+      > combined.txt\n    >>>\n    \n    output {\n        Int sum = read_int(\"sum.txt\")\n
+      \       Array[Int] combined = read_lines(\"combined.txt\")\n    }\n    \n    runtime
+      {\n        cpu: 1\n        memory: \"1 GB\"\n    }\n}\n\n# Task to test file
+      array operations\ntask FileArrayOps {\n    input {\n        Array[File] files\n
+      \   }\n    \n    command <<<\n        # Test file localization by reading contents\n
+      \       for file in ~{sep=' ' files}; do\n            if [ -f \"$file\" ]; then\n
+      \               cat \"$file\" >> all_contents.txt\n                echo \"---\"
+      >> all_contents.txt  # Separator between files\n            else\n                echo
+      \"false\" > localization_success.txt\n                exit 1\n            fi\n
+      \       done\n        echo \"true\" > localization_success.txt\n    >>>\n    \n
+      \   output {\n        Array[String] contents = read_lines(\"all_contents.txt\")\n
+      \       Boolean localization_success = read_boolean(\"localization_success.txt\")\n
+      \   }\n    \n    runtime {\n        cpu: 1\n        memory: \"1 GB\"\n    }\n}\n\r\n--412582f966915b9a3fe0cf5e4abab2f3--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '7177'
+      content-type:
+      - multipart/form-data; boundary=412582f966915b9a3fe0cf5e4abab2f3
+      host:
+      - gizmok29.fhcrc.org:41041
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok29.fhcrc.org:41041/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"ArrayOperations","inputs":[{"name":"additional_strings","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]","optional":true,"default":"[]"},{"name":"input_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]","optional":true,"default":"[]"},{"name":"nested_arrays","valueType":{"typeName":"Array","arrayType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"nonEmpty":false},"typeDisplayName":"Array[Array[String]]","optional":true,"default":"[]"},{"name":"numbers","valueType":{"typeName":"Array","arrayType":{"typeName":"Int"},"nonEmpty":false},"typeDisplayName":"Array[Int]","optional":true,"default":"[1,
+        2, 3, 4, 5]"},{"name":"strings","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]","optional":false,"default":null}],"outputs":[{"name":"array_length","valueType":{"typeName":"Int"},"typeDisplayName":"Int"},{"name":"combined_numbers","valueType":{"typeName":"Array","arrayType":{"typeName":"Int"},"nonEmpty":false},"typeDisplayName":"Array[Int]"},{"name":"concat_test_passed","valueType":{"typeName":"Boolean"},"typeDisplayName":"Boolean"},{"name":"file_contents","valueType":{"typeName":"Optional","optionalType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false}},"typeDisplayName":"Array[String]?"},{"name":"files_localized","valueType":{"typeName":"Optional","optionalType":{"typeName":"Boolean"}},"typeDisplayName":"Boolean?"},{"name":"first_index","valueType":{"typeName":"Optional","optionalType":{"typeName":"Int"}},"typeDisplayName":"Int?"},{"name":"flattened","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]"},{"name":"last_index","valueType":{"typeName":"Optional","optionalType":{"typeName":"Int"}},"typeDisplayName":"Int?"},{"name":"processed_nested","valueType":{"typeName":"Array","arrayType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"nonEmpty":false},"typeDisplayName":"Array[Array[String]]"},{"name":"sorted_array","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]"},{"name":"sum_result","valueType":{"typeName":"Int"},"typeDisplayName":"Int"},{"name":"uppercased","valueType":{"typeName":"Array","arrayType":{"typeName":"String"},"nonEmpty":false},"typeDisplayName":"Array[String]"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{"input_files":"Array
+        of input files for testing file localization","additional_strings":"Secondary
+        array for testing concatenation","numbers":"Array of integers for testing
+        numeric operations","strings":"Primary array of input strings","nested_arrays":"Array
+        of arrays for testing nested array operations"},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '3060'
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 30 Mar 2025 03:35:06 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+version: 1

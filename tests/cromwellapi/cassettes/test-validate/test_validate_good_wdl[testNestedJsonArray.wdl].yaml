@@ -1,0 +1,62 @@
+interactions:
+- request:
+    body: "--ed741e83cb62d8fa2950cb0a885a9676\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"testNestedJsonArray.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\n# Define the structure for sampleDetails\nstruct sampleDetails {\n    String
+      experimentType\n    String prepMethod\n    String tissueType\n}\n\n# Define
+      the main structure for the single sample\nstruct singleSample {\n    String
+      sampleName\n    String aboutSample\n    String sampleDescription\n    sampleDetails
+      details  # Use the sampleDetails struct here\n}\n\nworkflow testNestedJsonArray
+      {\n  input {\n    String cellNumber\n    Array[singleSample] batchOfSamples
+      \ # Array of objects representing each sample\n  }\n\n  scatter (sample in batchOfSamples)
+      {\n    call processSample {\n      input:\n        sample = sample,\n        base_file_name
+      = sample.sampleName \n    }\n  }\n\n  output {\n    # Collect all the fields
+      together from each sample into one list\n    Array[File] result_allSampleInfo
+      = processSample.allSampleInfo\n  }\n}\n\ntask processSample {\n  input {\n    singleSample
+      sample  # Use singleSample type, not Object\n    String base_file_name\n  }\n\n
+      \ command <<<\n    # Format the sample information as a single string\n    allSampleInfo=\"~{sample.sampleName}
+      | ~{sample.aboutSample} | ~{sample.sampleDescription} | ~{sample.details.experimentType}
+      | ~{sample.details.prepMethod} | ~{sample.details.tissueType}\"\n    \n    #
+      Output the concatenated sample info to a file\n    echo \"${allSampleInfo}\"
+      > ~{base_file_name}.allSampleInfo.txt\n  >>>\n\n  output {\n    # Read all sample
+      info from the file and output it as an Array of Strings\n    File allSampleInfo
+      = \"${base_file_name}.allSampleInfo.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n
+      \ }\n}\n\r\n--ed741e83cb62d8fa2950cb0a885a9676--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '1750'
+      content-type:
+      - multipart/form-data; boundary=ed741e83cb62d8fa2950cb0a885a9676
+      host:
+      - gizmok29.fhcrc.org:41041
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok29.fhcrc.org:41041/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"testNestedJsonArray","inputs":[{"name":"batchOfSamples","valueType":{"typeName":"Array","arrayType":{"typeName":"Object","objectFieldTypes":[{"fieldName":"sampleName","fieldType":{"typeName":"String"}},{"fieldName":"aboutSample","fieldType":{"typeName":"String"}},{"fieldName":"sampleDescription","fieldType":{"typeName":"String"}},{"fieldName":"details","fieldType":{"typeName":"Object","objectFieldTypes":[{"fieldName":"experimentType","fieldType":{"typeName":"String"}},{"fieldName":"prepMethod","fieldType":{"typeName":"String"}},{"fieldName":"tissueType","fieldType":{"typeName":"String"}}]}}]},"nonEmpty":false},"typeDisplayName":"Array[WomCompositeType
+        {\n sampleName -> String\naboutSample -> String\nsampleDescription -> String\ndetails
+        -> WomCompositeType {\n experimentType -> String\nprepMethod -> String\ntissueType
+        -> String \n} \n}]","optional":false,"default":null},{"name":"cellNumber","valueType":{"typeName":"String"},"typeDisplayName":"String","optional":false,"default":null}],"outputs":[{"name":"result_allSampleInfo","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"}],"images":["\"ubuntu:20.04\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1406'
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 30 Mar 2025 03:35:07 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+version: 1

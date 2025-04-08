@@ -1,3 +1,4 @@
+import os
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -124,6 +125,28 @@ def before_sleep_message(state):
     )
 
 
+<<<<<<< HEAD
 def fetch_wdl_paths():
     root = Path(__file__).parents[2].resolve()
     return list(root.glob("**/*.wdl"))
+=======
+def find_project_root(marker_file="pyproject.toml"):
+    """
+    A hack to avoid using __file__ as that does not work when using a
+    python repl (python or ipython)
+    """
+    current_dir = os.getcwd()
+
+    while True:
+        if os.path.exists(os.path.join(current_dir, marker_file)):
+            return current_dir
+
+        parent_dir = os.path.dirname(current_dir)
+
+        if parent_dir == current_dir:
+            break
+
+        current_dir = parent_dir
+
+    return current_dir
+>>>>>>> main
