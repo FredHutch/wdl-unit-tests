@@ -125,11 +125,11 @@ def before_sleep_message(state):
     )
 
 
-<<<<<<< HEAD
 def fetch_wdl_paths():
     root = Path(__file__).parents[2].resolve()
     return list(root.glob("**/*.wdl"))
-=======
+
+
 def find_project_root(marker_file="pyproject.toml"):
     """
     A hack to avoid using __file__ as that does not work when using a
@@ -149,4 +149,3 @@ def find_project_root(marker_file="pyproject.toml"):
         current_dir = parent_dir
 
     return current_dir
->>>>>>> main
