@@ -1,6 +1,4 @@
-import json
 import os
-from pathlib import Path
 
 import pytest
 from constants import SLEEP_FINAL_STATE
@@ -9,8 +7,6 @@ from cromwell_final import CromwellApiFinal
 from mocks import MockProofApi
 from proof import ProofApi
 from utils_cassettes import cassettes_last_modified
-
-mocked_submissions = "tests/cromwellapi/mocked_submissions.json"
 
 
 def pytest_report_header(config):
@@ -52,40 +48,6 @@ def cromwell_api_final(proof_api, recording_mode):
     return CromwellApiFinal(
         url=cromwell_url, recording_mode=recording_mode, sleep=SLEEP_FINAL_STATE
     )
-
-
-@pytest.fixture(scope="session")
-def submit_wdls(recording_mode, cromwell_api):
-    """
-    This fixture runs automatically before any tests.
-    Uses "session" scope to run only once for all tests.
-    """
-    root = Path(__file__).parents[2].resolve()
-    pattern = "**/*.wdl"
-    wdl_paths = list(root.glob(pattern))
-
-    if recording_mode == "rewrite":
-        print(f"\nSubmitting {len(wdl_paths)} wdls ...")
-        out = []
-        for path in wdl_paths:
-            inputs_path = path.parent / "inputs.json"
-            inputs_path = inputs_path if inputs_path.exists() else None
-            opts_path = path.parent / "options.json"
-            opts_path = opts_path if opts_path.exists() else None
-            res = cromwell_api.submit_workflow(
-                wdl_path=path, inputs=inputs_path, options=opts_path
-            )
-            out.append(res)
-        with open(mocked_submissions, "w") as f:
-            json.dump(out, f, indent=4)
-    else:
-        with open(mocked_submissions, "r") as f:
-            out = json.load(f)
-
-    # Yield to let tests run
-    yield out
-
-    # Cleanup is not possible for Cromwell - but would be here
 
 
 class EnvironmentVariableError(Exception):
