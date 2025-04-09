@@ -1,0 +1,1678 @@
+interactions:
+- request:
+    body: "--44f9624a2d87ed9809fe63e31a1d7dce\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"helloHostname.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n## This is a test workflow that returns the hostname of the node \n## the
+      job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow
+      HelloHostname {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n
+      \ }\n\n  parameter_meta {\n    stdout: \"hostname of the node the job was submitted
+      to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo
+      $(hostname)\n  >>>\n\n  output {\n    File out = stdout()\n  }\n  \n  runtime
+      {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname
+      of the node the job was submitted to\"\n  }\n}\n\r\n--44f9624a2d87ed9809fe63e31a1d7dce\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--44f9624a2d87ed9809fe63e31a1d7dce--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '1071'
+      content-type:
+      - multipart/form-data; boundary=44f9624a2d87ed9809fe63e31a1d7dce
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"837093b1-44dd-4341-a7b0-356a8e92591d","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:41:02 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:41:07 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:41:12 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:41:17 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:41:22 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:41:27 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:41:32 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:41:37 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:41:42 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:41:47 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:41:53 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:41:58 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:42:03 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:42:08 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:42:13 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:42:18 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:42:23 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:42:28 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:42:33 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:42:38 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:42:43 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:42:48 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:42:53 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:42:58 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:43:03 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:43:09 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:43:14 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:43:19 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow HelloHostname
+        {\n  call Hostname {\n  }\n\n  output {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output
+        {\n    File out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname of the node the job
+        was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:43:24 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1090'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-32c4e56","description":"PickedUp","timestamp":"2025-04-09T17:43:23.412Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/837093b1-44dd-4341-a7b0-356a8e92591d","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-09T17:43:23.413Z","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:43:29 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1492'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-32c4e56","description":"PickedUp","timestamp":"2025-04-09T17:43:23.412Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/837093b1-44dd-4341-a7b0-356a8e92591d","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-09T17:43:23.413Z","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:43:34 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1492'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-32c4e56","description":"PickedUp","timestamp":"2025-04-09T17:43:23.412Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/837093b1-44dd-4341-a7b0-356a8e92591d","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-09T17:43:23.413Z","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:43:39 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1492'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-32c4e56","description":"PickedUp","timestamp":"2025-04-09T17:43:23.412Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/837093b1-44dd-4341-a7b0-356a8e92591d","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-09T17:43:23.413Z","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:43:44 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1492'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-32c4e56","description":"PickedUp","timestamp":"2025-04-09T17:43:23.412Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/837093b1-44dd-4341-a7b0-356a8e92591d","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-09T17:43:23.413Z","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:43:49 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1492'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-32c4e56","description":"PickedUp","timestamp":"2025-04-09T17:43:23.412Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/837093b1-44dd-4341-a7b0-356a8e92591d","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-09T17:43:23.413Z","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:43:54 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1492'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-32c4e56","description":"PickedUp","timestamp":"2025-04-09T17:43:23.412Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/837093b1-44dd-4341-a7b0-356a8e92591d","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-09T17:43:23.413Z","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:43:59 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1492'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-32c4e56","description":"PickedUp","timestamp":"2025-04-09T17:43:23.412Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/837093b1-44dd-4341-a7b0-356a8e92591d","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-09T17:43:23.413Z","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:44:04 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1492'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok37.fhcrc.org:44649
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok37.fhcrc.org:44649/api/workflows/v1/837093b1-44dd-4341-a7b0-356a8e92591d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloHostname","workflowProcessingEvents":[{"cromwellId":"cromid-32c4e56","description":"Finished","timestamp":"2025-04-09T17:44:04.234Z","cromwellVersion":"87"},{"cromwellId":"cromid-32c4e56","description":"PickedUp","timestamp":"2025-04-09T17:43:23.412Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW
+        DEFINITION\n\nworkflow HelloHostname {\n  call Hostname {\n  }\n\n  output
+        {\n    File stdout = Hostname.out\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask
+        Hostname {\n  command <<<\n    echo $(hostname)\n  >>>\n\n  output {\n    File
+        out = stdout()\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta
+        {\n    out: \"hostname of the node the job was submitted to\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"HelloHostname.stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/837093b1-44dd-4341-a7b0-356a8e92591d/call-Hostname/execution/stdout"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloHostname/837093b1-44dd-4341-a7b0-356a8e92591d","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-04-09T17:44:04.234Z","start":"2025-04-09T17:43:23.413Z","id":"837093b1-44dd-4341-a7b0-356a8e92591d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-837093b1-44dd-4341-a7b0-356a8e92591d"},"submission":"2025-04-09T17:41:02.314Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 09 Apr 2025 17:44:09 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1805'
+    status:
+      code: 200
+      message: OK
+version: 1
