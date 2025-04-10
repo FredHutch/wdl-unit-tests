@@ -1,0 +1,67 @@
+name: API Tests - Rewrite Cassettes on Changes
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  changed-files:
+    if: ${{ ! github.event.pull_request.head.repo.fork }}
+    runs-on: self-hosted
+    outputs:
+      dirs: ${{ steps.get-dirs.outputs.uniqdirs }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get changed files within WDL directories
+        id: changed-files
+        uses: step-security/changed-files@v45
+        with:
+          files: "**/*.{wdl,json}"
+
+      - name: Determine changed dirs
+        id: get-dirs
+        if: ${{ steps.changed-files.outputs.all_changed_files }}
+        run: |
+          uniqdirs=$(dirname ${{ steps.changed-files.outputs.all_changed_files }} | sort | uniq | jq -R . | jq -s | jq -c .)
+          echo "uniqdirs=$uniqdirs" >> $GITHUB_OUTPUT
+
+      - name: List all changed WDL directories
+        if: ${{ steps.changed-files.outputs.all_changed_files }}
+        run: |
+          echo "Changes: ${{ steps.get-dirs.outputs.uniqdirs }}"
+
+  api-tests-rewrite-on-changes:
+    needs: changed-files
+    if: ${{ needs.changed-files.outputs.dirs }}
+    runs-on: self-hosted
+    strategy:
+      fail-fast: false
+      matrix:
+        wdl: ${{ fromJson(needs.changed-files.outputs.dirs) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "0.6.14"
+
+      - name: Set up Python
+        run: uv python install 3.13
+
+      - name: Install
+        run: uv sync --all-extras
+
+      - name: Load secrets
+        uses: 1password/load-secrets-action@v2
+        with:
+          export-env: true
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          PROOF_API_TOKEN_DEV: "op://PROOF/PROOF_Test_User/dev token"
+          PATH_ROOTS: "op://PROOF/PROOF_PATH_ROOTS/credential"
+
+      - name: Run tests
+        run: |
+          op run -- uv run pytest -n auto --color=yes --record-mode=rewrite --verbose -s tests/cromwellapi/ -k ${{ matrix.wdl }}
