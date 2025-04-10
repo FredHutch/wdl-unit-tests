@@ -1,10 +1,7 @@
-from pathlib import Path
-
 import pytest
+from utils import fetch_wdl_paths
 
-root = Path(__file__).parents[2].resolve()
-pattern = "**/*.wdl"
-wdl_paths = list(root.glob(pattern))
+wdl_paths = fetch_wdl_paths()
 
 
 @pytest.mark.vcr
