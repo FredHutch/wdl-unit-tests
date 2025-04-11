@@ -31,6 +31,9 @@ def test_search_no_results(cromwell_api):
     Checking that search works with no results
 
     Cromwell query route (/api/workflows/v1/query)
+
+    Args:
+        cromwell_api (CromwellApi): Cromwell server being used to search for WDL unit tests (class defined in cromwell.py)
     """
     out = cromwell_api.search(days=-2)
     # There should not be any results for a query for jobs
@@ -45,6 +48,9 @@ def test_search_results(cromwell_api):
     Checking that search works when there MIGHT be results
 
     Cromwell query route (/api/workflows/v1/query)
+
+    Args:
+        cromwell_api (CromwellApi): Cromwell server being used to search for WDL unit tests (class defined in cromwell.py)
     """
     out = cromwell_api.search(days=1)
     # There may or may not be results, we can't gaurantee it
