@@ -13,7 +13,7 @@ def test_abort(cromwell_api, wdl):
     Cromwell abort route (/api/workflows/v1/{workflow_id}/abort)
 
     Args:
-        cromwell_api (CromwellApi): PROOF server being used to submit WDL unit tests (class defined in cromwell.py)
+        cromwell_api (CromwellApi): Cromwell server being used to submit WDL unit tests (class defined in cromwell.py)
         wdl (str): name of the WDL unit test to submit and subsequently abort
     """
     workflow = cromwell_api.submit_workflow(

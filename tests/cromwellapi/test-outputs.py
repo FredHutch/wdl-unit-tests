@@ -9,7 +9,7 @@ def test_outputs(cromwell_api, submit_wdls):
     Cromwell outputs route (/api/workflows/v1/{workflow_id}/outputs)
 
     Args:
-        cromwell_api (CromwellApi): PROOF server being used to submit WDL unit tests (class defined in cromwell.py)
+        cromwell_api (CromwellApi): Cromwell server being used to submit WDL unit tests (class defined in cromwell.py)
         recording_mode (str): string indicating if the cassettes are getting rewritten or not
     """
     ids = [wf["id"] for wf in submit_wdls]

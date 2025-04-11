@@ -45,7 +45,7 @@ def test_call_final(cromwell_api_final, submit_wdls):
     Cromwell metadata route (/api/workflows/v1/{workflow_id}/metadata)
 
     Args:
-        cromwell_api_final (CromwellApiFinal): PROOF server being used to check the status of WDL unit tests (class defined in cromwell_final.py)
+        cromwell_api_final (CromwellApiFinal): Cromwell server being used to check the status of WDL unit tests (class defined in cromwell_final.py)
         submit_wdls: pytest fixture containing details about WDL submissions to PROOF (defined in conftest.py)
     """
     ids = [wf["id"] for wf in submit_wdls]

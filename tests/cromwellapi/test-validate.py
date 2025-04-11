@@ -17,8 +17,8 @@ def test_validate_good_wdl(cromwell_api, wdl_path):
     Cromwell validate route (/api/womtool/v1/describe)
 
     Args:
-        cromwell_api (CromwellApi): PROOF server being used to validate WDL unit tests (class defined in cromwell.py)
-        wdl_path (PosixPath): location of the WDL script to validate via PROOF
+        cromwell_api (CromwellApi): Cromwell server being used to validate WDL unit tests (class defined in cromwell.py)
+        wdl_path (PosixPath): location of the WDL script to validate via WOMtool
     """
     if not wdl_path.name.startswith("badVal"):
         res = cromwell_api.validate(wdl_path=wdl_path)
@@ -38,8 +38,8 @@ def test_validate_bad_wdl(cromwell_api, wdl_path):
     Cromwell validate route (/api/womtool/v1/describe)
 
     Args:
-        cromwell_api (CromwellApi): PROOF server being used to validate WDL unit tests (class defined in cromwell.py)
-        wdl_path (PosixPath): location of the WDL script to validate via PROOF
+        cromwell_api (CromwellApi): Cromwell server being used to validate WDL unit tests (class defined in cromwell.py)
+        wdl_path (PosixPath): location of the WDL script to validate via WOMtool
     """
     message_check = {
         "badValMissingValue.wdl": "Cannot lookup value 'docker_image'"
