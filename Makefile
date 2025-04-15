@@ -1,3 +1,9 @@
+ifeq ($(GITHUB_ACTIONS),true)
+    WORKERS = 12
+else
+    WORKERS = auto
+endif
+
 # from https://stackoverflow.com/a/10858332/1091766
 # function to check a named environment variable
 # see usage below for examples
@@ -7,6 +13,9 @@ check_defined = \
 __check_defined = \
   $(if $(value $1),, \
     $(error Undefined $1$(if $2, ($2))))
+
+fart:
+	@echo "$(WORKERS)"
 
 # include sort imports via `--select I`
 lint-fix:
@@ -28,10 +37,10 @@ check_env_vars:
 	$(call check_defined, PROOF_API_TOKEN_DEV, env var for test PROOF user)
 
 test_api_cached: check_env_vars
-	op run -- uv run pytest -n auto --color=yes --record-mode=once --verbose -s tests/cromwellapi/
+	op run -- uv run pytest -n $(WORKERS) --color=yes --record-mode=once --verbose -s tests/cromwellapi/
 
 test_api_rewrite: check_env_vars
-	op run -- uv run pytest --color=yes --record-mode=rewrite --verbose -s tests/cromwellapi/
+	op run -- uv run pytest -n $(WORKERS) --color=yes --record-mode=rewrite --verbose -s tests/cromwellapi/
 
 ipython: check_env_vars
 	cd tests/cromwellapi/ && \
