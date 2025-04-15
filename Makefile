@@ -14,9 +14,6 @@ __check_defined = \
   $(if $(value $1),, \
     $(error Undefined $1$(if $2, ($2))))
 
-fart:
-	@echo "$(WORKERS)"
-
 # include sort imports via `--select I`
 lint-fix:
 	uv run ruff check --select I --fix tests/
