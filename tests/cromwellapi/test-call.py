@@ -12,7 +12,16 @@ wdl_paths = fetch_wdl_paths()
 @pytest.mark.vcr
 @pytest.mark.parametrize("wdl_path", wdl_paths, ids=lambda x: x.name)
 def test_call_initial(wdl_path, cromwell_api, recording_mode, test_name):
-    """Getting workflow metadata with expandSubWorkflows:true works | initial state"""
+    """
+    Getting workflow metadata with expandSubWorkflows:true works | initial state
+
+    Cromwell metadata route (/api/workflows/v1/{workflow_id}/metadata)
+
+    Args:
+        cromwell_api (CromwellApi): Cromwell server being used to submit WDL unit tests (class defined in cromwell.py)
+        submit_wdls: pytest fixture containing details about WDL submissions to PROOF (defined in conftest.py)
+        recording_mode (str): string indicating if the cassettes are getting rewritten or not
+    """
     job = submit_wdl(wdl_path, recording_mode, cromwell_api, test_name)
     if recording_mode != "rewrite":
         with patch("time.sleep"):
@@ -33,7 +42,15 @@ def test_call_initial(wdl_path, cromwell_api, recording_mode, test_name):
 @pytest.mark.vcr
 @pytest.mark.parametrize("wdl_path", wdl_paths, ids=lambda x: x.name)
 def test_call_final(wdl_path, cromwell_api_final, recording_mode, test_name):
-    """Getting workflow metadata with expandSubWorkflows:true works | final state"""
+    """
+    Getting workflow metadata with expandSubWorkflows:true works | final state
+
+    Cromwell metadata route (/api/workflows/v1/{workflow_id}/metadata)
+
+    Args:
+        cromwell_api_final (CromwellApiFinal): Cromwell server being used to check the status of WDL unit tests (class defined in cromwell_final.py)
+        submit_wdls: pytest fixture containing details about WDL submissions to PROOF (defined in conftest.py)
+    """
     job = submit_wdl(wdl_path, recording_mode, cromwell_api_final, test_name)
     res = cromwell_api_final.metadata(workflow_id=job["id"], params=params)
     assert isinstance(res, dict)
