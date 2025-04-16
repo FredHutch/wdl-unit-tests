@@ -1,5 +1,5 @@
 ifeq ($(GITHUB_ACTIONS),true)
-    WORKERS = 48
+    WORKERS = 24
 else
     WORKERS = auto
 endif
