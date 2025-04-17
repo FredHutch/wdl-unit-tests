@@ -1,0 +1,1494 @@
+interactions:
+- request:
+    body: "--f0f926f51fda0b6fa5596e202c09bc10\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"WildcardsandConditions.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow WildcardsandConditions {\n    input {\n        String prefix
+      \ # Required input for the file prefix (no default value)\n    }\n\n    call
+      wildcard_and_conditions_test {\n        input:\n            prefix = prefix
+      \ # Explicitly pass the workflow input to the task\n    }\n\n    output {\n
+      \       Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+      conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+      wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+      input for file creation\n        Boolean create_extra_file = true  # Default
+      value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+      .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+      \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+      an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+      ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n
+      \       # Parse inputs directly in the command\n        echo \"Parsed prefix:
+      ~{prefix}\" > parsed_output.txt\n    >>>\n\n    output {\n        Array[File]
+      txt_files = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+      = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+      {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\r\n--f0f926f51fda0b6fa5596e202c09bc10\r\nContent-Disposition:
+      form-data; name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n  \"WildcardsandConditions.prefix\": \"testfile\"\n}\n\r\n--f0f926f51fda0b6fa5596e202c09bc10\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--f0f926f51fda0b6fa5596e202c09bc10--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '2043'
+      content-type:
+      - multipart/form-data; boundary=f0f926f51fda0b6fa5596e202c09bc10
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:45:46 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
+        {\n    input {\n        String prefix  # Required input for the file prefix
+        (no default value)\n    }\n\n    call wildcard_and_conditions_test {\n        input:\n            prefix
+        = prefix  # Explicitly pass the workflow input to the task\n    }\n\n    output
+        {\n        Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+        conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+        wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+        input for file creation\n        Boolean create_extra_file = true  # Default
+        value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+        .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+        \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+        an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+        ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:45:51 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1917'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
+        {\n    input {\n        String prefix  # Required input for the file prefix
+        (no default value)\n    }\n\n    call wildcard_and_conditions_test {\n        input:\n            prefix
+        = prefix  # Explicitly pass the workflow input to the task\n    }\n\n    output
+        {\n        Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+        conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+        wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+        input for file creation\n        Boolean create_extra_file = true  # Default
+        value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+        .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+        \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+        an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+        ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:45:56 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1917'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
+        {\n    input {\n        String prefix  # Required input for the file prefix
+        (no default value)\n    }\n\n    call wildcard_and_conditions_test {\n        input:\n            prefix
+        = prefix  # Explicitly pass the workflow input to the task\n    }\n\n    output
+        {\n        Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+        conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+        wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+        input for file creation\n        Boolean create_extra_file = true  # Default
+        value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+        .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+        \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+        an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+        ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:02 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1917'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
+        {\n    input {\n        String prefix  # Required input for the file prefix
+        (no default value)\n    }\n\n    call wildcard_and_conditions_test {\n        input:\n            prefix
+        = prefix  # Explicitly pass the workflow input to the task\n    }\n\n    output
+        {\n        Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+        conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+        wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+        input for file creation\n        Boolean create_extra_file = true  # Default
+        value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+        .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+        \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+        an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+        ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:07 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1917'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
+        {\n    input {\n        String prefix  # Required input for the file prefix
+        (no default value)\n    }\n\n    call wildcard_and_conditions_test {\n        input:\n            prefix
+        = prefix  # Explicitly pass the workflow input to the task\n    }\n\n    output
+        {\n        Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+        conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+        wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+        input for file creation\n        Boolean create_extra_file = true  # Default
+        value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+        .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+        \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+        an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+        ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:12 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1917'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
+        {\n    input {\n        String prefix  # Required input for the file prefix
+        (no default value)\n    }\n\n    call wildcard_and_conditions_test {\n        input:\n            prefix
+        = prefix  # Explicitly pass the workflow input to the task\n    }\n\n    output
+        {\n        Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+        conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+        wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+        input for file creation\n        Boolean create_extra_file = true  # Default
+        value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+        .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+        \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+        an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+        ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:17 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1917'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
+        {\n    input {\n        String prefix  # Required input for the file prefix
+        (no default value)\n    }\n\n    call wildcard_and_conditions_test {\n        input:\n            prefix
+        = prefix  # Explicitly pass the workflow input to the task\n    }\n\n    output
+        {\n        Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+        conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+        wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+        input for file creation\n        Boolean create_extra_file = true  # Default
+        value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+        .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+        \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+        an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+        ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:22 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1917'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
+        {\n    input {\n        String prefix  # Required input for the file prefix
+        (no default value)\n    }\n\n    call wildcard_and_conditions_test {\n        input:\n            prefix
+        = prefix  # Explicitly pass the workflow input to the task\n    }\n\n    output
+        {\n        Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+        conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+        wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+        input for file creation\n        Boolean create_extra_file = true  # Default
+        value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+        .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+        \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+        an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+        ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:27 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1917'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
+        {\n    input {\n        String prefix  # Required input for the file prefix
+        (no default value)\n    }\n\n    call wildcard_and_conditions_test {\n        input:\n            prefix
+        = prefix  # Explicitly pass the workflow input to the task\n    }\n\n    output
+        {\n        Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+        conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+        wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+        input for file creation\n        Boolean create_extra_file = true  # Default
+        value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+        .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+        \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+        an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+        ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:32 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1917'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
+        {\n    input {\n        String prefix  # Required input for the file prefix
+        (no default value)\n    }\n\n    call wildcard_and_conditions_test {\n        input:\n            prefix
+        = prefix  # Explicitly pass the workflow input to the task\n    }\n\n    output
+        {\n        Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+        conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+        wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+        input for file creation\n        Boolean create_extra_file = true  # Default
+        value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+        .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+        \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+        an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+        ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:37 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1917'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
+        {\n    input {\n        String prefix  # Required input for the file prefix
+        (no default value)\n    }\n\n    call wildcard_and_conditions_test {\n        input:\n            prefix
+        = prefix  # Explicitly pass the workflow input to the task\n    }\n\n    output
+        {\n        Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+        conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+        wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+        input for file creation\n        Boolean create_extra_file = true  # Default
+        value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+        .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+        \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+        an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+        ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:42 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1917'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
+        {\n    input {\n        String prefix  # Required input for the file prefix
+        (no default value)\n    }\n\n    call wildcard_and_conditions_test {\n        input:\n            prefix
+        = prefix  # Explicitly pass the workflow input to the task\n    }\n\n    output
+        {\n        Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+        conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+        wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+        input for file creation\n        Boolean create_extra_file = true  # Default
+        value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+        .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+        \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+        an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+        ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:47 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1917'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
+        {\n    input {\n        String prefix  # Required input for the file prefix
+        (no default value)\n    }\n\n    call wildcard_and_conditions_test {\n        input:\n            prefix
+        = prefix  # Explicitly pass the workflow input to the task\n    }\n\n    output
+        {\n        Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+        conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+        wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+        input for file creation\n        Boolean create_extra_file = true  # Default
+        value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+        .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+        \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+        an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+        ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:52 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1917'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
+        {\n    input {\n        String prefix  # Required input for the file prefix
+        (no default value)\n    }\n\n    call wildcard_and_conditions_test {\n        input:\n            prefix
+        = prefix  # Explicitly pass the workflow input to the task\n    }\n\n    output
+        {\n        Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+        conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+        wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+        input for file creation\n        Boolean create_extra_file = true  # Default
+        value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+        .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+        \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+        an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+        ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:57 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1917'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
+        {\n    input {\n        String prefix  # Required input for the file prefix
+        (no default value)\n    }\n\n    call wildcard_and_conditions_test {\n        input:\n            prefix
+        = prefix  # Explicitly pass the workflow input to the task\n    }\n\n    output
+        {\n        Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+        conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+        wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+        input for file creation\n        Boolean create_extra_file = true  # Default
+        value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+        .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+        \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+        an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+        ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:02 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1917'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
+        {\n    input {\n        String prefix  # Required input for the file prefix
+        (no default value)\n    }\n\n    call wildcard_and_conditions_test {\n        input:\n            prefix
+        = prefix  # Explicitly pass the workflow input to the task\n    }\n\n    output
+        {\n        Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+        conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+        wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+        input for file creation\n        Boolean create_extra_file = true  # Default
+        value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+        .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+        \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+        an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+        ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:07 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1917'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
+        {\n    input {\n        String prefix  # Required input for the file prefix
+        (no default value)\n    }\n\n    call wildcard_and_conditions_test {\n        input:\n            prefix
+        = prefix  # Explicitly pass the workflow input to the task\n    }\n\n    output
+        {\n        Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+        conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+        wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+        input for file creation\n        Boolean create_extra_file = true  # Default
+        value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+        .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+        \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+        an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+        ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:13 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1917'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
+        {\n    input {\n        String prefix  # Required input for the file prefix
+        (no default value)\n    }\n\n    call wildcard_and_conditions_test {\n        input:\n            prefix
+        = prefix  # Explicitly pass the workflow input to the task\n    }\n\n    output
+        {\n        Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+        conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+        wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+        input for file creation\n        Boolean create_extra_file = true  # Default
+        value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+        .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+        \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+        an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+        ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:18 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1917'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
+        {\n    input {\n        String prefix  # Required input for the file prefix
+        (no default value)\n    }\n\n    call wildcard_and_conditions_test {\n        input:\n            prefix
+        = prefix  # Explicitly pass the workflow input to the task\n    }\n\n    output
+        {\n        Array[File] txt_files = wildcard_and_conditions_test.txt_files\n        String
+        conditional_result = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask
+        wildcard_and_conditions_test {\n    input {\n        String prefix  # Required
+        input for file creation\n        Boolean create_extra_file = true  # Default
+        value for conditional logic\n    }\n\n    command <<<\n        # Create multiple
+        .txt files to test wildcard resolution\n        for i in {1..3}; do\n            echo
+        \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        # Create
+        an extra file conditionally\n        if [[ ~{create_extra_file} == \"true\"
+        ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:23 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1917'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"WildcardsandConditions","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:47:20.656Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow WildcardsandConditions {\n    input {\n        String prefix  #
+        Required input for the file prefix (no default value)\n    }\n\n    call wildcard_and_conditions_test
+        {\n        input:\n            prefix = prefix  # Explicitly pass the workflow
+        input to the task\n    }\n\n    output {\n        Array[File] txt_files =
+        wildcard_and_conditions_test.txt_files\n        String conditional_result
+        = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask wildcard_and_conditions_test
+        {\n    input {\n        String prefix  # Required input for file creation\n        Boolean
+        create_extra_file = true  # Default value for conditional logic\n    }\n\n    command
+        <<<\n        # Create multiple .txt files to test wildcard resolution\n        for
+        i in {1..3}; do\n            echo \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        #
+        Create an extra file conditionally\n        if [[ ~{create_extra_file} ==
+        \"true\" ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/WildcardsandConditions/e397fbb2-c7b0-4fc3-9739-7786828a1f4d","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:47:20.657Z","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{"prefix":"testfile","WildcardsandConditions.wildcard_and_conditions_test.create_extra_file":true},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:28 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2433'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"WildcardsandConditions","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:47:20.656Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow WildcardsandConditions {\n    input {\n        String prefix  #
+        Required input for the file prefix (no default value)\n    }\n\n    call wildcard_and_conditions_test
+        {\n        input:\n            prefix = prefix  # Explicitly pass the workflow
+        input to the task\n    }\n\n    output {\n        Array[File] txt_files =
+        wildcard_and_conditions_test.txt_files\n        String conditional_result
+        = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask wildcard_and_conditions_test
+        {\n    input {\n        String prefix  # Required input for file creation\n        Boolean
+        create_extra_file = true  # Default value for conditional logic\n    }\n\n    command
+        <<<\n        # Create multiple .txt files to test wildcard resolution\n        for
+        i in {1..3}; do\n            echo \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        #
+        Create an extra file conditionally\n        if [[ ~{create_extra_file} ==
+        \"true\" ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/WildcardsandConditions/e397fbb2-c7b0-4fc3-9739-7786828a1f4d","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:47:20.657Z","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{"prefix":"testfile","WildcardsandConditions.wildcard_and_conditions_test.create_extra_file":true},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:33 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2433'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"WildcardsandConditions","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:47:20.656Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow WildcardsandConditions {\n    input {\n        String prefix  #
+        Required input for the file prefix (no default value)\n    }\n\n    call wildcard_and_conditions_test
+        {\n        input:\n            prefix = prefix  # Explicitly pass the workflow
+        input to the task\n    }\n\n    output {\n        Array[File] txt_files =
+        wildcard_and_conditions_test.txt_files\n        String conditional_result
+        = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask wildcard_and_conditions_test
+        {\n    input {\n        String prefix  # Required input for file creation\n        Boolean
+        create_extra_file = true  # Default value for conditional logic\n    }\n\n    command
+        <<<\n        # Create multiple .txt files to test wildcard resolution\n        for
+        i in {1..3}; do\n            echo \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        #
+        Create an extra file conditionally\n        if [[ ~{create_extra_file} ==
+        \"true\" ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/WildcardsandConditions/e397fbb2-c7b0-4fc3-9739-7786828a1f4d","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:47:20.657Z","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{"prefix":"testfile","WildcardsandConditions.wildcard_and_conditions_test.create_extra_file":true},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:38 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2433'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"WildcardsandConditions","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:47:20.656Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow WildcardsandConditions {\n    input {\n        String prefix  #
+        Required input for the file prefix (no default value)\n    }\n\n    call wildcard_and_conditions_test
+        {\n        input:\n            prefix = prefix  # Explicitly pass the workflow
+        input to the task\n    }\n\n    output {\n        Array[File] txt_files =
+        wildcard_and_conditions_test.txt_files\n        String conditional_result
+        = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask wildcard_and_conditions_test
+        {\n    input {\n        String prefix  # Required input for file creation\n        Boolean
+        create_extra_file = true  # Default value for conditional logic\n    }\n\n    command
+        <<<\n        # Create multiple .txt files to test wildcard resolution\n        for
+        i in {1..3}; do\n            echo \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        #
+        Create an extra file conditionally\n        if [[ ~{create_extra_file} ==
+        \"true\" ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/WildcardsandConditions/e397fbb2-c7b0-4fc3-9739-7786828a1f4d","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:47:20.657Z","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{"prefix":"testfile","WildcardsandConditions.wildcard_and_conditions_test.create_extra_file":true},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:43 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2433'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"WildcardsandConditions","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:47:20.656Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow WildcardsandConditions {\n    input {\n        String prefix  #
+        Required input for the file prefix (no default value)\n    }\n\n    call wildcard_and_conditions_test
+        {\n        input:\n            prefix = prefix  # Explicitly pass the workflow
+        input to the task\n    }\n\n    output {\n        Array[File] txt_files =
+        wildcard_and_conditions_test.txt_files\n        String conditional_result
+        = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask wildcard_and_conditions_test
+        {\n    input {\n        String prefix  # Required input for file creation\n        Boolean
+        create_extra_file = true  # Default value for conditional logic\n    }\n\n    command
+        <<<\n        # Create multiple .txt files to test wildcard resolution\n        for
+        i in {1..3}; do\n            echo \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        #
+        Create an extra file conditionally\n        if [[ ~{create_extra_file} ==
+        \"true\" ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/WildcardsandConditions/e397fbb2-c7b0-4fc3-9739-7786828a1f4d","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:47:20.657Z","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{"prefix":"testfile","WildcardsandConditions.wildcard_and_conditions_test.create_extra_file":true},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:48 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2433'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"WildcardsandConditions","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:47:20.656Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow WildcardsandConditions {\n    input {\n        String prefix  #
+        Required input for the file prefix (no default value)\n    }\n\n    call wildcard_and_conditions_test
+        {\n        input:\n            prefix = prefix  # Explicitly pass the workflow
+        input to the task\n    }\n\n    output {\n        Array[File] txt_files =
+        wildcard_and_conditions_test.txt_files\n        String conditional_result
+        = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask wildcard_and_conditions_test
+        {\n    input {\n        String prefix  # Required input for file creation\n        Boolean
+        create_extra_file = true  # Default value for conditional logic\n    }\n\n    command
+        <<<\n        # Create multiple .txt files to test wildcard resolution\n        for
+        i in {1..3}; do\n            echo \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        #
+        Create an extra file conditionally\n        if [[ ~{create_extra_file} ==
+        \"true\" ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/WildcardsandConditions/e397fbb2-c7b0-4fc3-9739-7786828a1f4d","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:47:20.657Z","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{"prefix":"testfile","WildcardsandConditions.wildcard_and_conditions_test.create_extra_file":true},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:53 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2433'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"WildcardsandConditions","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:47:20.656Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow WildcardsandConditions {\n    input {\n        String prefix  #
+        Required input for the file prefix (no default value)\n    }\n\n    call wildcard_and_conditions_test
+        {\n        input:\n            prefix = prefix  # Explicitly pass the workflow
+        input to the task\n    }\n\n    output {\n        Array[File] txt_files =
+        wildcard_and_conditions_test.txt_files\n        String conditional_result
+        = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask wildcard_and_conditions_test
+        {\n    input {\n        String prefix  # Required input for file creation\n        Boolean
+        create_extra_file = true  # Default value for conditional logic\n    }\n\n    command
+        <<<\n        # Create multiple .txt files to test wildcard resolution\n        for
+        i in {1..3}; do\n            echo \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        #
+        Create an extra file conditionally\n        if [[ ~{create_extra_file} ==
+        \"true\" ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/WildcardsandConditions/e397fbb2-c7b0-4fc3-9739-7786828a1f4d","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:47:20.657Z","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{"prefix":"testfile","WildcardsandConditions.wildcard_and_conditions_test.create_extra_file":true},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:58 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2433'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"WildcardsandConditions","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:47:20.656Z","cromwellVersion":"87"},{"cromwellId":"cromid-3c9da38","description":"Finished","timestamp":"2025-04-17T16:47:59.441Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow WildcardsandConditions {\n    input {\n        String prefix  #
+        Required input for the file prefix (no default value)\n    }\n\n    call wildcard_and_conditions_test
+        {\n        input:\n            prefix = prefix  # Explicitly pass the workflow
+        input to the task\n    }\n\n    output {\n        Array[File] txt_files =
+        wildcard_and_conditions_test.txt_files\n        String conditional_result
+        = wildcard_and_conditions_test.conditional_output\n    }\n}\n\ntask wildcard_and_conditions_test
+        {\n    input {\n        String prefix  # Required input for file creation\n        Boolean
+        create_extra_file = true  # Default value for conditional logic\n    }\n\n    command
+        <<<\n        # Create multiple .txt files to test wildcard resolution\n        for
+        i in {1..3}; do\n            echo \"File content $i\" > \"~{prefix}_$i.txt\"\n        done\n\n        #
+        Create an extra file conditionally\n        if [[ ~{create_extra_file} ==
+        \"true\" ]]; then\n            echo \"Extra file content\" > ~{prefix}_extra.txt\n        fi\n\n        #
+        Parse inputs directly in the command\n        echo \"Parsed prefix: ~{prefix}\"
+        > parsed_output.txt\n    >>>\n\n    output {\n        Array[File] txt_files
+        = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
+        = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"WildcardsandConditions.conditional_result":"Parsed
+        prefix: testfile","WildcardsandConditions.txt_files":["/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/WildcardsandConditions/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/call-wildcard_and_conditions_test/execution/glob-ef5df339533c1334f081dc8cc75ee4f3/parsed_output.txt","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/WildcardsandConditions/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/call-wildcard_and_conditions_test/execution/glob-ef5df339533c1334f081dc8cc75ee4f3/testfile_1.txt","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/WildcardsandConditions/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/call-wildcard_and_conditions_test/execution/glob-ef5df339533c1334f081dc8cc75ee4f3/testfile_2.txt","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/WildcardsandConditions/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/call-wildcard_and_conditions_test/execution/glob-ef5df339533c1334f081dc8cc75ee4f3/testfile_3.txt","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/WildcardsandConditions/e397fbb2-c7b0-4fc3-9739-7786828a1f4d/call-wildcard_and_conditions_test/execution/glob-ef5df339533c1334f081dc8cc75ee4f3/testfile_extra.txt"]},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/WildcardsandConditions/e397fbb2-c7b0-4fc3-9739-7786828a1f4d","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-04-17T16:47:59.441Z","start":"2025-04-17T16:47:20.657Z","id":"e397fbb2-c7b0-4fc3-9739-7786828a1f4d","inputs":{"prefix":"testfile","WildcardsandConditions.wildcard_and_conditions_test.create_extra_file":true},"labels":{"cromwell-workflow-id":"cromwell-e397fbb2-c7b0-4fc3-9739-7786828a1f4d"},"submission":"2025-04-17T16:45:46.845Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:03 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3760'
+    status:
+      code: 200
+      message: OK
+version: 1

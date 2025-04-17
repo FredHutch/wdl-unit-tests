@@ -1,0 +1,1616 @@
+interactions:
+- request:
+    body: "--f64a20a8cdb340d925124256ac324fc0\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"testFileoperations.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow testFileoperations {\n    call file_operations\n\n    output
+      {\n        File created_file1 = file_operations.created_file1\n        File
+      moved_file = file_operations.moved_file\n        File renamed_file = file_operations.renamed_file\n
+      \   }\n}\n\ntask file_operations {\n    command <<<\n        # Create three
+      different files\n        echo \"This is the first created file.\" > file1.txt\n
+      \       echo \"This is the second file that will be moved.\" > file2.txt\n        echo
+      \"This is the third file that will be renamed.\" > file3.txt\n        \n        #
+      Move the second file to a new directory\n        mkdir -p output_dir\n        mv
+      file2.txt output_dir/\n        \n        # Rename the third file\n        mv
+      file3.txt file3_renamed.txt\n    >>>\n\n    output {\n        # Output the actual
+      existing files\n        File created_file1 = \"file1.txt\"                  #
+      The first file remains unchanged\n        File moved_file = \"output_dir/file2.txt\"
+      \         # The second file after being moved\n        File renamed_file = \"file3_renamed.txt\"
+      \          # The third file after being renamed\n    }\n\n    runtime {\n        docker:
+      \"ubuntu:20.04\"\n    }\n}\n\r\n--f64a20a8cdb340d925124256ac324fc0\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--f64a20a8cdb340d925124256ac324fc0--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '1624'
+      content-type:
+      - multipart/form-data; boundary=f64a20a8cdb340d925124256ac324fc0
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"180e5ec2-7536-4071-9c62-a601f24b9725","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:10 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:15 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:20 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:25 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:30 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:35 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:40 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:45 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:50 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:55 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:01 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:06 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:11 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:16 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:21 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:26 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:31 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:36 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:41 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:46 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:51 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:56 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:01 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1645'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testFileoperations","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:48:00.707Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testFileoperations {\n    call file_operations\n\n    output
+        {\n        File created_file1 = file_operations.created_file1\n        File
+        moved_file = file_operations.moved_file\n        File renamed_file = file_operations.renamed_file\n    }\n}\n\ntask
+        file_operations {\n    command <<<\n        # Create three different files\n        echo
+        \"This is the first created file.\" > file1.txt\n        echo \"This is the
+        second file that will be moved.\" > file2.txt\n        echo \"This is the
+        third file that will be renamed.\" > file3.txt\n        \n        # Move the
+        second file to a new directory\n        mkdir -p output_dir\n        mv file2.txt
+        output_dir/\n        \n        # Rename the third file\n        mv file3.txt
+        file3_renamed.txt\n    >>>\n\n    output {\n        # Output the actual existing
+        files\n        File created_file1 = \"file1.txt\"                  # The first
+        file remains unchanged\n        File moved_file = \"output_dir/file2.txt\"          #
+        The second file after being moved\n        File renamed_file = \"file3_renamed.txt\"           #
+        The third file after being renamed\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/180e5ec2-7536-4071-9c62-a601f24b9725","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:48:00.707Z","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:06 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2057'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testFileoperations","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:48:00.707Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testFileoperations {\n    call file_operations\n\n    output
+        {\n        File created_file1 = file_operations.created_file1\n        File
+        moved_file = file_operations.moved_file\n        File renamed_file = file_operations.renamed_file\n    }\n}\n\ntask
+        file_operations {\n    command <<<\n        # Create three different files\n        echo
+        \"This is the first created file.\" > file1.txt\n        echo \"This is the
+        second file that will be moved.\" > file2.txt\n        echo \"This is the
+        third file that will be renamed.\" > file3.txt\n        \n        # Move the
+        second file to a new directory\n        mkdir -p output_dir\n        mv file2.txt
+        output_dir/\n        \n        # Rename the third file\n        mv file3.txt
+        file3_renamed.txt\n    >>>\n\n    output {\n        # Output the actual existing
+        files\n        File created_file1 = \"file1.txt\"                  # The first
+        file remains unchanged\n        File moved_file = \"output_dir/file2.txt\"          #
+        The second file after being moved\n        File renamed_file = \"file3_renamed.txt\"           #
+        The third file after being renamed\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/180e5ec2-7536-4071-9c62-a601f24b9725","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:48:00.707Z","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:12 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2057'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testFileoperations","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:48:00.707Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testFileoperations {\n    call file_operations\n\n    output
+        {\n        File created_file1 = file_operations.created_file1\n        File
+        moved_file = file_operations.moved_file\n        File renamed_file = file_operations.renamed_file\n    }\n}\n\ntask
+        file_operations {\n    command <<<\n        # Create three different files\n        echo
+        \"This is the first created file.\" > file1.txt\n        echo \"This is the
+        second file that will be moved.\" > file2.txt\n        echo \"This is the
+        third file that will be renamed.\" > file3.txt\n        \n        # Move the
+        second file to a new directory\n        mkdir -p output_dir\n        mv file2.txt
+        output_dir/\n        \n        # Rename the third file\n        mv file3.txt
+        file3_renamed.txt\n    >>>\n\n    output {\n        # Output the actual existing
+        files\n        File created_file1 = \"file1.txt\"                  # The first
+        file remains unchanged\n        File moved_file = \"output_dir/file2.txt\"          #
+        The second file after being moved\n        File renamed_file = \"file3_renamed.txt\"           #
+        The third file after being renamed\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/180e5ec2-7536-4071-9c62-a601f24b9725","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:48:00.707Z","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:17 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2057'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testFileoperations","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:48:00.707Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testFileoperations {\n    call file_operations\n\n    output
+        {\n        File created_file1 = file_operations.created_file1\n        File
+        moved_file = file_operations.moved_file\n        File renamed_file = file_operations.renamed_file\n    }\n}\n\ntask
+        file_operations {\n    command <<<\n        # Create three different files\n        echo
+        \"This is the first created file.\" > file1.txt\n        echo \"This is the
+        second file that will be moved.\" > file2.txt\n        echo \"This is the
+        third file that will be renamed.\" > file3.txt\n        \n        # Move the
+        second file to a new directory\n        mkdir -p output_dir\n        mv file2.txt
+        output_dir/\n        \n        # Rename the third file\n        mv file3.txt
+        file3_renamed.txt\n    >>>\n\n    output {\n        # Output the actual existing
+        files\n        File created_file1 = \"file1.txt\"                  # The first
+        file remains unchanged\n        File moved_file = \"output_dir/file2.txt\"          #
+        The second file after being moved\n        File renamed_file = \"file3_renamed.txt\"           #
+        The third file after being renamed\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/180e5ec2-7536-4071-9c62-a601f24b9725","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:48:00.707Z","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:22 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2057'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testFileoperations","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:48:00.707Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testFileoperations {\n    call file_operations\n\n    output
+        {\n        File created_file1 = file_operations.created_file1\n        File
+        moved_file = file_operations.moved_file\n        File renamed_file = file_operations.renamed_file\n    }\n}\n\ntask
+        file_operations {\n    command <<<\n        # Create three different files\n        echo
+        \"This is the first created file.\" > file1.txt\n        echo \"This is the
+        second file that will be moved.\" > file2.txt\n        echo \"This is the
+        third file that will be renamed.\" > file3.txt\n        \n        # Move the
+        second file to a new directory\n        mkdir -p output_dir\n        mv file2.txt
+        output_dir/\n        \n        # Rename the third file\n        mv file3.txt
+        file3_renamed.txt\n    >>>\n\n    output {\n        # Output the actual existing
+        files\n        File created_file1 = \"file1.txt\"                  # The first
+        file remains unchanged\n        File moved_file = \"output_dir/file2.txt\"          #
+        The second file after being moved\n        File renamed_file = \"file3_renamed.txt\"           #
+        The third file after being renamed\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/180e5ec2-7536-4071-9c62-a601f24b9725","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:48:00.707Z","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:27 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2057'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testFileoperations","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:48:00.707Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testFileoperations {\n    call file_operations\n\n    output
+        {\n        File created_file1 = file_operations.created_file1\n        File
+        moved_file = file_operations.moved_file\n        File renamed_file = file_operations.renamed_file\n    }\n}\n\ntask
+        file_operations {\n    command <<<\n        # Create three different files\n        echo
+        \"This is the first created file.\" > file1.txt\n        echo \"This is the
+        second file that will be moved.\" > file2.txt\n        echo \"This is the
+        third file that will be renamed.\" > file3.txt\n        \n        # Move the
+        second file to a new directory\n        mkdir -p output_dir\n        mv file2.txt
+        output_dir/\n        \n        # Rename the third file\n        mv file3.txt
+        file3_renamed.txt\n    >>>\n\n    output {\n        # Output the actual existing
+        files\n        File created_file1 = \"file1.txt\"                  # The first
+        file remains unchanged\n        File moved_file = \"output_dir/file2.txt\"          #
+        The second file after being moved\n        File renamed_file = \"file3_renamed.txt\"           #
+        The third file after being renamed\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/180e5ec2-7536-4071-9c62-a601f24b9725","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:48:00.707Z","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:32 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2057'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testFileoperations","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:48:00.707Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testFileoperations {\n    call file_operations\n\n    output
+        {\n        File created_file1 = file_operations.created_file1\n        File
+        moved_file = file_operations.moved_file\n        File renamed_file = file_operations.renamed_file\n    }\n}\n\ntask
+        file_operations {\n    command <<<\n        # Create three different files\n        echo
+        \"This is the first created file.\" > file1.txt\n        echo \"This is the
+        second file that will be moved.\" > file2.txt\n        echo \"This is the
+        third file that will be renamed.\" > file3.txt\n        \n        # Move the
+        second file to a new directory\n        mkdir -p output_dir\n        mv file2.txt
+        output_dir/\n        \n        # Rename the third file\n        mv file3.txt
+        file3_renamed.txt\n    >>>\n\n    output {\n        # Output the actual existing
+        files\n        File created_file1 = \"file1.txt\"                  # The first
+        file remains unchanged\n        File moved_file = \"output_dir/file2.txt\"          #
+        The second file after being moved\n        File renamed_file = \"file3_renamed.txt\"           #
+        The third file after being renamed\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/180e5ec2-7536-4071-9c62-a601f24b9725","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:48:00.707Z","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:37 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2057'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testFileoperations","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:48:00.707Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testFileoperations {\n    call file_operations\n\n    output
+        {\n        File created_file1 = file_operations.created_file1\n        File
+        moved_file = file_operations.moved_file\n        File renamed_file = file_operations.renamed_file\n    }\n}\n\ntask
+        file_operations {\n    command <<<\n        # Create three different files\n        echo
+        \"This is the first created file.\" > file1.txt\n        echo \"This is the
+        second file that will be moved.\" > file2.txt\n        echo \"This is the
+        third file that will be renamed.\" > file3.txt\n        \n        # Move the
+        second file to a new directory\n        mkdir -p output_dir\n        mv file2.txt
+        output_dir/\n        \n        # Rename the third file\n        mv file3.txt
+        file3_renamed.txt\n    >>>\n\n    output {\n        # Output the actual existing
+        files\n        File created_file1 = \"file1.txt\"                  # The first
+        file remains unchanged\n        File moved_file = \"output_dir/file2.txt\"          #
+        The second file after being moved\n        File renamed_file = \"file3_renamed.txt\"           #
+        The third file after being renamed\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/180e5ec2-7536-4071-9c62-a601f24b9725","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:48:00.707Z","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:42 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2057'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/180e5ec2-7536-4071-9c62-a601f24b9725/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testFileoperations","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:48:00.707Z","cromwellVersion":"87"},{"cromwellId":"cromid-3c9da38","description":"Finished","timestamp":"2025-04-17T16:48:40.511Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testFileoperations {\n    call file_operations\n\n    output
+        {\n        File created_file1 = file_operations.created_file1\n        File
+        moved_file = file_operations.moved_file\n        File renamed_file = file_operations.renamed_file\n    }\n}\n\ntask
+        file_operations {\n    command <<<\n        # Create three different files\n        echo
+        \"This is the first created file.\" > file1.txt\n        echo \"This is the
+        second file that will be moved.\" > file2.txt\n        echo \"This is the
+        third file that will be renamed.\" > file3.txt\n        \n        # Move the
+        second file to a new directory\n        mkdir -p output_dir\n        mv file2.txt
+        output_dir/\n        \n        # Rename the third file\n        mv file3.txt
+        file3_renamed.txt\n    >>>\n\n    output {\n        # Output the actual existing
+        files\n        File created_file1 = \"file1.txt\"                  # The first
+        file remains unchanged\n        File moved_file = \"output_dir/file2.txt\"          #
+        The second file after being moved\n        File renamed_file = \"file3_renamed.txt\"           #
+        The third file after being renamed\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"testFileoperations.created_file1":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/180e5ec2-7536-4071-9c62-a601f24b9725/call-file_operations/execution/file1.txt","testFileoperations.moved_file":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/180e5ec2-7536-4071-9c62-a601f24b9725/call-file_operations/execution/output_dir/file2.txt","testFileoperations.renamed_file":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/180e5ec2-7536-4071-9c62-a601f24b9725/call-file_operations/execution/file3_renamed.txt"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/180e5ec2-7536-4071-9c62-a601f24b9725","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-04-17T16:48:40.511Z","start":"2025-04-17T16:48:00.707Z","id":"180e5ec2-7536-4071-9c62-a601f24b9725","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-180e5ec2-7536-4071-9c62-a601f24b9725"},"submission":"2025-04-17T16:46:10.249Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:47 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2786'
+    status:
+      code: 200
+      message: OK
+version: 1

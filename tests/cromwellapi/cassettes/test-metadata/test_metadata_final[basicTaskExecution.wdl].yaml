@@ -1,0 +1,1411 @@
+interactions:
+- request:
+    body: "--995a276b0b1f2b840a57dd64c2e01a6a\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"basicTaskExecution.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\n# The basicTaskTest workflow calls a task named simpleTask, which takes
+      a string input and writes it to a file called output.txt. It demonstrates a
+      basic execution of a task with file output.\n\n# This tests basic task execution,
+      input handling, and file output functionality. It ensures that a task can successfully
+      take an input and generate an output.\n\nworkflow basicTaskTest {\n  input {\n
+      \   String text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n
+      \     message = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n
+      \ }\n\n  command <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output
+      {\n    File outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n
+      \ }\n}\n\r\n--995a276b0b1f2b840a57dd64c2e01a6a\r\nContent-Disposition: form-data;
+      name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type: application/json\r\n\r\n{\n
+      \   \"workflow_failure_mode\": \"ContinueWhilePossible\",\n    \"write_to_cache\":
+      false,\n    \"read_from_cache\": false\n}\n\r\n--995a276b0b1f2b840a57dd64c2e01a6a--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '1183'
+      content-type:
+      - multipart/form-data; boundary=995a276b0b1f2b840a57dd64c2e01a6a
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:34 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:40 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:45 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:50 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:46:55 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:00 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:05 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:10 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:15 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:20 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:25 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:30 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:35 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:40 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:45 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:50 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:47:56 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:01 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:06 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:11 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:16 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# The basicTaskTest workflow
+        calls a task named simpleTask, which takes a string input and writes it to
+        a file called output.txt. It demonstrates a basic execution of a task with
+        file output.\n\n# This tests basic task execution, input handling, and file
+        output functionality. It ensures that a task can successfully take an input
+        and generate an output.\n\nworkflow basicTaskTest {\n  input {\n    String
+        text = \"Hello, World!\"\n  }\n\n  call simpleTask {\n    input:\n      message
+        = text\n  }\n}\n\ntask simpleTask {\n  input {\n    String message\n  }\n\n  command
+        <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output {\n    File
+        outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:21 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1194'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"basicTaskTest","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:48:20.727Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n# The basicTaskTest workflow calls a task named simpleTask, which takes
+        a string input and writes it to a file called output.txt. It demonstrates
+        a basic execution of a task with file output.\n\n# This tests basic task execution,
+        input handling, and file output functionality. It ensures that a task can
+        successfully take an input and generate an output.\n\nworkflow basicTaskTest
+        {\n  input {\n    String text = \"Hello, World!\"\n  }\n\n  call simpleTask
+        {\n    input:\n      message = text\n  }\n}\n\ntask simpleTask {\n  input
+        {\n    String message\n  }\n\n  command <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output
+        {\n    File outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicTaskTest/0fcde696-3a9f-4cba-b7b0-4100dda97fce","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:48:20.728Z","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{"text":"Hello,
+        World!"},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:26 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1618'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"basicTaskTest","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:48:20.727Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n# The basicTaskTest workflow calls a task named simpleTask, which takes
+        a string input and writes it to a file called output.txt. It demonstrates
+        a basic execution of a task with file output.\n\n# This tests basic task execution,
+        input handling, and file output functionality. It ensures that a task can
+        successfully take an input and generate an output.\n\nworkflow basicTaskTest
+        {\n  input {\n    String text = \"Hello, World!\"\n  }\n\n  call simpleTask
+        {\n    input:\n      message = text\n  }\n}\n\ntask simpleTask {\n  input
+        {\n    String message\n  }\n\n  command <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output
+        {\n    File outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicTaskTest/0fcde696-3a9f-4cba-b7b0-4100dda97fce","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:48:20.728Z","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{"text":"Hello,
+        World!"},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:31 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1618'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"basicTaskTest","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:48:20.727Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n# The basicTaskTest workflow calls a task named simpleTask, which takes
+        a string input and writes it to a file called output.txt. It demonstrates
+        a basic execution of a task with file output.\n\n# This tests basic task execution,
+        input handling, and file output functionality. It ensures that a task can
+        successfully take an input and generate an output.\n\nworkflow basicTaskTest
+        {\n  input {\n    String text = \"Hello, World!\"\n  }\n\n  call simpleTask
+        {\n    input:\n      message = text\n  }\n}\n\ntask simpleTask {\n  input
+        {\n    String message\n  }\n\n  command <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output
+        {\n    File outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicTaskTest/0fcde696-3a9f-4cba-b7b0-4100dda97fce","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:48:20.728Z","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{"text":"Hello,
+        World!"},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:36 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1618'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"basicTaskTest","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:48:20.727Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n# The basicTaskTest workflow calls a task named simpleTask, which takes
+        a string input and writes it to a file called output.txt. It demonstrates
+        a basic execution of a task with file output.\n\n# This tests basic task execution,
+        input handling, and file output functionality. It ensures that a task can
+        successfully take an input and generate an output.\n\nworkflow basicTaskTest
+        {\n  input {\n    String text = \"Hello, World!\"\n  }\n\n  call simpleTask
+        {\n    input:\n      message = text\n  }\n}\n\ntask simpleTask {\n  input
+        {\n    String message\n  }\n\n  command <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output
+        {\n    File outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicTaskTest/0fcde696-3a9f-4cba-b7b0-4100dda97fce","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:48:20.728Z","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{"text":"Hello,
+        World!"},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:41 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1618'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"basicTaskTest","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:48:20.727Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n# The basicTaskTest workflow calls a task named simpleTask, which takes
+        a string input and writes it to a file called output.txt. It demonstrates
+        a basic execution of a task with file output.\n\n# This tests basic task execution,
+        input handling, and file output functionality. It ensures that a task can
+        successfully take an input and generate an output.\n\nworkflow basicTaskTest
+        {\n  input {\n    String text = \"Hello, World!\"\n  }\n\n  call simpleTask
+        {\n    input:\n      message = text\n  }\n}\n\ntask simpleTask {\n  input
+        {\n    String message\n  }\n\n  command <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output
+        {\n    File outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicTaskTest/0fcde696-3a9f-4cba-b7b0-4100dda97fce","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:48:20.728Z","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{"text":"Hello,
+        World!"},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:46 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1618'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"basicTaskTest","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:48:20.727Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n# The basicTaskTest workflow calls a task named simpleTask, which takes
+        a string input and writes it to a file called output.txt. It demonstrates
+        a basic execution of a task with file output.\n\n# This tests basic task execution,
+        input handling, and file output functionality. It ensures that a task can
+        successfully take an input and generate an output.\n\nworkflow basicTaskTest
+        {\n  input {\n    String text = \"Hello, World!\"\n  }\n\n  call simpleTask
+        {\n    input:\n      message = text\n  }\n}\n\ntask simpleTask {\n  input
+        {\n    String message\n  }\n\n  command <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output
+        {\n    File outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicTaskTest/0fcde696-3a9f-4cba-b7b0-4100dda97fce","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:48:20.728Z","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{"text":"Hello,
+        World!"},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:51 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1618'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"basicTaskTest","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:48:20.727Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n# The basicTaskTest workflow calls a task named simpleTask, which takes
+        a string input and writes it to a file called output.txt. It demonstrates
+        a basic execution of a task with file output.\n\n# This tests basic task execution,
+        input handling, and file output functionality. It ensures that a task can
+        successfully take an input and generate an output.\n\nworkflow basicTaskTest
+        {\n  input {\n    String text = \"Hello, World!\"\n  }\n\n  call simpleTask
+        {\n    input:\n      message = text\n  }\n}\n\ntask simpleTask {\n  input
+        {\n    String message\n  }\n\n  command <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output
+        {\n    File outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicTaskTest/0fcde696-3a9f-4cba-b7b0-4100dda97fce","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:48:20.728Z","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{"text":"Hello,
+        World!"},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:48:56 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1618'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"basicTaskTest","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:48:20.727Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n# The basicTaskTest workflow calls a task named simpleTask, which takes
+        a string input and writes it to a file called output.txt. It demonstrates
+        a basic execution of a task with file output.\n\n# This tests basic task execution,
+        input handling, and file output functionality. It ensures that a task can
+        successfully take an input and generate an output.\n\nworkflow basicTaskTest
+        {\n  input {\n    String text = \"Hello, World!\"\n  }\n\n  call simpleTask
+        {\n    input:\n      message = text\n  }\n}\n\ntask simpleTask {\n  input
+        {\n    String message\n  }\n\n  command <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output
+        {\n    File outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicTaskTest/0fcde696-3a9f-4cba-b7b0-4100dda97fce","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-17T16:48:20.728Z","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{"text":"Hello,
+        World!"},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:49:01 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1618'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/0fcde696-3a9f-4cba-b7b0-4100dda97fce/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"basicTaskTest","workflowProcessingEvents":[{"cromwellId":"cromid-3c9da38","description":"PickedUp","timestamp":"2025-04-17T16:48:20.727Z","cromwellVersion":"87"},{"cromwellId":"cromid-3c9da38","description":"Finished","timestamp":"2025-04-17T16:49:01.551Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n# The basicTaskTest workflow calls a task named simpleTask, which takes
+        a string input and writes it to a file called output.txt. It demonstrates
+        a basic execution of a task with file output.\n\n# This tests basic task execution,
+        input handling, and file output functionality. It ensures that a task can
+        successfully take an input and generate an output.\n\nworkflow basicTaskTest
+        {\n  input {\n    String text = \"Hello, World!\"\n  }\n\n  call simpleTask
+        {\n    input:\n      message = text\n  }\n}\n\ntask simpleTask {\n  input
+        {\n    String message\n  }\n\n  command <<<\n    echo \"${message}\" > output.txt\n    >>>\n\n  output
+        {\n    File outputFile = \"output.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"basicTaskTest.simpleTask.outputFile":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicTaskTest/0fcde696-3a9f-4cba-b7b0-4100dda97fce/call-simpleTask/execution/output.txt"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/basicTaskTest/0fcde696-3a9f-4cba-b7b0-4100dda97fce","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-04-17T16:49:01.550Z","start":"2025-04-17T16:48:20.728Z","id":"0fcde696-3a9f-4cba-b7b0-4100dda97fce","inputs":{"text":"Hello,
+        World!"},"labels":{"cromwell-workflow-id":"cromwell-0fcde696-3a9f-4cba-b7b0-4100dda97fce"},"submission":"2025-04-17T16:46:34.939Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 16:49:07 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1952'
+    status:
+      code: 200
+      message: OK
+version: 1
