@@ -1,6 +1,6 @@
 version 1.0
-## This is a test workflow that returns the hostname of the node 
-## the job is submitted to as a test for the Gizmo backend. 
+## This is a test workflow that returns the hostname of the node
+## the job is submitted to as a test for the Gizmo backend.
 
 #### WORKFLOW DEFINITION
 
@@ -13,7 +13,7 @@ workflow HelloHostname {
   }
 
   parameter_meta {
-    stdout: "hostname of the node the job was submitted to"
+    stdout: "hostname of the node the jooooooob was submitted to"
   }
 }
 
@@ -27,7 +27,7 @@ task Hostname {
   output {
     File out = stdout()
   }
-  
+
   runtime {
     cpu: 1
     memory: "1 GB"
