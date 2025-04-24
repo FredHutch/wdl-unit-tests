@@ -94,16 +94,22 @@ To run tests locally:
 To add tests:
 
 - Tests must be in files beginning with `test-`, and be in the `tests/cromwellapi/` dir
-- Ideally use the pytest fixture `cromwell_api` created in `tests/cromwellapi/conftest.py` to call the Cromwell API. If there's a method missing that you need add it to the `CromwellApi` class in `tests/cromwellapi/cromwell.py`
+- Ideally use the pytest fixtures `cromwell_api` or `cromwell_api_final` - created in `tests/cromwellapi/conftest.py` - to call the Cromwell API. If there's a method missing that you need add it to the `CromwellApi` class in `tests/cromwellapi/cromwell.py` or `CromwellApiFinal` class in `tests/cromwellapi/cromwell_final.py`. See existing test files for patterns.
+- Run tests by limiting the WDL folders used to just those of interest for your new test code. This is because we only want to generate new "cassettes" associated with tests associated with the changes being made - instead of for all tests. To do so, don't use the make commands as above. Instead use something like `op run -- uv run pytest -n auto --color=yes --record-mode=rewrite --verbose -s tests/cromwellapi/ -k wdlFolderName`; replacing `wdlFolderName` with the name of the WDL folder you want to test. The `-k` flag is used to filter tests based on their names or attributes. Once you've recorded new cassettes, run the `pytest` line again but with `--record-mode=once`.
 
 Note that some of these tests run through all WDLs in this dir, while others only run through one or some subset of WDLs.
 
 > [!IMPORTANT]
 > Some notes about vcr "cassetttes" in `tests/cromwellapi/cassettes`:
 >
-> Changes in cassettes should only happen when new HTTP requests are made.
+> Changes in cassettes should only happen when new HTTP requests are made, whether via a new test or a modified test that changes the HTTP request.
 >
 > PR reviewers can largely ignore changes in cassettes - though they should be given a cursory look to check for anything that should be discussed
+
+To modify tests:
+
+- Modify as needed, then
+- Run tests with an incantation like `op run -- uv run pytest -n auto --color=yes --record-mode=rewrite --verbose -s tests/cromwellapi/ -k wdlFolderName`, replacing `wdlFolderName` with the name of the WDL folder you want to test. Once you've recorded new cassettes, run the `pytest` line again but with `--record-mode=once`.
 
 ### WDL Unit Test Guidelines
 
