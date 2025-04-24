@@ -1,0 +1,820 @@
+interactions:
+- request:
+    body: "--a18519aa76f66cefee40f6c9de9d730b\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"symlinkOnly.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow symlinkOnly {\n    call generate_diverse_outputs\n    \n    output
+      {\n        File symlink_file = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask
+      generate_diverse_outputs {\n    command <<<\n        # Create a symlink\n        echo
+      \"original\" > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n
+      \   output {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime
+      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\r\n--a18519aa76f66cefee40f6c9de9d730b\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--a18519aa76f66cefee40f6c9de9d730b--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '919'
+      content-type:
+      - multipart/form-data; boundary=a18519aa76f66cefee40f6c9de9d730b
+      host:
+      - gizmok14.fhcrc.org:38405
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok14.fhcrc.org:38405/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 17:54:02 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok14.fhcrc.org:38405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok14.fhcrc.org:38405/api/workflows/v1/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow symlinkOnly
+        {\n    call generate_diverse_outputs\n    \n    output {\n        File symlink_file
+        = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask generate_diverse_outputs
+        {\n    command <<<\n        # Create a symlink\n        echo \"original\"
+        > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n    output
+        {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b"},"submission":"2025-04-24T17:54:02.025Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 17:54:07 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '926'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok14.fhcrc.org:38405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok14.fhcrc.org:38405/api/workflows/v1/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow symlinkOnly
+        {\n    call generate_diverse_outputs\n    \n    output {\n        File symlink_file
+        = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask generate_diverse_outputs
+        {\n    command <<<\n        # Create a symlink\n        echo \"original\"
+        > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n    output
+        {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b"},"submission":"2025-04-24T17:54:02.025Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 17:54:12 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '926'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok14.fhcrc.org:38405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok14.fhcrc.org:38405/api/workflows/v1/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow symlinkOnly
+        {\n    call generate_diverse_outputs\n    \n    output {\n        File symlink_file
+        = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask generate_diverse_outputs
+        {\n    command <<<\n        # Create a symlink\n        echo \"original\"
+        > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n    output
+        {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b"},"submission":"2025-04-24T17:54:02.025Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 17:54:17 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '926'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok14.fhcrc.org:38405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok14.fhcrc.org:38405/api/workflows/v1/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow symlinkOnly
+        {\n    call generate_diverse_outputs\n    \n    output {\n        File symlink_file
+        = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask generate_diverse_outputs
+        {\n    command <<<\n        # Create a symlink\n        echo \"original\"
+        > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n    output
+        {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b"},"submission":"2025-04-24T17:54:02.025Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 17:54:22 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '926'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok14.fhcrc.org:38405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok14.fhcrc.org:38405/api/workflows/v1/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow symlinkOnly
+        {\n    call generate_diverse_outputs\n    \n    output {\n        File symlink_file
+        = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask generate_diverse_outputs
+        {\n    command <<<\n        # Create a symlink\n        echo \"original\"
+        > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n    output
+        {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b"},"submission":"2025-04-24T17:54:02.025Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 17:54:27 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '926'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok14.fhcrc.org:38405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok14.fhcrc.org:38405/api/workflows/v1/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow symlinkOnly
+        {\n    call generate_diverse_outputs\n    \n    output {\n        File symlink_file
+        = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask generate_diverse_outputs
+        {\n    command <<<\n        # Create a symlink\n        echo \"original\"
+        > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n    output
+        {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b"},"submission":"2025-04-24T17:54:02.025Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 17:54:32 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '926'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok14.fhcrc.org:38405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok14.fhcrc.org:38405/api/workflows/v1/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow symlinkOnly
+        {\n    call generate_diverse_outputs\n    \n    output {\n        File symlink_file
+        = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask generate_diverse_outputs
+        {\n    command <<<\n        # Create a symlink\n        echo \"original\"
+        > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n    output
+        {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b"},"submission":"2025-04-24T17:54:02.025Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 17:54:37 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '926'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok14.fhcrc.org:38405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok14.fhcrc.org:38405/api/workflows/v1/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow symlinkOnly
+        {\n    call generate_diverse_outputs\n    \n    output {\n        File symlink_file
+        = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask generate_diverse_outputs
+        {\n    command <<<\n        # Create a symlink\n        echo \"original\"
+        > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n    output
+        {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b"},"submission":"2025-04-24T17:54:02.025Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 17:54:42 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '926'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok14.fhcrc.org:38405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok14.fhcrc.org:38405/api/workflows/v1/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"symlinkOnly","workflowProcessingEvents":[{"cromwellId":"cromid-5ed9ee8","description":"PickedUp","timestamp":"2025-04-24T17:54:40.626Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow symlinkOnly {\n    call generate_diverse_outputs\n    \n    output
+        {\n        File symlink_file = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask
+        generate_diverse_outputs {\n    command <<<\n        # Create a symlink\n        echo
+        \"original\" > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n    output
+        {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"symlinkOnly.generate_diverse_outputs":[{"executionStatus":"QueuedInCromwell","shardIndex":-1,"backend":"gizmo","attempt":1,"start":"2025-04-24T17:54:41.687Z"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-24T17:54:40.629Z","id":"115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b"},"submission":"2025-04-24T17:54:02.025Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 17:54:47 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1484'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok14.fhcrc.org:38405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok14.fhcrc.org:38405/api/workflows/v1/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"symlinkOnly","workflowProcessingEvents":[{"cromwellId":"cromid-5ed9ee8","description":"PickedUp","timestamp":"2025-04-24T17:54:40.626Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow symlinkOnly {\n    call generate_diverse_outputs\n    \n    output
+        {\n        File symlink_file = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask
+        generate_diverse_outputs {\n    command <<<\n        # Create a symlink\n        echo
+        \"original\" > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n    output
+        {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"symlinkOnly.generate_diverse_outputs":[{"executionStatus":"QueuedInCromwell","shardIndex":-1,"backend":"gizmo","attempt":1,"start":"2025-04-24T17:54:41.687Z"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-24T17:54:40.629Z","id":"115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b"},"submission":"2025-04-24T17:54:02.025Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 17:54:52 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1484'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok14.fhcrc.org:38405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok14.fhcrc.org:38405/api/workflows/v1/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"symlinkOnly","workflowProcessingEvents":[{"cromwellId":"cromid-5ed9ee8","description":"PickedUp","timestamp":"2025-04-24T17:54:40.626Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow symlinkOnly {\n    call generate_diverse_outputs\n    \n    output
+        {\n        File symlink_file = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask
+        generate_diverse_outputs {\n    command <<<\n        # Create a symlink\n        echo
+        \"original\" > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n    output
+        {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"symlinkOnly.generate_diverse_outputs":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs/execution/stdout","commandLine":"#
+        Create a symlink\necho \"original\" > original.txt\nln -s original.txt link.txt","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"backend":"gizmo","attempt":1,"start":"2025-04-24T17:54:41.687Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-24T17:54:40.629Z","id":"115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b"},"submission":"2025-04-24T17:54:02.025Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 17:54:57 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2341'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok14.fhcrc.org:38405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok14.fhcrc.org:38405/api/workflows/v1/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"symlinkOnly","workflowProcessingEvents":[{"cromwellId":"cromid-5ed9ee8","description":"PickedUp","timestamp":"2025-04-24T17:54:40.626Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow symlinkOnly {\n    call generate_diverse_outputs\n    \n    output
+        {\n        File symlink_file = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask
+        generate_diverse_outputs {\n    command <<<\n        # Create a symlink\n        echo
+        \"original\" > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n    output
+        {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"symlinkOnly.generate_diverse_outputs":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs/execution/stdout","backendStatus":"Running","commandLine":"#
+        Create a symlink\necho \"original\" > original.txt\nln -s original.txt link.txt","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"19677880","backend":"gizmo","attempt":1,"start":"2025-04-24T17:54:41.687Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-24T17:54:40.629Z","id":"115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b"},"submission":"2025-04-24T17:54:02.025Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 17:55:02 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2386'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok14.fhcrc.org:38405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok14.fhcrc.org:38405/api/workflows/v1/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"symlinkOnly","workflowProcessingEvents":[{"cromwellId":"cromid-5ed9ee8","description":"PickedUp","timestamp":"2025-04-24T17:54:40.626Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow symlinkOnly {\n    call generate_diverse_outputs\n    \n    output
+        {\n        File symlink_file = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask
+        generate_diverse_outputs {\n    command <<<\n        # Create a symlink\n        echo
+        \"original\" > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n    output
+        {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"symlinkOnly.generate_diverse_outputs":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs/execution/stdout","backendStatus":"Running","commandLine":"#
+        Create a symlink\necho \"original\" > original.txt\nln -s original.txt link.txt","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"19677880","backend":"gizmo","attempt":1,"start":"2025-04-24T17:54:41.687Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-24T17:54:40.629Z","id":"115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b"},"submission":"2025-04-24T17:54:02.025Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 17:55:07 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2386'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok14.fhcrc.org:38405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok14.fhcrc.org:38405/api/workflows/v1/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"symlinkOnly","workflowProcessingEvents":[{"cromwellId":"cromid-5ed9ee8","description":"PickedUp","timestamp":"2025-04-24T17:54:40.626Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow symlinkOnly {\n    call generate_diverse_outputs\n    \n    output
+        {\n        File symlink_file = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask
+        generate_diverse_outputs {\n    command <<<\n        # Create a symlink\n        echo
+        \"original\" > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n    output
+        {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"symlinkOnly.generate_diverse_outputs":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs/execution/stdout","backendStatus":"Running","commandLine":"#
+        Create a symlink\necho \"original\" > original.txt\nln -s original.txt link.txt","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"19677880","backend":"gizmo","attempt":1,"start":"2025-04-24T17:54:41.687Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-24T17:54:40.629Z","id":"115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b"},"submission":"2025-04-24T17:54:02.025Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 17:55:12 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2386'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok14.fhcrc.org:38405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok14.fhcrc.org:38405/api/workflows/v1/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"symlinkOnly","workflowProcessingEvents":[{"cromwellId":"cromid-5ed9ee8","description":"PickedUp","timestamp":"2025-04-24T17:54:40.626Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow symlinkOnly {\n    call generate_diverse_outputs\n    \n    output
+        {\n        File symlink_file = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask
+        generate_diverse_outputs {\n    command <<<\n        # Create a symlink\n        echo
+        \"original\" > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n    output
+        {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"symlinkOnly.generate_diverse_outputs":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs/execution/stdout","backendStatus":"Running","commandLine":"#
+        Create a symlink\necho \"original\" > original.txt\nln -s original.txt link.txt","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"19677880","backend":"gizmo","attempt":1,"start":"2025-04-24T17:54:41.687Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-24T17:54:40.629Z","id":"115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b"},"submission":"2025-04-24T17:54:02.025Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 17:55:17 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2386'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok14.fhcrc.org:38405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok14.fhcrc.org:38405/api/workflows/v1/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"symlinkOnly","workflowProcessingEvents":[{"cromwellId":"cromid-5ed9ee8","description":"PickedUp","timestamp":"2025-04-24T17:54:40.626Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow symlinkOnly {\n    call generate_diverse_outputs\n    \n    output
+        {\n        File symlink_file = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask
+        generate_diverse_outputs {\n    command <<<\n        # Create a symlink\n        echo
+        \"original\" > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n    output
+        {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"symlinkOnly.generate_diverse_outputs":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs/execution/stdout","backendStatus":"Running","commandLine":"#
+        Create a symlink\necho \"original\" > original.txt\nln -s original.txt link.txt","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"19677880","backend":"gizmo","attempt":1,"start":"2025-04-24T17:54:41.687Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-24T17:54:40.629Z","id":"115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b"},"submission":"2025-04-24T17:54:02.025Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 17:55:22 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2386'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok14.fhcrc.org:38405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok14.fhcrc.org:38405/api/workflows/v1/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"symlinkOnly","workflowProcessingEvents":[{"cromwellId":"cromid-5ed9ee8","description":"PickedUp","timestamp":"2025-04-24T17:54:40.626Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow symlinkOnly {\n    call generate_diverse_outputs\n    \n    output
+        {\n        File symlink_file = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask
+        generate_diverse_outputs {\n    command <<<\n        # Create a symlink\n        echo
+        \"original\" > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n    output
+        {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"symlinkOnly.generate_diverse_outputs":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs/execution/stdout","backendStatus":"Running","commandLine":"#
+        Create a symlink\necho \"original\" > original.txt\nln -s original.txt link.txt","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"jobId":"19677880","backend":"gizmo","attempt":1,"start":"2025-04-24T17:54:41.687Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-04-24T17:54:40.629Z","id":"115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b"},"submission":"2025-04-24T17:54:02.025Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 17:55:27 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2386'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok14.fhcrc.org:38405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok14.fhcrc.org:38405/api/workflows/v1/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"symlinkOnly","workflowProcessingEvents":[{"cromwellId":"cromid-5ed9ee8","description":"PickedUp","timestamp":"2025-04-24T17:54:40.626Z","cromwellVersion":"87"},{"cromwellId":"cromid-5ed9ee8","description":"Finished","timestamp":"2025-04-24T17:55:26.567Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow symlinkOnly {\n    call generate_diverse_outputs\n    \n    output
+        {\n        File symlink_file = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask
+        generate_diverse_outputs {\n    command <<<\n        # Create a symlink\n        echo
+        \"original\" > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n    output
+        {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{"symlinkOnly.generate_diverse_outputs":[{"executionStatus":"Done","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs/execution/stdout","backendStatus":"Done","commandLine":"#
+        Create a symlink\necho \"original\" > original.txt\nln -s original.txt link.txt","shardIndex":-1,"outputs":{"symlink_output":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs/execution/link.txt"},"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{},"returnCode":0,"jobId":"19677880","backend":"gizmo","start":"2025-04-24T17:54:41.687Z","end":"2025-04-24T17:55:25.211Z","dockerImageUsed":"ubuntu@sha256:80dd3c3b9c6cecb9f1667e9290b3bc61b78c2678c02cbdae5f0fea92cc6734ab","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs","attempt":1,"executionEvents":[{"startTime":"2025-04-24T17:54:41.688Z","description":"RequestingExecutionToken","endTime":"2025-04-24T17:54:49.544Z"},{"startTime":"2025-04-24T17:54:49.545Z","description":"PreparingJob","endTime":"2025-04-24T17:54:49.561Z"},{"startTime":"2025-04-24T17:55:24.396Z","description":"UpdatingJobStore","endTime":"2025-04-24T17:55:25.211Z"},{"startTime":"2025-04-24T17:54:49.561Z","description":"RunningJob","endTime":"2025-04-24T17:55:24.396Z"},{"startTime":"2025-04-24T17:54:49.544Z","description":"WaitingForValueStore","endTime":"2025-04-24T17:54:49.545Z"},{"startTime":"2025-04-24T17:54:41.687Z","description":"Pending","endTime":"2025-04-24T17:54:41.688Z"}]}]},"outputs":{"symlinkOnly.symlink_file":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b/call-generate_diverse_outputs/execution/link.txt"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/symlinkOnly/115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-04-24T17:55:26.567Z","start":"2025-04-24T17:54:40.629Z","id":"115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-115b1d2b-2c2e-49f2-b5a3-df5ff2ff7b1b"},"submission":"2025-04-24T17:54:02.025Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 17:55:32 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3721'
+    status:
+      code: 200
+      message: OK
+version: 1
