@@ -1,0 +1,2949 @@
+interactions:
+- request:
+    body: "--5fbb15cadaf876ffae9302831385fb57\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"jsonTaskOrderTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow jsonTaskOrderTest {\n  input {\n    String input_json  # JSON
+      string used as input for both tasks\n  }\n\n  call Task1 { input: input_json
+      = input_json }\n  call Task2 { input: input_json = input_json, previous_output
+      = Task1.output_file }\n\n  output {\n    File task1_output = Task1.output_file\n
+      \   File task2_output = Task2.output_file\n  }\n}\n\ntask Task1 {\n  input {\n
+      \   String input_json\n  }\n  \n  command <<<\n    echo \"Processing JSON in
+      Task1: ~{input_json}\" > task1_output.txt\n    echo \"Task1 completed\" >> task1_output.txt\n
+      \ >>>\n  \n  output {\n    File output_file = \"task1_output.txt\"\n  }\n  \n
+      \ runtime {\n    cpu: 1\n    memory: \"2G\"\n  }\n}\n\ntask Task2 {\n  input
+      {\n    String input_json\n    File previous_output\n  }\n  \n  command <<<\n
+      \   echo \"Processing JSON in Task2: ~{input_json}\" > task2_output.txt\n    echo
+      \"Task2 completed after Task1\" >> task2_output.txt\n    cat ~{previous_output}
+      >> task2_output.txt\n  >>>\n  \n  output {\n    File output_file = \"task2_output.txt\"\n
+      \ }\n  \n  runtime {\n    cpu: 1\n    memory: \"2G\"\n  }\n}\n\r\n--5fbb15cadaf876ffae9302831385fb57\r\nContent-Disposition:
+      form-data; name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n  \"jsonTaskOrderTest.input_json\": \"I am the text
+      that from input.json\"\n}\n\r\n--5fbb15cadaf876ffae9302831385fb57\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--5fbb15cadaf876ffae9302831385fb57--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '1742'
+      content-type:
+      - multipart/form-data; boundary=5fbb15cadaf876ffae9302831385fb57
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:00:56 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:01:01 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:01:06 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:01:11 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:01:16 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:01:21 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:01:26 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:01:31 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:01:36 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:01:41 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:01:46 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:01:52 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:01:57 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:02:02 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:02:07 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:02:12 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:02:17 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:02:22 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:02:27 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:02:32 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:02:37 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:02:42 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:02:47 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:02:52 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:02:57 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:03:03 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:03:08 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:03:13 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:03:18 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:03:23 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:03:28 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:03:33 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:03:38 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:03:43 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:03:48 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:03:53 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:03:58 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:04:03 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:04:08 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:04:14 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:04:19 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:04:24 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:04:29 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:04:34 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:04:39 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:04:44 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:04:49 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:04:54 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:04:59 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:05:04 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:05:09 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:05:14 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:05:20 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:05:25 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:05:30 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:05:35 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:05:40 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:05:45 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:05:50 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:05:55 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:06:00 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:06:05 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:06:10 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:06:15 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:06:20 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:06:25 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:06:30 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:06:36 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:06:41 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:06:46 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '75'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:06:51 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '75'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"jsonTaskOrderTest.Task1":[{"jobId":"18672568","attempt":1,"shardIndex":-1}]},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:06:56 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '151'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"jsonTaskOrderTest.Task1":[{"jobId":"18672568","attempt":1,"shardIndex":-1}]},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:07:01 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '151'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"jsonTaskOrderTest.Task1":[{"jobId":"18672568","attempt":1,"shardIndex":-1}]},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:07:06 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '151'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"jsonTaskOrderTest.Task1":[{"jobId":"18672568","attempt":1,"shardIndex":-1}]},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:07:11 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '151'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"jsonTaskOrderTest.Task1":[{"jobId":"18672568","attempt":1,"shardIndex":-1}]},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:07:16 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '151'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"jsonTaskOrderTest.Task1":[{"jobId":"18672568","attempt":1,"shardIndex":-1}]},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:07:21 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '151'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"jsonTaskOrderTest.Task1":[{"jobId":"18672568","attempt":1,"shardIndex":-1}]},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:07:26 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '151'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"jsonTaskOrderTest.Task1":[{"jobId":"18672568","attempt":1,"shardIndex":-1}]},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:07:31 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '151'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"jsonTaskOrderTest.Task1":[{"jobId":"18672568","attempt":1,"shardIndex":-1}],"jsonTaskOrderTest.Task2":[{"jobId":"18672572","attempt":1,"shardIndex":-1}]},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:07:36 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '228'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"jsonTaskOrderTest.Task1":[{"jobId":"18672568","attempt":1,"shardIndex":-1}],"jsonTaskOrderTest.Task2":[{"jobId":"18672572","attempt":1,"shardIndex":-1}]},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:07:41 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '228'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"jsonTaskOrderTest.Task1":[{"jobId":"18672568","attempt":1,"shardIndex":-1}],"jsonTaskOrderTest.Task2":[{"jobId":"18672572","attempt":1,"shardIndex":-1}]},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:07:47 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '228'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"jsonTaskOrderTest.Task1":[{"jobId":"18672568","attempt":1,"shardIndex":-1}],"jsonTaskOrderTest.Task2":[{"jobId":"18672572","attempt":1,"shardIndex":-1}]},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:07:52 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '228'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"jsonTaskOrderTest.Task1":[{"jobId":"18672568","attempt":1,"shardIndex":-1}],"jsonTaskOrderTest.Task2":[{"jobId":"18672572","attempt":1,"shardIndex":-1}]},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:07:57 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '228'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"jsonTaskOrderTest.Task1":[{"jobId":"18672568","attempt":1,"shardIndex":-1}],"jsonTaskOrderTest.Task2":[{"jobId":"18672572","attempt":1,"shardIndex":-1}]},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:08:02 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '228'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok120.fhcrc.org:36633
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok120.fhcrc.org:36633/api/workflows/v1/82e4694e-ac9b-4fd2-ae36-8da145a92c96/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Succeeded","calls":{"jsonTaskOrderTest.Task1":[{"jobId":"18672568","attempt":1,"shardIndex":-1}],"jsonTaskOrderTest.Task2":[{"jobId":"18672572","attempt":1,"shardIndex":-1}]},"id":"82e4694e-ac9b-4fd2-ae36-8da145a92c96"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Apr 2025 17:08:07 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '230'
+    status:
+      code: 200
+      message: OK
+version: 1
