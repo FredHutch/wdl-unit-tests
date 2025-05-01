@@ -34,10 +34,20 @@ check_env_vars:
 	$(call check_defined, PROOF_API_TOKEN_DEV, env var for test PROOF user)
 
 test_api_cached: check_env_vars
-	op run -- uv run pytest -n $(WORKERS) --color=yes --record-mode=once --verbose -s tests/cromwellapi/
+	op run -- uv run pytest -n $(WORKERS) \
+	--color=yes --record-mode=once --verbose -s \
+	tests/cromwellapi/
 
 test_api_rewrite: check_env_vars
-	op run -- uv run pytest -n $(WORKERS) --color=yes --record-mode=rewrite --verbose -s tests/cromwellapi/
+	op run -- uv run pytest -n $(WORKERS) \
+	--color=yes --record-mode=rewrite --verbose -s \
+	tests/cromwellapi/
+
+test_api_rewrite_json_report: check_env_vars
+	op run -- uv run pytest -n $(WORKERS) \
+	--json-report --json-report-file=results.json \
+	--color=yes --record-mode=rewrite --verbose -s \
+	tests/cromwellapi/
 
 ipython: check_env_vars
 	cd tests/cromwellapi/ && \

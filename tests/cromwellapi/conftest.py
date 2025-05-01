@@ -99,3 +99,20 @@ def vcr_config():
 @pytest.fixture
 def test_name(request):
     return request.node.name
+
+
+def modify_path(path):
+    """
+    Examples:
+      modify_path("tests/cromwellapi/test-call.py::test_call_final[globNonmatching.wdl]")
+      #> 'tests/cromwellapi/cassettes/test-call/test_call_final[globNonmatching.wdl].yaml'
+    """
+    path = path.replace(".py::", "/")
+    path = path.replace("tests/cromwellapi", "tests/cromwellapi/cassettes")
+    path = path + ".yaml"
+    return path
+
+
+def pytest_json_modifyreport(json_report):
+    for test_data in json_report["tests"]:
+        test_data["cassette"] = modify_path(test_data["nodeid"])
