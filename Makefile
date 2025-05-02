@@ -53,7 +53,8 @@ test_api_rewrite_json_report: check_env_vars
 	op run -- uv run pytest -n $(WORKERS) \
 	--json-report --json-report-file=results.json \
 	--color=yes --record-mode=rewrite --verbose -s \
-	tests/cromwellapi/
+	tests/cromwellapi/test-failures.py \
+	tests/cromwellapi/test-outputs.py
 
 ipython: check_env_vars
 	cd tests/cromwellapi/ && \
