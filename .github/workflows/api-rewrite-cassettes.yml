@@ -42,8 +42,13 @@ jobs:
           make test_api_cached_json_report
           cassettes_passed=$(cat results.json | jq '.tests[] | select(.outcome=="passed") | .cassette' | jq -s | jq -c)
           echo "cassettes_passed=$cassettes_passed" >> $GITHUB_OUTPUT
+
+          mock_jsons=$(cat results.json | jq '.tests[] | select(.outcome=="passed") | .mock_json'  | jq -s | jq -c)
+          echo "mock_jsons=$mock_jsons" >> $GITHUB_OUTPUT
+
           cassettes_failed=$(cat results.json | jq '.tests[] | select(.outcome=="failed") | .cassette' | jq -s | jq -c)
           echo "cassettes_failed=$cassettes_failed" >> $GITHUB_OUTPUT
+
           exit 0
 
       - name: List all cassettes passed
@@ -52,7 +57,7 @@ jobs:
 
       - name: List all cassettes failed
         run: |
-          echo "Tests failed: ${{ steps.run-tests.outputs.cassettes_passed }}"
+          echo "Tests failed: ${{ steps.run-tests.outputs.cassettes_failed }}"
 
       - name: Create a pull request
         uses: peter-evans/create-pull-request@v7
@@ -63,8 +68,8 @@ jobs:
           commit-message: "updated vcr cassettes"
           delete-branch: true
           add-paths: |
-            tests/cromwellapi/cassettes/*
-            tests/cromwellapi/mocked_submissions/*
+            ${{ fromJson(steps.run-tests.outputs.cassettes_passed) }}
+            ${{ fromJson(steps.run-tests.outputs.mock_jsons) }}
           assignees: sckott
           reviewers: |
             sckott

@@ -1,4 +1,5 @@
 import os
+import re
 
 import pytest
 from constants import SLEEP_FINAL_STATE
@@ -101,10 +102,10 @@ def test_name(request):
     return request.node.name
 
 
-def modify_path(path):
+def add_cassette_path(path):
     """
     Examples:
-      modify_path("tests/cromwellapi/test-call.py::test_call_final[globNonmatching.wdl]")
+      add_cassette_path("tests/cromwellapi/test-call.py::test_call_final[globNonmatching.wdl]")
       #> 'tests/cromwellapi/cassettes/test-call/test_call_final[globNonmatching.wdl].yaml'
     """
     path = path.replace(".py::", "/")
@@ -113,6 +114,21 @@ def modify_path(path):
     return path
 
 
+def add_mock_json_path(path):
+    """
+    Examples:
+      add_mock_json_path("tests/cromwellapi/test-call.py::test_call_final[globNonmatching.wdl]")
+      #> 'tests/cromwellapi/mocked_submissions/test_call_final[globNonmatching.wdl].json'
+    """
+    path = re.sub("test-.+.py::", "", path)
+    path = path.replace(
+        "tests/cromwellapi", "tests/cromwellapi/mocked_submissions"
+    )
+    path = path + ".json"
+    return path
+
+
 def pytest_json_modifyreport(json_report):
     for test_data in json_report["tests"]:
-        test_data["cassette"] = modify_path(test_data["nodeid"])
+        test_data["cassette"] = add_cassette_path(test_data["nodeid"])
+        test_data["mock_json"] = add_mock_json_path(test_data["nodeid"])
