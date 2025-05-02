@@ -39,7 +39,7 @@ jobs:
       - name: Run tests
         id: run-tests
         run: |
-          make test_api_cached_json_report
+          make test_api_rewrite_json_report
           cassettes_passed=$(cat results.json | jq '.tests[] | select(.outcome=="passed") | .cassette' | jq -s | jq -c)
           echo "cassettes_passed=$cassettes_passed" >> $GITHUB_OUTPUT
 
@@ -53,11 +53,11 @@ jobs:
 
       - name: List all cassettes passed
         run: |
-          echo "Tests passed: ${{ steps.run-tests.outputs.cassettes_passed }}"
+          echo "Tests passed: ${{ fromJson(steps.run-tests.outputs.cassettes_passed) }}"
 
       - name: List all cassettes failed
         run: |
-          echo "Tests failed: ${{ steps.run-tests.outputs.cassettes_failed }}"
+          echo "Tests failed: ${{ fromJson(steps.run-tests.outputs.cassettes_failed) }}"
 
       - name: Create a pull request
         uses: peter-evans/create-pull-request@v7
@@ -68,8 +68,8 @@ jobs:
           commit-message: "updated vcr cassettes"
           delete-branch: true
           add-paths: |
-            ${{ fromJson(steps.run-tests.outputs.cassettes_passed) }}
-            ${{ fromJson(steps.run-tests.outputs.mock_jsons) }}
+            ${{ steps.run-tests.outputs.cassettes_passed }}
+            ${{ steps.run-tests.outputs.mock_jsons }}
           assignees: sckott
           reviewers: |
             sckott
