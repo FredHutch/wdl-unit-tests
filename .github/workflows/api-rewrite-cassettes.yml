@@ -53,8 +53,8 @@ jobs:
 
       - name: Prep paths to add
         run: |
-          mock_jsons_paths=$(fromJson(steps.run-tests.outputs.mock_jsons) | jq '.[]' | jq -r)
-          cassettes_passed_paths=$(fromJson(steps.run-tests.outputs.cassettes_passed) | jq '.[]' | jq -r)
+          mock_jsons_paths=$( ${{ steps.run-tests.outputs.mock_jsons }} | jq '.[]' | jq -r)
+          cassettes_passed_paths=$( ${{ steps.run-tests.outputs.cassettes_passed }} | jq '.[]' | jq -r)
           echo "mock_jsons_paths=$mock_jsons_paths" >> $GITHUB_OUTPUT
           echo "cassettes_passed_paths=$cassettes_passed_paths" >> $GITHUB_OUTPUT
 
