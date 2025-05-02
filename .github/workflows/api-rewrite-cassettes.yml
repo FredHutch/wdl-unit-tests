@@ -68,8 +68,8 @@ jobs:
           commit-message: "updated vcr cassettes"
           delete-branch: true
           add-paths: |
-            ${{ fromJson(steps.run-tests.outputs.cassettes_passed) }}
-            ${{ fromJson(steps.run-tests.outputs.mock_jsons) }}
+            ${{ fromJson(steps.run-tests.outputs.cassettes_passed) | jq '.[]' | jq -r }}
+            ${{ fromJson(steps.run-tests.outputs.mock_jsons) | jq '.[]' | jq -r }}
           assignees: sckott
           reviewers: |
             sckott
