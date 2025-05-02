@@ -39,10 +39,10 @@ jobs:
       - name: Run tests
         id: run-tests
         run: |
-          make test_api_rewrite_json_report
-          cassettes_passed=$(cat results.json | jq '.tests[] | select(.outcome=="passed") | .cassette ')
+          make test_api_cached_json_report
+          cassettes_passed=$(cat results.json | jq '.tests[] | select(.outcome=="passed") | .cassette' | jq -s | jq -c)
           echo "cassettes_passed=$cassettes_passed" >> $GITHUB_OUTPUT
-          cassettes_failed=$(cat results.json | jq '.tests[] | select(.outcome=="failed") | .cassette ')
+          cassettes_failed=$(cat results.json | jq '.tests[] | select(.outcome=="failed") | .cassette' | jq -s | jq -c)
           echo "cassettes_failed=$cassettes_failed" >> $GITHUB_OUTPUT
           exit 0
 
