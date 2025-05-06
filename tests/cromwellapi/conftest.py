@@ -128,6 +128,7 @@ def add_mock_json_path(path):
     return path
 
 
+@pytest.hookimpl(optionalhook=True)
 def pytest_json_modifyreport(json_report):
     for test_data in json_report["tests"]:
         test_data["cassette"] = add_cassette_path(test_data["nodeid"])
