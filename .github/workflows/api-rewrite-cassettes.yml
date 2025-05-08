@@ -46,12 +46,13 @@ jobs:
           mock_jsons=$(cat results.json | jq '.tests[] | select(.outcome=="passed") | .mock_json'  | jq -s | jq -c)
           echo "mock_jsons=$mock_jsons" >> $GITHUB_OUTPUT
 
-          cassettes_failed=$(cat results.json | jq '.tests[] | select(.outcome=="failed") | .cassette' | jq -s | jq -c)
-          echo "cassettes_failed=$cassettes_failed" >> $GITHUB_OUTPUT
+          cassettes_failed_paths=$(cat results.json | jq '.tests[] | select(.outcome=="failed") | .cassette' | jq -s | jq -c | jq '.[]' | jq -r)
+          echo "cassettes_failed_paths=$cassettes_failed_paths" >> $GITHUB_OUTPUT
 
           exit 0
 
       - name: Prep paths to add
+        id: prep-paths-to-add
         run: |
           mock_jsons_paths=$( ${{ steps.run-tests.outputs.mock_jsons }} | jq '.[]' | jq -r)
           cassettes_passed_paths=$( ${{ steps.run-tests.outputs.cassettes_passed }} | jq '.[]' | jq -r)
@@ -60,11 +61,11 @@ jobs:
 
       - name: List all cassettes passed
         run: |
-          echo "Tests passed: ${{ fromJson(steps.run-tests.outputs.cassettes_passed) }}"
+          echo "Tests passed: ${{ steps.prep-paths-to-add.outputs.cassettes_passed_paths }}"
 
       - name: List all cassettes failed
         run: |
-          echo "Tests failed: ${{ fromJson(steps.run-tests.outputs.cassettes_failed) }}"
+          echo "Tests failed: ${{ steps.run-tests.outputs.cassettes_failed_paths }}"
 
       - name: Create a pull request
         uses: peter-evans/create-pull-request@v7
