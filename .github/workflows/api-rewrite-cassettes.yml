@@ -36,8 +36,27 @@ jobs:
           PROOF_API_TOKEN_DEV: "op://PROOF/PROOF_Test_User/dev token"
           PATH_ROOTS: "op://PROOF/PROOF_PATH_ROOTS/credential"
 
-      - name: Run tests
-        run: make test_api_rewrite
+      - name: Run tests and process files
+        run: |
+          make test_api_rewrite_json_report
+
+          # Extract files to add to PR (passed cassettes and mock JSONs)
+          mkdir -p .github/changes
+          jq -r '.tests[] | select(.outcome=="passed") | .cassette' results.json > .github/changes/cassettes_passed.txt
+          jq -r '.tests[] | select(.outcome=="passed") | .mock_json' results.json > .github/changes/mock_jsons.txt
+          jq -r '.tests[] | select(.outcome=="failed") | .cassette' results.json > .github/changes/cassettes_failed.txt
+
+          # Show test results
+          echo "Tests passed:"
+          cat .github/changes/cassettes_passed.txt || echo "None"
+
+          echo "Tests failed:"
+          cat .github/changes/cassettes_failed.txt || echo "None"
+
+          # Combine passed tests files for PR
+          cat .github/changes/cassettes_passed.txt .github/changes/mock_jsons.txt | sort | uniq > .github/changes/files_to_commit.txt
+
+          exit 0
 
       - name: Create a pull request
         uses: peter-evans/create-pull-request@v7
@@ -47,9 +66,7 @@ jobs:
           title: "Update vcr cassettes"
           commit-message: "updated vcr cassettes"
           delete-branch: true
-          add-paths: |
-            tests/cromwellapi/cassettes/*
-            tests/cromwellapi/mocked_submissions/*
+          add-paths: .github/changes/files_to_commit.txt
           assignees: sckott
           reviewers: |
             sckott
