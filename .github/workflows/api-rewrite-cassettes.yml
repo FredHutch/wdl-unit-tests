@@ -37,6 +37,7 @@ jobs:
           PATH_ROOTS: "op://PROOF/PROOF_PATH_ROOTS/credential"
 
       - name: Run tests and process files
+        continue-on-error: true
         run: |
           make test_api_rewrite_json_report
 
@@ -55,8 +56,6 @@ jobs:
 
           # Combine passed tests files for PR
           cat .github/changes/cassettes_passed.txt .github/changes/mock_jsons.txt | sort | uniq > .github/changes/files_to_commit.txt
-
-          exit 0
 
       - name: Create a pull request
         uses: peter-evans/create-pull-request@v7
