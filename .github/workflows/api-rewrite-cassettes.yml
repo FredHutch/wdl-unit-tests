@@ -48,15 +48,14 @@ jobs:
           fi
 
           # Extract test file paths
-          echo "========== Tests passed =========="
           passed_cassettes=$(jq -r '.tests[] | select(.outcome=="passed") | .cassette' results.json | grep -v "null" || echo "")
           passed_mock_jsons=$(jq -r '.tests[] | select(.outcome=="passed") | .mock_json' results.json | grep -v "null" || echo "")
 
-          echo "========== Tests failed =========="
           failed_cassettes=$(jq -r '.tests[] | select(.outcome=="failed") | .cassette' results.json | grep -v "null" || echo "")
           failed_mock_jsons=$(jq -r '.tests[] | select(.outcome=="failed") | .mock_json' results.json | grep -v "null" || echo "")
 
           # Display passed tests
+          echo "========== Tests passed =========="
           if [ -n "$passed_cassettes" ]; then
             echo "$passed_cassettes"
           else
@@ -64,6 +63,7 @@ jobs:
           fi
 
           # Display failed tests
+          echo "========== Tests failed =========="
           if [ -n "$failed_cassettes" ]; then
             echo "$failed_cassettes"
           else
@@ -90,7 +90,6 @@ jobs:
           fi
 
       - name: Create a pull request
-        if: steps.process-changes.outputs.has_changes == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
