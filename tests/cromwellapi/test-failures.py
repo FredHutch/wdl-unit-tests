@@ -13,11 +13,7 @@ params = {
     ]
 }
 
-
-wdl_paths = fetch_wdl_paths()
-wdl_paths_fail = list(
-    filter(lambda x: any([w.startswith("bad") for w in x.parts]), wdl_paths)
-)
+wdl_paths_fail = fetch_wdl_paths(include=["badRunAPI", "badRunJava", "badVal"])
 
 
 @pytest.mark.vcr

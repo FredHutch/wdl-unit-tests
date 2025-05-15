@@ -1,11 +1,14 @@
 import pytest
 from utils import fetch_wdl_paths
 
-wdl_paths = fetch_wdl_paths()
+wdl_paths_not_bad_val = fetch_wdl_paths(exclude=["badVal"])
+wdl_paths_bad_val = fetch_wdl_paths(include=["badVal"])
 
 
 @pytest.mark.vcr
-@pytest.mark.parametrize("wdl_path", wdl_paths, ids=lambda x: x.name)
+@pytest.mark.parametrize(
+    "wdl_path", wdl_paths_not_bad_val, ids=lambda x: x.name
+)
 def test_validate_good_wdl(cromwell_api, wdl_path):
     """
     Parametrized pytest used to ensure that each WDL unit test passes validation
@@ -17,16 +20,15 @@ def test_validate_good_wdl(cromwell_api, wdl_path):
         cromwell_api (CromwellApi): Cromwell server being used to validate WDL unit tests (class defined in cromwell.py)
         wdl_path (PosixPath): location of the WDL script to validate via WOMtool
     """
-    if not wdl_path.name.startswith("badVal"):
-        res = cromwell_api.validate(wdl_path=wdl_path)
-        assert isinstance(res, dict)
-        assert res["valid"]
-        assert res["validWorkflow"]
-        assert res["isRunnableWorkflow"]
+    res = cromwell_api.validate(wdl_path=wdl_path)
+    assert isinstance(res, dict)
+    assert res["valid"]
+    assert res["validWorkflow"]
+    assert res["isRunnableWorkflow"]
 
 
 @pytest.mark.vcr
-@pytest.mark.parametrize("wdl_path", wdl_paths, ids=lambda x: x.name)
+@pytest.mark.parametrize("wdl_path", wdl_paths_bad_val, ids=lambda x: x.name)
 def test_validate_bad_wdl(cromwell_api, wdl_path):
     """
     Parametrized pytest used to ensure that all WDL unit tests that are expected to fail validation
@@ -41,10 +43,9 @@ def test_validate_bad_wdl(cromwell_api, wdl_path):
     message_check = {
         "badValMissingValue.wdl": "Cannot lookup value 'docker_image'"
     }
-    if wdl_path.name.startswith("badVal"):
-        res = cromwell_api.validate(wdl_path=wdl_path)
-        assert isinstance(res, dict)
-        assert not res["valid"]
-        assert not res["validWorkflow"]
-        assert not res["isRunnableWorkflow"]
-        assert message_check[wdl_path.name] in res["errors"][0]
+    res = cromwell_api.validate(wdl_path=wdl_path)
+    assert isinstance(res, dict)
+    assert not res["valid"]
+    assert not res["validWorkflow"]
+    assert not res["isRunnableWorkflow"]
+    assert message_check[wdl_path.name] in res["errors"][0]

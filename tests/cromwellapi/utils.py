@@ -1,4 +1,6 @@
+import json
 import os
+import sys
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -125,9 +127,70 @@ def before_sleep_message(state):
     )
 
 
-def fetch_wdl_paths():
-    root = Path(__file__).parents[2].resolve()
-    return list(root.glob("**/*.wdl"))
+def conditions(wdl_path: Path):
+    conditions_path = wdl_path.parent / "conditions.json"
+    if conditions_path.exists():
+        with open(conditions_path, "r") as f:
+            conditions = json.load(f)
+    else:
+        conditions = {"badVal": False, "badRunJava": False, "badRunAPI": False}
+        # raise FileNotFoundError(
+        #     f"Conditions file not found at {conditions_path}"
+        # )
+    return conditions
+
+
+def check_one(x: str):
+    allowed = ["badRun", "badRunAPI", "badRunJava", "badVal"]
+    if x not in allowed:
+        raise ValueError(f"include/exclude need to be in the set: {allowed}")
+
+
+def check_exclude_include(x: list):
+    [check_one(item) for item in x]
+
+
+def is_interactive():
+    return hasattr(sys, "ps1")
+
+
+def fetch_wdl_paths(exclude: list = None, include: list = None):
+    """
+    Fetch WDL paths, with optional include or exclude
+
+    Examples:
+      fetch_wdl_paths()
+      fetch_wdl_paths(exclude=["badRunAPI"])
+      fetch_wdl_paths(exclude=["badRunAPI", "badRunJava"])
+      fetch_wdl_paths(include=["badVal", "badRunAPI"])
+    """
+    if is_interactive():
+        root = Path.cwd().parents[1].resolve()
+    else:
+        root = Path(__file__).parents[2].resolve()
+
+    paths = list(root.glob("**/*.wdl"))
+
+    if not exclude and not include:
+        return paths
+
+    if exclude:
+        check_exclude_include(exclude)
+        paths_keep = []
+        for path in paths:
+            bools = [conditions(path).get(item, False) for item in exclude]
+            if not any(bools):
+                paths_keep.append(path)
+
+    if include:
+        check_exclude_include(include)
+        paths_keep = []
+        for path in paths:
+            bools = [conditions(path).get(item, True) for item in include]
+            if any(bools):
+                paths_keep.append(path)
+
+    return paths_keep
 
 
 def find_project_root(marker_file="pyproject.toml"):

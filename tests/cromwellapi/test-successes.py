@@ -14,9 +14,8 @@ params = {
     ]
 }
 
-wdl_paths = fetch_wdl_paths()
-wdl_paths_succeed = list(
-    filter(lambda x: not x.name.startswith("bad"), wdl_paths)
+wdl_paths_succeed = fetch_wdl_paths(
+    exclude=["badRunAPI", "badRunJava", "badVal"]
 )
 
 
