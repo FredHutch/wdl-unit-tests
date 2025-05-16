@@ -1,8 +1,8 @@
-import json
 import os
-import sys
 from datetime import datetime, timedelta
 from pathlib import Path
+
+from ..common_utils import conditions, get_root
 
 metadata_response_keys = {
     "running": [
@@ -127,19 +127,6 @@ def before_sleep_message(state):
     )
 
 
-def conditions(wdl_path: Path):
-    conditions_path = wdl_path.parent / "conditions.json"
-    if conditions_path.exists():
-        with open(conditions_path, "r") as f:
-            conditions = json.load(f)
-    else:
-        conditions = {"badVal": False, "badRunJava": False, "badRunAPI": False}
-        # raise FileNotFoundError(
-        #     f"Conditions file not found at {conditions_path}"
-        # )
-    return conditions
-
-
 def check_one(x: str):
     allowed = ["badRun", "badRunAPI", "badRunJava", "badVal"]
     if x not in allowed:
@@ -148,10 +135,6 @@ def check_one(x: str):
 
 def check_exclude_include(x: list):
     [check_one(item) for item in x]
-
-
-def is_interactive():
-    return hasattr(sys, "ps1")
 
 
 def fetch_wdl_paths(exclude: list = None, include: list = None):
@@ -164,10 +147,11 @@ def fetch_wdl_paths(exclude: list = None, include: list = None):
       fetch_wdl_paths(exclude=["badRunAPI", "badRunJava"])
       fetch_wdl_paths(include=["badVal", "badRunAPI"])
     """
-    if is_interactive():
-        root = Path.cwd().parents[1].resolve()
-    else:
-        root = Path(__file__).parents[2].resolve()
+    # if is_interactive():
+    #     root = Path.cwd().parents[1].resolve()
+    # else:
+    #     root = Path(__file__).parents[2].resolve()
+    root = get_root()
 
     paths = list(root.glob("**/*.wdl"))
 
