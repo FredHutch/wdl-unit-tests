@@ -2,9 +2,9 @@ import sys
 from functools import lru_cache
 from pathlib import Path
 
-from cromwell import CromwellApi
-from proof import ProofApi
-from utils import find_project_root
+from .cromwell import CromwellApi
+from .proof import ProofApi
+from .utils import find_project_root
 
 
 @lru_cache(maxsize=None)

@@ -1,8 +1,9 @@
 from unittest.mock import patch
 
 import pytest
-from submit_wdl import submit_wdl
-from utils import fetch_wdl_paths
+
+from .submit_wdl import submit_wdl
+from .utils import fetch_wdl_paths
 
 # Parameters included during the PROOF metadata query
 # Dictates which fields come through in the response
@@ -14,9 +15,8 @@ params = {
     ]
 }
 
-wdl_paths = fetch_wdl_paths()
-wdl_paths_succeed = list(
-    filter(lambda x: not x.name.startswith("bad"), wdl_paths)
+wdl_paths_succeed = fetch_wdl_paths(
+    exclude=["badRunAPI", "badRunJava", "badVal"]
 )
 
 

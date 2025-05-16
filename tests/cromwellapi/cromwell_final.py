@@ -1,7 +1,7 @@
 import time
 
-from cromwell import CromwellApi
-from utils import workflow_states
+from .cromwell import CromwellApi
+from .utils import workflow_states
 
 
 class CromwellApiFinal(CromwellApi):

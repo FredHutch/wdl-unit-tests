@@ -1,12 +1,13 @@
 import httpx
-from constants import PROOF_BASE_URL, TOKEN
 from tenacity import (
     retry,
     retry_if_exception_type,
     stop_after_attempt,
     wait_exponential,
 )
-from utils import before_sleep_message, token_check
+
+from .constants import PROOF_BASE_URL, TOKEN
+from .utils import before_sleep_message, token_check
 
 
 def cache_next_call_only(func):

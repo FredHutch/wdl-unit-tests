@@ -1,4 +1,4 @@
-# badValMissingValue WDL Workflow
+# missingValue WDL Workflow
 
 ## Overview
 A test workflow that demonstrates an invalid WDL.

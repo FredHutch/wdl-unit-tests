@@ -1,5 +1,6 @@
 import pytest
-from utils import path_options, path_wdl
+
+from .utils import path_options, path_wdl
 
 
 @pytest.mark.vcr

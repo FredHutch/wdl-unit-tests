@@ -2,8 +2,9 @@ import time  # noqa: F401
 from unittest.mock import patch
 
 import pytest
-from submit_wdl import submit_wdl
-from utils import fetch_wdl_paths
+
+from .submit_wdl import submit_wdl
+from .utils import fetch_wdl_paths
 
 params = {
     "includeKey": [
@@ -13,11 +14,7 @@ params = {
     ]
 }
 
-
-wdl_paths = fetch_wdl_paths()
-wdl_paths_fail = list(
-    filter(lambda x: any([w.startswith("bad") for w in x.parts]), wdl_paths)
-)
+wdl_paths_fail = fetch_wdl_paths(include=["badRunAPI", "badRunJava", "badVal"])
 
 
 @pytest.mark.vcr
@@ -79,8 +76,8 @@ def test_failures_final(
     print(f"Current test name: {test_name}")
     job = submit_wdl(wdl_path, recording_mode, cromwell_api_final, test_name)
     fail_check = {
-        "badRunParseBatchFile": "Required workflow input 'parseBatchFile.batchFile' not specified",
-        "badValMissingValue": "Cannot lookup value 'docker_image', it is never declared",
+        "parseBatchFile": "Required workflow input 'parseBatchFile.batchFile' not specified",
+        "missingValue": "Cannot lookup value 'docker_image', it is never declared",
     }
     res = cromwell_api_final.metadata(workflow_id=job["id"], params=params)
     fail_causedby_mssg = res["failures"][0]["causedBy"][0]["message"]
