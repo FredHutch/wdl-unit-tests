@@ -1,12 +1,13 @@
 import httpx
-from constants import TOKEN
 from tenacity import (
     retry,
     retry_if_exception_type,
     stop_after_attempt,
     wait_exponential,
 )
-from utils import (
+
+from .constants import TOKEN
+from .utils import (
     before_sleep_message,
     find_project_root,
     past_date,

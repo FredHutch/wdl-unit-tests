@@ -1,8 +1,9 @@
 from unittest.mock import patch
 
 import pytest
-from submit_wdl import submit_wdl
-from utils import fetch_wdl_paths
+
+from .submit_wdl import submit_wdl
+from .utils import fetch_wdl_paths
 
 # Parameters included during the PROOF metadata query
 # Dictates which fields come through in the response

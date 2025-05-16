@@ -1,5 +1,6 @@
 import pytest
-from utils import fetch_wdl_paths
+
+from .utils import fetch_wdl_paths
 
 wdl_paths_not_bad_val = fetch_wdl_paths(exclude=["badVal"])
 wdl_paths_bad_val = fetch_wdl_paths(include=["badVal"])
@@ -40,9 +41,7 @@ def test_validate_bad_wdl(cromwell_api, wdl_path):
         cromwell_api (CromwellApi): Cromwell server being used to validate WDL unit tests (class defined in cromwell.py)
         wdl_path (PosixPath): location of the WDL script to validate via WOMtool
     """
-    message_check = {
-        "badValMissingValue.wdl": "Cannot lookup value 'docker_image'"
-    }
+    message_check = {"missingValue.wdl": "Cannot lookup value 'docker_image'"}
     res = cromwell_api.validate(wdl_path=wdl_path)
     assert isinstance(res, dict)
     assert not res["valid"]
