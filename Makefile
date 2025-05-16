@@ -49,6 +49,14 @@ test_api_rewrite_json_report: check_env_vars
 	--color=yes --record-mode=rewrite --verbose -s \
 	tests/cromwellapi/
 
+test_java_validate:
+	@echo "Validating WDL files with womtool validate..."
+	@bash scripts/cromwell_validate.sh
+
+test_java_run:
+	@echo "Running WDL files with cromwell run..."
+	@bash scripts/cromwell_run.sh
+
 ipython: check_env_vars
 	cd tests/cromwellapi/ && \
 	op run --no-masking -- uv run --with rich --with ipython python -m IPython
