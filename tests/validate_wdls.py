@@ -1,8 +1,14 @@
 import logging
 
-from utils import fetch_wdl_paths
+from cromwellapi.utils import fetch_wdl_paths
+from rich.logging import RichHandler
 
-logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+logging.basicConfig(
+    level=logging.WARNING,
+    format="%(message)s",
+    handlers=[RichHandler(show_time=False)],
+)
+log = logging.getLogger("rich")
 
 
 def validate_wdls(wdl_paths):
@@ -11,9 +17,8 @@ def validate_wdls(wdl_paths):
 
 
 def check_wdl_name_matches(path):
-    # print(f"Checking {path}")
     if not path.name.replace(".wdl", "") == path.parent.name:
-        logging.info(
+        log.warning(
             f"WDL file name {path.name} and dir name {path.parent.name} do not match"
         )
 
@@ -23,11 +28,8 @@ def check_for_other_json_files(path):
     if jsons:
         for json in jsons:
             if json.name not in ["options.json", "inputs.json"]:
-                logging.info(
-                    f"""
-                    WDL dir {json.parent.name} has additional json files
-                    beyond inputs/options
-                    """
+                log.warning(
+                    f"WDL dir {json.parent.name} has additional json files beyond inputs/options"
                 )
 
 

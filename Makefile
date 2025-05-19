@@ -34,10 +34,10 @@ check_env_vars:
 	$(call check_defined, PROOF_API_TOKEN_DEV, env var for test PROOF user)
 
 check_wdl_dirs:
-	@uv run tests/cromwellapi/validate_wdls.py
+	@uv run tests/validate_wdls.py
 
 test_api_cached: check_env_vars check_wdl_dirs
-	op run -- uv run pytest -n $(WORKERS) \
+	@op run -- uv run pytest -n $(WORKERS) \
 	--color=yes --record-mode=once --verbose -s \
 	tests/cromwellapi/
 
