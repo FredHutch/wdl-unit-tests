@@ -2,7 +2,6 @@ import logging
 
 from cromwellapi.utils import fetch_wdl_paths
 from rich.logging import RichHandler
-from rich.text import Text
 
 logging.basicConfig(
     level=logging.WARNING,
