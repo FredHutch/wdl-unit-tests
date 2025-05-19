@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/find_tool.sh"
 
 # Find the womtool JAR
-WOMTOOL_PATH=$(find_tool)
+WOMTOOL_PATH=$(find_womtool)
 
 # Check if womtool was found
 if [ -z "$WOMTOOL_PATH" ]; then
