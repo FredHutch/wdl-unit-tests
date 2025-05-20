@@ -116,8 +116,28 @@ To modify tests:
 - Each unit test gets its own subdirectory with the same name as the WDL file.
 - Inputs should be provided (when necessary) via a json file specifically named `inputs.json`.
 - Caching behaviors should be provided via a json file specifically named`options.json`.
-- If you expect the WDL to fail both validation and execution, the WDL name should start with `badVal` (e.g. `missingValue`).
-- If you expect the WDL to pass validation but fail execution, the WDL name should just start with `bad` (e.g. `parseBatchFile`).
+- If you expect the WDL to fail both validation and execution, the WDL folder should have a `conditions.json` file with the entry: `"badVal": true`. (see section below about `conditions.json`)
+- If you expect the WDL to pass validation but fail execution, the WDL folder should have a `conditions.json` file with either the entry `"badRunJava": true` or `"badRunAPI": true`. (see section below about `conditions.json`)
+
+#### conditions.json file
+
+A `conditions.json` file is optional in each WDL folder. If it is present, it needs to contain valid JSON, for example:
+
+```json
+{
+    "badVal": false,
+    "badRunJava": false,
+    "badRunAPI": true
+}
+```
+
+If the `conditions.json` file is absent, all three values default to `false`.
+
+There are three supported conditions:
+
+- `"badVal"`: If `true`, the WDL should fail Womtool validation.
+- `"badRunJava"`: If `true`, the WDL should fail `cromwell run` via running Java locally.
+- `"badRunAPI"`: If `true`, the WDL should fail `cromwell run` via Cromwell running via the PROOF API.
 
 [uvinstall]: https://docs.astral.sh/uv/getting-started/installation/
 [proofapi]: https://github.com/FredHutch/proof-api
