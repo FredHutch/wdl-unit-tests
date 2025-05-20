@@ -1,6 +1,9 @@
 import os
 from datetime import datetime, timedelta
 from pathlib import Path
+from typing import Optional
+
+from ..common_utils import conditions, get_root
 
 metadata_response_keys = {
     "running": [
@@ -92,28 +95,28 @@ class MissingProofToken(Exception):
     pass
 
 
-def token_check(token):
+def token_check(token: str) -> str:
     if token is None:
         raise MissingProofToken("Couldn't access env var PROOF_API_TOKEN_DEV")
     return token
 
 
-def path_wdl(wdl):
+def path_wdl(wdl: str) -> Path:
     path = Path(__file__).parents[2].resolve()
     return path / f"{wdl}/{wdl}.wdl"
 
 
-def path_options(wdl):
+def path_options(wdl: str) -> Path:
     path = Path(__file__).parents[2].resolve()
     return path / f"{wdl}/options.json"
 
 
-def path_inputs(wdl):
+def path_inputs(wdl: str) -> Path:
     path = Path(__file__).parents[2].resolve()
     return path / f"{wdl}/inputs.json"
 
 
-def past_date(days):
+def past_date(days: int):
     now = datetime.now()
     past_date = now - timedelta(days=days)
     return past_date.strftime("%Y-%m-%d")
@@ -125,12 +128,55 @@ def before_sleep_message(state):
     )
 
 
-def fetch_wdl_paths():
-    root = Path(__file__).parents[2].resolve()
-    return list(root.glob("**/*.wdl"))
+def check_one(x: str):
+    allowed = ["badRun", "badRunAPI", "badRunJava", "badVal"]
+    if x not in allowed:
+        raise ValueError(f"include/exclude need to be in the set: {allowed}")
 
 
-def find_project_root(marker_file="pyproject.toml"):
+def check_exclude_include(x: list):
+    [check_one(item) for item in x]
+
+
+def fetch_wdl_paths(
+    exclude: Optional[list] = None, include: Optional[list] = None
+) -> list:
+    """
+    Fetch WDL paths, with optional include or exclude
+
+    Examples:
+      fetch_wdl_paths()
+      fetch_wdl_paths(exclude=["badRunAPI"])
+      fetch_wdl_paths(exclude=["badRunAPI", "badRunJava"])
+      fetch_wdl_paths(include=["badVal", "badRunAPI"])
+    """
+    root = get_root()
+
+    paths = list(root.glob("**/*.wdl"))
+
+    if not exclude and not include:
+        return paths
+
+    paths_keep = []
+
+    if exclude:
+        check_exclude_include(exclude)
+        for path in paths:
+            bools = [conditions(path).get(item, False) for item in exclude]
+            if not any(bools):
+                paths_keep.append(path)
+
+    if include:
+        check_exclude_include(include)
+        for path in paths:
+            bools = [conditions(path).get(item, True) for item in include]
+            if any(bools):
+                paths_keep.append(path)
+
+    return paths_keep
+
+
+def find_project_root(marker_file: str = "pyproject.toml") -> str:
     """
     A hack to avoid using __file__ as that does not work when using a
     python repl (python or ipython)

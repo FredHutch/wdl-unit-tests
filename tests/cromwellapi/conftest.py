@@ -2,12 +2,13 @@ import os
 import re
 
 import pytest
-from constants import SLEEP_FINAL_STATE
-from cromwell import CromwellApi
-from cromwell_final import CromwellApiFinal
-from mocks import MockProofApi
-from proof import ProofApi
-from utils_cassettes import cassettes_last_modified
+
+from .constants import SLEEP_FINAL_STATE
+from .cromwell import CromwellApi
+from .cromwell_final import CromwellApiFinal
+from .mocks import MockProofApi
+from .proof import ProofApi
+from .utils_cassettes import cassettes_last_modified
 
 
 def pytest_report_header(config):

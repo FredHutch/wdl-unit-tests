@@ -1,0 +1,121 @@
+interactions:
+- request:
+    body: "--5a7fd6ec44ec2c75e1f545ad18a3c244\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"missingValue.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n## This is a test workflow that fails against womtool.\n## From https://github.com/broadinstitute/cromwell\n\n####
+      WORKFLOW DEFINITION\n\nworkflow oops {\n  call oopsie\n}\n\n#### TASK DEFINITIONS\n\ntask
+      oopsie {\n  input {\n    String str\n  }\n  command { echo ${str} }\n  runtime
+      { docker: docker_image }\n}\n\r\n--5a7fd6ec44ec2c75e1f545ad18a3c244\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--5a7fd6ec44ec2c75e1f545ad18a3c244--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '778'
+      content-type:
+      - multipart/form-data; boundary=5a7fd6ec44ec2c75e1f545ad18a3c244
+      host:
+      - gizmok58.fhcrc.org:43607
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok58.fhcrc.org:43607/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"feda3377-7add-4298-8ab5-a6fc48008dbc","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 16 May 2025 18:56:18 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok58.fhcrc.org:43607
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok58.fhcrc.org:43607/api/workflows/v1/feda3377-7add-4298-8ab5-a6fc48008dbc/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: feda3377-7add-4298-8ab5-a6fc48008dbc\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 16 May 2025 18:56:18 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '101'
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok58.fhcrc.org:43607
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok58.fhcrc.org:43607/api/workflows/v1/feda3377-7add-4298-8ab5-a6fc48008dbc/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that fails against womtool.\n## From https://github.com/broadinstitute/cromwell\n\n####
+        WORKFLOW DEFINITION\n\nworkflow oops {\n  call oopsie\n}\n\n#### TASK DEFINITIONS\n\ntask
+        oopsie {\n  input {\n    String str\n  }\n  command { echo ${str} }\n  runtime
+        { docker: docker_image }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"feda3377-7add-4298-8ab5-a6fc48008dbc","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-feda3377-7add-4298-8ab5-a6fc48008dbc"},"submission":"2025-05-16T18:56:18.602Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 16 May 2025 18:56:23 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '772'
+    status:
+      code: 200
+      message: OK
+version: 1

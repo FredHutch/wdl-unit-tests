@@ -2,7 +2,8 @@ from pathlib import Path
 from unittest.mock import patch
 
 import pytest
-from utils import path_options, path_wdl
+
+from .utils import path_options, path_wdl
 
 LABELS_FILE_1 = Path("tests/cromwellapi/labels1.json")
 
