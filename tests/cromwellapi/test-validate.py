@@ -1,6 +1,6 @@
 import pytest
 
-from .utils import fetch_wdl_paths
+from ..common_utils import fetch_wdl_paths
 
 wdl_paths_not_bad_val = fetch_wdl_paths(exclude=["badVal"])
 wdl_paths_bad_val = fetch_wdl_paths(include=["badVal"])

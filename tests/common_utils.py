@@ -1,6 +1,7 @@
 import json
 import sys
 from pathlib import Path
+from typing import Optional
 
 
 def is_interactive() -> bool:
@@ -29,3 +30,51 @@ def conditions(wdl_path: Path) -> dict:
     else:
         conditions = {"badVal": False, "badRunJava": False, "badRunAPI": False}
     return conditions
+
+
+def check_one(x: str):
+    allowed = ["badRun", "badRunAPI", "badRunJava", "badVal"]
+    if x not in allowed:
+        raise ValueError(f"include/exclude need to be in the set: {allowed}")
+
+
+def check_exclude_include(x: list):
+    [check_one(item) for item in x]
+
+
+def fetch_wdl_paths(
+    exclude: Optional[list] = None, include: Optional[list] = None
+) -> list:
+    """
+    Fetch WDL paths, with optional include or exclude
+
+    Examples:
+      fetch_wdl_paths()
+      fetch_wdl_paths(exclude=["badRunAPI"])
+      fetch_wdl_paths(exclude=["badRunAPI", "badRunJava"])
+      fetch_wdl_paths(include=["badVal", "badRunAPI"])
+    """
+    root = get_root()
+
+    paths = list(root.glob("**/*.wdl"))
+
+    if not exclude and not include:
+        return paths
+
+    paths_keep = []
+
+    if exclude:
+        check_exclude_include(exclude)
+        for path in paths:
+            bools = [conditions(path).get(item, False) for item in exclude]
+            if not any(bools):
+                paths_keep.append(path)
+
+    if include:
+        check_exclude_include(include)
+        for path in paths:
+            bools = [conditions(path).get(item, True) for item in include]
+            if any(bools):
+                paths_keep.append(path)
+
+    return paths_keep

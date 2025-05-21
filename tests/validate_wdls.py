@@ -1,6 +1,6 @@
 import logging
 
-from cromwellapi.utils import fetch_wdl_paths
+from common_utils import fetch_wdl_paths
 from rich.logging import RichHandler
 
 logging.basicConfig(
