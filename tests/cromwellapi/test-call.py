@@ -1,8 +1,10 @@
 from unittest.mock import patch
 
 import pytest
-from submit_wdl import submit_wdl
-from utils import fetch_wdl_paths, metadata_response_keys
+
+from ..common_utils import fetch_wdl_paths
+from .submit_wdl import submit_wdl
+from .utils import metadata_response_keys
 
 params = {"expandSubWorkflows": True}
 

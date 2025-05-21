@@ -1,6 +1,7 @@
 import pytest
-from submit_wdl import submit_wdl
-from utils import fetch_wdl_paths
+
+from ..common_utils import fetch_wdl_paths
+from .submit_wdl import submit_wdl
 
 wdl_paths = fetch_wdl_paths()
 
