@@ -1,7 +1,8 @@
 import pytest
 
+from ..common_utils import fetch_wdl_paths
 from .submit_wdl import submit_wdl
-from .utils import fetch_wdl_paths, metadata_response_keys
+from .utils import metadata_response_keys
 
 params = {"expandSubWorkflows": False, "excludeKey": "calls"}
 

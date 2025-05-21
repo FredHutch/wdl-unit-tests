@@ -33,8 +33,11 @@ check_env_vars:
 	$(call check_defined, PATH_ROOTS, env var for which paths to scrub in vcr cassettes)
 	$(call check_defined, PROOF_API_TOKEN_DEV, env var for test PROOF user)
 
-test_api_cached: check_env_vars
-	op run -- uv run pytest -n $(WORKERS) \
+check_wdl_dirs:
+	@uv run tests/validate_wdls.py
+
+test_api_cached: check_env_vars check_wdl_dirs
+	@op run -- uv run pytest -n $(WORKERS) \
 	--color=yes --record-mode=once --verbose \
 	tests/cromwellapi/
 
