@@ -38,18 +38,18 @@ check_wdl_dirs:
 
 test_api_cached: check_env_vars check_wdl_dirs
 	@op run -- uv run pytest -n $(WORKERS) \
-	--color=yes --record-mode=once --verbose -s \
+	--color=yes --record-mode=once --verbose \
 	tests/cromwellapi/
 
 test_api_rewrite: check_env_vars
 	op run -- uv run pytest -n $(WORKERS) \
-	--color=yes --record-mode=rewrite --verbose -s \
+	--color=yes --record-mode=rewrite --verbose \
 	tests/cromwellapi/
 
 test_api_rewrite_json_report: check_env_vars
 	op run -- uv run pytest -n $(WORKERS) \
 	--json-report --json-report-file=results.json \
-	--color=yes --record-mode=rewrite --verbose -s \
+	--color=yes --record-mode=rewrite --verbose \
 	tests/cromwellapi/
 
 ipython: check_env_vars
