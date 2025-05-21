@@ -69,7 +69,11 @@ def check_for_other_json_files(path):
     jsons = list(path.parent.glob("*.json"))
     if jsons:
         for json in jsons:
-            if json.name not in ["options.json", "inputs.json", "conditions.json"]:
+            if json.name not in [
+                "options.json",
+                "inputs.json",
+                "conditions.json",
+            ]:
                 log.warning(
                     f"WDL dir [u]{json.parent.name}[/] has additional json"
                     f" files beyond inputs/options: [b yellow]{json.name}[/]"
