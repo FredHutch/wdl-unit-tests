@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--d7d10f938fbd80857f34fd97c6e7d575\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--ef4725635716ba0c29a94e4a5a749456\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"mapTypeTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow enhanced_map_test {\n    input {\n        # Original inputs\n
       \       Array[String] samples\n        Map[String, String] sample_metadata\n
@@ -44,7 +44,7 @@ interactions:
       'w') as f:\n            for sample, message in result.items():\n                f.write(f\"{sample}\\t{message}\\n\")\n
       \       CODE\n    >>>\n\n    output {\n        Map[String, String] output_map
       = read_map('output.txt')\n    }\n\n    runtime {\n        docker: \"python:3.8-slim\"\n
-      \   }\n}\r\n--d7d10f938fbd80857f34fd97c6e7d575\r\nContent-Disposition: form-data;
+      \   }\n}\r\n--ef4725635716ba0c29a94e4a5a749456\r\nContent-Disposition: form-data;
       name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type: application/json\r\n\r\n{\n
       \   \"enhanced_map_test.samples\": [\"sample1\", \"sample2\", \"sample3\"],\n
       \   \"enhanced_map_test.sample_metadata\": {\n        \"sample1\": \"normal\",\n
@@ -54,10 +54,10 @@ interactions:
       {\n            \"sample1\": \"normal\",\n            \"sample2\": \"tumor\"\n
       \       },\n        \"patient2\": {\n            \"sample3\": \"normal\",\n
       \           \"sample4\": \"tumor\"\n        }\n    },\n    \"enhanced_map_test.patient_ids\":
-      [\"patient1\", \"patient2\"]\n}\r\n--d7d10f938fbd80857f34fd97c6e7d575\r\nContent-Disposition:
+      [\"patient1\", \"patient2\"]\n}\r\n--ef4725635716ba0c29a94e4a5a749456\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--d7d10f938fbd80857f34fd97c6e7d575--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--ef4725635716ba0c29a94e4a5a749456--\r\n"
     headers:
       accept:
       - '*/*'
@@ -68,7 +68,7 @@ interactions:
       content-length:
       - '4653'
       content-type:
-      - multipart/form-data; boundary=d7d10f938fbd80857f34fd97c6e7d575
+      - multipart/form-data; boundary=ef4725635716ba0c29a94e4a5a749456
       host:
       - gizmok79.fhcrc.org:45745
       user-agent:
@@ -77,7 +77,7 @@ interactions:
     uri: https://gizmok79.fhcrc.org:45745/api/workflows/v1
   response:
     body:
-      string: '{"id":"ced24783-a417-4138-b9cd-efe6a35811e0","status":"Submitted"}'
+      string: '{"id":"ba797739-f557-4d61-ac01-18bc75c17bcc","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -86,7 +86,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 19 May 2025 17:37:39 GMT
+      - Sun, 25 May 2025 03:56:17 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -106,11 +106,11 @@ interactions:
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok79.fhcrc.org:45745/api/workflows/v1/ced24783-a417-4138-b9cd-efe6a35811e0/outputs
+    uri: https://gizmok79.fhcrc.org:45745/api/workflows/v1/ba797739-f557-4d61-ac01-18bc75c17bcc/outputs
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: ced24783-a417-4138-b9cd-efe6a35811e0\"\n}"
+        ID: ba797739-f557-4d61-ac01-18bc75c17bcc\"\n}"
     headers:
       Connection:
       - keep-alive
@@ -119,7 +119,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 19 May 2025 17:37:39 GMT
+      - Sun, 25 May 2025 03:56:17 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -139,10 +139,43 @@ interactions:
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok79.fhcrc.org:45745/api/workflows/v1/ced24783-a417-4138-b9cd-efe6a35811e0/outputs
+    uri: https://gizmok79.fhcrc.org:45745/api/workflows/v1/ba797739-f557-4d61-ac01-18bc75c17bcc/outputs
   response:
     body:
-      string: '{"outputs":{},"id":"ced24783-a417-4138-b9cd-efe6a35811e0"}'
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: ba797739-f557-4d61-ac01-18bc75c17bcc\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '101'
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 25 May 2025 03:56:21 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok79.fhcrc.org:45745
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok79.fhcrc.org:45745/api/workflows/v1/ba797739-f557-4d61-ac01-18bc75c17bcc/outputs
+  response:
+    body:
+      string: '{"outputs":{},"id":"ba797739-f557-4d61-ac01-18bc75c17bcc"}'
     headers:
       Connection:
       - keep-alive
@@ -151,7 +184,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 19 May 2025 17:37:43 GMT
+      - Sun, 25 May 2025 03:56:25 GMT
       Server:
       - nginx/1.25.3
     status:
