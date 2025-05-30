@@ -1,0 +1,193 @@
+interactions:
+- request:
+    body: "--f2d7b436f78422d34ccd77622acfe741\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"conditionalTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n## This workflow demonstrates the usage of conditional statements in WDL\n##
+      by selectively processing samples based on their properties\n\nstruct SampleInfo
+      {\n    String name\n    Float quality_score\n    String type\n}\n\nworkflow
+      conditional_example {\n    input {\n        Array[SampleInfo] samples\n        Float
+      quality_threshold\n    }\n\n    # Demonstrate if statement in scatter\n    scatter
+      (sample in samples) {\n        if (sample.quality_score >= quality_threshold)
+      {\n            call process_high_quality {\n                input:\n                    sample
+      = sample\n            }\n        }\n    }\n\n    # Create string arrays for
+      the QC report\n    scatter (sample in samples) {\n        String sample_line
+      = \"~{sample.name},~{sample.type},~{sample.quality_score}\"\n    }\n\n    #
+      Demonstrate single conditional task\n    call run_qc_report {\n        input:\n
+      \           sample_lines = sample_line\n    }\n\n    # Calculate number of high
+      quality samples\n    Int num_high_quality = length(select_all(process_high_quality.message))\n\n
+      \   # Demonstrate separate conditional blocks (WDL 1.0 approach instead of if/else)\n
+      \   Boolean has_multiple_samples = num_high_quality > 1\n    \n    if (has_multiple_samples)
+      {\n        call summarize {\n            input:\n                messages =
+      select_all(process_high_quality.message),\n                report = \"Multiple
+      high-quality samples processed\"\n        }\n    }\n\n    if (!has_multiple_samples)
+      {\n        call summarize as summarize_few {\n            input:\n                messages
+      = select_all(process_high_quality.message),\n                report = \"Few
+      or no high-quality samples found\"\n        }\n    }\n\n    output {\n        String
+      final_summary = select_first([summarize.summary, summarize_few.summary])\n        File
+      qc_report = run_qc_report.report_csv\n    }\n}\n\ntask process_high_quality
+      {\n    input {\n        SampleInfo sample\n    }\n\n    command <<<\n        echo
+      \"Processing high quality ~{sample.type} sample ~{sample.name} (Q=~{sample.quality_score})\"\n
+      \   >>>\n\n    output {\n        String message = read_string(stdout())\n    }\n\n
+      \   runtime {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\ntask
+      run_qc_report {\n    input {\n        Array[String] sample_lines\n    }\n\n
+      \   command <<<\n        echo \"Quality Score Summary:\"\n        echo \"Sample
+      Name,Type,Quality Score\" > report.csv\n        ~{sep=\"\\n\" sample_lines}
+      >> report.csv\n        cat report.csv\n    >>>\n\n    output {\n        String
+      report = read_string(stdout())\n        File report_csv = \"report.csv\"\n    }\n\n
+      \   runtime {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\ntask
+      summarize {\n    input {\n        Array[String] messages\n        String report\n
+      \   }\n\n    command <<<\n        echo \"~{report}\"\n        echo \"Number
+      of samples processed: ~{length(messages)}\"\n    >>>\n\n    output {\n        String
+      summary = read_string(stdout())\n    }\n\n    runtime {\n        docker: \"ubuntu:noble-20241118.1\"\n
+      \   }\n}\n\r\n--f2d7b436f78422d34ccd77622acfe741\r\nContent-Disposition: form-data;
+      name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type: application/json\r\n\r\n{\n
+      \   \"conditional_example.samples\": [\n        {\n            \"name\": \"sample1\",\n
+      \           \"quality_score\": 95.5,\n            \"type\": \"normal\"\n        },\n
+      \       {\n            \"name\": \"sample2\",\n            \"quality_score\":
+      85.3,\n            \"type\": \"tumor\"\n        },\n        {\n            \"name\":
+      \"sample3\",\n            \"quality_score\": 92.1,\n            \"type\": \"normal\"\n
+      \       }\n    ],\n    \"conditional_example.quality_threshold\": 90.0\n}\n\r\n--f2d7b436f78422d34ccd77622acfe741\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--f2d7b436f78422d34ccd77622acfe741--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '3982'
+      content-type:
+      - multipart/form-data; boundary=f2d7b436f78422d34ccd77622acfe741
+      host:
+      - gizmok79.fhcrc.org:45745
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok79.fhcrc.org:45745/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"85f3fb7e-42e1-49f4-9748-cc68d18b9623","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 25 May 2025 03:32:42 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok79.fhcrc.org:45745
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok79.fhcrc.org:45745/api/workflows/v1/85f3fb7e-42e1-49f4-9748-cc68d18b9623/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: 85f3fb7e-42e1-49f4-9748-cc68d18b9623\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 25 May 2025 03:32:42 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '101'
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok79.fhcrc.org:45745
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok79.fhcrc.org:45745/api/workflows/v1/85f3fb7e-42e1-49f4-9748-cc68d18b9623/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This workflow demonstrates
+        the usage of conditional statements in WDL\n## by selectively processing samples
+        based on their properties\n\nstruct SampleInfo {\n    String name\n    Float
+        quality_score\n    String type\n}\n\nworkflow conditional_example {\n    input
+        {\n        Array[SampleInfo] samples\n        Float quality_threshold\n    }\n\n    #
+        Demonstrate if statement in scatter\n    scatter (sample in samples) {\n        if
+        (sample.quality_score >= quality_threshold) {\n            call process_high_quality
+        {\n                input:\n                    sample = sample\n            }\n        }\n    }\n\n    #
+        Create string arrays for the QC report\n    scatter (sample in samples) {\n        String
+        sample_line = \"~{sample.name},~{sample.type},~{sample.quality_score}\"\n    }\n\n    #
+        Demonstrate single conditional task\n    call run_qc_report {\n        input:\n            sample_lines
+        = sample_line\n    }\n\n    # Calculate number of high quality samples\n    Int
+        num_high_quality = length(select_all(process_high_quality.message))\n\n    #
+        Demonstrate separate conditional blocks (WDL 1.0 approach instead of if/else)\n    Boolean
+        has_multiple_samples = num_high_quality > 1\n    \n    if (has_multiple_samples)
+        {\n        call summarize {\n            input:\n                messages
+        = select_all(process_high_quality.message),\n                report = \"Multiple
+        high-quality samples processed\"\n        }\n    }\n\n    if (!has_multiple_samples)
+        {\n        call summarize as summarize_few {\n            input:\n                messages
+        = select_all(process_high_quality.message),\n                report = \"Few
+        or no high-quality samples found\"\n        }\n    }\n\n    output {\n        String
+        final_summary = select_first([summarize.summary, summarize_few.summary])\n        File
+        qc_report = run_qc_report.report_csv\n    }\n}\n\ntask process_high_quality
+        {\n    input {\n        SampleInfo sample\n    }\n\n    command <<<\n        echo
+        \"Processing high quality ~{sample.type} sample ~{sample.name} (Q=~{sample.quality_score})\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n\ntask run_qc_report {\n    input {\n        Array[String]
+        sample_lines\n    }\n\n    command <<<\n        echo \"Quality Score Summary:\"\n        echo
+        \"Sample Name,Type,Quality Score\" > report.csv\n        ~{sep=\"\\n\" sample_lines}
+        >> report.csv\n        cat report.csv\n    >>>\n\n    output {\n        String
+        report = read_string(stdout())\n        File report_csv = \"report.csv\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\ntask summarize
+        {\n    input {\n        Array[String] messages\n        String report\n    }\n\n    command
+        <<<\n        echo \"~{report}\"\n        echo \"Number of samples processed:
+        ~{length(messages)}\"\n    >>>\n\n    output {\n        String summary = read_string(stdout())\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"conditional_example.quality_threshold\":90.0,\"conditional_example.samples\":[{\"name\":\"sample1\",\"quality_score\":95.5,\"type\":\"normal\"},{\"name\":\"sample2\",\"quality_score\":85.3,\"type\":\"tumor\"},{\"name\":\"sample3\",\"quality_score\":92.1,\"type\":\"normal\"}]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"85f3fb7e-42e1-49f4-9748-cc68d18b9623","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-85f3fb7e-42e1-49f4-9748-cc68d18b9623"},"submission":"2025-05-25T03:32:42.364Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 25 May 2025 03:32:46 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3787'
+    status:
+      code: 200
+      message: OK
+version: 1

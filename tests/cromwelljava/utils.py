@@ -1,5 +1,5 @@
-from io import StringIO
 import os
+from io import StringIO
 from pathlib import Path
 
 import sh
@@ -48,7 +48,9 @@ class CromwellJava(object):
         self.cromwell_path = os.getenv("CROMWELL_PATH")
         if not self.cromwell_path:
             raise Exception("failed setting CROMWELL_PATH")
-        self.cromwell = sh.Command("java").bake("-jar", self.cromwell_path)
+        self.cromwell = sh.Command("java").bake(
+            "-jar", "-Dconfig.file=cromwell.conf", self.cromwell_path
+        )
 
     def has_inputs(self, wdl_path):
         path = Path(f"{wdl_path}/inputs.json")
@@ -72,8 +74,12 @@ class CromwellJava(object):
                 print(self.cromwell)
             self.cromwell(_out=self.stdout, _err=self.stderr)
         except sh.ErrorReturnCode as e:
-            print(Fore.RED + Style.BRIGHT + f"\nCommand {e.full_cmd} exited with {e.exit_code}\n")
-            print(Fore.RED + Style.BRIGHT + f"Dumping cromwell run output\n")
+            print(
+                Fore.RED
+                + Style.BRIGHT
+                + f"\nCommand {e.full_cmd} exited with {e.exit_code}\n"
+            )
+            print(Fore.RED + Style.BRIGHT + "Dumping cromwell run output\n")
             print(Fore.YELLOW + Style.BRIGHT + "STDERR output:\n")
             print(self.stderr.getvalue())
             print(Fore.YELLOW + Style.BRIGHT + "STDOUT output:\n")
