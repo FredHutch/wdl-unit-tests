@@ -1,0 +1,1238 @@
+interactions:
+- request:
+    body: "--d002294ea03cbe867937806da4a056cd\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"helloModuleHostname.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n## This is a test workflow that returns the hostname of the node \n## the
+      job is submitted to as a test for module functionality on Gizmo.\n## Added verification
+      of module loading.\n\n#### WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname
+      {\n  input {\n    String module2load = \"Python/3.12.3-GCCcore-13.3.0\" # Default
+      value can be overwritten\n  }\n\n  call Hostname {\n    input:\n      module_env
+      = module2load\n  }\n\n  output {\n    File stdout = Hostname.out\n    Boolean
+      module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta {\n    stdout:
+      \"hostname of the node the job was submitted to\"\n    module_loaded: \"boolean
+      indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+      TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n
+      \ command <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n
+      \   \n    # List loaded modules and verify our module is loaded\n    source
+      /app/lmod/lmod/init/profile\n    module list 2>&1 | tee module_list.txt\n    \n
+      \   # Check if the module or its base name is in the loaded modules\n    if
+      grep -q \"~{module_env}\" module_list.txt; then\n      echo \"true\" > module_verified.txt\n
+      \     echo \"Successfully verified module ~{module_env} is loaded\"\n    else\n
+      \     echo \"ERROR: Module ~{module_env} was not found in loaded modules:\"\n
+      \     cat module_list.txt\n      exit 1\n    fi\n  >>>\n\n  output {\n    File
+      out = stdout()\n    Boolean module_verified = read_boolean(\"module_verified.txt\")\n
+      \ }\n\n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n    modules: \"~{module_env}\"\n
+      \ }\n\n  parameter_meta {\n    module_env: \"name of modules to be loaded\"\n
+      \   out: \"output file containing hostname and module information\"\n    module_verified:
+      \"boolean indicating if the requested module was successfully loaded\"\n  }\n}\n\r\n--d002294ea03cbe867937806da4a056cd\r\nContent-Disposition:
+      form-data; name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"HelloModuleHostname.module2load\": \"Python/3.12.3-GCCcore-13.3.0\"\n}\n\r\n--d002294ea03cbe867937806da4a056cd\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--d002294ea03cbe867937806da4a056cd--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '2479'
+      content-type:
+      - multipart/form-data; boundary=d002294ea03cbe867937806da4a056cd
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:52:03 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for module functionality on Gizmo.\n## Added verification of module loading.\n\n####
+        WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname {\n  input {\n    String
+        module2load = \"Python/3.12.3-GCCcore-13.3.0\" # Default value can be overwritten\n  }\n\n  call
+        Hostname {\n    input:\n      module_env = module2load\n  }\n\n  output {\n    File
+        stdout = Hostname.out\n    Boolean module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n    module_loaded:
+        \"boolean indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:52:08 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2389'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for module functionality on Gizmo.\n## Added verification of module loading.\n\n####
+        WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname {\n  input {\n    String
+        module2load = \"Python/3.12.3-GCCcore-13.3.0\" # Default value can be overwritten\n  }\n\n  call
+        Hostname {\n    input:\n      module_env = module2load\n  }\n\n  output {\n    File
+        stdout = Hostname.out\n    Boolean module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n    module_loaded:
+        \"boolean indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:52:13 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2389'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for module functionality on Gizmo.\n## Added verification of module loading.\n\n####
+        WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname {\n  input {\n    String
+        module2load = \"Python/3.12.3-GCCcore-13.3.0\" # Default value can be overwritten\n  }\n\n  call
+        Hostname {\n    input:\n      module_env = module2load\n  }\n\n  output {\n    File
+        stdout = Hostname.out\n    Boolean module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n    module_loaded:
+        \"boolean indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:52:19 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2389'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for module functionality on Gizmo.\n## Added verification of module loading.\n\n####
+        WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname {\n  input {\n    String
+        module2load = \"Python/3.12.3-GCCcore-13.3.0\" # Default value can be overwritten\n  }\n\n  call
+        Hostname {\n    input:\n      module_env = module2load\n  }\n\n  output {\n    File
+        stdout = Hostname.out\n    Boolean module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n    module_loaded:
+        \"boolean indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:52:24 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2389'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for module functionality on Gizmo.\n## Added verification of module loading.\n\n####
+        WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname {\n  input {\n    String
+        module2load = \"Python/3.12.3-GCCcore-13.3.0\" # Default value can be overwritten\n  }\n\n  call
+        Hostname {\n    input:\n      module_env = module2load\n  }\n\n  output {\n    File
+        stdout = Hostname.out\n    Boolean module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n    module_loaded:
+        \"boolean indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:52:29 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2389'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for module functionality on Gizmo.\n## Added verification of module loading.\n\n####
+        WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname {\n  input {\n    String
+        module2load = \"Python/3.12.3-GCCcore-13.3.0\" # Default value can be overwritten\n  }\n\n  call
+        Hostname {\n    input:\n      module_env = module2load\n  }\n\n  output {\n    File
+        stdout = Hostname.out\n    Boolean module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n    module_loaded:
+        \"boolean indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:52:34 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2389'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for module functionality on Gizmo.\n## Added verification of module loading.\n\n####
+        WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname {\n  input {\n    String
+        module2load = \"Python/3.12.3-GCCcore-13.3.0\" # Default value can be overwritten\n  }\n\n  call
+        Hostname {\n    input:\n      module_env = module2load\n  }\n\n  output {\n    File
+        stdout = Hostname.out\n    Boolean module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n    module_loaded:
+        \"boolean indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:52:39 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2389'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for module functionality on Gizmo.\n## Added verification of module loading.\n\n####
+        WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname {\n  input {\n    String
+        module2load = \"Python/3.12.3-GCCcore-13.3.0\" # Default value can be overwritten\n  }\n\n  call
+        Hostname {\n    input:\n      module_env = module2load\n  }\n\n  output {\n    File
+        stdout = Hostname.out\n    Boolean module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n    module_loaded:
+        \"boolean indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:52:44 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2389'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
+        that returns the hostname of the node \n## the job is submitted to as a test
+        for module functionality on Gizmo.\n## Added verification of module loading.\n\n####
+        WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname {\n  input {\n    String
+        module2load = \"Python/3.12.3-GCCcore-13.3.0\" # Default value can be overwritten\n  }\n\n  call
+        Hostname {\n    input:\n      module_env = module2load\n  }\n\n  output {\n    File
+        stdout = Hostname.out\n    Boolean module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta
+        {\n    stdout: \"hostname of the node the job was submitted to\"\n    module_loaded:
+        \"boolean indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:52:49 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2389'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloModuleHostname","workflowProcessingEvents":[{"cromwellId":"cromid-46fd75b","description":"PickedUp","timestamp":"2025-05-30T19:52:50.846Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for module functionality on Gizmo.\n## Added
+        verification of module loading.\n\n#### WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname
+        {\n  input {\n    String module2load = \"Python/3.12.3-GCCcore-13.3.0\" #
+        Default value can be overwritten\n  }\n\n  call Hostname {\n    input:\n      module_env
+        = module2load\n  }\n\n  output {\n    File stdout = Hostname.out\n    Boolean
+        module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n    module_loaded: \"boolean
+        indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloModuleHostname/9e4d3e27-2d25-4919-90c8-a102b83ddb73","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-05-30T19:52:50.846Z","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{"module2load":"Python/3.12.3-GCCcore-13.3.0"},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:52:54 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2847'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloModuleHostname","workflowProcessingEvents":[{"cromwellId":"cromid-46fd75b","description":"PickedUp","timestamp":"2025-05-30T19:52:50.846Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for module functionality on Gizmo.\n## Added
+        verification of module loading.\n\n#### WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname
+        {\n  input {\n    String module2load = \"Python/3.12.3-GCCcore-13.3.0\" #
+        Default value can be overwritten\n  }\n\n  call Hostname {\n    input:\n      module_env
+        = module2load\n  }\n\n  output {\n    File stdout = Hostname.out\n    Boolean
+        module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n    module_loaded: \"boolean
+        indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloModuleHostname/9e4d3e27-2d25-4919-90c8-a102b83ddb73","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-05-30T19:52:50.846Z","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{"module2load":"Python/3.12.3-GCCcore-13.3.0"},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:52:59 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2847'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloModuleHostname","workflowProcessingEvents":[{"cromwellId":"cromid-46fd75b","description":"PickedUp","timestamp":"2025-05-30T19:52:50.846Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for module functionality on Gizmo.\n## Added
+        verification of module loading.\n\n#### WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname
+        {\n  input {\n    String module2load = \"Python/3.12.3-GCCcore-13.3.0\" #
+        Default value can be overwritten\n  }\n\n  call Hostname {\n    input:\n      module_env
+        = module2load\n  }\n\n  output {\n    File stdout = Hostname.out\n    Boolean
+        module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n    module_loaded: \"boolean
+        indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloModuleHostname/9e4d3e27-2d25-4919-90c8-a102b83ddb73","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-05-30T19:52:50.846Z","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{"module2load":"Python/3.12.3-GCCcore-13.3.0"},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:53:04 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2847'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloModuleHostname","workflowProcessingEvents":[{"cromwellId":"cromid-46fd75b","description":"PickedUp","timestamp":"2025-05-30T19:52:50.846Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for module functionality on Gizmo.\n## Added
+        verification of module loading.\n\n#### WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname
+        {\n  input {\n    String module2load = \"Python/3.12.3-GCCcore-13.3.0\" #
+        Default value can be overwritten\n  }\n\n  call Hostname {\n    input:\n      module_env
+        = module2load\n  }\n\n  output {\n    File stdout = Hostname.out\n    Boolean
+        module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n    module_loaded: \"boolean
+        indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloModuleHostname/9e4d3e27-2d25-4919-90c8-a102b83ddb73","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-05-30T19:52:50.846Z","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{"module2load":"Python/3.12.3-GCCcore-13.3.0"},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:53:09 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2847'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloModuleHostname","workflowProcessingEvents":[{"cromwellId":"cromid-46fd75b","description":"PickedUp","timestamp":"2025-05-30T19:52:50.846Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for module functionality on Gizmo.\n## Added
+        verification of module loading.\n\n#### WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname
+        {\n  input {\n    String module2load = \"Python/3.12.3-GCCcore-13.3.0\" #
+        Default value can be overwritten\n  }\n\n  call Hostname {\n    input:\n      module_env
+        = module2load\n  }\n\n  output {\n    File stdout = Hostname.out\n    Boolean
+        module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n    module_loaded: \"boolean
+        indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloModuleHostname/9e4d3e27-2d25-4919-90c8-a102b83ddb73","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-05-30T19:52:50.846Z","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{"module2load":"Python/3.12.3-GCCcore-13.3.0"},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:53:14 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2847'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloModuleHostname","workflowProcessingEvents":[{"cromwellId":"cromid-46fd75b","description":"PickedUp","timestamp":"2025-05-30T19:52:50.846Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for module functionality on Gizmo.\n## Added
+        verification of module loading.\n\n#### WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname
+        {\n  input {\n    String module2load = \"Python/3.12.3-GCCcore-13.3.0\" #
+        Default value can be overwritten\n  }\n\n  call Hostname {\n    input:\n      module_env
+        = module2load\n  }\n\n  output {\n    File stdout = Hostname.out\n    Boolean
+        module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n    module_loaded: \"boolean
+        indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloModuleHostname/9e4d3e27-2d25-4919-90c8-a102b83ddb73","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-05-30T19:52:50.846Z","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{"module2load":"Python/3.12.3-GCCcore-13.3.0"},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:53:19 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2847'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloModuleHostname","workflowProcessingEvents":[{"cromwellId":"cromid-46fd75b","description":"PickedUp","timestamp":"2025-05-30T19:52:50.846Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for module functionality on Gizmo.\n## Added
+        verification of module loading.\n\n#### WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname
+        {\n  input {\n    String module2load = \"Python/3.12.3-GCCcore-13.3.0\" #
+        Default value can be overwritten\n  }\n\n  call Hostname {\n    input:\n      module_env
+        = module2load\n  }\n\n  output {\n    File stdout = Hostname.out\n    Boolean
+        module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n    module_loaded: \"boolean
+        indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloModuleHostname/9e4d3e27-2d25-4919-90c8-a102b83ddb73","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-05-30T19:52:50.846Z","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{"module2load":"Python/3.12.3-GCCcore-13.3.0"},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:53:24 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2847'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloModuleHostname","workflowProcessingEvents":[{"cromwellId":"cromid-46fd75b","description":"PickedUp","timestamp":"2025-05-30T19:52:50.846Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for module functionality on Gizmo.\n## Added
+        verification of module loading.\n\n#### WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname
+        {\n  input {\n    String module2load = \"Python/3.12.3-GCCcore-13.3.0\" #
+        Default value can be overwritten\n  }\n\n  call Hostname {\n    input:\n      module_env
+        = module2load\n  }\n\n  output {\n    File stdout = Hostname.out\n    Boolean
+        module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n    module_loaded: \"boolean
+        indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloModuleHostname/9e4d3e27-2d25-4919-90c8-a102b83ddb73","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-05-30T19:52:50.846Z","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{"module2load":"Python/3.12.3-GCCcore-13.3.0"},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:53:29 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2847'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloModuleHostname","workflowProcessingEvents":[{"cromwellId":"cromid-46fd75b","description":"PickedUp","timestamp":"2025-05-30T19:52:50.846Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for module functionality on Gizmo.\n## Added
+        verification of module loading.\n\n#### WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname
+        {\n  input {\n    String module2load = \"Python/3.12.3-GCCcore-13.3.0\" #
+        Default value can be overwritten\n  }\n\n  call Hostname {\n    input:\n      module_env
+        = module2load\n  }\n\n  output {\n    File stdout = Hostname.out\n    Boolean
+        module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n    module_loaded: \"boolean
+        indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloModuleHostname/9e4d3e27-2d25-4919-90c8-a102b83ddb73","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-05-30T19:52:50.846Z","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{"module2load":"Python/3.12.3-GCCcore-13.3.0"},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:53:35 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2847'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloModuleHostname","workflowProcessingEvents":[{"cromwellId":"cromid-46fd75b","description":"PickedUp","timestamp":"2025-05-30T19:52:50.846Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for module functionality on Gizmo.\n## Added
+        verification of module loading.\n\n#### WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname
+        {\n  input {\n    String module2load = \"Python/3.12.3-GCCcore-13.3.0\" #
+        Default value can be overwritten\n  }\n\n  call Hostname {\n    input:\n      module_env
+        = module2load\n  }\n\n  output {\n    File stdout = Hostname.out\n    Boolean
+        module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n    module_loaded: \"boolean
+        indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloModuleHostname/9e4d3e27-2d25-4919-90c8-a102b83ddb73","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-05-30T19:52:50.846Z","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{"module2load":"Python/3.12.3-GCCcore-13.3.0"},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:53:40 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2847'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9e4d3e27-2d25-4919-90c8-a102b83ddb73/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"HelloModuleHostname","workflowProcessingEvents":[{"cromwellId":"cromid-46fd75b","description":"Finished","timestamp":"2025-05-30T19:53:40.848Z","cromwellVersion":"87"},{"cromwellId":"cromid-46fd75b","description":"PickedUp","timestamp":"2025-05-30T19:52:50.846Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n## This is a test workflow that returns the hostname of the node \n##
+        the job is submitted to as a test for module functionality on Gizmo.\n## Added
+        verification of module loading.\n\n#### WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname
+        {\n  input {\n    String module2load = \"Python/3.12.3-GCCcore-13.3.0\" #
+        Default value can be overwritten\n  }\n\n  call Hostname {\n    input:\n      module_env
+        = module2load\n  }\n\n  output {\n    File stdout = Hostname.out\n    Boolean
+        module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta {\n    stdout:
+        \"hostname of the node the job was submitted to\"\n    module_loaded: \"boolean
+        indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+        TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n  command
+        <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n    \n    #
+        List loaded modules and verify our module is loaded\n    source /app/lmod/lmod/init/profile\n    module
+        list 2>&1 | tee module_list.txt\n    \n    # Check if the module or its base
+        name is in the loaded modules\n    if grep -q \"~{module_env}\" module_list.txt;
+        then\n      echo \"true\" > module_verified.txt\n      echo \"Successfully
+        verified module ~{module_env} is loaded\"\n    else\n      echo \"ERROR: Module
+        ~{module_env} was not found in loaded modules:\"\n      cat module_list.txt\n      exit
+        1\n    fi\n  >>>\n\n  output {\n    File out = stdout()\n    Boolean module_verified
+        = read_boolean(\"module_verified.txt\")\n  }\n\n  runtime {\n    cpu: 1\n    memory:
+        \"1 GB\"\n    modules: \"~{module_env}\"\n  }\n\n  parameter_meta {\n    module_env:
+        \"name of modules to be loaded\"\n    out: \"output file containing hostname
+        and module information\"\n    module_verified: \"boolean indicating if the
+        requested module was successfully loaded\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"HelloModuleHostname.module2load\":\"Python/3.12.3-GCCcore-13.3.0\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"HelloModuleHostname.stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloModuleHostname/9e4d3e27-2d25-4919-90c8-a102b83ddb73/call-Hostname/execution/stdout","HelloModuleHostname.module_loaded":true},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/HelloModuleHostname/9e4d3e27-2d25-4919-90c8-a102b83ddb73","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-05-30T19:53:40.848Z","start":"2025-05-30T19:52:50.846Z","id":"9e4d3e27-2d25-4919-90c8-a102b83ddb73","inputs":{"module2load":"Python/3.12.3-GCCcore-13.3.0"},"labels":{"cromwell-workflow-id":"cromwell-9e4d3e27-2d25-4919-90c8-a102b83ddb73"},"submission":"2025-05-30T19:52:03.813Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 30 May 2025 19:53:45 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3213'
+    status:
+      code: 200
+      message: OK
+version: 1

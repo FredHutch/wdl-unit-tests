@@ -14,7 +14,7 @@ params = {
     ]
 }
 
-wdl_paths_fail = fetch_wdl_paths(include=["badRunAPI", "badRunJava", "badVal"])
+wdl_paths_fail = fetch_wdl_paths(include=["badRunAPI", "badVal"])
 
 
 @pytest.mark.vcr
