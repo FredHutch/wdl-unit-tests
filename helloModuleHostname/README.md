@@ -10,6 +10,7 @@ The main workflow executes a single task within a module-configured environment 
 
 **Outputs:**
 - `stdout`: File containing the hostname of the execution node
+- `module_loaded`: Boolean indicating if the specified module was successfully loaded
 
 ### Task: `Hostname`
 Executes the `hostname` command within an environment with Python modules loaded.
@@ -21,15 +22,10 @@ Executes the `hostname` command within an environment with Python modules loaded
 
 **Outputs:**
 - `out`: File containing the hostname of the execution node
+- `module_verified`: Boolean indicating whether the module was successfully loaded
 
 ## Usage
-```bash
-# Execute with cromwell
-java -jar cromwell.jar run helloModuleHostname.wdl
-
-# Execute with miniwdl
-miniwdl run helloModuleHostname.wdl
-```
+Since the `modules` runtime parameter is specific to PROOF infrastructure, this workflow is best executed on the Fred Hutch HPC using PROOF rather than via the command line directly.
 
 ## Purpose
 This workflow serves as a test case for:
@@ -43,5 +39,4 @@ This workflow serves as a test case for:
 WDL 1.0
 
 ## Notes
-- Comparing outputs between this and the basic version can help verify proper module loading
 - Useful for testing HPC environments that use the module system for software management
