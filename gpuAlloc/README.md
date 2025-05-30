@@ -35,13 +35,7 @@ Performs the actual GPU testing and tensor operations.
 - Docker: tensorflow/tensorflow:latest-gpu
 
 ## Usage
-```bash
-# Execute with cromwell
-java -jar cromwell.jar run gpuAlloc.wdl
-
-# Execute with miniwdl (if GPU support is configured)
-miniwdl run gpuAlloc.wdl
-```
+Since the `gpus` runtime parameter is specific to PROOF infrastructure, this workflow is best executed on the Fred Hutch HPC using PROOF rather than via the command line directly.
 
 ## Expected Output
 The workflow should produce:
