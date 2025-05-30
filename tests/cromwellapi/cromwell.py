@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import httpx
 from tenacity import (
     retry,
@@ -8,8 +6,13 @@ from tenacity import (
     wait_exponential,
 )
 
-from constants import TOKEN
-from utils import past_date, token_check, before_sleep_message
+from .constants import TOKEN
+from .utils import (
+    before_sleep_message,
+    find_project_root,
+    past_date,
+    token_check,
+)
 
 
 def as_file_object(path=None):
@@ -47,11 +50,13 @@ class CromwellApi(object):
         }
         files = {k: v for k, v in files.items() if v}
         res = httpx.post(
-            f"{self.base_url}/api/workflows/v1", headers=self.headers, files=files
+            f"{self.base_url}/api/workflows/v1",
+            headers=self.headers,
+            files=files,
         )
         res.raise_for_status()
         data = res.json()
-        data["path"] = str(wdl_path.relative_to(Path.cwd()))
+        data["path"] = str(wdl_path.relative_to(find_project_root()))
         return data
 
     @retry(

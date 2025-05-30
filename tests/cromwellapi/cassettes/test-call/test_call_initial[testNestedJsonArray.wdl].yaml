@@ -1,0 +1,174 @@
+interactions:
+- request:
+    body: "--3b30eb23d32c8d533b44ba57e905d115\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"testNestedJsonArray.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\n# Define the structure for sampleDetails\nstruct sampleDetails {\n    String
+      experimentType\n    String prepMethod\n    String tissueType\n}\n\n# Define
+      the main structure for the single sample\nstruct singleSample {\n    String
+      sampleName\n    String aboutSample\n    String sampleDescription\n    sampleDetails
+      details  # Use the sampleDetails struct here\n}\n\nworkflow testNestedJsonArray
+      {\n  input {\n    String cellNumber\n    Array[singleSample] batchOfSamples
+      \ # Array of objects representing each sample\n  }\n\n  scatter (sample in batchOfSamples)
+      {\n    call processSample {\n      input:\n        sample = sample,\n        base_file_name
+      = sample.sampleName \n    }\n  }\n\n  output {\n    # Collect all the fields
+      together from each sample into one list\n    Array[File] result_allSampleInfo
+      = processSample.allSampleInfo\n  }\n}\n\ntask processSample {\n  input {\n    singleSample
+      sample  # Use singleSample type, not Object\n    String base_file_name\n  }\n\n
+      \ command <<<\n    # Format the sample information as a single string\n    allSampleInfo=\"~{sample.sampleName}
+      | ~{sample.aboutSample} | ~{sample.sampleDescription} | ~{sample.details.experimentType}
+      | ~{sample.details.prepMethod} | ~{sample.details.tissueType}\"\n    \n    #
+      Output the concatenated sample info to a file\n    echo \"${allSampleInfo}\"
+      > ~{base_file_name}.allSampleInfo.txt\n  >>>\n\n  output {\n    # Read all sample
+      info from the file and output it as an Array of Strings\n    File allSampleInfo
+      = \"${base_file_name}.allSampleInfo.txt\"\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n
+      \ }\n}\n\r\n--3b30eb23d32c8d533b44ba57e905d115\r\nContent-Disposition: form-data;
+      name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type: application/json\r\n\r\n{\n
+      \ \"testNestedJsonArray.cellNumber\": \"10000\",\n  \"testNestedJsonArray.batchOfSamples\":
+      [\n    {\n      \"sampleName\": \"Sample1\",\n      \"aboutSample\": \"This
+      is sample 1\",\n      \"sampleDescription\": \"Description of sample 1: A detailed
+      description of the first sample.\",\n      \"details\": {\n        \"experimentType\":
+      \"RNA-Seq\",\n        \"prepMethod\": \"TruSeq\",\n        \"tissueType\": \"blood\"\n
+      \     }\n    },\n    {\n      \"sampleName\": \"Sample2\",\n      \"aboutSample\":
+      \"This is sample 2\",\n      \"sampleDescription\": \"Description of sample
+      2: A detailed description of the second sample.\",\n      \"details\": {\n        \"experimentType\":
+      \"DNA-Seq\",\n        \"prepMethod\": \"Nextera\",\n        \"tissueType\":
+      \"tissue biopsy\"\n      }\n    },\n    {\n      \"sampleName\": \"Sample3\",\n
+      \     \"aboutSample\": \"This is sample 3\",\n      \"sampleDescription\": \"Description
+      of sample 3: A detailed description of the third sample.\",\n      \"details\":
+      {\n        \"experimentType\": \"ChIP-Seq\",\n        \"prepMethod\": \"Epigenome\",\n
+      \       \"tissueType\": \"brain\"\n      }\n    }\n  ]\n}\n\r\n--3b30eb23d32c8d533b44ba57e905d115\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--3b30eb23d32c8d533b44ba57e905d115--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '3208'
+      content-type:
+      - multipart/form-data; boundary=3b30eb23d32c8d533b44ba57e905d115
+      host:
+      - gizmok79.fhcrc.org:45745
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok79.fhcrc.org:45745/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"ab66bdaa-b9c6-4eb4-99b8-c66f957e5224","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 25 May 2025 03:32:44 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok79.fhcrc.org:45745
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok79.fhcrc.org:45745/api/workflows/v1/ab66bdaa-b9c6-4eb4-99b8-c66f957e5224/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: ab66bdaa-b9c6-4eb4-99b8-c66f957e5224\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 25 May 2025 03:32:44 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '101'
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok79.fhcrc.org:45745
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok79.fhcrc.org:45745/api/workflows/v1/ab66bdaa-b9c6-4eb4-99b8-c66f957e5224/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# Define the structure
+        for sampleDetails\nstruct sampleDetails {\n    String experimentType\n    String
+        prepMethod\n    String tissueType\n}\n\n# Define the main structure for the
+        single sample\nstruct singleSample {\n    String sampleName\n    String aboutSample\n    String
+        sampleDescription\n    sampleDetails details  # Use the sampleDetails struct
+        here\n}\n\nworkflow testNestedJsonArray {\n  input {\n    String cellNumber\n    Array[singleSample]
+        batchOfSamples  # Array of objects representing each sample\n  }\n\n  scatter
+        (sample in batchOfSamples) {\n    call processSample {\n      input:\n        sample
+        = sample,\n        base_file_name = sample.sampleName \n    }\n  }\n\n  output
+        {\n    # Collect all the fields together from each sample into one list\n    Array[File]
+        result_allSampleInfo = processSample.allSampleInfo\n  }\n}\n\ntask processSample
+        {\n  input {\n    singleSample sample  # Use singleSample type, not Object\n    String
+        base_file_name\n  }\n\n  command <<<\n    # Format the sample information
+        as a single string\n    allSampleInfo=\"~{sample.sampleName} | ~{sample.aboutSample}
+        | ~{sample.sampleDescription} | ~{sample.details.experimentType} | ~{sample.details.prepMethod}
+        | ~{sample.details.tissueType}\"\n    \n    # Output the concatenated sample
+        info to a file\n    echo \"${allSampleInfo}\" > ~{base_file_name}.allSampleInfo.txt\n  >>>\n\n  output
+        {\n    # Read all sample info from the file and output it as an Array of Strings\n    File
+        allSampleInfo = \"${base_file_name}.allSampleInfo.txt\"\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testNestedJsonArray.batchOfSamples\":[{\"aboutSample\":\"This
+        is sample 1\",\"details\":{\"experimentType\":\"RNA-Seq\",\"prepMethod\":\"TruSeq\",\"tissueType\":\"blood\"},\"sampleDescription\":\"Description
+        of sample 1: A detailed description of the first sample.\",\"sampleName\":\"Sample1\"},{\"aboutSample\":\"This
+        is sample 2\",\"details\":{\"experimentType\":\"DNA-Seq\",\"prepMethod\":\"Nextera\",\"tissueType\":\"tissue
+        biopsy\"},\"sampleDescription\":\"Description of sample 2: A detailed description
+        of the second sample.\",\"sampleName\":\"Sample2\"},{\"aboutSample\":\"This
+        is sample 3\",\"details\":{\"experimentType\":\"ChIP-Seq\",\"prepMethod\":\"Epigenome\",\"tissueType\":\"brain\"},\"sampleDescription\":\"Description
+        of sample 3: A detailed description of the third sample.\",\"sampleName\":\"Sample3\"}],\"testNestedJsonArray.cellNumber\":\"10000\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"ab66bdaa-b9c6-4eb4-99b8-c66f957e5224","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-ab66bdaa-b9c6-4eb4-99b8-c66f957e5224"},"submission":"2025-05-25T03:32:44.899Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 25 May 2025 03:32:48 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2925'
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -1,6 +1,7 @@
-import yaml
 from pathlib import Path
-from urllib.parse import urlparse, urlunparse
+from urllib.parse import urlparse
+
+import yaml
 
 
 class MockProofApi(object):
@@ -8,7 +9,11 @@ class MockProofApi(object):
 
     def cromwell_url(self):
         path = Path(
-            "tests", "cromwellapi", "cassettes", "test-outputs", "test_outputs.yaml"
+            "tests",
+            "cromwellapi",
+            "cassettes",
+            "test-outputs",
+            "test_outputs.yaml",
         )
         path_full = path.resolve()
         with open(str(path_full), "r") as file:

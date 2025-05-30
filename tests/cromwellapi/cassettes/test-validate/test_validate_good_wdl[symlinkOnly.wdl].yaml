@@ -1,0 +1,45 @@
+interactions:
+- request:
+    body: "--7e350fdd653226bbf0f3d9f5e071cdd5\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"symlinkOnly.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow symlinkOnly {\n    call generate_diverse_outputs\n    \n    output
+      {\n        File symlink_file = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask
+      generate_diverse_outputs {\n    command <<<\n        # Create a symlink\n        echo
+      \"original\" > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n
+      \   output {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime
+      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\r\n--7e350fdd653226bbf0f3d9f5e071cdd5--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '650'
+      content-type:
+      - multipart/form-data; boundary=7e350fdd653226bbf0f3d9f5e071cdd5
+      host:
+      - gizmok79.fhcrc.org:45745
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok79.fhcrc.org:45745/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"symlinkOnly","inputs":[],"outputs":[{"name":"symlink_file","valueType":{"typeName":"File"},"typeDisplayName":"File"}],"images":["\"ubuntu:noble-20241118.1\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '379'
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 25 May 2025 03:58:04 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+version: 1
