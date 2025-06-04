@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--0b26d98fe2bf77e6cb9e545ae74f7af4\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--5a0965c147821937cc70c1cebd00baed\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"WildcardsandConditions.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow WildcardsandConditions {\n    input {\n        String prefix
       \ # Required input for the file prefix (no default value)\n    }\n\n    call
@@ -19,12 +19,12 @@ interactions:
       ~{prefix}\" > parsed_output.txt\n    >>>\n\n    output {\n        Array[File]
       txt_files = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
       = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
-      {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\r\n--0b26d98fe2bf77e6cb9e545ae74f7af4\r\nContent-Disposition:
+      {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\r\n--5a0965c147821937cc70c1cebd00baed\r\nContent-Disposition:
       form-data; name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type:
-      application/json\r\n\r\n{\n  \"WildcardsandConditions.prefix\": \"testfile\"\n}\n\r\n--0b26d98fe2bf77e6cb9e545ae74f7af4\r\nContent-Disposition:
+      application/json\r\n\r\n{\n  \"WildcardsandConditions.prefix\": \"testfile\"\n}\n\r\n--5a0965c147821937cc70c1cebd00baed\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--0b26d98fe2bf77e6cb9e545ae74f7af4--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--5a0965c147821937cc70c1cebd00baed--\r\n"
     headers:
       accept:
       - '*/*'
@@ -35,7 +35,7 @@ interactions:
       content-length:
       - '2043'
       content-type:
-      - multipart/form-data; boundary=0b26d98fe2bf77e6cb9e545ae74f7af4
+      - multipart/form-data; boundary=5a0965c147821937cc70c1cebd00baed
       host:
       - gizmoj7.fhcrc.org:43325
       user-agent:
@@ -44,7 +44,7 @@ interactions:
     uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1
   response:
     body:
-      string: '{"id":"64ce4307-cb39-4881-af1d-6028b3cf8b9d","status":"Submitted"}'
+      string: '{"id":"a2be452f-7114-4edd-be4f-f5c5eb5cd1b0","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -53,7 +53,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 01 Jun 2025 04:00:35 GMT
+      - Wed, 04 Jun 2025 23:00:04 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -73,10 +73,43 @@ interactions:
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/64ce4307-cb39-4881-af1d-6028b3cf8b9d/outputs
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/a2be452f-7114-4edd-be4f-f5c5eb5cd1b0/outputs
   response:
     body:
-      string: '{"outputs":{},"id":"64ce4307-cb39-4881-af1d-6028b3cf8b9d"}'
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: a2be452f-7114-4edd-be4f-f5c5eb5cd1b0\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '101'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 04 Jun 2025 23:00:04 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/a2be452f-7114-4edd-be4f-f5c5eb5cd1b0/outputs
+  response:
+    body:
+      string: '{"outputs":{},"id":"a2be452f-7114-4edd-be4f-f5c5eb5cd1b0"}'
     headers:
       Connection:
       - keep-alive
@@ -85,7 +118,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 01 Jun 2025 04:00:35 GMT
+      - Wed, 04 Jun 2025 23:00:08 GMT
       Server:
       - nginx/1.25.3
     status:

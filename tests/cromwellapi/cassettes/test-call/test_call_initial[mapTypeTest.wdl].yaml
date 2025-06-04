@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--67d89f1b1d734dc71e6dafa55f41802c\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--58daa08c1ee495feb2c6d189f7f4978f\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"mapTypeTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow enhanced_map_test {\n    input {\n        # Original inputs\n
       \       Array[String] samples\n        Map[String, String] sample_metadata\n
@@ -44,7 +44,7 @@ interactions:
       'w') as f:\n            for sample, message in result.items():\n                f.write(f\"{sample}\\t{message}\\n\")\n
       \       CODE\n    >>>\n\n    output {\n        Map[String, String] output_map
       = read_map('output.txt')\n    }\n\n    runtime {\n        docker: \"python:3.8-slim\"\n
-      \   }\n}\r\n--67d89f1b1d734dc71e6dafa55f41802c\r\nContent-Disposition: form-data;
+      \   }\n}\r\n--58daa08c1ee495feb2c6d189f7f4978f\r\nContent-Disposition: form-data;
       name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type: application/json\r\n\r\n{\n
       \   \"enhanced_map_test.samples\": [\"sample1\", \"sample2\", \"sample3\"],\n
       \   \"enhanced_map_test.sample_metadata\": {\n        \"sample1\": \"normal\",\n
@@ -54,10 +54,10 @@ interactions:
       {\n            \"sample1\": \"normal\",\n            \"sample2\": \"tumor\"\n
       \       },\n        \"patient2\": {\n            \"sample3\": \"normal\",\n
       \           \"sample4\": \"tumor\"\n        }\n    },\n    \"enhanced_map_test.patient_ids\":
-      [\"patient1\", \"patient2\"]\n}\r\n--67d89f1b1d734dc71e6dafa55f41802c\r\nContent-Disposition:
+      [\"patient1\", \"patient2\"]\n}\r\n--58daa08c1ee495feb2c6d189f7f4978f\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--67d89f1b1d734dc71e6dafa55f41802c--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--58daa08c1ee495feb2c6d189f7f4978f--\r\n"
     headers:
       accept:
       - '*/*'
@@ -68,7 +68,7 @@ interactions:
       content-length:
       - '4653'
       content-type:
-      - multipart/form-data; boundary=67d89f1b1d734dc71e6dafa55f41802c
+      - multipart/form-data; boundary=58daa08c1ee495feb2c6d189f7f4978f
       host:
       - gizmoj7.fhcrc.org:43325
       user-agent:
@@ -77,7 +77,7 @@ interactions:
     uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1
   response:
     body:
-      string: '{"id":"d30b2090-47ee-4cd9-b52e-4fc30867f5b0","status":"Submitted"}'
+      string: '{"id":"ace517ca-7fc0-466d-9317-2dd6c6214078","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -86,7 +86,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 01 Jun 2025 03:39:36 GMT
+      - Wed, 04 Jun 2025 22:27:53 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -106,18 +106,18 @@ interactions:
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/d30b2090-47ee-4cd9-b52e-4fc30867f5b0/metadata?expandSubWorkflows=true
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/ace517ca-7fc0-466d-9317-2dd6c6214078/metadata?expandSubWorkflows=true
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: d30b2090-47ee-4cd9-b52e-4fc30867f5b0\"\n}"
+        ID: ace517ca-7fc0-466d-9317-2dd6c6214078\"\n}"
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 01 Jun 2025 03:39:36 GMT
+      - Wed, 04 Jun 2025 22:27:53 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
@@ -141,7 +141,7 @@ interactions:
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/d30b2090-47ee-4cd9-b52e-4fc30867f5b0/metadata?expandSubWorkflows=true
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/ace517ca-7fc0-466d-9317-2dd6c6214078/metadata?expandSubWorkflows=true
   response:
     body:
       string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow enhanced_map_test
@@ -187,14 +187,14 @@ interactions:
         {\n        Map[String, String] output_map = read_map(''output.txt'')\n    }\n\n    runtime
         {\n        docker: \"python:3.8-slim\"\n    }\n}","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{\"enhanced_map_test.nested_map\":{\"patient1\":{\"sample1\":\"normal\",\"sample2\":\"tumor\"},\"patient2\":{\"sample3\":\"normal\",\"sample4\":\"tumor\"}},\"enhanced_map_test.patient_ids\":[\"patient1\",\"patient2\"],\"enhanced_map_test.read_lengths\":{\"sample1\":100,\"sample2\":150,\"sample3\":100},\"enhanced_map_test.sample_metadata\":{\"sample1\":\"normal\",\"sample2\":\"tumor\",\"sample3\":\"normal\"},\"enhanced_map_test.samples\":[\"sample1\",\"sample2\",\"sample3\"]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d30b2090-47ee-4cd9-b52e-4fc30867f5b0","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d30b2090-47ee-4cd9-b52e-4fc30867f5b0"},"submission":"2025-06-01T03:39:36.536Z"}'
+        false\n}","inputs":"{\"enhanced_map_test.nested_map\":{\"patient1\":{\"sample1\":\"normal\",\"sample2\":\"tumor\"},\"patient2\":{\"sample3\":\"normal\",\"sample4\":\"tumor\"}},\"enhanced_map_test.patient_ids\":[\"patient1\",\"patient2\"],\"enhanced_map_test.read_lengths\":{\"sample1\":100,\"sample2\":150,\"sample3\":100},\"enhanced_map_test.sample_metadata\":{\"sample1\":\"normal\",\"sample2\":\"tumor\",\"sample3\":\"normal\"},\"enhanced_map_test.samples\":[\"sample1\",\"sample2\",\"sample3\"]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"ace517ca-7fc0-466d-9317-2dd6c6214078","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-ace517ca-7fc0-466d-9317-2dd6c6214078"},"submission":"2025-06-04T22:27:53.391Z"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 01 Jun 2025 03:39:40 GMT
+      - Wed, 04 Jun 2025 22:27:57 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:

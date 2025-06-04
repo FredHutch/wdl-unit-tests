@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--b965911188a279896da6f1148d3dbc70\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--dd26603f54849f61c2c8275b7b7fe2f7\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"jsonTaskOrderTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow jsonTaskOrderTest {\n  input {\n    String input_json  # JSON
       string used as input for both tasks\n  }\n\n  call Task1 { input: input_json
@@ -15,13 +15,13 @@ interactions:
       \   echo \"Processing JSON in Task2: ~{input_json}\" > task2_output.txt\n    echo
       \"Task2 completed after Task1\" >> task2_output.txt\n    cat ~{previous_output}
       >> task2_output.txt\n  >>>\n  \n  output {\n    File output_file = \"task2_output.txt\"\n
-      \ }\n  \n  runtime {\n    cpu: 1\n    memory: \"2G\"\n  }\n}\n\r\n--b965911188a279896da6f1148d3dbc70\r\nContent-Disposition:
+      \ }\n  \n  runtime {\n    cpu: 1\n    memory: \"2G\"\n  }\n}\n\r\n--dd26603f54849f61c2c8275b7b7fe2f7\r\nContent-Disposition:
       form-data; name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n  \"jsonTaskOrderTest.input_json\": \"I am the text
-      that from input.json\"\n}\n\r\n--b965911188a279896da6f1148d3dbc70\r\nContent-Disposition:
+      that from input.json\"\n}\n\r\n--dd26603f54849f61c2c8275b7b7fe2f7\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--b965911188a279896da6f1148d3dbc70--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--dd26603f54849f61c2c8275b7b7fe2f7--\r\n"
     headers:
       accept:
       - '*/*'
@@ -32,7 +32,7 @@ interactions:
       content-length:
       - '1742'
       content-type:
-      - multipart/form-data; boundary=b965911188a279896da6f1148d3dbc70
+      - multipart/form-data; boundary=dd26603f54849f61c2c8275b7b7fe2f7
       host:
       - gizmoj7.fhcrc.org:43325
       user-agent:
@@ -41,7 +41,7 @@ interactions:
     uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1
   response:
     body:
-      string: '{"id":"604ab28d-db4f-4467-8935-42cb4f07c696","status":"Submitted"}'
+      string: '{"id":"0e632e90-b1ed-4799-b0f8-b70e33ccd410","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -50,7 +50,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 01 Jun 2025 03:39:40 GMT
+      - Wed, 04 Jun 2025 22:27:57 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -70,18 +70,18 @@ interactions:
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/604ab28d-db4f-4467-8935-42cb4f07c696/metadata?expandSubWorkflows=true
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/0e632e90-b1ed-4799-b0f8-b70e33ccd410/metadata?expandSubWorkflows=true
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 604ab28d-db4f-4467-8935-42cb4f07c696\"\n}"
+        ID: 0e632e90-b1ed-4799-b0f8-b70e33ccd410\"\n}"
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 01 Jun 2025 03:39:40 GMT
+      - Wed, 04 Jun 2025 22:27:57 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
@@ -105,7 +105,42 @@ interactions:
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/604ab28d-db4f-4467-8935-42cb4f07c696/metadata?expandSubWorkflows=true
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/0e632e90-b1ed-4799-b0f8-b70e33ccd410/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: 0e632e90-b1ed-4799-b0f8-b70e33ccd410\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 04 Jun 2025 22:28:01 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '101'
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/0e632e90-b1ed-4799-b0f8-b70e33ccd410/metadata?expandSubWorkflows=true
   response:
     body:
       string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonTaskOrderTest
@@ -124,14 +159,14 @@ interactions:
         {\n    cpu: 1\n    memory: \"2G\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
         false\n}","inputs":"{\"jsonTaskOrderTest.input_json\":\"I am the text that
-        from input.json\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"604ab28d-db4f-4467-8935-42cb4f07c696","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-604ab28d-db4f-4467-8935-42cb4f07c696"},"submission":"2025-06-01T03:39:40.649Z"}'
+        from input.json\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"0e632e90-b1ed-4799-b0f8-b70e33ccd410","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-0e632e90-b1ed-4799-b0f8-b70e33ccd410"},"submission":"2025-06-04T22:27:57.831Z"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 01 Jun 2025 03:39:44 GMT
+      - Wed, 04 Jun 2025 22:28:05 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
