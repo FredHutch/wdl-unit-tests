@@ -1,0 +1,111 @@
+interactions:
+- request:
+    body: "--3b0fe0a7d8abfcd29a02a3211551969b\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"missingValue.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n## This is a test workflow that fails against womtool.\n## From https://github.com/broadinstitute/cromwell\n\n####
+      WORKFLOW DEFINITION\n\nworkflow oops {\n  call oopsie\n}\n\n#### TASK DEFINITIONS\n\ntask
+      oopsie {\n  input {\n    String str\n  }\n  command { echo ${str} }\n  runtime
+      { docker: docker_image }\n}\n\r\n--3b0fe0a7d8abfcd29a02a3211551969b\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--3b0fe0a7d8abfcd29a02a3211551969b--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '778'
+      content-type:
+      - multipart/form-data; boundary=3b0fe0a7d8abfcd29a02a3211551969b
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"9fa26877-a528-4eef-bcce-808debc4f9a2","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 04 Jun 2025 22:52:09 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9fa26877-a528-4eef-bcce-808debc4f9a2/outputs
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: 9fa26877-a528-4eef-bcce-808debc4f9a2\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '101'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 04 Jun 2025 22:52:09 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/9fa26877-a528-4eef-bcce-808debc4f9a2/outputs
+  response:
+    body:
+      string: '{"outputs":{},"id":"9fa26877-a528-4eef-bcce-808debc4f9a2"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '58'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 04 Jun 2025 22:52:13 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+version: 1

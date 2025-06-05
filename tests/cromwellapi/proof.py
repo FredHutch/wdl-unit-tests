@@ -6,8 +6,8 @@ from tenacity import (
     wait_exponential,
 )
 
-from constants import PROOF_BASE_URL, TOKEN
-from utils import token_check, before_sleep_message
+from .constants import PROOF_BASE_URL, TOKEN
+from .utils import before_sleep_message, token_check
 
 
 def cache_next_call_only(func):
@@ -50,7 +50,9 @@ class ProofApi(object):
 
     @cache_next_call_only
     @retry(
-        retry=retry_if_exception_type((httpx.HTTPStatusError, httpx.ReadTimeout)),
+        retry=retry_if_exception_type(
+            (httpx.HTTPStatusError, httpx.ReadTimeout)
+        ),
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=4, max=10),
         before_sleep=before_sleep_message,
@@ -65,10 +67,12 @@ class ProofApi(object):
         return res.json()
 
     def is_cromwell_server_up(self, timeout=10):
-        return not self.status()["canJobStart"]
+        return not self.status(timeout=timeout)["canJobStart"]
 
     @retry(
-        retry=retry_if_exception_type((httpx.HTTPStatusError, httpx.ReadTimeout)),
+        retry=retry_if_exception_type(
+            (httpx.HTTPStatusError, httpx.ReadTimeout)
+        ),
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=4, max=10),
         before_sleep=before_sleep_message,

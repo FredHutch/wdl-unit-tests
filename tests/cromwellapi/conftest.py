@@ -1,17 +1,14 @@
 import os
-import json
-from pathlib import Path
+import re
 
 import pytest
 
-from mocks import MockProofApi
-from constants import SLEEP_FINAL_STATE
-from utils_cassettes import cassettes_last_modified
-from cromwell import CromwellApi
-from cromwell_final import CromwellApiFinal
-from proof import ProofApi
-
-mocked_submissions = "tests/cromwellapi/mocked_submissions.json"
+from .constants import SLEEP_FINAL_STATE
+from .cromwell import CromwellApi
+from .cromwell_final import CromwellApiFinal
+from .mocks import MockProofApi
+from .proof import ProofApi
+from .utils_cassettes import cassettes_last_modified
 
 
 def pytest_report_header(config):
@@ -55,38 +52,9 @@ def cromwell_api_final(proof_api, recording_mode):
     )
 
 
-@pytest.fixture(scope="session")
-def submit_wdls(recording_mode, cromwell_api):
-    """
-    This fixture runs automatically before any tests.
-    Uses "session" scope to run only once for all tests.
-    """
-    root = Path(__file__).parents[2].resolve()
-    pattern = "**/*.wdl"
-    wdl_paths = list(root.glob(pattern))
-
-    if recording_mode == "rewrite":
-        print(f"\nSubmitting {len(wdl_paths)} wdls ...")
-        out = []
-        for path in wdl_paths:
-            opts_path = path.parent / "options.json"
-            opts_path = opts_path if opts_path.exists() else None
-            res = cromwell_api.submit_workflow(wdl_path=path, options=opts_path)
-            out.append(res)
-        with open(mocked_submissions, "w") as f:
-            json.dump(out, f, indent=4)
-    else:
-        with open(mocked_submissions, "r") as f:
-            out = json.load(f)
-
-    # Yield to let tests run
-    yield out
-
-    # Cleanup is not possible for Cromwell - but would be here
-
-
 class EnvironmentVariableError(Exception):
     """Custom error class for a missing environment variable"""
+
     pass
 
 
@@ -128,3 +96,41 @@ def vcr_config():
         # remove parts of paths that start with PATH_ROOTS
         "before_record_response": filter_response_bodies,
     }
+
+
+@pytest.fixture
+def test_name(request):
+    return request.node.name
+
+
+def add_cassette_path(path):
+    """
+    Examples:
+      add_cassette_path("tests/cromwellapi/test-call.py::test_call_final[globNonmatching.wdl]")
+      #> 'tests/cromwellapi/cassettes/test-call/test_call_final[globNonmatching.wdl].yaml'
+    """
+    path = path.replace(".py::", "/")
+    path = path.replace("tests/cromwellapi", "tests/cromwellapi/cassettes")
+    path = path + ".yaml"
+    return path
+
+
+def add_mock_json_path(path):
+    """
+    Examples:
+      add_mock_json_path("tests/cromwellapi/test-call.py::test_call_final[globNonmatching.wdl]")
+      #> 'tests/cromwellapi/mocked_submissions/test_call_final[globNonmatching.wdl].json'
+    """
+    path = re.sub("test-.+.py::", "", path)
+    path = path.replace(
+        "tests/cromwellapi", "tests/cromwellapi/mocked_submissions"
+    )
+    path = path + ".json"
+    return path
+
+
+@pytest.hookimpl(optionalhook=True)
+def pytest_json_modifyreport(json_report):
+    for test_data in json_report["tests"]:
+        test_data["cassette"] = add_cassette_path(test_data["nodeid"])
+        test_data["mock_json"] = add_mock_json_path(test_data["nodeid"])

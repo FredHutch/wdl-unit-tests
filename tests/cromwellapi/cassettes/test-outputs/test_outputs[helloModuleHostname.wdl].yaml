@@ -1,0 +1,132 @@
+interactions:
+- request:
+    body: "--1b3328dc1d31d9e154b31d646401588b\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"helloModuleHostname.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n## This is a test workflow that returns the hostname of the node \n## the
+      job is submitted to as a test for module functionality on Gizmo.\n## Added verification
+      of module loading.\n\n#### WORKFLOW DEFINITION\n\nworkflow HelloModuleHostname
+      {\n  input {\n    String module2load = \"Python/3.12.3-GCCcore-13.3.0\" # Default
+      value can be overwritten\n  }\n\n  call Hostname {\n    input:\n      module_env
+      = module2load\n  }\n\n  output {\n    File stdout = Hostname.out\n    Boolean
+      module_loaded = Hostname.module_verified\n  }\n\n  parameter_meta {\n    stdout:
+      \"hostname of the node the job was submitted to\"\n    module_loaded: \"boolean
+      indicating if the specified module was successfully loaded\"\n  }\n}\n\n####
+      TASK DEFINITIONS\n\ntask Hostname {\n  input {\n    String module_env\n  }\n\n
+      \ command <<<\n    set -e  # Exit on any error\n    \n    # Get hostname\n    hostname\n
+      \   \n    # List loaded modules and verify our module is loaded\n    source
+      /app/lmod/lmod/init/profile\n    module list 2>&1 | tee module_list.txt\n    \n
+      \   # Check if the module or its base name is in the loaded modules\n    if
+      grep -q \"~{module_env}\" module_list.txt; then\n      echo \"true\" > module_verified.txt\n
+      \     echo \"Successfully verified module ~{module_env} is loaded\"\n    else\n
+      \     echo \"ERROR: Module ~{module_env} was not found in loaded modules:\"\n
+      \     cat module_list.txt\n      exit 1\n    fi\n  >>>\n\n  output {\n    File
+      out = stdout()\n    Boolean module_verified = read_boolean(\"module_verified.txt\")\n
+      \ }\n\n  runtime {\n    cpu: 1\n    memory: \"1 GB\"\n    modules: \"~{module_env}\"\n
+      \ }\n\n  parameter_meta {\n    module_env: \"name of modules to be loaded\"\n
+      \   out: \"output file containing hostname and module information\"\n    module_verified:
+      \"boolean indicating if the requested module was successfully loaded\"\n  }\n}\n\r\n--1b3328dc1d31d9e154b31d646401588b\r\nContent-Disposition:
+      form-data; name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"HelloModuleHostname.module2load\": \"Python/3.12.3-GCCcore-13.3.0\"\n}\n\r\n--1b3328dc1d31d9e154b31d646401588b\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--1b3328dc1d31d9e154b31d646401588b--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '2479'
+      content-type:
+      - multipart/form-data; boundary=1b3328dc1d31d9e154b31d646401588b
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"e9ad42ca-826f-4de0-9c0b-99644e7e64bd","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 04 Jun 2025 22:56:06 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/e9ad42ca-826f-4de0-9c0b-99644e7e64bd/outputs
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: e9ad42ca-826f-4de0-9c0b-99644e7e64bd\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '101'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 04 Jun 2025 22:56:06 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/e9ad42ca-826f-4de0-9c0b-99644e7e64bd/outputs
+  response:
+    body:
+      string: '{"outputs":{},"id":"e9ad42ca-826f-4de0-9c0b-99644e7e64bd"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '58'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 04 Jun 2025 22:56:10 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+version: 1

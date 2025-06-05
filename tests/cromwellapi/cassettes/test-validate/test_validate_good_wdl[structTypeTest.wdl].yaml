@@ -1,0 +1,71 @@
+interactions:
+- request:
+    body: "--02d94e48ef2b278d2b702edd4be1d604\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"structTypeTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\n## This workflow demonstrates advanced struct features in WDL including:\n##
+      1. Optional fields\n## 2. Nested structs\n## 3. Default values (handled in the
+      workflow)\n\n#### STRUCT DEFINITIONS\n\n# Nested struct for sequencing metadata\nstruct
+      SequencingInfo {\n    String platform\n    String? flowcell_id\n    Int? lane_number\n}\n\n#
+      Nested struct for quality metrics\nstruct QualityMetrics {\n    Float quality_score\n
+      \   Float? gc_content\n    Int? duplicate_rate\n}\n\n# Main struct with nested
+      structures and optional fields\nstruct SampleInfo {\n    String name\n    String?
+      type\n    Int? read_length\n    String? library_prep\n    SequencingInfo sequencing\n
+      \   QualityMetrics metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow struct_example
+      {\n    input {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter
+      (sample_info in sample_information) {\n        SampleInfo processed_sample =
+      object {\n            name: sample_info.name,\n            type: select_first([sample_info.type,
+      \"normal\"]),\n            read_length: select_first([sample_info.read_length,
+      100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+      sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n
+      \       call process_sample {\n            input:\n                sample =
+      processed_sample\n        }\n    }\n}\n\n#### TASK DEFINITIONS\n\ntask process_sample
+      {\n    input {\n        SampleInfo sample\n    }\n\n    command <<<\n        echo
+      \"Processing ~{sample.name} (~{sample.type})\"\n        echo \"Read Length:
+      ~{sample.read_length}\"\n        echo \"Sequencing Platform: ~{sample.sequencing.platform}\"\n
+      \       echo \"Flowcell ID: ~{select_first([sample.sequencing.flowcell_id, 'N/A'])}\"\n
+      \       echo \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n
+      \       echo \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo
+      \"GC Content: ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo
+      \"Duplicate Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+      \"Library Prep: ~{select_first([sample.library_prep, 'Standard'])}\"\n    >>>\n\n
+      \   output {\n        String message = read_string(stdout())\n    }\n\n    runtime
+      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\r\n--02d94e48ef2b278d2b702edd4be1d604--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '2417'
+      content-type:
+      - multipart/form-data; boundary=02d94e48ef2b278d2b702edd4be1d604
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmoj7.fhcrc.org:43325/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"struct_example","inputs":[{"name":"sample_information","valueType":{"typeName":"Array","arrayType":{"typeName":"Object","objectFieldTypes":[{"fieldName":"name","fieldType":{"typeName":"String"}},{"fieldName":"sequencing","fieldType":{"typeName":"Object","objectFieldTypes":[{"fieldName":"platform","fieldType":{"typeName":"String"}},{"fieldName":"flowcell_id","fieldType":{"typeName":"Optional","optionalType":{"typeName":"String"}}},{"fieldName":"lane_number","fieldType":{"typeName":"Optional","optionalType":{"typeName":"Int"}}}]}},{"fieldName":"metrics","fieldType":{"typeName":"Object","objectFieldTypes":[{"fieldName":"quality_score","fieldType":{"typeName":"Float"}},{"fieldName":"gc_content","fieldType":{"typeName":"Optional","optionalType":{"typeName":"Float"}}},{"fieldName":"duplicate_rate","fieldType":{"typeName":"Optional","optionalType":{"typeName":"Int"}}}]}},{"fieldName":"type","fieldType":{"typeName":"Optional","optionalType":{"typeName":"String"}}},{"fieldName":"library_prep","fieldType":{"typeName":"Optional","optionalType":{"typeName":"String"}}},{"fieldName":"read_length","fieldType":{"typeName":"Optional","optionalType":{"typeName":"Int"}}}]},"nonEmpty":false},"typeDisplayName":"Array[WomCompositeType
+        {\n name -> String\nsequencing -> WomCompositeType {\n platform -> String\nflowcell_id
+        -> String?\nlane_number -> Int? \n}\nmetrics -> WomCompositeType {\n quality_score
+        -> Float\ngc_content -> Float?\nduplicate_rate -> Int? \n}\ntype -> String?\nlibrary_prep
+        -> String?\nread_length -> Int? \n}]","optional":false,"default":null}],"outputs":[],"images":["\"ubuntu:noble-20241118.1\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1839'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 04 Jun 2025 22:55:51 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -1,0 +1,121 @@
+interactions:
+- request:
+    body: "--0ed09d1dec7dea233fc6cd6da24e9608\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"globNonmatching.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow globNonmatching {\n    call create_files\n    output {\n        Array[File]
+      unmatched_files = create_files.unmatched_files\n    }\n}\n\ntask create_files
+      {\n    command <<<\n        echo \"Test file\" > test.txt\n    >>>\n    output
+      {\n        Array[File] unmatched_files = glob(\"*.log\")\n    }\n}\n\r\n--0ed09d1dec7dea233fc6cd6da24e9608\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--0ed09d1dec7dea233fc6cd6da24e9608--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '778'
+      content-type:
+      - multipart/form-data; boundary=0ed09d1dec7dea233fc6cd6da24e9608
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"a81c8701-bcc4-4822-a5da-3add8b406378","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 05 Jun 2025 16:41:50 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/a81c8701-bcc4-4822-a5da-3add8b406378/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: a81c8701-bcc4-4822-a5da-3add8b406378\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 05 Jun 2025 16:41:50 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '101'
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj7.fhcrc.org:43325
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj7.fhcrc.org:43325/api/workflows/v1/a81c8701-bcc4-4822-a5da-3add8b406378/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow globNonmatching
+        {\n    call create_files\n    output {\n        Array[File] unmatched_files
+        = create_files.unmatched_files\n    }\n}\n\ntask create_files {\n    command
+        <<<\n        echo \"Test file\" > test.txt\n    >>>\n    output {\n        Array[File]
+        unmatched_files = glob(\"*.log\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"a81c8701-bcc4-4822-a5da-3add8b406378","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-a81c8701-bcc4-4822-a5da-3add8b406378"},"submission":"2025-06-05T16:41:50.490Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 05 Jun 2025 16:41:54 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '771'
+    status:
+      code: 200
+      message: OK
+version: 1
