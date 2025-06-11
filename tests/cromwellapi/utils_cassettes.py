@@ -1,8 +1,8 @@
 import itertools
 from datetime import datetime
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 
-import dateparser
 import yaml
 
 
@@ -31,7 +31,9 @@ def cassettes_last_modified(directory):
                 doc = yaml.load(f, Loader=yaml.SafeLoader)
                 dates.append(
                     [
-                        dateparser.parse(w["response"]["headers"]["Date"][0])
+                        parsedate_to_datetime(
+                            w["response"]["headers"]["Date"][0]
+                        )
                         for w in doc["interactions"]
                     ]
                 )
