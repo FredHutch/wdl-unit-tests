@@ -1,5 +1,6 @@
 import os
 import re
+import warnings
 
 import pytest
 
@@ -9,6 +10,8 @@ from .cromwell_final import CromwellApiFinal
 from .mocks import MockProofApi
 from .proof import ProofApi
 from .utils_cassettes import cassettes_last_modified
+
+warnings.filterwarnings("error", category=DeprecationWarning)
 
 
 def pytest_report_header(config):
