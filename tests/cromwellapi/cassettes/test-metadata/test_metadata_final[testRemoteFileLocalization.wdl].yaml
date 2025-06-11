@@ -1,0 +1,2202 @@
+interactions:
+- request:
+    body: "--e64f5f4b5cb89aef3f103ed900a34e4b\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"testRemoteFileLocalization.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow testRemoteFileLocalization {\n    input {\n        String string\n
+      \       Int integer\n        Float float\n        Boolean boolean\n        File
+      remote_file\n    }\n\n    # Task 1: Test input localization and processing\n
+      \   call testInputLocalization {\n        input:\n            input_string =
+      string,\n            input_integer = integer,\n            input_float = float,\n
+      \           input_boolean = boolean,\n            input_file = remote_file\n
+      \   }\n\n    # Task 2: Use output from Task 1 as input\n    call testOutputUsage
+      {\n        input:\n            processed_file = testInputLocalization.processed_file\n
+      \   }\n\n    # Workflow outputs: include all outputs from all tasks\n    output
+      {\n        File localized_file = testInputLocalization.processed_file\n        File
+      localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+      = testInputLocalization.outputIntegerfile\n        File localized_float = testInputLocalization.outputFloatfile\n
+      \       File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+      renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+      {\n    input {\n        String input_string\n        Int input_integer\n        Float
+      input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n
+      \   String input_base_name = basename(input_file)\n\n    command <<<\n        #
+      Generate and verify input-based outputs\n        echo \"~{input_string}\" >
+      localized_string.txt\n        echo \"~{input_integer}\" > localized_integer.txt\n
+      \       echo \"~{input_float}\" > localized_float.txt\n        echo \"~{input_boolean}\"
+      > localized_boolean.txt\n\n        # Input file is expected to already be localized
+      by WDL\n        cp \"~{input_file}\" \"~{input_base_name}\"\n    >>>\n\n    output
+      {\n        File outputStringfile = \"localized_string.txt\"\n        File outputIntegerfile
+      = \"localized_integer.txt\"\n        File outputFloatfile = \"localized_float.txt\"\n
+      \       File outputBooleanfile = \"localized_boolean.txt\"\n        File processed_file
+      = \"~{input_base_name}\"\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n
+      \   }\n}\n\ntask testOutputUsage {\n    input {\n        File processed_file\n
+      \   }\n\n    command <<<\n        # Rename the file received from the previous
+      task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output {\n
+      \       File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime {\n        docker:
+      \"ubuntu:20.04\"\n    }\n}\n\r\n--e64f5f4b5cb89aef3f103ed900a34e4b\r\nContent-Disposition:
+      form-data; name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n  \"testRemoteFileLocalization.string\": \"Test String
+      Input\",\n  \"testRemoteFileLocalization.integer\": 123,\n  \"testRemoteFileLocalization.float\":
+      9.81,\n  \"testRemoteFileLocalization.boolean\": false,\n  \"testRemoteFileLocalization.remote_file\":
+      \"testRemoteFileLocalization/data/remote_file.txt\"\n}\n\r\n--e64f5f4b5cb89aef3f103ed900a34e4b\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--e64f5f4b5cb89aef3f103ed900a34e4b--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '3355'
+      content-type:
+      - multipart/form-data; boundary=e64f5f4b5cb89aef3f103ed900a34e4b
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:38:26 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:38:31 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:38:36 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:38:41 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:38:46 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:38:51 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:38:56 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:39:01 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:39:06 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:39:11 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:39:16 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:39:21 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:39:26 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:39:31 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:39:36 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:39:42 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:39:47 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:39:52 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:39:57 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:40:02 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testRemoteFileLocalization
+        {\n    input {\n        String string\n        Int integer\n        Float
+        float\n        Boolean boolean\n        File remote_file\n    }\n\n    # Task
+        1: Test input localization and processing\n    call testInputLocalization
+        {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:40:07 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3274'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testRemoteFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-3f4f81b","description":"PickedUp","timestamp":"2025-06-11T20:40:06.967Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testRemoteFileLocalization {\n    input {\n        String
+        string\n        Int integer\n        Float float\n        Boolean boolean\n        File
+        remote_file\n    }\n\n    # Task 1: Test input localization and processing\n    call
+        testInputLocalization {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testRemoteFileLocalization/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-06-11T20:40:06.967Z","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{"remote_file":"testRemoteFileLocalization/data/remote_file.txt","float":9.81,"string":"Test
+        String Input","boolean":false,"integer":123},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:40:12 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3837'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testRemoteFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-3f4f81b","description":"PickedUp","timestamp":"2025-06-11T20:40:06.967Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testRemoteFileLocalization {\n    input {\n        String
+        string\n        Int integer\n        Float float\n        Boolean boolean\n        File
+        remote_file\n    }\n\n    # Task 1: Test input localization and processing\n    call
+        testInputLocalization {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testRemoteFileLocalization/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-06-11T20:40:06.967Z","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{"remote_file":"testRemoteFileLocalization/data/remote_file.txt","float":9.81,"string":"Test
+        String Input","boolean":false,"integer":123},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:40:17 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3837'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testRemoteFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-3f4f81b","description":"PickedUp","timestamp":"2025-06-11T20:40:06.967Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testRemoteFileLocalization {\n    input {\n        String
+        string\n        Int integer\n        Float float\n        Boolean boolean\n        File
+        remote_file\n    }\n\n    # Task 1: Test input localization and processing\n    call
+        testInputLocalization {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testRemoteFileLocalization/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-06-11T20:40:06.967Z","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{"remote_file":"testRemoteFileLocalization/data/remote_file.txt","float":9.81,"string":"Test
+        String Input","boolean":false,"integer":123},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:40:22 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3837'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testRemoteFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-3f4f81b","description":"PickedUp","timestamp":"2025-06-11T20:40:06.967Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testRemoteFileLocalization {\n    input {\n        String
+        string\n        Int integer\n        Float float\n        Boolean boolean\n        File
+        remote_file\n    }\n\n    # Task 1: Test input localization and processing\n    call
+        testInputLocalization {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testRemoteFileLocalization/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-06-11T20:40:06.967Z","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{"remote_file":"testRemoteFileLocalization/data/remote_file.txt","float":9.81,"string":"Test
+        String Input","boolean":false,"integer":123},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:40:27 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3837'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testRemoteFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-3f4f81b","description":"PickedUp","timestamp":"2025-06-11T20:40:06.967Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testRemoteFileLocalization {\n    input {\n        String
+        string\n        Int integer\n        Float float\n        Boolean boolean\n        File
+        remote_file\n    }\n\n    # Task 1: Test input localization and processing\n    call
+        testInputLocalization {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testRemoteFileLocalization/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-06-11T20:40:06.967Z","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{"remote_file":"testRemoteFileLocalization/data/remote_file.txt","float":9.81,"string":"Test
+        String Input","boolean":false,"integer":123},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:40:32 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3837'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testRemoteFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-3f4f81b","description":"PickedUp","timestamp":"2025-06-11T20:40:06.967Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testRemoteFileLocalization {\n    input {\n        String
+        string\n        Int integer\n        Float float\n        Boolean boolean\n        File
+        remote_file\n    }\n\n    # Task 1: Test input localization and processing\n    call
+        testInputLocalization {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testRemoteFileLocalization/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-06-11T20:40:06.967Z","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{"remote_file":"testRemoteFileLocalization/data/remote_file.txt","float":9.81,"string":"Test
+        String Input","boolean":false,"integer":123},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:40:37 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3837'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testRemoteFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-3f4f81b","description":"PickedUp","timestamp":"2025-06-11T20:40:06.967Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testRemoteFileLocalization {\n    input {\n        String
+        string\n        Int integer\n        Float float\n        Boolean boolean\n        File
+        remote_file\n    }\n\n    # Task 1: Test input localization and processing\n    call
+        testInputLocalization {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testRemoteFileLocalization/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-06-11T20:40:06.967Z","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{"remote_file":"testRemoteFileLocalization/data/remote_file.txt","float":9.81,"string":"Test
+        String Input","boolean":false,"integer":123},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:40:42 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3837'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testRemoteFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-3f4f81b","description":"PickedUp","timestamp":"2025-06-11T20:40:06.967Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testRemoteFileLocalization {\n    input {\n        String
+        string\n        Int integer\n        Float float\n        Boolean boolean\n        File
+        remote_file\n    }\n\n    # Task 1: Test input localization and processing\n    call
+        testInputLocalization {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testRemoteFileLocalization/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-06-11T20:40:06.967Z","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{"remote_file":"testRemoteFileLocalization/data/remote_file.txt","float":9.81,"string":"Test
+        String Input","boolean":false,"integer":123},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:40:47 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3837'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testRemoteFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-3f4f81b","description":"PickedUp","timestamp":"2025-06-11T20:40:06.967Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testRemoteFileLocalization {\n    input {\n        String
+        string\n        Int integer\n        Float float\n        Boolean boolean\n        File
+        remote_file\n    }\n\n    # Task 1: Test input localization and processing\n    call
+        testInputLocalization {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testRemoteFileLocalization/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-06-11T20:40:06.967Z","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{"remote_file":"testRemoteFileLocalization/data/remote_file.txt","float":9.81,"string":"Test
+        String Input","boolean":false,"integer":123},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:40:52 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3837'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testRemoteFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-3f4f81b","description":"PickedUp","timestamp":"2025-06-11T20:40:06.967Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testRemoteFileLocalization {\n    input {\n        String
+        string\n        Int integer\n        Float float\n        Boolean boolean\n        File
+        remote_file\n    }\n\n    # Task 1: Test input localization and processing\n    call
+        testInputLocalization {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testRemoteFileLocalization/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-06-11T20:40:06.967Z","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{"remote_file":"testRemoteFileLocalization/data/remote_file.txt","float":9.81,"string":"Test
+        String Input","boolean":false,"integer":123},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:40:57 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3837'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testRemoteFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-3f4f81b","description":"PickedUp","timestamp":"2025-06-11T20:40:06.967Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testRemoteFileLocalization {\n    input {\n        String
+        string\n        Int integer\n        Float float\n        Boolean boolean\n        File
+        remote_file\n    }\n\n    # Task 1: Test input localization and processing\n    call
+        testInputLocalization {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testRemoteFileLocalization/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-06-11T20:40:06.967Z","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{"remote_file":"testRemoteFileLocalization/data/remote_file.txt","float":9.81,"string":"Test
+        String Input","boolean":false,"integer":123},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:41:02 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3837'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"workflowName":"testRemoteFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-3f4f81b","description":"PickedUp","timestamp":"2025-06-11T20:40:06.967Z","cromwellVersion":"87"},{"cromwellId":"cromid-3f4f81b","description":"Finished","timestamp":"2025-06-11T20:41:04.119Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow testRemoteFileLocalization {\n    input {\n        String
+        string\n        Int integer\n        Float float\n        Boolean boolean\n        File
+        remote_file\n    }\n\n    # Task 1: Test input localization and processing\n    call
+        testInputLocalization {\n        input:\n            input_string = string,\n            input_integer
+        = integer,\n            input_float = float,\n            input_boolean =
+        boolean,\n            input_file = remote_file\n    }\n\n    # Task 2: Use
+        output from Task 1 as input\n    call testOutputUsage {\n        input:\n            processed_file
+        = testInputLocalization.processed_file\n    }\n\n    # Workflow outputs: include
+        all outputs from all tasks\n    output {\n        File localized_file = testInputLocalization.processed_file\n        File
+        localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+        = testInputLocalization.outputIntegerfile\n        File localized_float =
+        testInputLocalization.outputFloatfile\n        File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+        renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+        {\n    input {\n        String input_string\n        Int input_integer\n        Float
+        input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n    String
+        input_base_name = basename(input_file)\n\n    command <<<\n        # Generate
+        and verify input-based outputs\n        echo \"~{input_string}\" > localized_string.txt\n        echo
+        \"~{input_integer}\" > localized_integer.txt\n        echo \"~{input_float}\"
+        > localized_float.txt\n        echo \"~{input_boolean}\" > localized_boolean.txt\n\n        #
+        Input file is expected to already be localized by WDL\n        cp \"~{input_file}\"
+        \"~{input_base_name}\"\n    >>>\n\n    output {\n        File outputStringfile
+        = \"localized_string.txt\"\n        File outputIntegerfile = \"localized_integer.txt\"\n        File
+        outputFloatfile = \"localized_float.txt\"\n        File outputBooleanfile
+        = \"localized_boolean.txt\"\n        File processed_file = \"~{input_base_name}\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage {\n    input
+        {\n        File processed_file\n    }\n\n    command <<<\n        # Rename
+        the file received from the previous task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output
+        {\n        File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime
+        {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"testRemoteFileLocalization.boolean\":false,\"testRemoteFileLocalization.float\":9.81,\"testRemoteFileLocalization.integer\":123,\"testRemoteFileLocalization.remote_file\":\"testRemoteFileLocalization/data/remote_file.txt\",\"testRemoteFileLocalization.string\":\"Test
+        String Input\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"testRemoteFileLocalization.localized_boolean":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testRemoteFileLocalization/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/call-testInputLocalization/execution/localized_boolean.txt","testRemoteFileLocalization.localized_integer":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testRemoteFileLocalization/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/call-testInputLocalization/execution/localized_integer.txt","testRemoteFileLocalization.renamed_file":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testRemoteFileLocalization/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/call-testOutputUsage/execution/renamed_file.txt","testRemoteFileLocalization.localized_file":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testRemoteFileLocalization/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/call-testInputLocalization/execution/remote_file.txt","testRemoteFileLocalization.localized_float":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testRemoteFileLocalization/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/call-testInputLocalization/execution/localized_float.txt","testRemoteFileLocalization.localized_string":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testRemoteFileLocalization/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f/call-testInputLocalization/execution/localized_string.txt"},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testRemoteFileLocalization/d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-06-11T20:41:04.119Z","start":"2025-06-11T20:40:06.967Z","id":"d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f","inputs":{"remote_file":"testRemoteFileLocalization/data/remote_file.txt","float":9.81,"string":"Test
+        String Input","boolean":false,"integer":123},"labels":{"cromwell-workflow-id":"cromwell-d0b0a8d0-0f36-4bd2-9acb-8b1f1ead0a6f"},"submission":"2025-06-11T20:38:26.044Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:41:07 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '5309'
+    status:
+      code: 200
+      message: OK
+version: 1
