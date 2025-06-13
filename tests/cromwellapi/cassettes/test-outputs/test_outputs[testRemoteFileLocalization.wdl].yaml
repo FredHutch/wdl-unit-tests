@@ -1,0 +1,143 @@
+interactions:
+- request:
+    body: "--aaa2fc20a4daa0539b9b888dc7647302\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"testRemoteFileLocalization.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow testRemoteFileLocalization {\n    input {\n        String string\n
+      \       Int integer\n        Float float\n        Boolean boolean\n        File
+      remote_file\n    }\n\n    # Task 1: Test input localization and processing\n
+      \   call testInputLocalization {\n        input:\n            input_string =
+      string,\n            input_integer = integer,\n            input_float = float,\n
+      \           input_boolean = boolean,\n            input_file = remote_file\n
+      \   }\n\n    # Task 2: Use output from Task 1 as input\n    call testOutputUsage
+      {\n        input:\n            processed_file = testInputLocalization.processed_file\n
+      \   }\n\n    # Workflow outputs: include all outputs from all tasks\n    output
+      {\n        File localized_file = testInputLocalization.processed_file\n        File
+      localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+      = testInputLocalization.outputIntegerfile\n        File localized_float = testInputLocalization.outputFloatfile\n
+      \       File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+      renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+      {\n    input {\n        String input_string\n        Int input_integer\n        Float
+      input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n
+      \   String input_base_name = basename(input_file)\n\n    command <<<\n        #
+      Generate and verify input-based outputs\n        echo \"~{input_string}\" >
+      localized_string.txt\n        echo \"~{input_integer}\" > localized_integer.txt\n
+      \       echo \"~{input_float}\" > localized_float.txt\n        echo \"~{input_boolean}\"
+      > localized_boolean.txt\n\n        # Input file is expected to already be localized
+      by WDL\n        cp \"~{input_file}\" \"~{input_base_name}\"\n    >>>\n\n    output
+      {\n        File outputStringfile = \"localized_string.txt\"\n        File outputIntegerfile
+      = \"localized_integer.txt\"\n        File outputFloatfile = \"localized_float.txt\"\n
+      \       File outputBooleanfile = \"localized_boolean.txt\"\n        File processed_file
+      = \"~{input_base_name}\"\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n
+      \   }\n}\n\ntask testOutputUsage {\n    input {\n        File processed_file\n
+      \   }\n\n    command <<<\n        # Rename the file received from the previous
+      task\n        mv ~{processed_file} renamed_file.txt\n    >>>\n\n    output {\n
+      \       File renamed_file = \"renamed_file.txt\"\n    }\n\n    runtime {\n        docker:
+      \"ubuntu:20.04\"\n    }\n}\n\r\n--aaa2fc20a4daa0539b9b888dc7647302\r\nContent-Disposition:
+      form-data; name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n  \"testRemoteFileLocalization.string\": \"Test String
+      Input\",\n  \"testRemoteFileLocalization.integer\": 123,\n  \"testRemoteFileLocalization.float\":
+      9.81,\n  \"testRemoteFileLocalization.boolean\": false,\n  \"testRemoteFileLocalization.remote_file\":
+      \"testRemoteFileLocalization/data/remote_file.txt\"\n}\n\r\n--aaa2fc20a4daa0539b9b888dc7647302\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--aaa2fc20a4daa0539b9b888dc7647302--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '3355'
+      content-type:
+      - multipart/form-data; boundary=aaa2fc20a4daa0539b9b888dc7647302
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"270fcd72-c79f-49d4-b5d4-a031823f7134","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:38:24 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/270fcd72-c79f-49d4-b5d4-a031823f7134/outputs
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: 270fcd72-c79f-49d4-b5d4-a031823f7134\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '101'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:38:24 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok97.fhcrc.org:36405
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok97.fhcrc.org:36405/api/workflows/v1/270fcd72-c79f-49d4-b5d4-a031823f7134/outputs
+  response:
+    body:
+      string: '{"outputs":{},"id":"270fcd72-c79f-49d4-b5d4-a031823f7134"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '58'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Jun 2025 20:38:28 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+version: 1

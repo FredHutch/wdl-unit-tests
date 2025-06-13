@@ -45,6 +45,8 @@ task testInputLocalization {
         File input_file
     }
 
+    String input_base_name = basename(input_file)
+
     command <<<
         # Generate and verify input-based outputs
         echo "~{input_string}" > localized_string.txt
@@ -53,7 +55,7 @@ task testInputLocalization {
         echo "~{input_boolean}" > localized_boolean.txt
 
         # Input file is expected to already be localized by WDL
-        ls -lh "~{input_file}"
+        cp "~{input_file}" "~{input_base_name}"
     >>>
 
     output {
@@ -61,7 +63,7 @@ task testInputLocalization {
         File outputIntegerfile = "localized_integer.txt"
         File outputFloatfile = "localized_float.txt"
         File outputBooleanfile = "localized_boolean.txt"
-        File processed_file = input_file  # Pass input file directly as output
+        File processed_file = "~{input_base_name}"
     }
 
     runtime {
