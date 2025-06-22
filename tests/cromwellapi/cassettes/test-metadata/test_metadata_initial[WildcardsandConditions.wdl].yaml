@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--e70efcd562d4883d65f43124016fbee5\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--bbc2c8758e95daa454b1ea2e9dc56d33\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"WildcardsandConditions.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow WildcardsandConditions {\n    input {\n        String prefix
       \ # Required input for the file prefix (no default value)\n    }\n\n    call
@@ -19,12 +19,12 @@ interactions:
       ~{prefix}\" > parsed_output.txt\n    >>>\n\n    output {\n        Array[File]
       txt_files = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
       = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
-      {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\r\n--e70efcd562d4883d65f43124016fbee5\r\nContent-Disposition:
+      {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\r\n--bbc2c8758e95daa454b1ea2e9dc56d33\r\nContent-Disposition:
       form-data; name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type:
-      application/json\r\n\r\n{\n  \"WildcardsandConditions.prefix\": \"testfile\"\n}\n\r\n--e70efcd562d4883d65f43124016fbee5\r\nContent-Disposition:
+      application/json\r\n\r\n{\n  \"WildcardsandConditions.prefix\": \"testfile\"\n}\n\r\n--bbc2c8758e95daa454b1ea2e9dc56d33\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--e70efcd562d4883d65f43124016fbee5--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--bbc2c8758e95daa454b1ea2e9dc56d33--\r\n"
     headers:
       accept:
       - '*/*'
@@ -35,7 +35,7 @@ interactions:
       content-length:
       - '2043'
       content-type:
-      - multipart/form-data; boundary=e70efcd562d4883d65f43124016fbee5
+      - multipart/form-data; boundary=bbc2c8758e95daa454b1ea2e9dc56d33
       host:
       - gizmok138.fhcrc.org:40149
       user-agent:
@@ -44,7 +44,7 @@ interactions:
     uri: https://gizmok138.fhcrc.org:40149/api/workflows/v1
   response:
     body:
-      string: '{"id":"8ed92192-332b-4e49-95da-dd1a89b8f7a4","status":"Submitted"}'
+      string: '{"id":"9083c8cc-d743-4cb1-9c16-8613d0515f3c","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -53,7 +53,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 17 Jun 2025 19:32:26 GMT
+      - Sun, 22 Jun 2025 03:35:30 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -73,18 +73,18 @@ interactions:
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok138.fhcrc.org:40149/api/workflows/v1/8ed92192-332b-4e49-95da-dd1a89b8f7a4/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmok138.fhcrc.org:40149/api/workflows/v1/9083c8cc-d743-4cb1-9c16-8613d0515f3c/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 8ed92192-332b-4e49-95da-dd1a89b8f7a4\"\n}"
+        ID: 9083c8cc-d743-4cb1-9c16-8613d0515f3c\"\n}"
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Tue, 17 Jun 2025 19:32:26 GMT
+      - Sun, 22 Jun 2025 03:35:30 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
@@ -108,7 +108,42 @@ interactions:
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok138.fhcrc.org:40149/api/workflows/v1/8ed92192-332b-4e49-95da-dd1a89b8f7a4/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmok138.fhcrc.org:40149/api/workflows/v1/9083c8cc-d743-4cb1-9c16-8613d0515f3c/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: 9083c8cc-d743-4cb1-9c16-8613d0515f3c\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 22 Jun 2025 03:35:34 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '101'
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok138.fhcrc.org:40149
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok138.fhcrc.org:40149/api/workflows/v1/9083c8cc-d743-4cb1-9c16-8613d0515f3c/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
       string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
@@ -130,14 +165,14 @@ interactions:
         = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
         {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"8ed92192-332b-4e49-95da-dd1a89b8f7a4","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-8ed92192-332b-4e49-95da-dd1a89b8f7a4"},"submission":"2025-06-17T19:32:26.065Z"}'
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"9083c8cc-d743-4cb1-9c16-8613d0515f3c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-9083c8cc-d743-4cb1-9c16-8613d0515f3c"},"submission":"2025-06-22T03:35:30.400Z"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Tue, 17 Jun 2025 19:32:30 GMT
+      - Sun, 22 Jun 2025 03:35:38 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:

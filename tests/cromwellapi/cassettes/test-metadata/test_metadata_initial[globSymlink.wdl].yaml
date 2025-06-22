@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--f33426702f1112b32ec39371f726631a\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--f1aeb385a573a7d170828664cb174193\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"globSymlink.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow globSymlink {\n    call create_nested_files\n    output {\n
       \       Array[File] matched_files = flatten([create_nested_files.matched_files_top,
@@ -12,10 +12,10 @@ interactions:
       symlinks/link_to_file1.txt\n        ln -s ../subdir/file2.txt symlinks/link_to_file2.txt\n
       \   >>>\n    output {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n
       \       Array[File] matched_files_nested = glob(\"subdir/**/*.txt\")\n        Array[File]
-      matched_symlinks = glob(\"symlinks/*.txt\")\n    }\n}\n\r\n--f33426702f1112b32ec39371f726631a\r\nContent-Disposition:
+      matched_symlinks = glob(\"symlinks/*.txt\")\n    }\n}\n\r\n--f1aeb385a573a7d170828664cb174193\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--f33426702f1112b32ec39371f726631a--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--f1aeb385a573a7d170828664cb174193--\r\n"
     headers:
       accept:
       - '*/*'
@@ -26,7 +26,7 @@ interactions:
       content-length:
       - '1321'
       content-type:
-      - multipart/form-data; boundary=f33426702f1112b32ec39371f726631a
+      - multipart/form-data; boundary=f1aeb385a573a7d170828664cb174193
       host:
       - gizmok138.fhcrc.org:40149
       user-agent:
@@ -35,7 +35,7 @@ interactions:
     uri: https://gizmok138.fhcrc.org:40149/api/workflows/v1
   response:
     body:
-      string: '{"id":"c61798d4-5bd5-4c7c-99a6-b76bd84a9cc4","status":"Submitted"}'
+      string: '{"id":"75c4849d-1ec0-4324-9db8-25baac1b819b","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -44,7 +44,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 17 Jun 2025 19:32:04 GMT
+      - Sun, 22 Jun 2025 03:35:32 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -64,7 +64,42 @@ interactions:
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok138.fhcrc.org:40149/api/workflows/v1/c61798d4-5bd5-4c7c-99a6-b76bd84a9cc4/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmok138.fhcrc.org:40149/api/workflows/v1/75c4849d-1ec0-4324-9db8-25baac1b819b/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: 75c4849d-1ec0-4324-9db8-25baac1b819b\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 22 Jun 2025 03:35:32 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '101'
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok138.fhcrc.org:40149
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok138.fhcrc.org:40149/api/workflows/v1/75c4849d-1ec0-4324-9db8-25baac1b819b/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
       string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow globSymlink
@@ -79,14 +114,14 @@ interactions:
         matched_files_nested = glob(\"subdir/**/*.txt\")\n        Array[File] matched_symlinks
         = glob(\"symlinks/*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"c61798d4-5bd5-4c7c-99a6-b76bd84a9cc4","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-c61798d4-5bd5-4c7c-99a6-b76bd84a9cc4"},"submission":"2025-06-17T19:32:04.904Z"}'
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"75c4849d-1ec0-4324-9db8-25baac1b819b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-75c4849d-1ec0-4324-9db8-25baac1b819b"},"submission":"2025-06-22T03:35:32.198Z"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Tue, 17 Jun 2025 19:32:04 GMT
+      - Sun, 22 Jun 2025 03:35:36 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
