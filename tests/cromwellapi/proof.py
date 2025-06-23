@@ -43,10 +43,12 @@ def cache_next_call_only(func):
 class ProofApi(object):
     """ProofApi class"""
 
-    def __init__(self):
+    def __init__(self, slurm_account: str = "", regulated_data: bool = False):
         self.base_url = PROOF_BASE_URL
         self.token = token_check(TOKEN)
         self.headers = {"Authorization": f"Bearer {TOKEN}"}
+        self.slurm_account = slurm_account
+        self.regulated_data = regulated_data
 
     @cache_next_call_only
     @retry(
@@ -82,7 +84,10 @@ class ProofApi(object):
             f"{self.base_url}/cromwell-server",
             headers=self.headers,
             timeout=timeout,
-            json={"slurm_account": None},
+            json={
+                "slurm_account": self.slurm_account,
+                "regulated_data": self.regulated_data,
+            },
         )
         res.raise_for_status()
         return res

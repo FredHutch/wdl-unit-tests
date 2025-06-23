@@ -36,7 +36,11 @@ def proof_api(recording_mode):
     if recording_mode != "rewrite":
         return MockProofApi()
     else:
-        return ProofApi()
+        slurm_account = os.getenv("PROOF_SLURM_ACCOUNT", "")
+        regulated_data = bool(os.getenv("PROOF_USE_REGULATED_DATA"))
+        return ProofApi(
+            slurm_account=slurm_account, regulated_data=regulated_data
+        )
 
 
 @pytest.fixture(scope="session")
