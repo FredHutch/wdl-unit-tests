@@ -92,8 +92,8 @@ class MissingProofToken(Exception):
     pass
 
 
-def token_check(token: str) -> str:
-    if token is None:
+def token_check(token: str | None = None) -> str:
+    if not token:
         raise MissingProofToken("Couldn't access env var PROOF_API_TOKEN_DEV")
     return token
 
