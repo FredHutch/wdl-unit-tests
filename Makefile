@@ -47,6 +47,7 @@ test_api_rewrite: check_env_vars
 	tests/cromwellapi/
 
 test_api_rewrite_json_report: check_env_vars
+	PROOF_USE_REGULATED_DATA=true PROOF_SLURM_ACCOUNT=testpi_t \
 	op run -- uv run pytest -n $(WORKERS) \
 	--json-report --json-report-file=results.json \
 	--color=yes --record-mode=rewrite --verbose \
