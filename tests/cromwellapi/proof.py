@@ -47,8 +47,8 @@ class ProofApi(object):
         self.base_url = PROOF_BASE_URL
         self.token = token_check(TOKEN)
         self.headers = {"Authorization": f"Bearer {TOKEN}"}
-        self.slurm_account = slurm_account
-        self.regulated_data = regulated_data
+        self.slurm_account = "testpi_t"
+        self.regulated_data = True
 
     @cache_next_call_only
     @retry(
