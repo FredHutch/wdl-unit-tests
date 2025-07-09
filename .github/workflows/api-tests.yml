@@ -43,5 +43,10 @@ jobs:
           PROOF_API_TOKEN_DEV: "op://PROOF/PROOF_Test_User/dev token"
           PATH_ROOTS: "op://PROOF/PROOF_PATH_ROOTS/credential"
 
-      - name: Run tests
+      - name: Run tests USING cached vcr cassettes
+        if: ${{ github.event_name != 'repository_dispatch' }}
         run: make test_api_cached
+
+      - name: Run tests IGNORING cached vcr cassettes
+        if: ${{ github.event_name == 'repository_dispatch' }}
+        run: make test_api_rewrite
