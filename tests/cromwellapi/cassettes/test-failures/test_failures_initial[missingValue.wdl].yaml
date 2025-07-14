@@ -1,14 +1,14 @@
 interactions:
 - request:
-    body: "--7ccd5408c763e1a9475ea7c36c7fd54e\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--50ad0bda674e04b584e3113614b5ccd9\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"missingValue.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n## This is a test workflow that fails against womtool.\n## From https://github.com/broadinstitute/cromwell\n\n####
       WORKFLOW DEFINITION\n\nworkflow oops {\n  call oopsie\n}\n\n#### TASK DEFINITIONS\n\ntask
       oopsie {\n  input {\n    String str\n  }\n  command { echo ${str} }\n  runtime
-      { docker: docker_image }\n}\n\r\n--7ccd5408c763e1a9475ea7c36c7fd54e\r\nContent-Disposition:
+      { docker: docker_image }\n}\n\r\n--50ad0bda674e04b584e3113614b5ccd9\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--7ccd5408c763e1a9475ea7c36c7fd54e--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--50ad0bda674e04b584e3113614b5ccd9--\r\n"
     headers:
       accept:
       - '*/*'
@@ -19,16 +19,16 @@ interactions:
       content-length:
       - '778'
       content-type:
-      - multipart/form-data; boundary=7ccd5408c763e1a9475ea7c36c7fd54e
+      - multipart/form-data; boundary=50ad0bda674e04b584e3113614b5ccd9
       host:
-      - gizmok74.fhcrc.org:42995
+      - gizmok100.fhcrc.org:39527
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmok74.fhcrc.org:42995/api/workflows/v1
+    uri: https://gizmok100.fhcrc.org:39527/api/workflows/v1
   response:
     body:
-      string: '{"id":"36c9ca17-5301-4296-87b3-c9cf74aade77","status":"Submitted"}'
+      string: '{"id":"1c538166-5052-463f-9ca9-e0e8872e23b3","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -37,7 +37,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 06 Jul 2025 03:36:27 GMT
+      - Sun, 13 Jul 2025 03:37:59 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -53,21 +53,56 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmok74.fhcrc.org:42995
+      - gizmok100.fhcrc.org:39527
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok74.fhcrc.org:42995/api/workflows/v1/36c9ca17-5301-4296-87b3-c9cf74aade77/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+    uri: https://gizmok100.fhcrc.org:39527/api/workflows/v1/1c538166-5052-463f-9ca9-e0e8872e23b3/metadata?includeKey=status&includeKey=failures&includeKey=jobId
   response:
     body:
-      string: '{"status":"Submitted","calls":{},"id":"36c9ca17-5301-4296-87b3-c9cf74aade77"}'
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: 1c538166-5052-463f-9ca9-e0e8872e23b3\"\n}"
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 06 Jul 2025 03:36:28 GMT
+      - Sun, 13 Jul 2025 03:37:59 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '101'
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok100.fhcrc.org:39527
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok100.fhcrc.org:39527/api/workflows/v1/1c538166-5052-463f-9ca9-e0e8872e23b3/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"1c538166-5052-463f-9ca9-e0e8872e23b3"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 13 Jul 2025 03:38:03 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
