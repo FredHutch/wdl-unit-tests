@@ -6,7 +6,7 @@ from tenacity import (
     wait_exponential,
 )
 
-from .constants import PROOF_BASE_URL, TOKEN
+from .constants import PROOF_BASE_URL, REGULATED_DATA, SLURM_ACCOUNT, TOKEN
 from .utils import before_sleep_message, token_check
 
 
@@ -47,8 +47,10 @@ class ProofApi(object):
         self.base_url = PROOF_BASE_URL
         self.token = token_check(TOKEN)
         self.headers = {"Authorization": f"Bearer {TOKEN}"}
-        self.slurm_account = "testpi_t"
-        self.regulated_data = True
+        self.slurm_account = SLURM_ACCOUNT if SLURM_ACCOUNT else slurm_account
+        self.regulated_data = (
+            REGULATED_DATA if REGULATED_DATA else regulated_data
+        )
 
     @cache_next_call_only
     @retry(
