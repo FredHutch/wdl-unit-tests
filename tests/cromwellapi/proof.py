@@ -48,7 +48,7 @@ class ProofApi(object):
         self.token = token_check(TOKEN)
         self.headers = {"Authorization": f"Bearer {TOKEN}"}
         self.slurm_account = SLURM_ACCOUNT if SLURM_ACCOUNT else slurm_account
-        self.regulated_data = (
+        self.regulated_data = bool(
             REGULATED_DATA if REGULATED_DATA else regulated_data
         )
 
