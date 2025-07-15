@@ -50,8 +50,9 @@ regulated-data-envs:
 	op inject -i .env-regulated > .env-temp
 
 test_api_regulated: check_env_vars regulated-data-envs
-	op run -- uv run pytest -n $(WORKERS) \
-	--color=yes --record-mode=once --verbose \
+	op run -- uv run --env-file .env-temp \
+	pytest -n $(WORKERS) \
+	--color=yes --record-mode=rewrite --verbose \
 	tests/cromwellapi/ && \
 	rm .env-temp
 
