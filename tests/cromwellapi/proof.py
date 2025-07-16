@@ -1,6 +1,7 @@
 import httpx
 from tenacity import (
     retry,
+    retry_if_exception,
     retry_if_exception_type,
     stop_after_attempt,
     wait_exponential,
@@ -74,8 +75,14 @@ class ProofApi(object):
         return not self.status(timeout=timeout)["canJobStart"]
 
     @retry(
-        retry=retry_if_exception_type(
-            (httpx.HTTPStatusError, httpx.ReadTimeout)
+        retry=retry_if_exception(
+            lambda e: (
+                isinstance(e, httpx.ReadTimeout)
+                or (
+                    isinstance(e, httpx.HTTPStatusError)
+                    and e.response.status_code != 409
+                )
+            )
         ),
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=4, max=10),
@@ -91,6 +98,31 @@ class ProofApi(object):
                 "regulated_data": self.regulated_data,
             },
         )
+        if res.status_code != 409:
+            res.raise_for_status()
+
+        return res
+
+    @retry(
+        retry=retry_if_exception(
+            lambda e: (
+                isinstance(e, httpx.ReadTimeout)
+                or (
+                    isinstance(e, httpx.HTTPStatusError)
+                    and e.response.status_code != 409
+                )
+            )
+        ),
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=4, max=10),
+        before_sleep=before_sleep_message,
+    )
+    def stop(self, timeout=25):
+        res = httpx.delete(
+            f"{self.base_url}/cromwell-server",
+            headers=self.headers,
+            timeout=timeout,
+        )
         res.raise_for_status()
         return res
 
@@ -98,6 +130,44 @@ class ProofApi(object):
         if not self.is_cromwell_server_up():
             return self.start()
 
+    def wait_for_stopped(self):
+        import time
+
+        print("waiting for cromwell server to stop ...")
+        ready_to_start = False
+        while not ready_to_start:
+            canJobStart = self.is_cromwell_server_up()
+            if not canJobStart:
+                ready_to_start = True
+            else:
+                time.sleep(1)
+
+    def wait_for_up(self):
+        import time
+
+        print("waiting for cromwell server to be up ...")
+        has_cromwell_url = False
+        while not has_cromwell_url:
+            the_url = self.status()["cromwellUrl"]
+            if the_url:
+                has_cromwell_url = True
+            else:
+                time.sleep(1)
+
     def cromwell_url(self):
         self.start_if_not_up()
-        return self.status()["cromwellUrl"]
+        status = self.status()
+        if self.regulated_data and not status["jobInfo"]["USE_REGULATED_DATA"]:
+            print(
+                """
+                regulated data is True, but proof is
+                already running a non-regulated server
+                restarting the server
+                """
+            )
+            self.stop()
+            self.wait_for_stopped()
+            self.start()
+            self.wait_for_up()
+            status = self.status()
+        return status["cromwellUrl"]
