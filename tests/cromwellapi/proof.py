@@ -155,14 +155,24 @@ class ProofApi(object):
                 time.sleep(1)
 
     def cromwell_url(self):
-        self.start_if_not_up()
+        # self.start_if_not_up()
         status = self.status()
-        if self.regulated_data and not status["jobInfo"]["USE_REGULATED_DATA"]:
+        if status["canJobStart"]:
+            # server off; can start both reg and non-reg
+            self.start()
+        elif (
+            # non-reg server on; stop and start up reg server
+            not self.regulated_data and status["jobInfo"]["USE_REGULATED_DATA"]
+        ) | (
+            # reg server on; stop and start up non-reg server
+            self.regulated_data and not status["jobInfo"]["USE_REGULATED_DATA"]
+        ):
+            mssg = "supporting regulated data"
             print(
-                """
-                regulated data is True, but proof is
-                already running a non-regulated server
-                restarting the server
+                f"""
+                Asking for regulated data: {self.regulated_data}
+                Cromwell server on and {f"not {mssg}" if status["jobInfo"]["USE_REGULATED_DATA"] else mssg}
+                Restarting server
                 """
             )
             self.stop()
