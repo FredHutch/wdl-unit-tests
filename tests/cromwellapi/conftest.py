@@ -14,18 +14,6 @@ from .utils_cassettes import cassettes_last_modified
 warnings.filterwarnings("error", category=DeprecationWarning)
 
 
-def pytest_report_header(config):
-    mode = config.getoption("--record-mode", default=None)
-    last_mod = cassettes_last_modified("tests/cromwellapi/cassettes")
-    retry_messages_warn = (
-        "" if mode == "rewrite" else "(ignore Retry attempt messages)"
-    )
-    return [
-        f"vcr recording mode: {mode} {retry_messages_warn}",
-        f"vcr cassettes last recorded approx.: {last_mod}",
-    ]
-
-
 @pytest.fixture(scope="session")
 def recording_mode(request):
     return request.config.getoption("--record-mode", default=None)
@@ -53,6 +41,25 @@ def cromwell_api_final(proof_api, recording_mode):
     return CromwellApiFinal(
         url=cromwell_url, recording_mode=recording_mode, sleep=SLEEP_FINAL_STATE
     )
+
+
+def pytest_report_header(config):
+    mode = config.getoption("--record-mode", default=None)
+    last_mod = cassettes_last_modified("tests/cromwellapi/cassettes")
+    retry_messages_warn = (
+        "" if mode == "rewrite" else "(ignore Retry attempt messages)"
+    )
+
+    # Get regulated_data directly from environment variable
+    from .constants import REGULATED_DATA
+
+    regulated_data = bool(REGULATED_DATA) if REGULATED_DATA else False
+
+    return [
+        f"vcr recording mode: {mode} {retry_messages_warn}",
+        f"vcr cassettes last recorded approx.: {last_mod}",
+        f"Asking for Cromwell server w/ regulated data?: {regulated_data}",
+    ]
 
 
 class EnvironmentVariableError(Exception):
