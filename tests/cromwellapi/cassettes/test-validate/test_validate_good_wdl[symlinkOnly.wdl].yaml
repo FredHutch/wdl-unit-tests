@@ -1,13 +1,13 @@
 interactions:
 - request:
-    body: "--53f4b465ed719c3c1bcaa1bdc2314c12\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--798706137204b6f78ad4d95b78b60eaf\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"symlinkOnly.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow symlinkOnly {\n    call generate_diverse_outputs\n    \n    output
       {\n        File symlink_file = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask
       generate_diverse_outputs {\n    command <<<\n        # Create a symlink\n        echo
       \"original\" > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n
       \   output {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime
-      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\r\n--53f4b465ed719c3c1bcaa1bdc2314c12--\r\n"
+      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\r\n--798706137204b6f78ad4d95b78b60eaf--\r\n"
     headers:
       accept:
       - '*/*'
@@ -18,13 +18,13 @@ interactions:
       content-length:
       - '650'
       content-type:
-      - multipart/form-data; boundary=53f4b465ed719c3c1bcaa1bdc2314c12
+      - multipart/form-data; boundary=798706137204b6f78ad4d95b78b60eaf
       host:
-      - gizmok100.fhcrc.org:39527
+      - gizmok55.fhcrc.org:39153
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmok100.fhcrc.org:39527/api/womtool/v1/describe
+    uri: https://gizmok55.fhcrc.org:39153/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"symlinkOnly","inputs":[],"outputs":[{"name":"symlink_file","valueType":{"typeName":"File"},"typeDisplayName":"File"}],"images":["\"ubuntu:noble-20241118.1\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
@@ -36,7 +36,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 13 Jul 2025 04:06:02 GMT
+      - Mon, 21 Jul 2025 16:28:39 GMT
       Server:
       - nginx/1.25.3
     status:

@@ -1,14 +1,14 @@
 interactions:
 - request:
-    body: "--3e78c68aaaade97509f89ee2b64bbeae\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--579c0232d4393e1da2fd8f44fbd20deb\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"emptyGlobTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow emptyGlobTest {\n    call create_empty_directory\n\n    output
       {\n        Array[File] no_files = create_empty_directory.no_files\n    }\n}\n\ntask
       create_empty_directory {\n    command {\n        mkdir empty_dir\n    }\n    output
-      {\n        Array[File] no_files = glob(\"empty_dir/*.txt\")\n    }\n}\n\r\n--3e78c68aaaade97509f89ee2b64bbeae\r\nContent-Disposition:
+      {\n        Array[File] no_files = glob(\"empty_dir/*.txt\")\n    }\n}\n\r\n--579c0232d4393e1da2fd8f44fbd20deb\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--3e78c68aaaade97509f89ee2b64bbeae--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--579c0232d4393e1da2fd8f44fbd20deb--\r\n"
     headers:
       accept:
       - '*/*'
@@ -19,16 +19,16 @@ interactions:
       content-length:
       - '778'
       content-type:
-      - multipart/form-data; boundary=3e78c68aaaade97509f89ee2b64bbeae
+      - multipart/form-data; boundary=579c0232d4393e1da2fd8f44fbd20deb
       host:
-      - gizmok100.fhcrc.org:39527
+      - gizmok55.fhcrc.org:39153
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmok100.fhcrc.org:39527/api/workflows/v1
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1
   response:
     body:
-      string: '{"id":"cd7a1995-0da9-40ff-8863-d90099d7a7d9","status":"Submitted"}'
+      string: '{"id":"45cb3c2c-04fd-40b9-9e9c-83614b85fc41","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -37,7 +37,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 13 Jul 2025 04:02:36 GMT
+      - Mon, 21 Jul 2025 16:25:51 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -53,22 +53,22 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmok100.fhcrc.org:39527
+      - gizmok55.fhcrc.org:39153
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok100.fhcrc.org:39527/api/workflows/v1/cd7a1995-0da9-40ff-8863-d90099d7a7d9/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/45cb3c2c-04fd-40b9-9e9c-83614b85fc41/metadata?includeKey=status&includeKey=failures&includeKey=jobId
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: cd7a1995-0da9-40ff-8863-d90099d7a7d9\"\n}"
+        ID: 45cb3c2c-04fd-40b9-9e9c-83614b85fc41\"\n}"
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 13 Jul 2025 04:02:36 GMT
+      - Mon, 21 Jul 2025 16:25:51 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
@@ -88,21 +88,56 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmok100.fhcrc.org:39527
+      - gizmok55.fhcrc.org:39153
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok100.fhcrc.org:39527/api/workflows/v1/cd7a1995-0da9-40ff-8863-d90099d7a7d9/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/45cb3c2c-04fd-40b9-9e9c-83614b85fc41/metadata?includeKey=status&includeKey=failures&includeKey=jobId
   response:
     body:
-      string: '{"status":"Submitted","calls":{},"id":"cd7a1995-0da9-40ff-8863-d90099d7a7d9"}'
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: 45cb3c2c-04fd-40b9-9e9c-83614b85fc41\"\n}"
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 13 Jul 2025 04:02:40 GMT
+      - Mon, 21 Jul 2025 16:25:55 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '101'
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/45cb3c2c-04fd-40b9-9e9c-83614b85fc41/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"45cb3c2c-04fd-40b9-9e9c-83614b85fc41"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:25:59 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
