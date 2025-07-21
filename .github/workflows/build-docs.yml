@@ -1,0 +1,35 @@
+name: WDL Docs
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-docs:
+    if: ${{ ! github.event.pull_request.head.repo.fork }}
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install sprocket
+        run: |
+          # Download the Linux binary
+          wget https://github.com/stjude-rust-labs/sprocket/releases/download/v0.14.1/sprocket-v0.14.1-x86_64-unknown-linux-gnu.tar.gz
+
+          # Extract the archive
+          tar -xzf sprocket-v0.14.1-x86_64-unknown-linux-gnu.tar.gz
+
+          # Make the binary executable and move to PATH
+          chmod +x sprocket
+          sudo mv sprocket /usr/local/bin/
+
+          # Verify installation
+          sprocket --version
+
+      - name: Build docs
+        run: sprocket dev doc --homepage README.md .
+`
