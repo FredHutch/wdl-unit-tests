@@ -15,15 +15,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Rust
-        uses: actions-rust-lang/setup-rust-toolchain@v1
-
-      - name: Update Rust
-        run: rustup update stable && rustup default stable
-
-      - name: Build Sprocket
+      - name: Install sprocket
         run: |
-          cargo install sprocket --locked
+          # Download the Linux binary
+          wget https://github.com/stjude-rust-labs/sprocket/releases/download/v0.14.1/sprocket-v0.14.1-x86_64-unknown-linux-gnu.tar.gz
+
+          # Extract the archive
+          tar -xzf sprocket-v0.14.1-x86_64-unknown-linux-gnu.tar.gz
+
+          # Make the binary executable and move to PATH
+          chmod +x sprocket
+          sudo mv sprocket /usr/local/bin/
+
+          sudo apt-get update -y
+          sudo apt-get install -y libssl3
+
+          # Verify installation
+          sprocket --version
 
       - name: Build docs
         run: |
