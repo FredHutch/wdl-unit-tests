@@ -12,7 +12,7 @@ workflow GpuMatrixMult {
     output {
         File test_results = GpuTest.results
         Int gpu_count = GpuTest.detected_gpus
-        Array[Float] matrix_result = GpuTest.multiplication_result
+        Array[String] matrix_result = GpuTest.multiplication_result
     }
 
     parameter_meta {
@@ -37,14 +37,14 @@ task GpuTest {
         expected_gpus = 1  # Matches the runtime.gpus specification
         if detected_gpus != expected_gpus:
             raise RuntimeError(f"GPU allocation mismatch: Expected {expected_gpus} GPU(s), but found {detected_gpus}")
-        
+
         # Create test matrices
         matrix_a = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[2, 3])
         matrix_b = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[3, 2])
-        
+
         # Perform matrix multiplication
         result = tf.matmul(matrix_a, matrix_b)
-        
+
         # Print results
         print("\nMatrix A:")
         print(matrix_a.numpy())
@@ -52,7 +52,7 @@ task GpuTest {
         print(matrix_b.numpy())
         print("\nMatrix Multiplication Result:")
         print(result.numpy())
-        
+
         # Save results for output
         np.savetxt("multiplication_result.txt", result.numpy().flatten())
         with open("gpu_count.txt", "w") as f:
@@ -63,7 +63,7 @@ task GpuTest {
     output {
         File results = stdout()
         Int detected_gpus = read_int("gpu_count.txt")
-        Array[Float] multiplication_result = read_lines("multiplication_result.txt")
+        Array[String] multiplication_result = read_lines("multiplication_result.txt")
     }
 
     runtime {
