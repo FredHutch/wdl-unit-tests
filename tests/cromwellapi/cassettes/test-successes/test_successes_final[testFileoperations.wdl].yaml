@@ -1,0 +1,7129 @@
+interactions:
+- request:
+    body: "--a791612e5a4f8f765277e294cae6e0fb\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"testFileoperations.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow testFileoperations {\n    call file_operations\n\n    output
+      {\n        File created_file1 = file_operations.created_file1\n        File
+      moved_file = file_operations.moved_file\n        File renamed_file = file_operations.renamed_file\n
+      \   }\n}\n\ntask file_operations {\n    command <<<\n        # Create three
+      different files\n        echo \"This is the first created file.\" > file1.txt\n
+      \       echo \"This is the second file that will be moved.\" > file2.txt\n        echo
+      \"This is the third file that will be renamed.\" > file3.txt\n        \n        #
+      Move the second file to a new directory\n        mkdir -p output_dir\n        mv
+      file2.txt output_dir/\n        \n        # Rename the third file\n        mv
+      file3.txt file3_renamed.txt\n    >>>\n\n    output {\n        # Output the actual
+      existing files\n        File created_file1 = \"file1.txt\"                  #
+      The first file remains unchanged\n        File moved_file = \"output_dir/file2.txt\"
+      \         # The second file after being moved\n        File renamed_file = \"file3_renamed.txt\"
+      \          # The third file after being renamed\n    }\n\n    runtime {\n        docker:
+      \"ubuntu:20.04\"\n    }\n}\n\r\n--a791612e5a4f8f765277e294cae6e0fb\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--a791612e5a4f8f765277e294cae6e0fb--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '1624'
+      content-type:
+      - multipart/form-data; boundary=a791612e5a4f8f765277e294cae6e0fb
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"5fc24a07-5679-40a2-9563-5022ed4a307a","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:28:19 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:28:24 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:28:29 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:28:34 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:28:39 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:28:44 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:28:49 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:28:54 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:29:00 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:29:05 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:29:10 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:29:15 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:29:20 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:29:25 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:29:30 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:29:35 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:29:40 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:29:45 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:29:50 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:29:55 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:30:00 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:30:06 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:30:11 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:30:16 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:30:21 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:30:26 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:30:31 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:30:36 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:30:41 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:30:46 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:30:51 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:30:56 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:31:01 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:31:06 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:31:11 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:31:17 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:31:22 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:31:27 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:31:32 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:31:37 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:31:42 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:31:47 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:31:52 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:31:57 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:32:02 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:32:07 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:32:12 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:32:17 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:32:23 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:32:28 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:32:33 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:32:38 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:32:43 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:32:48 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:32:53 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:32:58 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:33:03 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:33:08 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:33:13 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:33:18 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:33:23 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:33:28 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:33:34 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:33:39 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:33:44 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:33:49 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:33:54 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:33:59 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:34:04 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:34:09 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:34:14 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:34:19 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:34:24 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:34:29 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:34:34 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:34:40 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:34:45 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:34:50 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:34:55 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:35:00 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:35:05 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:35:10 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:35:15 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:35:20 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:35:25 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:35:30 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:35:35 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:35:40 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:35:46 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:35:51 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:35:56 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:36:01 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:36:06 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:36:11 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:36:16 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:36:21 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:36:26 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:36:31 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:36:36 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:36:41 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:36:46 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:36:51 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:36:57 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:37:02 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:37:07 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:37:12 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:37:17 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:37:22 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:37:27 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:37:32 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:37:37 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:37:42 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:37:47 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:37:52 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:37:57 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:38:03 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:38:08 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:38:13 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:38:18 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:38:23 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:38:28 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:38:33 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:38:38 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:38:43 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:38:48 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:38:53 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:38:58 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:39:03 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:39:08 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:39:14 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:39:19 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:39:24 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:39:29 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:39:34 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:39:39 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:39:44 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:39:49 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:39:54 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:39:59 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:40:04 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:40:09 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:40:14 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:40:20 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:40:25 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:40:30 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:40:35 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:40:40 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:40:45 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:40:50 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:40:55 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:41:00 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:41:05 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:41:10 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:41:15 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:41:20 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:41:25 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:41:31 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:41:36 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:41:41 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:41:46 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:41:51 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:41:56 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:42:01 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:42:06 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:42:11 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:42:16 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:42:21 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:42:26 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:42:31 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:42:36 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:42:42 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:42:47 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:42:52 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:42:57 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:43:02 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:43:07 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:43:12 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:43:17 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:43:22 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:43:27 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:43:32 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:43:37 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:43:42 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:43:48 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:43:53 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:43:58 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:44:03 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:44:08 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:44:13 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:44:18 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:44:23 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:44:28 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:44:33 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:44:39 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:44:44 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:44:49 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:44:54 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:44:59 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:45:04 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Submitted","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:45:09 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '77'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:45:14 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '75'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:45:19 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '75'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"testFileoperations.file_operations":[{"jobId":"26629477","attempt":1,"shardIndex":-1}]},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:45:24 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '162'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"testFileoperations.file_operations":[{"jobId":"26629477","attempt":1,"shardIndex":-1}]},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:45:29 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '162'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"testFileoperations.file_operations":[{"jobId":"26629477","attempt":1,"shardIndex":-1}]},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:45:34 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '162'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"testFileoperations.file_operations":[{"jobId":"26629477","attempt":1,"shardIndex":-1}]},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:45:39 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '162'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"testFileoperations.file_operations":[{"jobId":"26629477","attempt":1,"shardIndex":-1}]},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:45:45 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '162'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Running","calls":{"testFileoperations.file_operations":[{"jobId":"26629477","attempt":1,"shardIndex":-1}]},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:45:50 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '162'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/5fc24a07-5679-40a2-9563-5022ed4a307a/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+  response:
+    body:
+      string: '{"status":"Succeeded","calls":{"testFileoperations.file_operations":[{"jobId":"26629477","attempt":1,"shardIndex":-1}]},"id":"5fc24a07-5679-40a2-9563-5022ed4a307a"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:45:55 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '164'
+    status:
+      code: 200
+      message: OK
+version: 1

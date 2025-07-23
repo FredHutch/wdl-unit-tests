@@ -1,7 +1,7 @@
 import time
 
-from cromwell import CromwellApi
-from utils import workflow_states
+from .cromwell import CromwellApi
+from .utils import workflow_states
 
 
 class CromwellApiFinal(CromwellApi):
@@ -58,4 +58,13 @@ class CromwellApiFinal(CromwellApi):
 
     def metadata(self, workflow_id, params):
         """metadata: call CromwellApi.metadata until returns a final state"""
-        return self.until_final("metadata", workflow_id=workflow_id, params=params)
+        return self.until_final(
+            "metadata", workflow_id=workflow_id, params=params
+        )
+
+    def labels(self, workflow_id):
+        """metadata: call CromwellApi.labels until returns a final state"""
+        return self.until_final(
+            "labels",
+            workflow_id=workflow_id,
+        )

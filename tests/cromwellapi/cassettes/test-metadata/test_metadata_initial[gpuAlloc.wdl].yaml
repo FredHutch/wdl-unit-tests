@@ -1,0 +1,179 @@
+interactions:
+- request:
+    body: "--e1ca9f07cab4a05b93fde5625d179f14\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"gpuAlloc.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\n# This workflow tests GPU allocation and basic tensor operations using
+      TensorFlow\n# It verifies that:\n# 1. A GPU can be successfully allocated\n#
+      2. TensorFlow can detect and use the GPU\n# 3. Basic matrix multiplication works
+      correctly\n\nworkflow GpuMatrixMult {\n    call GpuTest\n\n    output {\n        File
+      test_results = GpuTest.results\n        Int gpu_count = GpuTest.detected_gpus\n
+      \       Array[Float] matrix_result = GpuTest.multiplication_result\n    }\n\n
+      \   parameter_meta {\n        test_results: \"Complete log of the GPU test including
+      tensor operations and GPU detection\"\n        gpu_count: \"Number of GPUs detected
+      by TensorFlow\"\n        matrix_result: \"Results of the matrix multiplication
+      operation\"\n    }\n}\n\ntask GpuTest {\n    command <<<\n        python3 <<CODE\n
+      \       import tensorflow as tf\n        import numpy as np\n\n        # Test
+      GPU availability\n        gpus = tf.config.experimental.list_physical_devices('GPU')\n
+      \       detected_gpus = len(gpus)\n        print(f\"Number of GPUs detected:
+      {detected_gpus}\")\n\n        # Verify GPU allocation matches runtime specification\n
+      \       expected_gpus = 1  # Matches the runtime.gpus specification\n        if
+      detected_gpus != expected_gpus:\n            raise RuntimeError(f\"GPU allocation
+      mismatch: Expected {expected_gpus} GPU(s), but found {detected_gpus}\")\n        \n
+      \       # Create test matrices\n        matrix_a = tf.constant([1.0, 2.0, 3.0,
+      4.0, 5.0, 6.0], shape=[2, 3])\n        matrix_b = tf.constant([1.0, 2.0, 3.0,
+      4.0, 5.0, 6.0], shape=[3, 2])\n        \n        # Perform matrix multiplication\n
+      \       result = tf.matmul(matrix_a, matrix_b)\n        \n        # Print results\n
+      \       print(\"\\nMatrix A:\")\n        print(matrix_a.numpy())\n        print(\"\\nMatrix
+      B:\")\n        print(matrix_b.numpy())\n        print(\"\\nMatrix Multiplication
+      Result:\")\n        print(result.numpy())\n        \n        # Save results
+      for output\n        np.savetxt(\"multiplication_result.txt\", result.numpy().flatten())\n
+      \       with open(\"gpu_count.txt\", \"w\") as f:\n            f.write(str(len(gpus)))\n
+      \       CODE\n    >>>\n\n    output {\n        File results = stdout()\n        Int
+      detected_gpus = read_int(\"gpu_count.txt\")\n        Array[Float] multiplication_result
+      = read_lines(\"multiplication_result.txt\")\n    }\n\n    runtime {\n        docker:
+      \"tensorflow/tensorflow:2.11.0-gpu\"\n        # modules: \"TensorFlow/2.11.0-foss-2022a-CUDA-11.7.0\"\n
+      \       gpus: \"1\"\n    }\n\n    parameter_meta {\n        results: \"Output
+      log containing GPU detection and matrix multiplication results\"\n        detected_gpus:
+      \"Number of GPUs detected by TensorFlow\"\n        multiplication_result: \"Flattened
+      array containing the result of matrix multiplication\"\n    }\n}\n\r\n--e1ca9f07cab4a05b93fde5625d179f14\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--e1ca9f07cab4a05b93fde5625d179f14--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '3160'
+      content-type:
+      - multipart/form-data; boundary=e1ca9f07cab4a05b93fde5625d179f14
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"471d0fee-5cf5-480f-8711-2dbecd1e3016","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:29 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/471d0fee-5cf5-480f-8711-2dbecd1e3016/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: 471d0fee-5cf5-480f-8711-2dbecd1e3016\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:29 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '101'
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/471d0fee-5cf5-480f-8711-2dbecd1e3016/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n# This workflow tests
+        GPU allocation and basic tensor operations using TensorFlow\n# It verifies
+        that:\n# 1. A GPU can be successfully allocated\n# 2. TensorFlow can detect
+        and use the GPU\n# 3. Basic matrix multiplication works correctly\n\nworkflow
+        GpuMatrixMult {\n    call GpuTest\n\n    output {\n        File test_results
+        = GpuTest.results\n        Int gpu_count = GpuTest.detected_gpus\n        Array[Float]
+        matrix_result = GpuTest.multiplication_result\n    }\n\n    parameter_meta
+        {\n        test_results: \"Complete log of the GPU test including tensor operations
+        and GPU detection\"\n        gpu_count: \"Number of GPUs detected by TensorFlow\"\n        matrix_result:
+        \"Results of the matrix multiplication operation\"\n    }\n}\n\ntask GpuTest
+        {\n    command <<<\n        python3 <<CODE\n        import tensorflow as tf\n        import
+        numpy as np\n\n        # Test GPU availability\n        gpus = tf.config.experimental.list_physical_devices(''GPU'')\n        detected_gpus
+        = len(gpus)\n        print(f\"Number of GPUs detected: {detected_gpus}\")\n\n        #
+        Verify GPU allocation matches runtime specification\n        expected_gpus
+        = 1  # Matches the runtime.gpus specification\n        if detected_gpus !=
+        expected_gpus:\n            raise RuntimeError(f\"GPU allocation mismatch:
+        Expected {expected_gpus} GPU(s), but found {detected_gpus}\")\n        \n        #
+        Create test matrices\n        matrix_a = tf.constant([1.0, 2.0, 3.0, 4.0,
+        5.0, 6.0], shape=[2, 3])\n        matrix_b = tf.constant([1.0, 2.0, 3.0, 4.0,
+        5.0, 6.0], shape=[3, 2])\n        \n        # Perform matrix multiplication\n        result
+        = tf.matmul(matrix_a, matrix_b)\n        \n        # Print results\n        print(\"\\nMatrix
+        A:\")\n        print(matrix_a.numpy())\n        print(\"\\nMatrix B:\")\n        print(matrix_b.numpy())\n        print(\"\\nMatrix
+        Multiplication Result:\")\n        print(result.numpy())\n        \n        #
+        Save results for output\n        np.savetxt(\"multiplication_result.txt\",
+        result.numpy().flatten())\n        with open(\"gpu_count.txt\", \"w\") as
+        f:\n            f.write(str(len(gpus)))\n        CODE\n    >>>\n\n    output
+        {\n        File results = stdout()\n        Int detected_gpus = read_int(\"gpu_count.txt\")\n        Array[Float]
+        multiplication_result = read_lines(\"multiplication_result.txt\")\n    }\n\n    runtime
+        {\n        docker: \"tensorflow/tensorflow:2.11.0-gpu\"\n        # modules:
+        \"TensorFlow/2.11.0-foss-2022a-CUDA-11.7.0\"\n        gpus: \"1\"\n    }\n\n    parameter_meta
+        {\n        results: \"Output log containing GPU detection and matrix multiplication
+        results\"\n        detected_gpus: \"Number of GPUs detected by TensorFlow\"\n        multiplication_result:
+        \"Flattened array containing the result of matrix multiplication\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"471d0fee-5cf5-480f-8711-2dbecd1e3016","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-471d0fee-5cf5-480f-8711-2dbecd1e3016"},"submission":"2025-07-21T16:01:29.690Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:33 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3260'
+    status:
+      code: 200
+      message: OK
+version: 1

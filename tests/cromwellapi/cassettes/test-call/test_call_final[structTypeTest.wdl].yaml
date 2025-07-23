@@ -1,0 +1,1522 @@
+interactions:
+- request:
+    body: "--5f0b1da95053ccdff052a6f2d8262a7b\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"structTypeTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\n## This workflow demonstrates advanced struct features in WDL including:\n##
+      1. Optional fields\n## 2. Nested structs\n## 3. Default values (handled in the
+      workflow)\n\n#### STRUCT DEFINITIONS\n\n# Nested struct for sequencing metadata\nstruct
+      SequencingInfo {\n    String platform\n    String? flowcell_id\n    Int? lane_number\n}\n\n#
+      Nested struct for quality metrics\nstruct QualityMetrics {\n    Float quality_score\n
+      \   Float? gc_content\n    Int? duplicate_rate\n}\n\n# Main struct with nested
+      structures and optional fields\nstruct SampleInfo {\n    String name\n    String?
+      type\n    Int? read_length\n    String? library_prep\n    SequencingInfo sequencing\n
+      \   QualityMetrics metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow struct_example
+      {\n    input {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter
+      (sample_info in sample_information) {\n        SampleInfo processed_sample =
+      object {\n            name: sample_info.name,\n            type: select_first([sample_info.type,
+      \"normal\"]),\n            read_length: select_first([sample_info.read_length,
+      100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+      sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n
+      \       call process_sample {\n            input:\n                sample =
+      processed_sample\n        }\n    }\n}\n\n#### TASK DEFINITIONS\n\ntask process_sample
+      {\n    input {\n        SampleInfo sample\n    }\n\n    command <<<\n        echo
+      \"Processing ~{sample.name} (~{sample.type})\"\n        echo \"Read Length:
+      ~{sample.read_length}\"\n        echo \"Sequencing Platform: ~{sample.sequencing.platform}\"\n
+      \       echo \"Flowcell ID: ~{select_first([sample.sequencing.flowcell_id, 'N/A'])}\"\n
+      \       echo \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n
+      \       echo \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo
+      \"GC Content: ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo
+      \"Duplicate Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+      \"Library Prep: ~{select_first([sample.library_prep, 'Standard'])}\"\n    >>>\n\n
+      \   output {\n        String message = read_string(stdout())\n    }\n\n    runtime
+      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\r\n--5f0b1da95053ccdff052a6f2d8262a7b\r\nContent-Disposition:
+      form-data; name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"struct_example.sample_information\": [\n        {\n
+      \           \"name\": \"sample1\",\n            \"sequencing\": {\n                \"platform\":
+      \"NovaSeq\",\n                \"flowcell_id\": \"H5K5YDSXX\",\n                \"lane_number\":
+      1\n            },\n            \"metrics\": {\n                \"quality_score\":
+      95.5,\n                \"gc_content\": 45.2,\n                \"duplicate_rate\":
+      2\n            }\n        },\n        {\n            \"name\": \"sample2\",\n
+      \           \"type\": \"tumor\",\n            \"read_length\": 150,\n            \"library_prep\":
+      \"PCR-free\",\n            \"sequencing\": {\n                \"platform\":
+      \"NovaSeq\"\n            },\n            \"metrics\": {\n                \"quality_score\":
+      92.3\n            }\n        }\n    ]\n}\n\r\n--5f0b1da95053ccdff052a6f2d8262a7b\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--5f0b1da95053ccdff052a6f2d8262a7b--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '3561'
+      content-type:
+      - multipart/form-data; boundary=5f0b1da95053ccdff052a6f2d8262a7b
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:13 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n## This workflow demonstrates
+        advanced struct features in WDL including:\n## 1. Optional fields\n## 2. Nested
+        structs\n## 3. Default values (handled in the workflow)\n\n#### STRUCT DEFINITIONS\n\n#
+        Nested struct for sequencing metadata\nstruct SequencingInfo {\n    String
+        platform\n    String? flowcell_id\n    Int? lane_number\n}\n\n# Nested struct
+        for quality metrics\nstruct QualityMetrics {\n    Float quality_score\n    Float?
+        gc_content\n    Int? duplicate_rate\n}\n\n# Main struct with nested structures
+        and optional fields\nstruct SampleInfo {\n    String name\n    String? type\n    Int?
+        read_length\n    String? library_prep\n    SequencingInfo sequencing\n    QualityMetrics
+        metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow struct_example {\n    input
+        {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter (sample_info
+        in sample_information) {\n        SampleInfo processed_sample = object {\n            name:
+        sample_info.name,\n            type: select_first([sample_info.type, \"normal\"]),\n            read_length:
+        select_first([sample_info.read_length, 100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:18 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3166'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n## This workflow demonstrates
+        advanced struct features in WDL including:\n## 1. Optional fields\n## 2. Nested
+        structs\n## 3. Default values (handled in the workflow)\n\n#### STRUCT DEFINITIONS\n\n#
+        Nested struct for sequencing metadata\nstruct SequencingInfo {\n    String
+        platform\n    String? flowcell_id\n    Int? lane_number\n}\n\n# Nested struct
+        for quality metrics\nstruct QualityMetrics {\n    Float quality_score\n    Float?
+        gc_content\n    Int? duplicate_rate\n}\n\n# Main struct with nested structures
+        and optional fields\nstruct SampleInfo {\n    String name\n    String? type\n    Int?
+        read_length\n    String? library_prep\n    SequencingInfo sequencing\n    QualityMetrics
+        metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow struct_example {\n    input
+        {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter (sample_info
+        in sample_information) {\n        SampleInfo processed_sample = object {\n            name:
+        sample_info.name,\n            type: select_first([sample_info.type, \"normal\"]),\n            read_length:
+        select_first([sample_info.read_length, 100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:23 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3166'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n## This workflow demonstrates
+        advanced struct features in WDL including:\n## 1. Optional fields\n## 2. Nested
+        structs\n## 3. Default values (handled in the workflow)\n\n#### STRUCT DEFINITIONS\n\n#
+        Nested struct for sequencing metadata\nstruct SequencingInfo {\n    String
+        platform\n    String? flowcell_id\n    Int? lane_number\n}\n\n# Nested struct
+        for quality metrics\nstruct QualityMetrics {\n    Float quality_score\n    Float?
+        gc_content\n    Int? duplicate_rate\n}\n\n# Main struct with nested structures
+        and optional fields\nstruct SampleInfo {\n    String name\n    String? type\n    Int?
+        read_length\n    String? library_prep\n    SequencingInfo sequencing\n    QualityMetrics
+        metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow struct_example {\n    input
+        {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter (sample_info
+        in sample_information) {\n        SampleInfo processed_sample = object {\n            name:
+        sample_info.name,\n            type: select_first([sample_info.type, \"normal\"]),\n            read_length:
+        select_first([sample_info.read_length, 100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:28 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3166'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n## This workflow demonstrates
+        advanced struct features in WDL including:\n## 1. Optional fields\n## 2. Nested
+        structs\n## 3. Default values (handled in the workflow)\n\n#### STRUCT DEFINITIONS\n\n#
+        Nested struct for sequencing metadata\nstruct SequencingInfo {\n    String
+        platform\n    String? flowcell_id\n    Int? lane_number\n}\n\n# Nested struct
+        for quality metrics\nstruct QualityMetrics {\n    Float quality_score\n    Float?
+        gc_content\n    Int? duplicate_rate\n}\n\n# Main struct with nested structures
+        and optional fields\nstruct SampleInfo {\n    String name\n    String? type\n    Int?
+        read_length\n    String? library_prep\n    SequencingInfo sequencing\n    QualityMetrics
+        metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow struct_example {\n    input
+        {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter (sample_info
+        in sample_information) {\n        SampleInfo processed_sample = object {\n            name:
+        sample_info.name,\n            type: select_first([sample_info.type, \"normal\"]),\n            read_length:
+        select_first([sample_info.read_length, 100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:33 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3166'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n## This workflow demonstrates
+        advanced struct features in WDL including:\n## 1. Optional fields\n## 2. Nested
+        structs\n## 3. Default values (handled in the workflow)\n\n#### STRUCT DEFINITIONS\n\n#
+        Nested struct for sequencing metadata\nstruct SequencingInfo {\n    String
+        platform\n    String? flowcell_id\n    Int? lane_number\n}\n\n# Nested struct
+        for quality metrics\nstruct QualityMetrics {\n    Float quality_score\n    Float?
+        gc_content\n    Int? duplicate_rate\n}\n\n# Main struct with nested structures
+        and optional fields\nstruct SampleInfo {\n    String name\n    String? type\n    Int?
+        read_length\n    String? library_prep\n    SequencingInfo sequencing\n    QualityMetrics
+        metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow struct_example {\n    input
+        {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter (sample_info
+        in sample_information) {\n        SampleInfo processed_sample = object {\n            name:
+        sample_info.name,\n            type: select_first([sample_info.type, \"normal\"]),\n            read_length:
+        select_first([sample_info.read_length, 100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:38 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3166'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n## This workflow demonstrates
+        advanced struct features in WDL including:\n## 1. Optional fields\n## 2. Nested
+        structs\n## 3. Default values (handled in the workflow)\n\n#### STRUCT DEFINITIONS\n\n#
+        Nested struct for sequencing metadata\nstruct SequencingInfo {\n    String
+        platform\n    String? flowcell_id\n    Int? lane_number\n}\n\n# Nested struct
+        for quality metrics\nstruct QualityMetrics {\n    Float quality_score\n    Float?
+        gc_content\n    Int? duplicate_rate\n}\n\n# Main struct with nested structures
+        and optional fields\nstruct SampleInfo {\n    String name\n    String? type\n    Int?
+        read_length\n    String? library_prep\n    SequencingInfo sequencing\n    QualityMetrics
+        metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow struct_example {\n    input
+        {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter (sample_info
+        in sample_information) {\n        SampleInfo processed_sample = object {\n            name:
+        sample_info.name,\n            type: select_first([sample_info.type, \"normal\"]),\n            read_length:
+        select_first([sample_info.read_length, 100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:43 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3166'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n## This workflow demonstrates
+        advanced struct features in WDL including:\n## 1. Optional fields\n## 2. Nested
+        structs\n## 3. Default values (handled in the workflow)\n\n#### STRUCT DEFINITIONS\n\n#
+        Nested struct for sequencing metadata\nstruct SequencingInfo {\n    String
+        platform\n    String? flowcell_id\n    Int? lane_number\n}\n\n# Nested struct
+        for quality metrics\nstruct QualityMetrics {\n    Float quality_score\n    Float?
+        gc_content\n    Int? duplicate_rate\n}\n\n# Main struct with nested structures
+        and optional fields\nstruct SampleInfo {\n    String name\n    String? type\n    Int?
+        read_length\n    String? library_prep\n    SequencingInfo sequencing\n    QualityMetrics
+        metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow struct_example {\n    input
+        {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter (sample_info
+        in sample_information) {\n        SampleInfo processed_sample = object {\n            name:
+        sample_info.name,\n            type: select_first([sample_info.type, \"normal\"]),\n            read_length:
+        select_first([sample_info.read_length, 100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:49 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3166'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n## This workflow demonstrates
+        advanced struct features in WDL including:\n## 1. Optional fields\n## 2. Nested
+        structs\n## 3. Default values (handled in the workflow)\n\n#### STRUCT DEFINITIONS\n\n#
+        Nested struct for sequencing metadata\nstruct SequencingInfo {\n    String
+        platform\n    String? flowcell_id\n    Int? lane_number\n}\n\n# Nested struct
+        for quality metrics\nstruct QualityMetrics {\n    Float quality_score\n    Float?
+        gc_content\n    Int? duplicate_rate\n}\n\n# Main struct with nested structures
+        and optional fields\nstruct SampleInfo {\n    String name\n    String? type\n    Int?
+        read_length\n    String? library_prep\n    SequencingInfo sequencing\n    QualityMetrics
+        metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow struct_example {\n    input
+        {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter (sample_info
+        in sample_information) {\n        SampleInfo processed_sample = object {\n            name:
+        sample_info.name,\n            type: select_first([sample_info.type, \"normal\"]),\n            read_length:
+        select_first([sample_info.read_length, 100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:54 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3166'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n## This workflow demonstrates
+        advanced struct features in WDL including:\n## 1. Optional fields\n## 2. Nested
+        structs\n## 3. Default values (handled in the workflow)\n\n#### STRUCT DEFINITIONS\n\n#
+        Nested struct for sequencing metadata\nstruct SequencingInfo {\n    String
+        platform\n    String? flowcell_id\n    Int? lane_number\n}\n\n# Nested struct
+        for quality metrics\nstruct QualityMetrics {\n    Float quality_score\n    Float?
+        gc_content\n    Int? duplicate_rate\n}\n\n# Main struct with nested structures
+        and optional fields\nstruct SampleInfo {\n    String name\n    String? type\n    Int?
+        read_length\n    String? library_prep\n    SequencingInfo sequencing\n    QualityMetrics
+        metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow struct_example {\n    input
+        {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter (sample_info
+        in sample_information) {\n        SampleInfo processed_sample = object {\n            name:
+        sample_info.name,\n            type: select_first([sample_info.type, \"normal\"]),\n            read_length:
+        select_first([sample_info.read_length, 100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:59 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3166'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\n## This workflow demonstrates
+        advanced struct features in WDL including:\n## 1. Optional fields\n## 2. Nested
+        structs\n## 3. Default values (handled in the workflow)\n\n#### STRUCT DEFINITIONS\n\n#
+        Nested struct for sequencing metadata\nstruct SequencingInfo {\n    String
+        platform\n    String? flowcell_id\n    Int? lane_number\n}\n\n# Nested struct
+        for quality metrics\nstruct QualityMetrics {\n    Float quality_score\n    Float?
+        gc_content\n    Int? duplicate_rate\n}\n\n# Main struct with nested structures
+        and optional fields\nstruct SampleInfo {\n    String name\n    String? type\n    Int?
+        read_length\n    String? library_prep\n    SequencingInfo sequencing\n    QualityMetrics
+        metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow struct_example {\n    input
+        {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter (sample_info
+        in sample_information) {\n        SampleInfo processed_sample = object {\n            name:
+        sample_info.name,\n            type: select_first([sample_info.type, \"normal\"]),\n            read_length:
+        select_first([sample_info.read_length, 100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:02:04 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3166'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"struct_example","workflowProcessingEvents":[{"cromwellId":"cromid-9ddb309","description":"PickedUp","timestamp":"2025-07-21T16:02:05.503Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n## This workflow demonstrates advanced struct features in WDL including:\n##
+        1. Optional fields\n## 2. Nested structs\n## 3. Default values (handled in
+        the workflow)\n\n#### STRUCT DEFINITIONS\n\n# Nested struct for sequencing
+        metadata\nstruct SequencingInfo {\n    String platform\n    String? flowcell_id\n    Int?
+        lane_number\n}\n\n# Nested struct for quality metrics\nstruct QualityMetrics
+        {\n    Float quality_score\n    Float? gc_content\n    Int? duplicate_rate\n}\n\n#
+        Main struct with nested structures and optional fields\nstruct SampleInfo
+        {\n    String name\n    String? type\n    Int? read_length\n    String? library_prep\n    SequencingInfo
+        sequencing\n    QualityMetrics metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow
+        struct_example {\n    input {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter
+        (sample_info in sample_information) {\n        SampleInfo processed_sample
+        = object {\n            name: sample_info.name,\n            type: select_first([sample_info.type,
+        \"normal\"]),\n            read_length: select_first([sample_info.read_length,
+        100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-07-21T16:02:05.504Z","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{"sample_information":[{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":null,"library_prep":null,"read_length":null},{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}]},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:02:09 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '4035'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"struct_example","workflowProcessingEvents":[{"cromwellId":"cromid-9ddb309","description":"PickedUp","timestamp":"2025-07-21T16:02:05.503Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n## This workflow demonstrates advanced struct features in WDL including:\n##
+        1. Optional fields\n## 2. Nested structs\n## 3. Default values (handled in
+        the workflow)\n\n#### STRUCT DEFINITIONS\n\n# Nested struct for sequencing
+        metadata\nstruct SequencingInfo {\n    String platform\n    String? flowcell_id\n    Int?
+        lane_number\n}\n\n# Nested struct for quality metrics\nstruct QualityMetrics
+        {\n    Float quality_score\n    Float? gc_content\n    Int? duplicate_rate\n}\n\n#
+        Main struct with nested structures and optional fields\nstruct SampleInfo
+        {\n    String name\n    String? type\n    Int? read_length\n    String? library_prep\n    SequencingInfo
+        sequencing\n    QualityMetrics metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow
+        struct_example {\n    input {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter
+        (sample_info in sample_information) {\n        SampleInfo processed_sample
+        = object {\n            name: sample_info.name,\n            type: select_first([sample_info.type,
+        \"normal\"]),\n            read_length: select_first([sample_info.read_length,
+        100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{"struct_example.process_sample":[{"executionStatus":"QueuedInCromwell","shardIndex":0,"backend":"gizmo","attempt":1,"start":"2025-07-21T16:02:10.635Z"},{"executionStatus":"QueuedInCromwell","shardIndex":1,"backend":"gizmo","attempt":1,"start":"2025-07-21T16:02:10.635Z"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-07-21T16:02:05.504Z","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{"sample_information":[{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":null,"library_prep":null,"read_length":null},{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}]},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:02:14 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '4306'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"struct_example","workflowProcessingEvents":[{"cromwellId":"cromid-9ddb309","description":"PickedUp","timestamp":"2025-07-21T16:02:05.503Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n## This workflow demonstrates advanced struct features in WDL including:\n##
+        1. Optional fields\n## 2. Nested structs\n## 3. Default values (handled in
+        the workflow)\n\n#### STRUCT DEFINITIONS\n\n# Nested struct for sequencing
+        metadata\nstruct SequencingInfo {\n    String platform\n    String? flowcell_id\n    Int?
+        lane_number\n}\n\n# Nested struct for quality metrics\nstruct QualityMetrics
+        {\n    Float quality_score\n    Float? gc_content\n    Int? duplicate_rate\n}\n\n#
+        Main struct with nested structures and optional fields\nstruct SampleInfo
+        {\n    String name\n    String? type\n    Int? read_length\n    String? library_prep\n    SequencingInfo
+        sequencing\n    QualityMetrics metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow
+        struct_example {\n    input {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter
+        (sample_info in sample_information) {\n        SampleInfo processed_sample
+        = object {\n            name: sample_info.name,\n            type: select_first([sample_info.type,
+        \"normal\"]),\n            read_length: select_first([sample_info.read_length,
+        100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{"struct_example.process_sample":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0/execution/stdout","commandLine":"echo
+        \"Processing sample1 (normal)\"\necho \"Read Length: 100\"\necho \"Sequencing
+        Platform: NovaSeq\"\necho \"Flowcell ID: H5K5YDSXX\"\necho \"Lane Number:
+        1\"\necho \"Quality Score: 95.5\"\necho \"GC Content: 45.2\"\necho \"Duplicate
+        Rate: 2%\"\necho \"Library Prep: Standard\"","shardIndex":0,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"sample":{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":"normal","library_prep":null,"read_length":100}},"backend":"gizmo","attempt":1,"start":"2025-07-21T16:02:10.635Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0"},{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1/execution/stdout","commandLine":"echo
+        \"Processing sample2 (tumor)\"\necho \"Read Length: 150\"\necho \"Sequencing
+        Platform: NovaSeq\"\necho \"Flowcell ID: N/A\"\necho \"Lane Number: -1\"\necho
+        \"Quality Score: 92.3\"\necho \"GC Content: 0.0\"\necho \"Duplicate Rate:
+        0%\"\necho \"Library Prep: PCR-free\"","shardIndex":1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"sample":{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}},"backend":"gizmo","attempt":1,"start":"2025-07-21T16:02:10.635Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-07-21T16:02:05.504Z","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{"sample_information":[{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":null,"library_prep":null,"read_length":null},{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}]},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:02:19 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '6877'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"struct_example","workflowProcessingEvents":[{"cromwellId":"cromid-9ddb309","description":"PickedUp","timestamp":"2025-07-21T16:02:05.503Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n## This workflow demonstrates advanced struct features in WDL including:\n##
+        1. Optional fields\n## 2. Nested structs\n## 3. Default values (handled in
+        the workflow)\n\n#### STRUCT DEFINITIONS\n\n# Nested struct for sequencing
+        metadata\nstruct SequencingInfo {\n    String platform\n    String? flowcell_id\n    Int?
+        lane_number\n}\n\n# Nested struct for quality metrics\nstruct QualityMetrics
+        {\n    Float quality_score\n    Float? gc_content\n    Int? duplicate_rate\n}\n\n#
+        Main struct with nested structures and optional fields\nstruct SampleInfo
+        {\n    String name\n    String? type\n    Int? read_length\n    String? library_prep\n    SequencingInfo
+        sequencing\n    QualityMetrics metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow
+        struct_example {\n    input {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter
+        (sample_info in sample_information) {\n        SampleInfo processed_sample
+        = object {\n            name: sample_info.name,\n            type: select_first([sample_info.type,
+        \"normal\"]),\n            read_length: select_first([sample_info.read_length,
+        100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{"struct_example.process_sample":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0/execution/stdout","backendStatus":"Running","commandLine":"echo
+        \"Processing sample1 (normal)\"\necho \"Read Length: 100\"\necho \"Sequencing
+        Platform: NovaSeq\"\necho \"Flowcell ID: H5K5YDSXX\"\necho \"Lane Number:
+        1\"\necho \"Quality Score: 95.5\"\necho \"GC Content: 45.2\"\necho \"Duplicate
+        Rate: 2%\"\necho \"Library Prep: Standard\"","shardIndex":0,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"sample":{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":"normal","library_prep":null,"read_length":100}},"jobId":"26591200","backend":"gizmo","attempt":1,"start":"2025-07-21T16:02:10.635Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0"},{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1/execution/stdout","backendStatus":"Running","commandLine":"echo
+        \"Processing sample2 (tumor)\"\necho \"Read Length: 150\"\necho \"Sequencing
+        Platform: NovaSeq\"\necho \"Flowcell ID: N/A\"\necho \"Lane Number: -1\"\necho
+        \"Quality Score: 92.3\"\necho \"GC Content: 0.0\"\necho \"Duplicate Rate:
+        0%\"\necho \"Library Prep: PCR-free\"","shardIndex":1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"sample":{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}},"jobId":"26591201","backend":"gizmo","attempt":1,"start":"2025-07-21T16:02:10.635Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-07-21T16:02:05.504Z","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{"sample_information":[{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":null,"library_prep":null,"read_length":null},{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}]},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:02:24 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '6967'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"struct_example","workflowProcessingEvents":[{"cromwellId":"cromid-9ddb309","description":"PickedUp","timestamp":"2025-07-21T16:02:05.503Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n## This workflow demonstrates advanced struct features in WDL including:\n##
+        1. Optional fields\n## 2. Nested structs\n## 3. Default values (handled in
+        the workflow)\n\n#### STRUCT DEFINITIONS\n\n# Nested struct for sequencing
+        metadata\nstruct SequencingInfo {\n    String platform\n    String? flowcell_id\n    Int?
+        lane_number\n}\n\n# Nested struct for quality metrics\nstruct QualityMetrics
+        {\n    Float quality_score\n    Float? gc_content\n    Int? duplicate_rate\n}\n\n#
+        Main struct with nested structures and optional fields\nstruct SampleInfo
+        {\n    String name\n    String? type\n    Int? read_length\n    String? library_prep\n    SequencingInfo
+        sequencing\n    QualityMetrics metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow
+        struct_example {\n    input {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter
+        (sample_info in sample_information) {\n        SampleInfo processed_sample
+        = object {\n            name: sample_info.name,\n            type: select_first([sample_info.type,
+        \"normal\"]),\n            read_length: select_first([sample_info.read_length,
+        100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{"struct_example.process_sample":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0/execution/stdout","backendStatus":"Running","commandLine":"echo
+        \"Processing sample1 (normal)\"\necho \"Read Length: 100\"\necho \"Sequencing
+        Platform: NovaSeq\"\necho \"Flowcell ID: H5K5YDSXX\"\necho \"Lane Number:
+        1\"\necho \"Quality Score: 95.5\"\necho \"GC Content: 45.2\"\necho \"Duplicate
+        Rate: 2%\"\necho \"Library Prep: Standard\"","shardIndex":0,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"sample":{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":"normal","library_prep":null,"read_length":100}},"jobId":"26591200","backend":"gizmo","attempt":1,"start":"2025-07-21T16:02:10.635Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0"},{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1/execution/stdout","backendStatus":"Running","commandLine":"echo
+        \"Processing sample2 (tumor)\"\necho \"Read Length: 150\"\necho \"Sequencing
+        Platform: NovaSeq\"\necho \"Flowcell ID: N/A\"\necho \"Lane Number: -1\"\necho
+        \"Quality Score: 92.3\"\necho \"GC Content: 0.0\"\necho \"Duplicate Rate:
+        0%\"\necho \"Library Prep: PCR-free\"","shardIndex":1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"sample":{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}},"jobId":"26591201","backend":"gizmo","attempt":1,"start":"2025-07-21T16:02:10.635Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-07-21T16:02:05.504Z","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{"sample_information":[{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":null,"library_prep":null,"read_length":null},{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}]},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:02:29 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '6967'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"struct_example","workflowProcessingEvents":[{"cromwellId":"cromid-9ddb309","description":"PickedUp","timestamp":"2025-07-21T16:02:05.503Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n## This workflow demonstrates advanced struct features in WDL including:\n##
+        1. Optional fields\n## 2. Nested structs\n## 3. Default values (handled in
+        the workflow)\n\n#### STRUCT DEFINITIONS\n\n# Nested struct for sequencing
+        metadata\nstruct SequencingInfo {\n    String platform\n    String? flowcell_id\n    Int?
+        lane_number\n}\n\n# Nested struct for quality metrics\nstruct QualityMetrics
+        {\n    Float quality_score\n    Float? gc_content\n    Int? duplicate_rate\n}\n\n#
+        Main struct with nested structures and optional fields\nstruct SampleInfo
+        {\n    String name\n    String? type\n    Int? read_length\n    String? library_prep\n    SequencingInfo
+        sequencing\n    QualityMetrics metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow
+        struct_example {\n    input {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter
+        (sample_info in sample_information) {\n        SampleInfo processed_sample
+        = object {\n            name: sample_info.name,\n            type: select_first([sample_info.type,
+        \"normal\"]),\n            read_length: select_first([sample_info.read_length,
+        100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{"struct_example.process_sample":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0/execution/stdout","backendStatus":"Running","commandLine":"echo
+        \"Processing sample1 (normal)\"\necho \"Read Length: 100\"\necho \"Sequencing
+        Platform: NovaSeq\"\necho \"Flowcell ID: H5K5YDSXX\"\necho \"Lane Number:
+        1\"\necho \"Quality Score: 95.5\"\necho \"GC Content: 45.2\"\necho \"Duplicate
+        Rate: 2%\"\necho \"Library Prep: Standard\"","shardIndex":0,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"sample":{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":"normal","library_prep":null,"read_length":100}},"jobId":"26591200","backend":"gizmo","attempt":1,"start":"2025-07-21T16:02:10.635Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0"},{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1/execution/stdout","backendStatus":"Running","commandLine":"echo
+        \"Processing sample2 (tumor)\"\necho \"Read Length: 150\"\necho \"Sequencing
+        Platform: NovaSeq\"\necho \"Flowcell ID: N/A\"\necho \"Lane Number: -1\"\necho
+        \"Quality Score: 92.3\"\necho \"GC Content: 0.0\"\necho \"Duplicate Rate:
+        0%\"\necho \"Library Prep: PCR-free\"","shardIndex":1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"sample":{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}},"jobId":"26591201","backend":"gizmo","attempt":1,"start":"2025-07-21T16:02:10.635Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-07-21T16:02:05.504Z","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{"sample_information":[{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":null,"library_prep":null,"read_length":null},{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}]},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:02:34 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '6967'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"struct_example","workflowProcessingEvents":[{"cromwellId":"cromid-9ddb309","description":"PickedUp","timestamp":"2025-07-21T16:02:05.503Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n## This workflow demonstrates advanced struct features in WDL including:\n##
+        1. Optional fields\n## 2. Nested structs\n## 3. Default values (handled in
+        the workflow)\n\n#### STRUCT DEFINITIONS\n\n# Nested struct for sequencing
+        metadata\nstruct SequencingInfo {\n    String platform\n    String? flowcell_id\n    Int?
+        lane_number\n}\n\n# Nested struct for quality metrics\nstruct QualityMetrics
+        {\n    Float quality_score\n    Float? gc_content\n    Int? duplicate_rate\n}\n\n#
+        Main struct with nested structures and optional fields\nstruct SampleInfo
+        {\n    String name\n    String? type\n    Int? read_length\n    String? library_prep\n    SequencingInfo
+        sequencing\n    QualityMetrics metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow
+        struct_example {\n    input {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter
+        (sample_info in sample_information) {\n        SampleInfo processed_sample
+        = object {\n            name: sample_info.name,\n            type: select_first([sample_info.type,
+        \"normal\"]),\n            read_length: select_first([sample_info.read_length,
+        100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{"struct_example.process_sample":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0/execution/stdout","backendStatus":"Running","commandLine":"echo
+        \"Processing sample1 (normal)\"\necho \"Read Length: 100\"\necho \"Sequencing
+        Platform: NovaSeq\"\necho \"Flowcell ID: H5K5YDSXX\"\necho \"Lane Number:
+        1\"\necho \"Quality Score: 95.5\"\necho \"GC Content: 45.2\"\necho \"Duplicate
+        Rate: 2%\"\necho \"Library Prep: Standard\"","shardIndex":0,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"sample":{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":"normal","library_prep":null,"read_length":100}},"jobId":"26591200","backend":"gizmo","attempt":1,"start":"2025-07-21T16:02:10.635Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0"},{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1/execution/stdout","backendStatus":"Running","commandLine":"echo
+        \"Processing sample2 (tumor)\"\necho \"Read Length: 150\"\necho \"Sequencing
+        Platform: NovaSeq\"\necho \"Flowcell ID: N/A\"\necho \"Lane Number: -1\"\necho
+        \"Quality Score: 92.3\"\necho \"GC Content: 0.0\"\necho \"Duplicate Rate:
+        0%\"\necho \"Library Prep: PCR-free\"","shardIndex":1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"sample":{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}},"jobId":"26591201","backend":"gizmo","attempt":1,"start":"2025-07-21T16:02:10.635Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-07-21T16:02:05.504Z","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{"sample_information":[{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":null,"library_prep":null,"read_length":null},{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}]},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:02:39 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '6967'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"struct_example","workflowProcessingEvents":[{"cromwellId":"cromid-9ddb309","description":"PickedUp","timestamp":"2025-07-21T16:02:05.503Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n## This workflow demonstrates advanced struct features in WDL including:\n##
+        1. Optional fields\n## 2. Nested structs\n## 3. Default values (handled in
+        the workflow)\n\n#### STRUCT DEFINITIONS\n\n# Nested struct for sequencing
+        metadata\nstruct SequencingInfo {\n    String platform\n    String? flowcell_id\n    Int?
+        lane_number\n}\n\n# Nested struct for quality metrics\nstruct QualityMetrics
+        {\n    Float quality_score\n    Float? gc_content\n    Int? duplicate_rate\n}\n\n#
+        Main struct with nested structures and optional fields\nstruct SampleInfo
+        {\n    String name\n    String? type\n    Int? read_length\n    String? library_prep\n    SequencingInfo
+        sequencing\n    QualityMetrics metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow
+        struct_example {\n    input {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter
+        (sample_info in sample_information) {\n        SampleInfo processed_sample
+        = object {\n            name: sample_info.name,\n            type: select_first([sample_info.type,
+        \"normal\"]),\n            read_length: select_first([sample_info.read_length,
+        100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{"struct_example.process_sample":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0/execution/stdout","backendStatus":"Running","commandLine":"echo
+        \"Processing sample1 (normal)\"\necho \"Read Length: 100\"\necho \"Sequencing
+        Platform: NovaSeq\"\necho \"Flowcell ID: H5K5YDSXX\"\necho \"Lane Number:
+        1\"\necho \"Quality Score: 95.5\"\necho \"GC Content: 45.2\"\necho \"Duplicate
+        Rate: 2%\"\necho \"Library Prep: Standard\"","shardIndex":0,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"sample":{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":"normal","library_prep":null,"read_length":100}},"jobId":"26591200","backend":"gizmo","attempt":1,"start":"2025-07-21T16:02:10.635Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0"},{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1/execution/stdout","backendStatus":"Running","commandLine":"echo
+        \"Processing sample2 (tumor)\"\necho \"Read Length: 150\"\necho \"Sequencing
+        Platform: NovaSeq\"\necho \"Flowcell ID: N/A\"\necho \"Lane Number: -1\"\necho
+        \"Quality Score: 92.3\"\necho \"GC Content: 0.0\"\necho \"Duplicate Rate:
+        0%\"\necho \"Library Prep: PCR-free\"","shardIndex":1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"sample":{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}},"jobId":"26591201","backend":"gizmo","attempt":1,"start":"2025-07-21T16:02:10.635Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-07-21T16:02:05.504Z","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{"sample_information":[{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":null,"library_prep":null,"read_length":null},{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}]},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:02:44 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '6967'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"struct_example","workflowProcessingEvents":[{"cromwellId":"cromid-9ddb309","description":"PickedUp","timestamp":"2025-07-21T16:02:05.503Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n## This workflow demonstrates advanced struct features in WDL including:\n##
+        1. Optional fields\n## 2. Nested structs\n## 3. Default values (handled in
+        the workflow)\n\n#### STRUCT DEFINITIONS\n\n# Nested struct for sequencing
+        metadata\nstruct SequencingInfo {\n    String platform\n    String? flowcell_id\n    Int?
+        lane_number\n}\n\n# Nested struct for quality metrics\nstruct QualityMetrics
+        {\n    Float quality_score\n    Float? gc_content\n    Int? duplicate_rate\n}\n\n#
+        Main struct with nested structures and optional fields\nstruct SampleInfo
+        {\n    String name\n    String? type\n    Int? read_length\n    String? library_prep\n    SequencingInfo
+        sequencing\n    QualityMetrics metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow
+        struct_example {\n    input {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter
+        (sample_info in sample_information) {\n        SampleInfo processed_sample
+        = object {\n            name: sample_info.name,\n            type: select_first([sample_info.type,
+        \"normal\"]),\n            read_length: select_first([sample_info.read_length,
+        100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{"struct_example.process_sample":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0/execution/stdout","backendStatus":"Running","commandLine":"echo
+        \"Processing sample1 (normal)\"\necho \"Read Length: 100\"\necho \"Sequencing
+        Platform: NovaSeq\"\necho \"Flowcell ID: H5K5YDSXX\"\necho \"Lane Number:
+        1\"\necho \"Quality Score: 95.5\"\necho \"GC Content: 45.2\"\necho \"Duplicate
+        Rate: 2%\"\necho \"Library Prep: Standard\"","shardIndex":0,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"sample":{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":"normal","library_prep":null,"read_length":100}},"jobId":"26591200","backend":"gizmo","attempt":1,"start":"2025-07-21T16:02:10.635Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0"},{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1/execution/stdout","backendStatus":"Running","commandLine":"echo
+        \"Processing sample2 (tumor)\"\necho \"Read Length: 150\"\necho \"Sequencing
+        Platform: NovaSeq\"\necho \"Flowcell ID: N/A\"\necho \"Lane Number: -1\"\necho
+        \"Quality Score: 92.3\"\necho \"GC Content: 0.0\"\necho \"Duplicate Rate:
+        0%\"\necho \"Library Prep: PCR-free\"","shardIndex":1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"sample":{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}},"jobId":"26591201","backend":"gizmo","attempt":1,"start":"2025-07-21T16:02:10.635Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-07-21T16:02:05.504Z","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{"sample_information":[{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":null,"library_prep":null,"read_length":null},{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}]},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:02:49 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '6967'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"struct_example","workflowProcessingEvents":[{"cromwellId":"cromid-9ddb309","description":"PickedUp","timestamp":"2025-07-21T16:02:05.503Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n## This workflow demonstrates advanced struct features in WDL including:\n##
+        1. Optional fields\n## 2. Nested structs\n## 3. Default values (handled in
+        the workflow)\n\n#### STRUCT DEFINITIONS\n\n# Nested struct for sequencing
+        metadata\nstruct SequencingInfo {\n    String platform\n    String? flowcell_id\n    Int?
+        lane_number\n}\n\n# Nested struct for quality metrics\nstruct QualityMetrics
+        {\n    Float quality_score\n    Float? gc_content\n    Int? duplicate_rate\n}\n\n#
+        Main struct with nested structures and optional fields\nstruct SampleInfo
+        {\n    String name\n    String? type\n    Int? read_length\n    String? library_prep\n    SequencingInfo
+        sequencing\n    QualityMetrics metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow
+        struct_example {\n    input {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter
+        (sample_info in sample_information) {\n        SampleInfo processed_sample
+        = object {\n            name: sample_info.name,\n            type: select_first([sample_info.type,
+        \"normal\"]),\n            read_length: select_first([sample_info.read_length,
+        100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{"struct_example.process_sample":[{"executionStatus":"Done","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0/execution/stdout","backendStatus":"Done","commandLine":"echo
+        \"Processing sample1 (normal)\"\necho \"Read Length: 100\"\necho \"Sequencing
+        Platform: NovaSeq\"\necho \"Flowcell ID: H5K5YDSXX\"\necho \"Lane Number:
+        1\"\necho \"Quality Score: 95.5\"\necho \"GC Content: 45.2\"\necho \"Duplicate
+        Rate: 2%\"\necho \"Library Prep: Standard\"","shardIndex":0,"outputs":{"message":"Processing
+        sample1 (normal)\nRead Length: 100\nSequencing Platform: NovaSeq\nFlowcell
+        ID: H5K5YDSXX\nLane Number: 1\nQuality Score: 95.5\nGC Content: 45.2\nDuplicate
+        Rate: 2%\nLibrary Prep: Standard"},"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"sample":{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":"normal","library_prep":null,"read_length":100}},"returnCode":0,"jobId":"26591200","backend":"gizmo","start":"2025-07-21T16:02:10.635Z","end":"2025-07-21T16:02:49.869Z","dockerImageUsed":"ubuntu@sha256:80dd3c3b9c6cecb9f1667e9290b3bc61b78c2678c02cbdae5f0fea92cc6734ab","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0","attempt":1,"executionEvents":[{"startTime":"2025-07-21T16:02:12.332Z","description":"RunningJob","endTime":"2025-07-21T16:02:49.252Z"},{"startTime":"2025-07-21T16:02:11.683Z","description":"WaitingForValueStore","endTime":"2025-07-21T16:02:11.683Z"},{"startTime":"2025-07-21T16:02:11.683Z","description":"PreparingJob","endTime":"2025-07-21T16:02:12.332Z"},{"startTime":"2025-07-21T16:02:10.635Z","description":"RequestingExecutionToken","endTime":"2025-07-21T16:02:11.683Z"},{"startTime":"2025-07-21T16:02:49.252Z","description":"UpdatingJobStore","endTime":"2025-07-21T16:02:49.869Z"},{"startTime":"2025-07-21T16:02:10.635Z","description":"Pending","endTime":"2025-07-21T16:02:10.635Z"}]},{"executionStatus":"Done","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1/execution/stdout","backendStatus":"Done","commandLine":"echo
+        \"Processing sample2 (tumor)\"\necho \"Read Length: 150\"\necho \"Sequencing
+        Platform: NovaSeq\"\necho \"Flowcell ID: N/A\"\necho \"Lane Number: -1\"\necho
+        \"Quality Score: 92.3\"\necho \"GC Content: 0.0\"\necho \"Duplicate Rate:
+        0%\"\necho \"Library Prep: PCR-free\"","shardIndex":1,"outputs":{"message":"Processing
+        sample2 (tumor)\nRead Length: 150\nSequencing Platform: NovaSeq\nFlowcell
+        ID: N/A\nLane Number: -1\nQuality Score: 92.3\nGC Content: 0.0\nDuplicate
+        Rate: 0%\nLibrary Prep: PCR-free"},"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"sample":{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}},"returnCode":0,"jobId":"26591201","backend":"gizmo","start":"2025-07-21T16:02:10.635Z","end":"2025-07-21T16:02:47.868Z","dockerImageUsed":"ubuntu@sha256:80dd3c3b9c6cecb9f1667e9290b3bc61b78c2678c02cbdae5f0fea92cc6734ab","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1","attempt":1,"executionEvents":[{"startTime":"2025-07-21T16:02:11.683Z","description":"WaitingForValueStore","endTime":"2025-07-21T16:02:11.683Z"},{"startTime":"2025-07-21T16:02:12.335Z","description":"RunningJob","endTime":"2025-07-21T16:02:47.793Z"},{"startTime":"2025-07-21T16:02:10.635Z","description":"RequestingExecutionToken","endTime":"2025-07-21T16:02:11.683Z"},{"startTime":"2025-07-21T16:02:11.683Z","description":"PreparingJob","endTime":"2025-07-21T16:02:12.335Z"},{"startTime":"2025-07-21T16:02:10.635Z","description":"Pending","endTime":"2025-07-21T16:02:10.635Z"},{"startTime":"2025-07-21T16:02:47.793Z","description":"UpdatingJobStore","endTime":"2025-07-21T16:02:47.868Z"}]}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-07-21T16:02:05.504Z","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{"sample_information":[{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":null,"library_prep":null,"read_length":null},{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}]},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:02:54 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '9046'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/66743f95-1533-4c48-9e88-d5ee1e7d305a/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"struct_example","workflowProcessingEvents":[{"cromwellId":"cromid-9ddb309","description":"Finished","timestamp":"2025-07-21T16:02:51.437Z","cromwellVersion":"87"},{"cromwellId":"cromid-9ddb309","description":"PickedUp","timestamp":"2025-07-21T16:02:05.503Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\n## This workflow demonstrates advanced struct features in WDL including:\n##
+        1. Optional fields\n## 2. Nested structs\n## 3. Default values (handled in
+        the workflow)\n\n#### STRUCT DEFINITIONS\n\n# Nested struct for sequencing
+        metadata\nstruct SequencingInfo {\n    String platform\n    String? flowcell_id\n    Int?
+        lane_number\n}\n\n# Nested struct for quality metrics\nstruct QualityMetrics
+        {\n    Float quality_score\n    Float? gc_content\n    Int? duplicate_rate\n}\n\n#
+        Main struct with nested structures and optional fields\nstruct SampleInfo
+        {\n    String name\n    String? type\n    Int? read_length\n    String? library_prep\n    SequencingInfo
+        sequencing\n    QualityMetrics metrics\n}\n\n#### WORKFLOW DEFINITION\n\nworkflow
+        struct_example {\n    input {\n        Array[SampleInfo] sample_information\n    }\n\n    scatter
+        (sample_info in sample_information) {\n        SampleInfo processed_sample
+        = object {\n            name: sample_info.name,\n            type: select_first([sample_info.type,
+        \"normal\"]),\n            read_length: select_first([sample_info.read_length,
+        100]),\n            library_prep: sample_info.library_prep,\n            sequencing:
+        sample_info.sequencing,\n            metrics: sample_info.metrics\n        }\n\n        call
+        process_sample {\n            input:\n                sample = processed_sample\n        }\n    }\n}\n\n####
+        TASK DEFINITIONS\n\ntask process_sample {\n    input {\n        SampleInfo
+        sample\n    }\n\n    command <<<\n        echo \"Processing ~{sample.name}
+        (~{sample.type})\"\n        echo \"Read Length: ~{sample.read_length}\"\n        echo
+        \"Sequencing Platform: ~{sample.sequencing.platform}\"\n        echo \"Flowcell
+        ID: ~{select_first([sample.sequencing.flowcell_id, ''N/A''])}\"\n        echo
+        \"Lane Number: ~{select_first([sample.sequencing.lane_number, -1])}\"\n        echo
+        \"Quality Score: ~{sample.metrics.quality_score}\"\n        echo \"GC Content:
+        ~{select_first([sample.metrics.gc_content, 0])}\"\n        echo \"Duplicate
+        Rate: ~{select_first([sample.metrics.duplicate_rate, 0])}%\"\n        echo
+        \"Library Prep: ~{select_first([sample.library_prep, ''Standard''])}\"\n    >>>\n\n    output
+        {\n        String message = read_string(stdout())\n    }\n\n    runtime {\n        docker:
+        \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"struct_example.sample_information\":[{\"metrics\":{\"duplicate_rate\":2,\"gc_content\":45.2,\"quality_score\":95.5},\"name\":\"sample1\",\"sequencing\":{\"flowcell_id\":\"H5K5YDSXX\",\"lane_number\":1,\"platform\":\"NovaSeq\"}},{\"library_prep\":\"PCR-free\",\"metrics\":{\"quality_score\":92.3},\"name\":\"sample2\",\"read_length\":150,\"sequencing\":{\"platform\":\"NovaSeq\"},\"type\":\"tumor\"}]}","workflowUrl":"","labels":"{}"},"calls":{"struct_example.process_sample":[{"executionStatus":"Done","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0/execution/stdout","backendStatus":"Done","commandLine":"echo
+        \"Processing sample1 (normal)\"\necho \"Read Length: 100\"\necho \"Sequencing
+        Platform: NovaSeq\"\necho \"Flowcell ID: H5K5YDSXX\"\necho \"Lane Number:
+        1\"\necho \"Quality Score: 95.5\"\necho \"GC Content: 45.2\"\necho \"Duplicate
+        Rate: 2%\"\necho \"Library Prep: Standard\"","shardIndex":0,"outputs":{"message":"Processing
+        sample1 (normal)\nRead Length: 100\nSequencing Platform: NovaSeq\nFlowcell
+        ID: H5K5YDSXX\nLane Number: 1\nQuality Score: 95.5\nGC Content: 45.2\nDuplicate
+        Rate: 2%\nLibrary Prep: Standard"},"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"sample":{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":"normal","library_prep":null,"read_length":100}},"returnCode":0,"jobId":"26591200","backend":"gizmo","start":"2025-07-21T16:02:10.635Z","end":"2025-07-21T16:02:49.869Z","dockerImageUsed":"ubuntu@sha256:80dd3c3b9c6cecb9f1667e9290b3bc61b78c2678c02cbdae5f0fea92cc6734ab","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-0","attempt":1,"executionEvents":[{"startTime":"2025-07-21T16:02:12.332Z","description":"RunningJob","endTime":"2025-07-21T16:02:49.252Z"},{"startTime":"2025-07-21T16:02:11.683Z","description":"WaitingForValueStore","endTime":"2025-07-21T16:02:11.683Z"},{"startTime":"2025-07-21T16:02:11.683Z","description":"PreparingJob","endTime":"2025-07-21T16:02:12.332Z"},{"startTime":"2025-07-21T16:02:10.635Z","description":"RequestingExecutionToken","endTime":"2025-07-21T16:02:11.683Z"},{"startTime":"2025-07-21T16:02:49.252Z","description":"UpdatingJobStore","endTime":"2025-07-21T16:02:49.869Z"},{"startTime":"2025-07-21T16:02:10.635Z","description":"Pending","endTime":"2025-07-21T16:02:10.635Z"}]},{"executionStatus":"Done","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1/execution/stdout","backendStatus":"Done","commandLine":"echo
+        \"Processing sample2 (tumor)\"\necho \"Read Length: 150\"\necho \"Sequencing
+        Platform: NovaSeq\"\necho \"Flowcell ID: N/A\"\necho \"Lane Number: -1\"\necho
+        \"Quality Score: 92.3\"\necho \"GC Content: 0.0\"\necho \"Duplicate Rate:
+        0%\"\necho \"Library Prep: PCR-free\"","shardIndex":1,"outputs":{"message":"Processing
+        sample2 (tumor)\nRead Length: 150\nSequencing Platform: NovaSeq\nFlowcell
+        ID: N/A\nLane Number: -1\nQuality Score: 92.3\nGC Content: 0.0\nDuplicate
+        Rate: 0%\nLibrary Prep: PCR-free"},"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:noble-20241118.1","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"sample":{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}},"returnCode":0,"jobId":"26591201","backend":"gizmo","start":"2025-07-21T16:02:10.635Z","end":"2025-07-21T16:02:47.868Z","dockerImageUsed":"ubuntu@sha256:80dd3c3b9c6cecb9f1667e9290b3bc61b78c2678c02cbdae5f0fea92cc6734ab","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a/call-process_sample/shard-1","attempt":1,"executionEvents":[{"startTime":"2025-07-21T16:02:11.683Z","description":"WaitingForValueStore","endTime":"2025-07-21T16:02:11.683Z"},{"startTime":"2025-07-21T16:02:12.335Z","description":"RunningJob","endTime":"2025-07-21T16:02:47.793Z"},{"startTime":"2025-07-21T16:02:10.635Z","description":"RequestingExecutionToken","endTime":"2025-07-21T16:02:11.683Z"},{"startTime":"2025-07-21T16:02:11.683Z","description":"PreparingJob","endTime":"2025-07-21T16:02:12.335Z"},{"startTime":"2025-07-21T16:02:10.635Z","description":"Pending","endTime":"2025-07-21T16:02:10.635Z"},{"startTime":"2025-07-21T16:02:47.793Z","description":"UpdatingJobStore","endTime":"2025-07-21T16:02:47.868Z"}]}]},"outputs":{"struct_example.process_sample.message":["Processing
+        sample1 (normal)\nRead Length: 100\nSequencing Platform: NovaSeq\nFlowcell
+        ID: H5K5YDSXX\nLane Number: 1\nQuality Score: 95.5\nGC Content: 45.2\nDuplicate
+        Rate: 2%\nLibrary Prep: Standard","Processing sample2 (tumor)\nRead Length:
+        150\nSequencing Platform: NovaSeq\nFlowcell ID: N/A\nLane Number: -1\nQuality
+        Score: 92.3\nGC Content: 0.0\nDuplicate Rate: 0%\nLibrary Prep: PCR-free"],"struct_example.processed_sample":[{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":"normal","library_prep":null,"read_length":100},{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}]},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/struct_example/66743f95-1533-4c48-9e88-d5ee1e7d305a","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-07-21T16:02:51.437Z","start":"2025-07-21T16:02:05.504Z","id":"66743f95-1533-4c48-9e88-d5ee1e7d305a","inputs":{"sample_information":[{"name":"sample1","sequencing":{"flowcell_id":"H5K5YDSXX","platform":"NovaSeq","lane_number":1},"metrics":{"gc_content":45.2,"quality_score":95.5,"duplicate_rate":2},"type":null,"library_prep":null,"read_length":null},{"name":"sample2","sequencing":{"flowcell_id":null,"platform":"NovaSeq","lane_number":null},"metrics":{"gc_content":null,"quality_score":92.3,"duplicate_rate":null},"type":"tumor","library_prep":"PCR-free","read_length":150}]},"labels":{"cromwell-workflow-id":"cromwell-66743f95-1533-4c48-9e88-d5ee1e7d305a"},"submission":"2025-07-21T16:01:13.561Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:02:59 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '10118'
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -1,0 +1,144 @@
+interactions:
+- request:
+    body: "--2509067d4027662cadf9fc083bec65b8\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"jsonTaskOrderTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow jsonTaskOrderTest {\n  input {\n    String input_json  # JSON
+      string used as input for both tasks\n  }\n\n  call Task1 { input: input_json
+      = input_json }\n  call Task2 { input: input_json = input_json, previous_output
+      = Task1.output_file }\n\n  output {\n    File task1_output = Task1.output_file\n
+      \   File task2_output = Task2.output_file\n  }\n}\n\ntask Task1 {\n  input {\n
+      \   String input_json\n  }\n  \n  command <<<\n    echo \"Processing JSON in
+      Task1: ~{input_json}\" > task1_output.txt\n    echo \"Task1 completed\" >> task1_output.txt\n
+      \ >>>\n  \n  output {\n    File output_file = \"task1_output.txt\"\n  }\n  \n
+      \ runtime {\n    cpu: 1\n    memory: \"2G\"\n  }\n}\n\ntask Task2 {\n  input
+      {\n    String input_json\n    File previous_output\n  }\n  \n  command <<<\n
+      \   echo \"Processing JSON in Task2: ~{input_json}\" > task2_output.txt\n    echo
+      \"Task2 completed after Task1\" >> task2_output.txt\n    cat ~{previous_output}
+      >> task2_output.txt\n  >>>\n  \n  output {\n    File output_file = \"task2_output.txt\"\n
+      \ }\n  \n  runtime {\n    cpu: 1\n    memory: \"2G\"\n  }\n}\n\r\n--2509067d4027662cadf9fc083bec65b8\r\nContent-Disposition:
+      form-data; name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n  \"jsonTaskOrderTest.input_json\": \"I am the text
+      that from input.json\"\n}\n\r\n--2509067d4027662cadf9fc083bec65b8\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--2509067d4027662cadf9fc083bec65b8--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '1742'
+      content-type:
+      - multipart/form-data; boundary=2509067d4027662cadf9fc083bec65b8
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"44185f7f-587b-4743-898e-9f48a0f7895b","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:31 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/44185f7f-587b-4743-898e-9f48a0f7895b/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: 44185f7f-587b-4743-898e-9f48a0f7895b\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:31 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '101'
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/44185f7f-587b-4743-898e-9f48a0f7895b/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonTaskOrderTest
+        {\n  input {\n    String input_json  # JSON string used as input for both
+        tasks\n  }\n\n  call Task1 { input: input_json = input_json }\n  call Task2
+        { input: input_json = input_json, previous_output = Task1.output_file }\n\n  output
+        {\n    File task1_output = Task1.output_file\n    File task2_output = Task2.output_file\n  }\n}\n\ntask
+        Task1 {\n  input {\n    String input_json\n  }\n  \n  command <<<\n    echo
+        \"Processing JSON in Task1: ~{input_json}\" > task1_output.txt\n    echo \"Task1
+        completed\" >> task1_output.txt\n  >>>\n  \n  output {\n    File output_file
+        = \"task1_output.txt\"\n  }\n  \n  runtime {\n    cpu: 1\n    memory: \"2G\"\n  }\n}\n\ntask
+        Task2 {\n  input {\n    String input_json\n    File previous_output\n  }\n  \n  command
+        <<<\n    echo \"Processing JSON in Task2: ~{input_json}\" > task2_output.txt\n    echo
+        \"Task2 completed after Task1\" >> task2_output.txt\n    cat ~{previous_output}
+        >> task2_output.txt\n  >>>\n  \n  output {\n    File output_file = \"task2_output.txt\"\n  }\n  \n  runtime
+        {\n    cpu: 1\n    memory: \"2G\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonTaskOrderTest.input_json\":\"I am the text that
+        from input.json\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"44185f7f-587b-4743-898e-9f48a0f7895b","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-44185f7f-587b-4743-898e-9f48a0f7895b"},"submission":"2025-07-21T16:01:31.887Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:35 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1630'
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -16,34 +16,103 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v4
+        uses: astral-sh/setup-uv@v6
         with:
-          version: "0.5.8"
-
-      - name: Set up Python
-        run: uv python install 3.13
+          version: "0.7.12"
+          python-version: 3.13.3
 
       - name: Install
         run: uv sync --all-extras
 
-      - name: Run tests
+      - name: Load secrets
+        uses: 1password/load-secrets-action@v2
+        with:
+          # Export loaded secrets as environment variables to subsequent steps
+          export-env: true
         env:
-          PROOF_API_TOKEN_DEV: ${{ secrets.PROOF_API_TOKEN_DEV }}
-          PATH_ROOTS: ${{ secrets.PATH_ROOTS }}
-        run: uv run pytest --record-mode=rewrite tests/cromwellapi/ --verbose -s
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          PROOF_API_TOKEN_DEV: "op://PROOF/PROOF_Test_User/dev token"
+          PATH_ROOTS: "op://PROOF/PROOF_PATH_ROOTS/credential"
 
-      - name: Commit new cassettes to main
+      - name: Run tests and process changes
+        id: process-changes
         run: |
-          if FILES_TO_COMMIT=($(git diff-index --name-only ${{ github.sha }} \
-              | egrep cassettes \
-              | egrep --ignore-case '\.(yaml|yml)$'))
-          then
-            git config --local user.name "$GITHUB_ACTOR"
-            git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
-            git add tests/cromwellapi/cassettes/
-            git commit ${FILES_TO_COMMIT[*]} -m 'updated vcr cassettes'
-            git pull --ff-only
-            git push origin
-          else
-            echo "No changes to commit"
+          make test_api_rewrite_json_report || true
+
+          # Check if results.json exists and has valid content
+          if [ ! -f results.json ]; then
+            echo "Error: results.json not found. Tests may have failed completely."
+            exit 1
           fi
+
+          # Extract test file paths
+          passed_cassettes=$(jq -r '.tests[] | select(.outcome=="passed") | .cassette' results.json | grep -v "null" || echo "")
+          passed_mock_jsons=$(jq -r '.tests[] | select(.outcome=="passed") | .mock_json' results.json | grep -v "null" || echo "")
+
+          failed_cassettes=$(jq -r '.tests[] | select(.outcome=="failed") | .cassette' results.json | grep -v "null" || echo "")
+          failed_mock_jsons=$(jq -r '.tests[] | select(.outcome=="failed") | .mock_json' results.json | grep -v "null" || echo "")
+
+          # Display passed tests
+          echo "========== Tests passed =========="
+          if [ -n "$passed_cassettes" ]; then
+            echo "$passed_cassettes"
+          else
+            echo "No passed cassettes found"
+          fi
+
+          # Display failed tests
+          echo "========== Tests failed =========="
+          if [ -n "$failed_cassettes" ]; then
+            echo "$failed_cassettes"
+          else
+            echo "No failed cassettes found"
+          fi
+
+          # Handle failed tests by not committing their changes
+          if [ -n "$failed_cassettes" ]; then
+            echo "Reverting changes to failed test cassettes..."
+            echo "$failed_cassettes" | while read -r file; do
+              if [ -n "$file" ]; then
+                git checkout -- "$file" || true
+              fi
+            done
+          fi
+
+          if [ -n "$failed_mock_jsons" ]; then
+            echo "Reverting changes to failed test mock JSONs..."
+            echo "$failed_mock_jsons" | while read -r file; do
+              if [ -n "$file" ]; then
+                git checkout -- "$file" || true
+              fi
+            done
+          fi
+
+      - name: Create a pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: create-pull-request/rewrite-cassettes
+          title: "Update vcr cassettes"
+          commit-message: "updated vcr cassettes"
+          delete-branch: true
+          add-paths: |
+            tests/cromwellapi/cassettes/*
+            tests/cromwellapi/mocked_submissions/*
+          assignees: sckott
+          reviewers: |
+            sckott
+            seankross
+          body: |
+            Updated vcr cassettes
+
+            Via event: ${{ github.event_name }}
+            - If "workflow_dispatch" it was triggered by a person clicking the "Run workflow" button in the GitHub UI Actions tab
+            - If "schedule" it was triggered by a scheduled event (see the `.github/workflows/api-rewrite-cassettes.yml` file for the schedule)
+
+            Review, then either merge or close this PR
+            - A cursory review is sufficient (e.g., just look at a few cassette `*yml` files; though if anything is concerning, please investigate and discuss with Scott or Sean)
+
+            What is this?
+            - This is a pull request that updates the vcr cassettes for the Cromwell API tests. Read more about how tests work in the [README](https://github.com/FredHutch/wdl-unit-tests?tab=readme-ov-file#tests). We use the `vcrpy` Python library to record and replay HTTP requests and responses (called "cassettes"). These cassettes need to be re-recorded every so often to ensure that tests reflect the reality of the PROOF and Cromwell APIs.
+
+            Note that workflows are not run for this PR because [actions cannot trigger other workflows](https://github.com/peter-evans/create-pull-request/issues/48)

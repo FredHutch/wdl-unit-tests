@@ -1,28 +1,29 @@
-import yaml
 import itertools
-from pathlib import Path
 from datetime import datetime
-import dateparser
+from email.utils import parsedate_to_datetime
+from pathlib import Path
+
+import yaml
 
 
-def list_cassettes(dir):
+def list_cassettes(directory):
     """List all cassette files
 
     Examples:
         list_cassettes(dir="tests/cromwellapi/cassettes")
     """
-    cassette_path = Path(dir)
+    cassette_path = Path(directory)
     return [str(file) for file in cassette_path.glob("**/*.yaml")]
 
 
-def cassettes_last_modified(dir):
+def cassettes_last_modified(directory):
     """Get a single last modified date across all cassettes
 
     Examples:
         cassettes_last_modified(dir="tests/cromwellapi/cassettes")
         cassettes_last_modified(dir="tests/cromwellapi/notfound")
     """
-    cassettes = list_cassettes(dir)
+    cassettes = list_cassettes(directory)
     dates = []
     for path in cassettes:
         try:
@@ -30,8 +31,10 @@ def cassettes_last_modified(dir):
                 doc = yaml.load(f, Loader=yaml.SafeLoader)
                 dates.append(
                     [
-                        dateparser.parse(int["response"]["headers"]["Date"][0])
-                        for int in doc["interactions"]
+                        parsedate_to_datetime(
+                            w["response"]["headers"]["Date"][0]
+                        )
+                        for w in doc["interactions"]
                     ]
                 )
         except FileNotFoundError:

@@ -1,0 +1,148 @@
+interactions:
+- request:
+    body: "--d166141690339af31969e9f763db9393\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"parseBatchFile.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n# This workflow takes a tab separated file where each row is a set of data
+      to be used in each \n# of the independent scattered task series that you have
+      as your workflow process.  This file \n# will, for example, have column names
+      `sampleName`, `bamLocation`, and `bedlocation`.  This\n# allows you to know
+      that regardless of the order of the columns in your batch file, the correct\n#
+      inputs will be used for the tasks you define.  \nworkflow parseBatchFile {\n
+      \ input {\n  File batchFile\n  }\n    Array[Object] batchInfo = read_objects(batchFile)\n
+      \ scatter (job in batchInfo){\n    String sampleName = job.sampleName\n    File
+      bamFile = job.bamLocation\n    File bedFile = job.bedLocation\n\n    ## INSERT
+      YOUR WORKFLOW TO RUN PER LINE IN YOUR BATCH FILE HERE!!!!\n    call test {\n
+      \       input: in1=sampleName, in2=bamFile, in3=bedFile\n    }\n\n  }  # End
+      Scatter over the batch file\n# Outputs that will be retained when execution
+      is complete\n  output {\n    Array[File] outputArray = test.item_out\n    }\n#
+      End workflow\n}\n\n#### TASK DEFINITIONS\n# echo some text to stdout, treats
+      files as strings just to echo them as a dummy example\ntask test {\n  input
+      {\n    String in1\n    String in2\n    String in3\n  }\n    command {\n    echo
+      ~{in1}\n    echo ~{in2}\n    echo ~{in3}\n    }\n    output {\n        File
+      item_out = stdout()\n    }\n}\r\n--d166141690339af31969e9f763db9393\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--d166141690339af31969e9f763db9393--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '1797'
+      content-type:
+      - multipart/form-data; boundary=d166141690339af31969e9f763db9393
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"8480b475-e467-4777-a5d3-9961170a76bf","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:27 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/8480b475-e467-4777-a5d3-9961170a76bf/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: 8480b475-e467-4777-a5d3-9961170a76bf\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:27 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '101'
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/8480b475-e467-4777-a5d3-9961170a76bf/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n# This workflow takes a
+        tab separated file where each row is a set of data to be used in each \n#
+        of the independent scattered task series that you have as your workflow process.  This
+        file \n# will, for example, have column names `sampleName`, `bamLocation`,
+        and `bedlocation`.  This\n# allows you to know that regardless of the order
+        of the columns in your batch file, the correct\n# inputs will be used for
+        the tasks you define.  \nworkflow parseBatchFile {\n  input {\n  File batchFile\n  }\n    Array[Object]
+        batchInfo = read_objects(batchFile)\n  scatter (job in batchInfo){\n    String
+        sampleName = job.sampleName\n    File bamFile = job.bamLocation\n    File
+        bedFile = job.bedLocation\n\n    ## INSERT YOUR WORKFLOW TO RUN PER LINE IN
+        YOUR BATCH FILE HERE!!!!\n    call test {\n        input: in1=sampleName,
+        in2=bamFile, in3=bedFile\n    }\n\n  }  # End Scatter over the batch file\n#
+        Outputs that will be retained when execution is complete\n  output {\n    Array[File]
+        outputArray = test.item_out\n    }\n# End workflow\n}\n\n#### TASK DEFINITIONS\n#
+        echo some text to stdout, treats files as strings just to echo them as a dummy
+        example\ntask test {\n  input {\n    String in1\n    String in2\n    String
+        in3\n  }\n    command {\n    echo ~{in1}\n    echo ~{in2}\n    echo ~{in3}\n    }\n    output
+        {\n        File item_out = stdout()\n    }\n}","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"8480b475-e467-4777-a5d3-9961170a76bf","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-8480b475-e467-4777-a5d3-9961170a76bf"},"submission":"2025-07-21T16:01:27.758Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:31 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1815'
+    status:
+      code: 200
+      message: OK
+version: 1

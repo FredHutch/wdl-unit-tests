@@ -1,3 +1,9 @@
+ifeq ($(GITHUB_ACTIONS),true)
+    WORKERS = 24
+else
+    WORKERS = auto
+endif
+
 # from https://stackoverflow.com/a/10858332/1091766
 # function to check a named environment variable
 # see usage below for examples
@@ -12,19 +18,67 @@ __check_defined = \
 lint-fix:
 	uv run ruff check --select I --fix tests/
 
-# include sort imports via `--select I`
+# included rules that are check specified in pyproject.toml
+# see https://docs.astral.sh/ruff/rules/ for rules
 lint-check:
-	uv run ruff check --select I tests/
+	uv run ruff check tests/
 
-format:
+format-fix:
 	uv run ruff format tests/
+
+format-check:
+	uv run ruff format --check tests/
 
 check_env_vars:
 	$(call check_defined, PATH_ROOTS, env var for which paths to scrub in vcr cassettes)
 	$(call check_defined, PROOF_API_TOKEN_DEV, env var for test PROOF user)
 
-test_api_cached: check_env_vars
-	op run -- uv run pytest --color=yes --record-mode=once --verbose -s tests/cromwellapi/
+check_wdl_dirs:
+	@uv run tests/validate_wdls.py
+
+test_api_cached: check_env_vars check_wdl_dirs
+	@op run -- uv run pytest -n $(WORKERS) \
+	--color=yes --record-mode=once --verbose \
+	tests/cromwellapi/
 
 test_api_rewrite: check_env_vars
-	op run -- uv run pytest --color=yes --record-mode=rewrite --verbose -s tests/cromwellapi/
+	op run -- uv run pytest -n $(WORKERS) \
+	--color=yes --record-mode=rewrite --verbose \
+	tests/cromwellapi/
+
+regulated-data-envs:
+	op inject -i .env-regulated > .env-temp
+
+test_api_regulated_local: check_env_vars regulated-data-envs
+	op run -- uv run --env-file .env-temp \
+	pytest -n $(WORKERS) \
+	--color=yes --record-mode=rewrite --verbose \
+	tests/cromwellapi/ && \
+	rm .env-temp
+
+test_api_regulated: check_env_vars
+	op run -- uv run pytest -n $(WORKERS) \
+	--color=yes --record-mode=rewrite --verbose \
+	tests/cromwellapi/
+
+test_api_rewrite_json_report: check_env_vars
+	op run -- uv run pytest -n $(WORKERS) \
+	--json-report --json-report-file=results.json \
+	--color=yes --record-mode=rewrite --verbose \
+	tests/cromwellapi/
+
+test_java_validate:
+	@echo "Validating WDL files with womtool validate..."
+	@bash scripts/cromwell_validate.sh
+
+test_java_run:
+	@echo "Running WDL files with cromwell run..."
+	@bash scripts/cromwell_run.sh
+
+ipython: check_env_vars
+	cd tests/cromwellapi/ && \
+	op run --no-masking -- uv run --with rich --with ipython python -m IPython
+
+py: check_env_vars
+	cd tests/cromwellapi/ && \
+	op run --no-masking -- uv run python

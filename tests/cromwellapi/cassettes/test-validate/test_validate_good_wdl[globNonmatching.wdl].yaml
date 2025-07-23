@@ -1,0 +1,43 @@
+interactions:
+- request:
+    body: "--41948670cbf4cec019d476cc697d62db\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"globNonmatching.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow globNonmatching {\n    call create_files\n    output {\n        Array[File]
+      unmatched_files = create_files.unmatched_files\n    }\n}\n\ntask create_files
+      {\n    command <<<\n        echo \"Test file\" > test.txt\n    >>>\n    output
+      {\n        Array[File] unmatched_files = glob(\"*.log\")\n    }\n}\n\r\n--41948670cbf4cec019d476cc697d62db--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '509'
+      content-type:
+      - multipart/form-data; boundary=41948670cbf4cec019d476cc697d62db
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok55.fhcrc.org:39153/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"globNonmatching","inputs":[],"outputs":[{"name":"unmatched_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '414'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:28:39 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+version: 1

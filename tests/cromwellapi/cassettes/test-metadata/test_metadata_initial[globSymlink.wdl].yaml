@@ -1,0 +1,134 @@
+interactions:
+- request:
+    body: "--e091e3091ca2b344c5e628d9901a896e\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"globSymlink.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow globSymlink {\n    call create_nested_files\n    output {\n
+      \       Array[File] matched_files = flatten([create_nested_files.matched_files_top,
+      create_nested_files.matched_files_nested])\n        Array[File] symlink_matches
+      = create_nested_files.matched_symlinks\n    }\n}\n\ntask create_nested_files
+      {\n    command <<<\n        mkdir -p subdir/nested\n        echo \"Hello\" >
+      subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n\n        #
+      Create symlinks\n        mkdir -p symlinks\n        ln -s ../subdir/nested/file1.txt
+      symlinks/link_to_file1.txt\n        ln -s ../subdir/file2.txt symlinks/link_to_file2.txt\n
+      \   >>>\n    output {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n
+      \       Array[File] matched_files_nested = glob(\"subdir/**/*.txt\")\n        Array[File]
+      matched_symlinks = glob(\"symlinks/*.txt\")\n    }\n}\n\r\n--e091e3091ca2b344c5e628d9901a896e\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--e091e3091ca2b344c5e628d9901a896e--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '1321'
+      content-type:
+      - multipart/form-data; boundary=e091e3091ca2b344c5e628d9901a896e
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"ed11c314-c189-4484-9d14-8b6f2e31f4f5","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:34 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/ed11c314-c189-4484-9d14-8b6f2e31f4f5/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: ed11c314-c189-4484-9d14-8b6f2e31f4f5\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:34 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '101'
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok55.fhcrc.org:39153
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok55.fhcrc.org:39153/api/workflows/v1/ed11c314-c189-4484-9d14-8b6f2e31f4f5/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow globSymlink
+        {\n    call create_nested_files\n    output {\n        Array[File] matched_files
+        = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n        Array[File]
+        symlink_matches = create_nested_files.matched_symlinks\n    }\n}\n\ntask create_nested_files
+        {\n    command <<<\n        mkdir -p subdir/nested\n        echo \"Hello\"
+        > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n\n        #
+        Create symlinks\n        mkdir -p symlinks\n        ln -s ../subdir/nested/file1.txt
+        symlinks/link_to_file1.txt\n        ln -s ../subdir/file2.txt symlinks/link_to_file2.txt\n    >>>\n    output
+        {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n        Array[File]
+        matched_files_nested = glob(\"subdir/**/*.txt\")\n        Array[File] matched_symlinks
+        = glob(\"symlinks/*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"ed11c314-c189-4484-9d14-8b6f2e31f4f5","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-ed11c314-c189-4484-9d14-8b6f2e31f4f5"},"submission":"2025-07-21T16:01:34.304Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 16:01:38 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1334'
+    status:
+      code: 200
+      message: OK
+version: 1
