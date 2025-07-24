@@ -1,0 +1,54 @@
+interactions:
+- request:
+    body: "--2d37cccf055af8712e7ab51eaa82ae16\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"jsonFilelocalization.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow jsonFileLocalization {\n  input {\n    # Required inputs\n    File
+      required_json_remote     # Remote JSON file\n    \n    # Optional inputs\n    File?
+      optional_json_remote\n    File? optional_remote_not_provided\n  }\n\n  # Task
+      to copy JSON files to the working directory\n  call CopyJsons {\n    input:\n
+      \     required_remote = required_json_remote,\n      optional_remote = optional_json_remote,\n
+      \     optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+      {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+      {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+      optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir -p
+      copied_jsons\n    \n    # Copy the required local and remote files\n    cp ~{required_remote}
+      copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote} copied_jsons/$(basename
+      ~{optional_remote})\n    cp ~{optional_remote_not_provided} copied_jsons/$(basename
+      ~{optional_remote_not_provided})\n    \n  >>>\n\n  output {\n    Array[File]
+      out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n
+      \ }\n}\n\r\n--2d37cccf055af8712e7ab51eaa82ae16--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '1342'
+      content-type:
+      - multipart/form-data; boundary=2d37cccf055af8712e7ab51eaa82ae16
+      host:
+      - gizmok99.fhcrc.org:45631
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok99.fhcrc.org:45631/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"jsonFileLocalization","inputs":[{"name":"optional_json_remote","valueType":{"typeName":"Optional","optionalType":{"typeName":"File"}},"typeDisplayName":"File?","optional":true,"default":null},{"name":"optional_remote_not_provided","valueType":{"typeName":"Optional","optionalType":{"typeName":"File"}},"typeDisplayName":"File?","optional":true,"default":null},{"name":"required_json_remote","valueType":{"typeName":"File"},"typeDisplayName":"File","optional":false,"default":null}],"outputs":[{"name":"copied_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"}],"images":["\"ubuntu:20.04\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '882'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 23 Jul 2025 21:50:41 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+version: 1
