@@ -1,0 +1,69 @@
+interactions:
+- request:
+    body: "--d0fc4d907b01ed47e7ced87c1c391877\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"testRemoteFileLocalization.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow testRemoteFileLocalization {\n    input {\n        String string\n
+      \       Int integer\n        Float float\n        Boolean boolean\n        File
+      remote_file\n    }\n\n    # Task 1: Test input localization and processing\n
+      \   call testInputLocalization {\n        input:\n            input_string =
+      string,\n            input_integer = integer,\n            input_float = float,\n
+      \           input_boolean = boolean,\n            input_file = remote_file\n
+      \   }\n\n    # Task 2: Use output from Task 1 as input\n    call testOutputUsage
+      {\n        input:\n            processed_file = testInputLocalization.processed_file\n
+      \   }\n\n    # Workflow outputs: include all outputs from all tasks\n    output
+      {\n        File localized_file = testInputLocalization.processed_file\n        File
+      localized_string = testInputLocalization.outputStringfile\n        File localized_integer
+      = testInputLocalization.outputIntegerfile\n        File localized_float = testInputLocalization.outputFloatfile\n
+      \       File localized_boolean = testInputLocalization.outputBooleanfile\n        File
+      renamed_file = testOutputUsage.renamed_file\n    }\n}\n\ntask testInputLocalization
+      {\n    input {\n        String input_string\n        Int input_integer\n        Float
+      input_float\n        Boolean input_boolean\n        File input_file\n    }\n\n
+      \   command <<<\n        # Generate and verify input-based outputs\n        echo
+      \"~{input_string}\" > localized_string.txt\n        echo \"~{input_integer}\"
+      > localized_integer.txt\n        echo \"~{input_float}\" > localized_float.txt\n
+      \       echo \"~{input_boolean}\" > localized_boolean.txt\n\n        # Input
+      file is expected to already be localized by WDL\n        ls -lh \"~{input_file}\"\n
+      \   >>>\n\n    output {\n        File outputStringfile = \"localized_string.txt\"\n
+      \       File outputIntegerfile = \"localized_integer.txt\"\n        File outputFloatfile
+      = \"localized_float.txt\"\n        File outputBooleanfile = \"localized_boolean.txt\"\n
+      \       File processed_file = input_file  # Pass input file directly as output\n
+      \   }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\ntask testOutputUsage
+      {\n    input {\n        File processed_file\n    }\n\n    command <<<\n        #
+      Rename the file received from the previous task\n        mv ~{processed_file}
+      renamed_file.txt\n    >>>\n\n    output {\n        File renamed_file = \"renamed_file.txt\"\n
+      \   }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\r\n--d0fc4d907b01ed47e7ced87c1c391877--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '2601'
+      content-type:
+      - multipart/form-data; boundary=d0fc4d907b01ed47e7ced87c1c391877
+      host:
+      - gizmoj33.fhcrc.org:46687
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmoj33.fhcrc.org:46687/api/womtool/v1/describe
+  response:
+    body:
+      string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"testRemoteFileLocalization","inputs":[{"name":"boolean","valueType":{"typeName":"Boolean"},"typeDisplayName":"Boolean","optional":false,"default":null},{"name":"float","valueType":{"typeName":"Float"},"typeDisplayName":"Float","optional":false,"default":null},{"name":"integer","valueType":{"typeName":"Int"},"typeDisplayName":"Int","optional":false,"default":null},{"name":"remote_file","valueType":{"typeName":"File"},"typeDisplayName":"File","optional":false,"default":null},{"name":"string","valueType":{"typeName":"String"},"typeDisplayName":"String","optional":false,"default":null}],"outputs":[{"name":"localized_boolean","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"localized_file","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"localized_float","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"localized_integer","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"localized_string","valueType":{"typeName":"File"},"typeDisplayName":"File"},{"name":"renamed_file","valueType":{"typeName":"File"},"typeDisplayName":"File"}],"images":["\"ubuntu:20.04\"","\"ubuntu:20.04\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1376'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 31 Jul 2025 16:58:14 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+version: 1
