@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--0f5389ec847d83ed956e8a944e677184\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--f0f4364bf4d57718e35023c734dbdf1a\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"jsonTaskOrderTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow jsonTaskOrderTest {\n  input {\n    String input_json  # JSON
       string used as input for both tasks\n  }\n\n  call Task1 { input: input_json
@@ -15,13 +15,13 @@ interactions:
       \   echo \"Processing JSON in Task2: ~{input_json}\" > task2_output.txt\n    echo
       \"Task2 completed after Task1\" >> task2_output.txt\n    cat ~{previous_output}
       >> task2_output.txt\n  >>>\n  \n  output {\n    File output_file = \"task2_output.txt\"\n
-      \ }\n  \n  runtime {\n    cpu: 1\n    memory: \"2G\"\n  }\n}\n\r\n--0f5389ec847d83ed956e8a944e677184\r\nContent-Disposition:
+      \ }\n  \n  runtime {\n    cpu: 1\n    memory: \"2G\"\n  }\n}\n\r\n--f0f4364bf4d57718e35023c734dbdf1a\r\nContent-Disposition:
       form-data; name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n  \"jsonTaskOrderTest.input_json\": \"I am the text
-      that from input.json\"\n}\n\r\n--0f5389ec847d83ed956e8a944e677184\r\nContent-Disposition:
+      that from input.json\"\n}\n\r\n--f0f4364bf4d57718e35023c734dbdf1a\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--0f5389ec847d83ed956e8a944e677184--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--f0f4364bf4d57718e35023c734dbdf1a--\r\n"
     headers:
       accept:
       - '*/*'
@@ -32,16 +32,16 @@ interactions:
       content-length:
       - '1742'
       content-type:
-      - multipart/form-data; boundary=0f5389ec847d83ed956e8a944e677184
+      - multipart/form-data; boundary=f0f4364bf4d57718e35023c734dbdf1a
       host:
-      - gizmok99.fhcrc.org:45631
+      - gizmok47.fhcrc.org:43631
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmok99.fhcrc.org:45631/api/workflows/v1
+    uri: https://gizmok47.fhcrc.org:43631/api/workflows/v1
   response:
     body:
-      string: '{"id":"5828c680-6b3c-448e-92f4-10ed5413c2bb","status":"Submitted"}'
+      string: '{"id":"7b618254-c9a3-4eeb-921b-8fc8779235ce","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -50,7 +50,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 27 Jul 2025 04:06:47 GMT
+      - Mon, 04 Aug 2025 16:38:05 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -66,15 +66,15 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmok99.fhcrc.org:45631
+      - gizmok47.fhcrc.org:43631
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok99.fhcrc.org:45631/api/workflows/v1/5828c680-6b3c-448e-92f4-10ed5413c2bb/outputs
+    uri: https://gizmok47.fhcrc.org:43631/api/workflows/v1/7b618254-c9a3-4eeb-921b-8fc8779235ce/outputs
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 5828c680-6b3c-448e-92f4-10ed5413c2bb\"\n}"
+        ID: 7b618254-c9a3-4eeb-921b-8fc8779235ce\"\n}"
     headers:
       Connection:
       - keep-alive
@@ -83,7 +83,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 27 Jul 2025 04:06:47 GMT
+      - Mon, 04 Aug 2025 16:38:05 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -99,47 +99,14 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmok99.fhcrc.org:45631
+      - gizmok47.fhcrc.org:43631
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok99.fhcrc.org:45631/api/workflows/v1/5828c680-6b3c-448e-92f4-10ed5413c2bb/outputs
+    uri: https://gizmok47.fhcrc.org:43631/api/workflows/v1/7b618254-c9a3-4eeb-921b-8fc8779235ce/outputs
   response:
     body:
-      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 5828c680-6b3c-448e-92f4-10ed5413c2bb\"\n}"
-    headers:
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '101'
-      Content-Type:
-      - application/json
-      Date:
-      - Sun, 27 Jul 2025 04:06:51 GMT
-      Server:
-      - nginx/1.25.3
-    status:
-      code: 404
-      message: Not Found
-- request:
-    body: ''
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      connection:
-      - keep-alive
-      host:
-      - gizmok99.fhcrc.org:45631
-      user-agent:
-      - python-httpx/0.28.1
-    method: GET
-    uri: https://gizmok99.fhcrc.org:45631/api/workflows/v1/5828c680-6b3c-448e-92f4-10ed5413c2bb/outputs
-  response:
-    body:
-      string: '{"outputs":{},"id":"5828c680-6b3c-448e-92f4-10ed5413c2bb"}'
+      string: '{"outputs":{},"id":"7b618254-c9a3-4eeb-921b-8fc8779235ce"}'
     headers:
       Connection:
       - keep-alive
@@ -148,7 +115,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 27 Jul 2025 04:06:55 GMT
+      - Mon, 04 Aug 2025 16:38:09 GMT
       Server:
       - nginx/1.25.3
     status:
