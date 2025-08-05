@@ -36,6 +36,15 @@ check_env_vars:
 check_wdl_dirs:
 	@uv run tests/validate_wdls.py
 
+server_status:
+	op run --no-masking -- uv run python -m tests.cromwellapi.server_type --check-status
+
+server_type_regulated:
+	op run --no-masking -- uv run python -m tests.cromwellapi.server_type --regulated
+
+server_type_not_regulated:
+	op run --no-masking -- uv run python -m tests.cromwellapi.server_type --not-regulated
+
 test_api_cached: check_env_vars check_wdl_dirs
 	@op run -- uv run pytest -n $(WORKERS) \
 	--color=yes --record-mode=once --verbose \

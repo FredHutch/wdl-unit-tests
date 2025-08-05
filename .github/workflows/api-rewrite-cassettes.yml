@@ -37,6 +37,8 @@ jobs:
       - name: Run tests and process changes
         id: process-changes
         run: |
+          make server_type_not_regulated
+
           make test_api_rewrite_json_report || true
 
           # Check if results.json exists and has valid content
