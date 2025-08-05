@@ -1,0 +1,34 @@
+name: WDL Docs
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-docs:
+    if: ${{ ! github.event.pull_request.head.repo.fork }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update Rust
+        run: rustup update stable && rustup default stable
+
+      - name: Build Sprocket
+        run: |
+          cargo install sprocket --locked
+
+      - name: Build docs
+        run: |
+          rm -rf missingValue
+          sprocket dev doc -v --homepage assets/docs.md .
+          cp -r assets docs/
+
+      - name: Deploy docs
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: docs
