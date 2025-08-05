@@ -1,11 +1,10 @@
 import contextlib
+import os
 import sys
 
 import click
 
 from .proof import ProofApi
-
-proof_api = ProofApi()
 
 
 @contextlib.contextmanager
@@ -50,7 +49,16 @@ def suppress_cache_messages():
 @click.pass_context
 def server_type(ctx, regulated, check_status):
     """Run a PROOF Cromwell server in regulated or unregulated mode"""
+    op_srv_acct_token = os.getenv("OP_SERVICE_ACCOUNT_TOKEN")
+    if not op_srv_acct_token:
+        click.echo(
+            "OP_SERVICE_ACCOUNT_TOKEN environment variable is not set", err=True
+        )
+        raise click.Abort()
+
     with suppress_cache_messages():
+        proof_api = ProofApi()
+
         cromwell_server_is_up = proof_api.is_cromwell_server_up()
 
         if check_status:
