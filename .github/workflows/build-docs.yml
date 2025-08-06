@@ -24,8 +24,13 @@ jobs:
 
       - name: Build docs
         run: |
+          # Drop missingValue dir since docs will fail with it
           rm -rf missingValue
+          # Join WDL dir specific README's into .wdl files
+          uv run make-preambles.py
+          # Build docs
           sprocket dev doc -v --homepage assets/docs.md .
+          # Copy assets to docs directory
           cp -r assets docs/
 
       - name: Deploy docs
