@@ -22,6 +22,12 @@ jobs:
         run: |
           cargo install sprocket --locked
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.8.5"
+          python-version: 3.13.5
+
       - name: Build docs
         run: |
           # Drop missingValue dir since docs will fail with it
