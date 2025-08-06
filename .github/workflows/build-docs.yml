@@ -26,6 +26,8 @@ jobs:
         run: |
           # Drop missingValue dir since docs will fail with it
           rm -rf missingValue
+          # Drop a few dirs that have a few lines that need manual fixing
+          rm -rf arrayOperations gpuAlloc
           # Join WDL dir specific README's into .wdl files
           uv run make-preambles.py
           # Build docs
