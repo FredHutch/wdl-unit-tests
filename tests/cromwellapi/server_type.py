@@ -49,12 +49,15 @@ def suppress_cache_messages():
 @click.pass_context
 def server_type(ctx, regulated, check_status):
     """Run a PROOF Cromwell server in regulated or unregulated mode"""
-    op_srv_acct_token = os.getenv("OP_SERVICE_ACCOUNT_TOKEN")
-    if not op_srv_acct_token:
-        click.echo(
-            "OP_SERVICE_ACCOUNT_TOKEN environment variable is not set", err=True
-        )
-        raise click.Abort()
+    on_ci = bool(os.getenv("CI"))
+    if not on_ci:
+        op_srv_acct_token = os.getenv("OP_SERVICE_ACCOUNT_TOKEN")
+        if not op_srv_acct_token:
+            click.echo(
+                "OP_SERVICE_ACCOUNT_TOKEN environment variable is not set",
+                err=True,
+            )
+            raise click.Abort()
 
     with suppress_cache_messages():
         proof_api = ProofApi()
