@@ -20,24 +20,20 @@ jobs:
 
       - name: Build Sprocket
         run: |
-          cargo install sprocket --locked
+          cargo install sprocket@0.16.0 --locked
 
       - name: Install uv
         uses: astral-sh/setup-uv@v6
         with:
-          version: "0.8.5"
+          version: "0.8.10"
           python-version: 3.13.5
 
       - name: Build docs
         run: |
-          # Drop missingValue dir since docs will fail with it
-          rm -rf missingValue
-          # Drop a few dirs that have a few lines that need manual fixing
-          rm -rf arrayOperations gpuAlloc
           # Join WDL dir specific README's into .wdl files
           uv run make-preambles.py
           # Build docs
-          sprocket dev doc -v --homepage assets/docs.md .
+          sprocket dev doc -v --homepage assets/docs.md --logo assets/fredhutch-logo.svg .
           # Copy assets to docs directory
           cp -r assets docs/
 
