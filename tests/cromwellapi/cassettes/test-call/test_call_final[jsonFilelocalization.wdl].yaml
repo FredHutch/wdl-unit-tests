@@ -1,0 +1,2416 @@
+interactions:
+- request:
+    body: "--136d43466ee5bfc86f8e2b653152bd9a\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"jsonFilelocalization.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow jsonFileLocalization {\n  input {\n    # Required inputs\n    File
+      required_json_remote     # Remote JSON file\n    \n    # Optional inputs\n    File?
+      optional_json_remote\n    File? optional_remote_not_provided\n  }\n\n  # Task
+      to copy JSON files to the working directory\n  call CopyJsons {\n    input:\n
+      \     required_remote = required_json_remote,\n      optional_remote = optional_json_remote,\n
+      \     optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+      {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+      {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+      optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir -p
+      copied_jsons\n    \n    # Copy the required local and remote files\n    cp ~{required_remote}
+      copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote} copied_jsons/$(basename
+      ~{optional_remote})\n    cp ~{optional_remote_not_provided} copied_jsons/$(basename
+      ~{optional_remote_not_provided})\n    \n  >>>\n\n  output {\n    Array[File]
+      out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n
+      \ }\n}\n\r\n--136d43466ee5bfc86f8e2b653152bd9a\r\nContent-Disposition: form-data;
+      name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type: application/json\r\n\r\n{\n
+      \ \"jsonFileLocalization.required_json_remote\": \"/fh/fast/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\",\n
+      \ \"jsonFileLocalization.optional_json_remote\": \"/fh/fast/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\"\n}\n\r\n--136d43466ee5bfc86f8e2b653152bd9a\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--136d43466ee5bfc86f8e2b653152bd9a--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '2031'
+      content-type:
+      - multipart/form-data; boundary=136d43466ee5bfc86f8e2b653152bd9a
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"4c394d8b-0b87-4655-9fd6-ec8548156772","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:33:11 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:33:16 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:33:21 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:33:26 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:33:32 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:33:37 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:33:42 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:33:47 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:33:52 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:33:57 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:34:02 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:34:07 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:34:12 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:34:17 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:34:22 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:34:27 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:34:32 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:34:38 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:34:43 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:34:48 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:34:53 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:34:58 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:35:03 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:35:08 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:35:13 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:35:18 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:35:23 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:35:28 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:35:33 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:35:38 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:35:43 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:35:49 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:35:54 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:35:59 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:36:04 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:36:09 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow jsonFileLocalization
+        {\n  input {\n    # Required inputs\n    File required_json_remote     # Remote
+        JSON file\n    \n    # Optional inputs\n    File? optional_json_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  # Task to copy JSON files to the working
+        directory\n  call CopyJsons {\n    input:\n      required_remote = required_json_remote,\n      optional_remote
+        = optional_json_remote,\n      optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+        {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+        {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+        optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir
+        -p copied_jsons\n    \n    # Copy the required local and remote files\n    cp
+        ~{required_remote} copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote}
+        copied_jsons/$(basename ~{optional_remote})\n    cp ~{optional_remote_not_provided}
+        copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:36:14 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '1898'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"jsonFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-cc7e86b","description":"PickedUp","timestamp":"2025-08-24T03:36:10.729Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow jsonFileLocalization {\n  input {\n    # Required inputs\n    File
+        required_json_remote     # Remote JSON file\n    \n    # Optional inputs\n    File?
+        optional_json_remote\n    File? optional_remote_not_provided\n  }\n\n  # Task
+        to copy JSON files to the working directory\n  call CopyJsons {\n    input:\n      required_remote
+        = required_json_remote,\n      optional_remote = optional_json_remote,\n      optional_remote_not_provided
+        = optional_remote_not_provided\n  }\n\n  output {\n    Array[File] copied_files
+        = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons {\n  input {\n    File required_remote\n    File?
+        optional_remote\n    File? optional_remote_not_provided\n  }\n\n  command
+        <<<\n    set -e\n    mkdir -p copied_jsons\n    \n    # Copy the required
+        local and remote files\n    cp ~{required_remote} copied_jsons/$(basename
+        ~{required_remote})\n    cp ~{optional_remote} copied_jsons/$(basename ~{optional_remote})\n    cp
+        ~{optional_remote_not_provided} copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{"jsonFileLocalization.CopyJsons":[{"executionStatus":"QueuedInCromwell","shardIndex":-1,"backend":"gizmo","attempt":1,"start":"2025-08-24T03:36:12.818Z"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-08-24T03:36:10.730Z","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{"required_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt","optional_remote_not_provided":null,"optional_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt"},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:36:19 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2719'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"jsonFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-cc7e86b","description":"PickedUp","timestamp":"2025-08-24T03:36:10.729Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow jsonFileLocalization {\n  input {\n    # Required inputs\n    File
+        required_json_remote     # Remote JSON file\n    \n    # Optional inputs\n    File?
+        optional_json_remote\n    File? optional_remote_not_provided\n  }\n\n  # Task
+        to copy JSON files to the working directory\n  call CopyJsons {\n    input:\n      required_remote
+        = required_json_remote,\n      optional_remote = optional_json_remote,\n      optional_remote_not_provided
+        = optional_remote_not_provided\n  }\n\n  output {\n    Array[File] copied_files
+        = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons {\n  input {\n    File required_remote\n    File?
+        optional_remote\n    File? optional_remote_not_provided\n  }\n\n  command
+        <<<\n    set -e\n    mkdir -p copied_jsons\n    \n    # Copy the required
+        local and remote files\n    cp ~{required_remote} copied_jsons/$(basename
+        ~{required_remote})\n    cp ~{optional_remote} copied_jsons/$(basename ~{optional_remote})\n    cp
+        ~{optional_remote_not_provided} copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{"jsonFileLocalization.CopyJsons":[{"executionStatus":"QueuedInCromwell","shardIndex":-1,"backend":"gizmo","attempt":1,"start":"2025-08-24T03:36:12.818Z"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-08-24T03:36:10.730Z","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{"required_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt","optional_remote_not_provided":null,"optional_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt"},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:36:24 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2719'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"jsonFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-cc7e86b","description":"PickedUp","timestamp":"2025-08-24T03:36:10.729Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow jsonFileLocalization {\n  input {\n    # Required inputs\n    File
+        required_json_remote     # Remote JSON file\n    \n    # Optional inputs\n    File?
+        optional_json_remote\n    File? optional_remote_not_provided\n  }\n\n  # Task
+        to copy JSON files to the working directory\n  call CopyJsons {\n    input:\n      required_remote
+        = required_json_remote,\n      optional_remote = optional_json_remote,\n      optional_remote_not_provided
+        = optional_remote_not_provided\n  }\n\n  output {\n    Array[File] copied_files
+        = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons {\n  input {\n    File required_remote\n    File?
+        optional_remote\n    File? optional_remote_not_provided\n  }\n\n  command
+        <<<\n    set -e\n    mkdir -p copied_jsons\n    \n    # Copy the required
+        local and remote files\n    cp ~{required_remote} copied_jsons/$(basename
+        ~{required_remote})\n    cp ~{optional_remote} copied_jsons/$(basename ~{optional_remote})\n    cp
+        ~{optional_remote_not_provided} copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{"jsonFileLocalization.CopyJsons":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/stdout","commandLine":"set
+        -e\nmkdir -p copied_jsons\n\n# Copy the required local and remote files\ncp
+        /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_required_file_2.txt
+        copied_jsons/$(basename /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_required_file_2.txt)\ncp
+        /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_optional_file_2.txt
+        copied_jsons/$(basename /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_optional_file_2.txt)\ncp  copied_jsons/$(basename
+        )","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:20.04","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"optional_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt","optional_remote_not_provided":null,"required_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt"},"backend":"gizmo","attempt":1,"start":"2025-08-24T03:36:12.818Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-08-24T03:36:10.730Z","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{"required_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt","optional_remote_not_provided":null,"optional_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt"},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:36:29 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '4451'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"jsonFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-cc7e86b","description":"PickedUp","timestamp":"2025-08-24T03:36:10.729Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow jsonFileLocalization {\n  input {\n    # Required inputs\n    File
+        required_json_remote     # Remote JSON file\n    \n    # Optional inputs\n    File?
+        optional_json_remote\n    File? optional_remote_not_provided\n  }\n\n  # Task
+        to copy JSON files to the working directory\n  call CopyJsons {\n    input:\n      required_remote
+        = required_json_remote,\n      optional_remote = optional_json_remote,\n      optional_remote_not_provided
+        = optional_remote_not_provided\n  }\n\n  output {\n    Array[File] copied_files
+        = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons {\n  input {\n    File required_remote\n    File?
+        optional_remote\n    File? optional_remote_not_provided\n  }\n\n  command
+        <<<\n    set -e\n    mkdir -p copied_jsons\n    \n    # Copy the required
+        local and remote files\n    cp ~{required_remote} copied_jsons/$(basename
+        ~{required_remote})\n    cp ~{optional_remote} copied_jsons/$(basename ~{optional_remote})\n    cp
+        ~{optional_remote_not_provided} copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{"jsonFileLocalization.CopyJsons":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/stdout","backendStatus":"Running","commandLine":"set
+        -e\nmkdir -p copied_jsons\n\n# Copy the required local and remote files\ncp
+        /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_required_file_2.txt
+        copied_jsons/$(basename /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_required_file_2.txt)\ncp
+        /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_optional_file_2.txt
+        copied_jsons/$(basename /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_optional_file_2.txt)\ncp  copied_jsons/$(basename
+        )","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:20.04","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"optional_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt","optional_remote_not_provided":null,"required_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt"},"jobId":"29795079","backend":"gizmo","attempt":1,"start":"2025-08-24T03:36:12.818Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-08-24T03:36:10.730Z","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{"required_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt","optional_remote_not_provided":null,"optional_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt"},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:36:34 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '4496'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"jsonFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-cc7e86b","description":"PickedUp","timestamp":"2025-08-24T03:36:10.729Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow jsonFileLocalization {\n  input {\n    # Required inputs\n    File
+        required_json_remote     # Remote JSON file\n    \n    # Optional inputs\n    File?
+        optional_json_remote\n    File? optional_remote_not_provided\n  }\n\n  # Task
+        to copy JSON files to the working directory\n  call CopyJsons {\n    input:\n      required_remote
+        = required_json_remote,\n      optional_remote = optional_json_remote,\n      optional_remote_not_provided
+        = optional_remote_not_provided\n  }\n\n  output {\n    Array[File] copied_files
+        = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons {\n  input {\n    File required_remote\n    File?
+        optional_remote\n    File? optional_remote_not_provided\n  }\n\n  command
+        <<<\n    set -e\n    mkdir -p copied_jsons\n    \n    # Copy the required
+        local and remote files\n    cp ~{required_remote} copied_jsons/$(basename
+        ~{required_remote})\n    cp ~{optional_remote} copied_jsons/$(basename ~{optional_remote})\n    cp
+        ~{optional_remote_not_provided} copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{"jsonFileLocalization.CopyJsons":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/stdout","backendStatus":"Running","commandLine":"set
+        -e\nmkdir -p copied_jsons\n\n# Copy the required local and remote files\ncp
+        /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_required_file_2.txt
+        copied_jsons/$(basename /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_required_file_2.txt)\ncp
+        /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_optional_file_2.txt
+        copied_jsons/$(basename /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_optional_file_2.txt)\ncp  copied_jsons/$(basename
+        )","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:20.04","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"optional_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt","optional_remote_not_provided":null,"required_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt"},"jobId":"29795079","backend":"gizmo","attempt":1,"start":"2025-08-24T03:36:12.818Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-08-24T03:36:10.730Z","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{"required_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt","optional_remote_not_provided":null,"optional_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt"},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:36:39 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '4496'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"jsonFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-cc7e86b","description":"PickedUp","timestamp":"2025-08-24T03:36:10.729Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow jsonFileLocalization {\n  input {\n    # Required inputs\n    File
+        required_json_remote     # Remote JSON file\n    \n    # Optional inputs\n    File?
+        optional_json_remote\n    File? optional_remote_not_provided\n  }\n\n  # Task
+        to copy JSON files to the working directory\n  call CopyJsons {\n    input:\n      required_remote
+        = required_json_remote,\n      optional_remote = optional_json_remote,\n      optional_remote_not_provided
+        = optional_remote_not_provided\n  }\n\n  output {\n    Array[File] copied_files
+        = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons {\n  input {\n    File required_remote\n    File?
+        optional_remote\n    File? optional_remote_not_provided\n  }\n\n  command
+        <<<\n    set -e\n    mkdir -p copied_jsons\n    \n    # Copy the required
+        local and remote files\n    cp ~{required_remote} copied_jsons/$(basename
+        ~{required_remote})\n    cp ~{optional_remote} copied_jsons/$(basename ~{optional_remote})\n    cp
+        ~{optional_remote_not_provided} copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{"jsonFileLocalization.CopyJsons":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/stdout","backendStatus":"Running","commandLine":"set
+        -e\nmkdir -p copied_jsons\n\n# Copy the required local and remote files\ncp
+        /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_required_file_2.txt
+        copied_jsons/$(basename /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_required_file_2.txt)\ncp
+        /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_optional_file_2.txt
+        copied_jsons/$(basename /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_optional_file_2.txt)\ncp  copied_jsons/$(basename
+        )","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:20.04","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"optional_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt","optional_remote_not_provided":null,"required_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt"},"jobId":"29795079","backend":"gizmo","attempt":1,"start":"2025-08-24T03:36:12.818Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-08-24T03:36:10.730Z","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{"required_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt","optional_remote_not_provided":null,"optional_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt"},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:36:44 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '4496'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"jsonFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-cc7e86b","description":"PickedUp","timestamp":"2025-08-24T03:36:10.729Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow jsonFileLocalization {\n  input {\n    # Required inputs\n    File
+        required_json_remote     # Remote JSON file\n    \n    # Optional inputs\n    File?
+        optional_json_remote\n    File? optional_remote_not_provided\n  }\n\n  # Task
+        to copy JSON files to the working directory\n  call CopyJsons {\n    input:\n      required_remote
+        = required_json_remote,\n      optional_remote = optional_json_remote,\n      optional_remote_not_provided
+        = optional_remote_not_provided\n  }\n\n  output {\n    Array[File] copied_files
+        = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons {\n  input {\n    File required_remote\n    File?
+        optional_remote\n    File? optional_remote_not_provided\n  }\n\n  command
+        <<<\n    set -e\n    mkdir -p copied_jsons\n    \n    # Copy the required
+        local and remote files\n    cp ~{required_remote} copied_jsons/$(basename
+        ~{required_remote})\n    cp ~{optional_remote} copied_jsons/$(basename ~{optional_remote})\n    cp
+        ~{optional_remote_not_provided} copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{"jsonFileLocalization.CopyJsons":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/stdout","backendStatus":"Running","commandLine":"set
+        -e\nmkdir -p copied_jsons\n\n# Copy the required local and remote files\ncp
+        /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_required_file_2.txt
+        copied_jsons/$(basename /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_required_file_2.txt)\ncp
+        /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_optional_file_2.txt
+        copied_jsons/$(basename /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_optional_file_2.txt)\ncp  copied_jsons/$(basename
+        )","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:20.04","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"optional_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt","optional_remote_not_provided":null,"required_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt"},"jobId":"29795079","backend":"gizmo","attempt":1,"start":"2025-08-24T03:36:12.818Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-08-24T03:36:10.730Z","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{"required_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt","optional_remote_not_provided":null,"optional_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt"},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:36:49 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '4496'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"jsonFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-cc7e86b","description":"PickedUp","timestamp":"2025-08-24T03:36:10.729Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow jsonFileLocalization {\n  input {\n    # Required inputs\n    File
+        required_json_remote     # Remote JSON file\n    \n    # Optional inputs\n    File?
+        optional_json_remote\n    File? optional_remote_not_provided\n  }\n\n  # Task
+        to copy JSON files to the working directory\n  call CopyJsons {\n    input:\n      required_remote
+        = required_json_remote,\n      optional_remote = optional_json_remote,\n      optional_remote_not_provided
+        = optional_remote_not_provided\n  }\n\n  output {\n    Array[File] copied_files
+        = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons {\n  input {\n    File required_remote\n    File?
+        optional_remote\n    File? optional_remote_not_provided\n  }\n\n  command
+        <<<\n    set -e\n    mkdir -p copied_jsons\n    \n    # Copy the required
+        local and remote files\n    cp ~{required_remote} copied_jsons/$(basename
+        ~{required_remote})\n    cp ~{optional_remote} copied_jsons/$(basename ~{optional_remote})\n    cp
+        ~{optional_remote_not_provided} copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{"jsonFileLocalization.CopyJsons":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/stdout","backendStatus":"Running","commandLine":"set
+        -e\nmkdir -p copied_jsons\n\n# Copy the required local and remote files\ncp
+        /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_required_file_2.txt
+        copied_jsons/$(basename /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_required_file_2.txt)\ncp
+        /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_optional_file_2.txt
+        copied_jsons/$(basename /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_optional_file_2.txt)\ncp  copied_jsons/$(basename
+        )","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:20.04","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"optional_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt","optional_remote_not_provided":null,"required_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt"},"jobId":"29795079","backend":"gizmo","attempt":1,"start":"2025-08-24T03:36:12.818Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-08-24T03:36:10.730Z","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{"required_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt","optional_remote_not_provided":null,"optional_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt"},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:36:54 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '4496'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"jsonFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-cc7e86b","description":"PickedUp","timestamp":"2025-08-24T03:36:10.729Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow jsonFileLocalization {\n  input {\n    # Required inputs\n    File
+        required_json_remote     # Remote JSON file\n    \n    # Optional inputs\n    File?
+        optional_json_remote\n    File? optional_remote_not_provided\n  }\n\n  # Task
+        to copy JSON files to the working directory\n  call CopyJsons {\n    input:\n      required_remote
+        = required_json_remote,\n      optional_remote = optional_json_remote,\n      optional_remote_not_provided
+        = optional_remote_not_provided\n  }\n\n  output {\n    Array[File] copied_files
+        = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons {\n  input {\n    File required_remote\n    File?
+        optional_remote\n    File? optional_remote_not_provided\n  }\n\n  command
+        <<<\n    set -e\n    mkdir -p copied_jsons\n    \n    # Copy the required
+        local and remote files\n    cp ~{required_remote} copied_jsons/$(basename
+        ~{required_remote})\n    cp ~{optional_remote} copied_jsons/$(basename ~{optional_remote})\n    cp
+        ~{optional_remote_not_provided} copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{"jsonFileLocalization.CopyJsons":[{"executionStatus":"Running","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/stdout","backendStatus":"Running","commandLine":"set
+        -e\nmkdir -p copied_jsons\n\n# Copy the required local and remote files\ncp
+        /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_required_file_2.txt
+        copied_jsons/$(basename /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_required_file_2.txt)\ncp
+        /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_optional_file_2.txt
+        copied_jsons/$(basename /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_optional_file_2.txt)\ncp  copied_jsons/$(basename
+        )","shardIndex":-1,"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:20.04","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"optional_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt","optional_remote_not_provided":null,"required_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt"},"jobId":"29795079","backend":"gizmo","attempt":1,"start":"2025-08-24T03:36:12.818Z","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons"}]},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772","actualWorkflowLanguage":"WDL","status":"Running","start":"2025-08-24T03:36:10.730Z","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{"required_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt","optional_remote_not_provided":null,"optional_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt"},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:37:00 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '4496'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/4c394d8b-0b87-4655-9fd6-ec8548156772/metadata?expandSubWorkflows=true
+  response:
+    body:
+      string: '{"workflowName":"jsonFileLocalization","workflowProcessingEvents":[{"cromwellId":"cromid-cc7e86b","description":"Finished","timestamp":"2025-08-24T03:37:02.799Z","cromwellVersion":"87"},{"cromwellId":"cromid-cc7e86b","description":"PickedUp","timestamp":"2025-08-24T03:36:10.729Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
+        1.0\n\nworkflow jsonFileLocalization {\n  input {\n    # Required inputs\n    File
+        required_json_remote     # Remote JSON file\n    \n    # Optional inputs\n    File?
+        optional_json_remote\n    File? optional_remote_not_provided\n  }\n\n  # Task
+        to copy JSON files to the working directory\n  call CopyJsons {\n    input:\n      required_remote
+        = required_json_remote,\n      optional_remote = optional_json_remote,\n      optional_remote_not_provided
+        = optional_remote_not_provided\n  }\n\n  output {\n    Array[File] copied_files
+        = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons {\n  input {\n    File required_remote\n    File?
+        optional_remote\n    File? optional_remote_not_provided\n  }\n\n  command
+        <<<\n    set -e\n    mkdir -p copied_jsons\n    \n    # Copy the required
+        local and remote files\n    cp ~{required_remote} copied_jsons/$(basename
+        ~{required_remote})\n    cp ~{optional_remote} copied_jsons/$(basename ~{optional_remote})\n    cp
+        ~{optional_remote_not_provided} copied_jsons/$(basename ~{optional_remote_not_provided})\n    \n  >>>\n\n  output
+        {\n    Array[File] out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime
+        {\n    docker: \"ubuntu:20.04\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+        false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
+        false\n}","inputs":"{\"jsonFileLocalization.optional_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\",\"jsonFileLocalization.required_json_remote\":\"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\"}","workflowUrl":"","labels":"{}"},"calls":{"jsonFileLocalization.CopyJsons":[{"executionStatus":"Done","stdout":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/stdout","backendStatus":"Done","commandLine":"set
+        -e\nmkdir -p copied_jsons\n\n# Copy the required local and remote files\ncp
+        /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_required_file_2.txt
+        copied_jsons/$(basename /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_required_file_2.txt)\ncp
+        /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_optional_file_2.txt
+        copied_jsons/$(basename /cromwell-executions/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/inputs/1130047110/local_remote_optional_file_2.txt)\ncp  copied_jsons/$(basename
+        )","shardIndex":-1,"outputs":{"out_files":["/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/glob-f9e378b03f46c0bec01ac2b6abc5f8ec/local_remote_optional_file_2.txt","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/glob-f9e378b03f46c0bec01ac2b6abc5f8ec/local_remote_required_file_2.txt"]},"runtimeAttributes":{"failOnStderr":"false","partition":"campus-new","continueOnReturnCode":"0","docker":"ubuntu:20.04","modules":"","gpus":"0","maxRetries":"0","cpu":"1","memory":"1.953125
+        GB"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"optional_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt","optional_remote_not_provided":null,"required_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt"},"returnCode":0,"jobId":"29795079","backend":"gizmo","start":"2025-08-24T03:36:12.818Z","end":"2025-08-24T03:37:00.862Z","dockerImageUsed":"ubuntu@sha256:8feb4d8ca5354def3d8fce243717141ce31e2c428701f6682bd2fafe15388214","stderr":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/stderr","callRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons","attempt":1,"executionEvents":[{"startTime":"2025-08-24T03:36:20.131Z","description":"RunningJob","endTime":"2025-08-24T03:37:00.153Z"},{"startTime":"2025-08-24T03:36:12.818Z","description":"Pending","endTime":"2025-08-24T03:36:12.819Z"},{"startTime":"2025-08-24T03:36:20.117Z","description":"PreparingJob","endTime":"2025-08-24T03:36:20.131Z"},{"startTime":"2025-08-24T03:36:20.116Z","description":"WaitingForValueStore","endTime":"2025-08-24T03:36:20.117Z"},{"startTime":"2025-08-24T03:37:00.153Z","description":"UpdatingJobStore","endTime":"2025-08-24T03:37:00.863Z"},{"startTime":"2025-08-24T03:36:12.819Z","description":"RequestingExecutionToken","endTime":"2025-08-24T03:36:20.116Z"}]}]},"outputs":{"jsonFileLocalization.copied_files":["/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/glob-f9e378b03f46c0bec01ac2b6abc5f8ec/local_remote_optional_file_2.txt","/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772/call-CopyJsons/execution/glob-f9e378b03f46c0bec01ac2b6abc5f8ec/local_remote_required_file_2.txt"]},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/jsonFileLocalization/4c394d8b-0b87-4655-9fd6-ec8548156772","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2025-08-24T03:37:02.799Z","start":"2025-08-24T03:36:10.730Z","id":"4c394d8b-0b87-4655-9fd6-ec8548156772","inputs":{"required_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt","optional_remote_not_provided":null,"optional_json_remote":"/redacted/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt"},"labels":{"cromwell-workflow-id":"cromwell-4c394d8b-0b87-4655-9fd6-ec8548156772"},"submission":"2025-08-24T03:33:11.743Z"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:37:05 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '6369'
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -1,0 +1,125 @@
+interactions:
+- request:
+    body: "--7664373c73a6718298185b50c2c6ef17\r\nContent-Disposition: form-data; name=\"workflowSource\";
+      filename=\"jsonFilelocalization.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
+      1.0\n\nworkflow jsonFileLocalization {\n  input {\n    # Required inputs\n    File
+      required_json_remote     # Remote JSON file\n    \n    # Optional inputs\n    File?
+      optional_json_remote\n    File? optional_remote_not_provided\n  }\n\n  # Task
+      to copy JSON files to the working directory\n  call CopyJsons {\n    input:\n
+      \     required_remote = required_json_remote,\n      optional_remote = optional_json_remote,\n
+      \     optional_remote_not_provided = optional_remote_not_provided\n  }\n\n  output
+      {\n    Array[File] copied_files = CopyJsons.out_files\n  }\n}\n\ntask CopyJsons
+      {\n  input {\n    File required_remote\n    File? optional_remote\n    File?
+      optional_remote_not_provided\n  }\n\n  command <<<\n    set -e\n    mkdir -p
+      copied_jsons\n    \n    # Copy the required local and remote files\n    cp ~{required_remote}
+      copied_jsons/$(basename ~{required_remote})\n    cp ~{optional_remote} copied_jsons/$(basename
+      ~{optional_remote})\n    cp ~{optional_remote_not_provided} copied_jsons/$(basename
+      ~{optional_remote_not_provided})\n    \n  >>>\n\n  output {\n    Array[File]
+      out_files = glob(\"copied_jsons/*\")\n  }\n\n  runtime {\n    docker: \"ubuntu:20.04\"\n
+      \ }\n}\n\r\n--7664373c73a6718298185b50c2c6ef17\r\nContent-Disposition: form-data;
+      name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type: application/json\r\n\r\n{\n
+      \ \"jsonFileLocalization.required_json_remote\": \"/fh/fast/_DaSL/proof_testing/jsonFilelocalization/local_remote_required_file_2.txt\",\n
+      \ \"jsonFileLocalization.optional_json_remote\": \"/fh/fast/_DaSL/proof_testing/jsonFilelocalization/local_remote_optional_file_2.txt\"\n}\n\r\n--7664373c73a6718298185b50c2c6ef17\r\nContent-Disposition:
+      form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
+      application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--7664373c73a6718298185b50c2c6ef17--\r\n"
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '2031'
+      content-type:
+      - multipart/form-data; boundary=7664373c73a6718298185b50c2c6ef17
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: POST
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1
+  response:
+    body:
+      string: '{"id":"a154fb3f-c28a-4a75-a99d-f162027a5e85","status":"Submitted"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:59:54 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 201
+      message: Created
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/a154fb3f-c28a-4a75-a99d-f162027a5e85/outputs
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: a154fb3f-c28a-4a75-a99d-f162027a5e85\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '101'
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:59:54 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok20.fhcrc.org:44823
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok20.fhcrc.org:44823/api/workflows/v1/a154fb3f-c28a-4a75-a99d-f162027a5e85/outputs
+  response:
+    body:
+      string: '{"outputs":{},"id":"a154fb3f-c28a-4a75-a99d-f162027a5e85"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '58'
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 24 Aug 2025 03:59:58 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 200
+      message: OK
+version: 1
