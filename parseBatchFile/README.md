@@ -1,5 +1,5 @@
 # parseBatchFile WDL Workflow
-
+This wdl is an example of a wdl that should fail the GitHub runner and API
 ## Overview
 xxx
 
