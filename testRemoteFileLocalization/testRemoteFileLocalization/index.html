@@ -173,127 +173,60 @@
                                         current: false,
                                         icon: '../../assets/workflow-unselected.svg',
                                     }
-                                }" class="left-sidebar__row" x-bind:class="node.current ? 'bg-slate-700/50 is-scrolled-to' : 'hover:bg-slate-800'"><div class="left-sidebar__indent -1"></div><div class="left-sidebar__content-item-container crop-ellipsis"><img x-bind:src="node.icon" class="left-sidebar__icon" alt="Workflow icon"><sprocket-tooltip content="testRemoteFileLocalization" class="crop-ellipsis" x-bind:class="node.current ? 'text-slate-50' : 'group-hover:text-slate-50'"><span>testRemoteFileLocalization</span></sprocket-tooltip></div></a></ul></li></ul></div></div></div><div class="layout__main-center"><div class="layout__main-center-content"><div><div class="flex gap-1 mb-3" x-show="showCenterButtons"><button x-on:click="collapseSidebar()" x-bind:disabled="sidebarState === 'hidden'" x-bind:class="getSidebarButtonClass('hidden')"><img src="../../assets/sidebar-icon-hide.svg" alt=""></img></button><button x-on:click="restoreSidebar()" x-bind:disabled="sidebarState === 'normal'" x-bind:class="getSidebarButtonClass('normal')"><img src="../../assets/sidebar-icon-default.svg" alt=""></img></button><button x-on:click="expandSidebar()" x-bind:disabled="sidebarState === 'xl'" x-bind:class="getSidebarButtonClass('xl')"><img src="../../assets/sidebar-icon-expand.svg" alt=""></img></button></div><div class="layout__breadcrumbs"><div class="layout__breadcrumb-container"><a class="layout__breadcrumb-clickable" href="../../index.html">docs</a><span> / </span><span class="layout__breadcrumb-inactive">testRemoteFileLocalization</span><span> / </span><span class="layout__breadcrumb-inactive">testRemoteFileLocalization</span></div></div></div><div class="main__container"><h1 id="title" class="main__title">testRemoteFileLocalization</h1><div class="main__badge-container"><div class="main__badge"><span class="main__badge-text">WDL Version</span><div class="main__badge-inner"><span class="main__badge-inner-text">1.0</span></div></div></div><div id="preamble" class="main__section"><div class="markdown-body"><h1>Unit Test for Remote File Localization (<code>testRemoteFileLocalization</code>)</h1>
+                                }" class="left-sidebar__row" x-bind:class="node.current ? 'bg-slate-700/50 is-scrolled-to' : 'hover:bg-slate-800'"><div class="left-sidebar__indent -1"></div><div class="left-sidebar__content-item-container crop-ellipsis"><img x-bind:src="node.icon" class="left-sidebar__icon" alt="Workflow icon"><sprocket-tooltip content="testRemoteFileLocalization" class="crop-ellipsis" x-bind:class="node.current ? 'text-slate-50' : 'group-hover:text-slate-50'"><span>testRemoteFileLocalization</span></sprocket-tooltip></div></a></ul></li></ul></div></div></div><div class="layout__main-center"><div class="layout__main-center-content"><div><div class="flex gap-1 mb-3" x-show="showCenterButtons"><button x-on:click="collapseSidebar()" x-bind:disabled="sidebarState === 'hidden'" x-bind:class="getSidebarButtonClass('hidden')"><img src="../../assets/sidebar-icon-hide.svg" alt=""></img></button><button x-on:click="restoreSidebar()" x-bind:disabled="sidebarState === 'normal'" x-bind:class="getSidebarButtonClass('normal')"><img src="../../assets/sidebar-icon-default.svg" alt=""></img></button><button x-on:click="expandSidebar()" x-bind:disabled="sidebarState === 'xl'" x-bind:class="getSidebarButtonClass('xl')"><img src="../../assets/sidebar-icon-expand.svg" alt=""></img></button></div><div class="layout__breadcrumbs"><div class="layout__breadcrumb-container"><a class="layout__breadcrumb-clickable" href="../../index.html">docs</a><span> / </span><span class="layout__breadcrumb-inactive">testRemoteFileLocalization</span><span> / </span><span class="layout__breadcrumb-inactive">testRemoteFileLocalization</span></div></div></div><div class="main__container"><h1 id="title" class="main__title">testRemoteFileLocalization</h1><div class="main__badge-container"><div class="main__badge"><span class="main__badge-text">WDL Version</span><div class="main__badge-inner"><span class="main__badge-inner-text">1.0</span></div></div></div><div id="preamble" class="main__section"><div class="markdown-body"><h1>testRemoteFileLocalization</h1>
 <h2>Overview</h2>
-<p>The <code>testRemoteFileLocalization</code> workflow is designed to validate and demonstrate input localization, output handling, and the remote storage of workflow outputs using WDL. It includes tasks for:</p>
-<ul>
-<li>Input file localization from a remote location.</li>
-<li>File manipulation based on input parameters.</li>
-<li>Output generation and passing between tasks.</li>
-<li>Storing final workflow outputs in a specified remote directory.</li>
-</ul>
+<p>Unit test workflow that validates remote file localization, input parameter handling, and output file generation in WDL.</p>
 <h2>Purpose</h2>
-<p>This workflow serves as a unit test to validate:</p>
+<p>This workflow tests:</p>
 <ul>
-<li>File input and output handling.</li>
-<li>Localization of remote files.</li>
-<li>Input variable substitution.</li>
-<li>Passing outputs between tasks.</li>
-<li>Renaming of files and verification of processed output.</li>
-<li>Remote storage of final workflow outputs.</li>
+<li>Remote file localization by the WDL engine</li>
+<li>Input parameter substitution (string, integer, float, boolean)</li>
+<li>File passing between tasks</li>
+<li>Basic file operations and output generation</li>
 </ul>
-<h2>Workflow Components</h2>
-<h3>Workflow: <code>testRemoteFileLocalization</code></h3>
-<p>The main workflow demonstrates how to localize and manipulate files, with validation for the input parameters, output generation, and remote storage.</p>
-<p><strong>Inputs:</strong></p>
+<h2>Workflow Structure</h2>
+<h3>Inputs</h3>
 <ul>
-<li><code>string</code>: String - A simple string input for testing variable substitution.</li>
-<li><code>integer</code>: Int - An integer input for variable substitution in tasks.</li>
-<li><code>float</code>: Float - A floating-point number for variable substitution.</li>
-<li><code>boolean</code>: Boolean - A boolean input to test task command logic.</li>
-<li><code>remote_file</code>: File - A remote file localized by the WDL engine and passed to tasks.</li>
+<li><code>string</code> (String): Test string for variable substitution</li>
+<li><code>integer</code> (Int): Test integer for variable substitution</li>
+<li><code>float</code> (Float): Test float for variable substitution</li>
+<li><code>boolean</code> (Boolean): Test boolean for variable substitution</li>
+<li><code>remote_file</code> (File): Remote file to be localized</li>
 </ul>
-<p><strong>Outputs:</strong></p>
+<h3>Outputs</h3>
 <ul>
-<li><code>localized_file</code>: File - The file processed and passed through the workflow.</li>
-<li><code>localized_string</code>: File - A file containing the string input value.</li>
-<li><code>localized_integer</code>: File - A file containing the integer input value.</li>
-<li><code>localized_float</code>: File - A file containing the float input value.</li>
-<li><code>localized_boolean</code>: File - A file containing the boolean input value.</li>
-<li><code>renamed_file</code>: File - The file renamed in a subsequent task.</li>
+<li><code>localized_file</code> (File): Original input file passed through workflow</li>
+<li><code>localized_string</code> (File): File containing the string input value</li>
+<li><code>localized_integer</code> (File): File containing the integer input value</li>
+<li><code>localized_float</code> (File): File containing the float input value</li>
+<li><code>localized_boolean</code> (File): File containing the boolean input value</li>
+<li><code>renamed_file</code> (File): File renamed by the second task</li>
 </ul>
-<p><strong>Remote Storage Configuration:</strong>
-The <code>options.json</code> file specifies the location for storing all final workflow outputs:</p>
-<pre><code>{
-    "final_workflow_outputs_dir": "/fh/fast/_DaSL/proof_testing",
-    "use_relative_output_paths": true
-}
-</code></pre>
-<h3>Tasks</h3>
-<h4>Task: <code>testInputLocalization</code></h4>
-<p>This task generates output files based on the input parameters and verifies that the remote input file is localized.</p>
-<p><strong>Command</strong>:</p>
-<ul>
-<li>Substitutes input variables (string, integer, float, boolean) into echo commands that generate output files.</li>
-<li>Verifies the localization of the remote input file.</li>
-</ul>
-<p><strong>Outputs</strong>:</p>
-<ul>
-<li><code>outputStringfile</code>: File - Contains the string input.</li>
-<li><code>outputIntegerfile</code>: File - Contains the integer input.</li>
-<li><code>outputFloatfile</code>: File - Contains the float input.</li>
-<li><code>outputBooleanfile</code>: File - Contains the boolean input.</li>
-<li><code>processed_file</code>: File - The input file passed directly as output.</li>
-</ul>
-<h4>Task: <code>testOutputUsage</code></h4>
-<p>This task renames the file received from the previous task.</p>
-<p><strong>Command</strong>:</p>
-<ul>
-<li>Renames the file from <code>testInputLocalization</code> to a new output.</li>
-</ul>
-<p><strong>Outputs</strong>:</p>
-<ul>
-<li><code>renamed_file</code>: File - The renamed file.</li>
-</ul>
-<p><strong>Runtime Requirements</strong>:</p>
-<ul>
-<li>Docker: <code>ubuntu:20.04</code></li>
-<li>CPU: 1 core</li>
-<li>Memory: 1 GB</li>
-</ul>
+<h2>Tasks</h2>
+<h3>testInputLocalization</h3>
+<p>Generates output files from input parameters and verifies remote file localization.</p>
+<p><strong>Inputs</strong>: All workflow inputs<br>
+<strong>Outputs</strong>: Files containing each input parameter value, plus the original file</p>
+<h3>testOutputUsage</h3>
+<p>Demonstrates file passing between tasks by renaming the file from the first task.</p>
+<p><strong>Inputs</strong>: <code>processed_file</code> from testInputLocalization<br>
+<strong>Outputs</strong>: <code>renamed_file</code> - the renamed file</p>
 <h2>Usage</h2>
-<ol>
-<li><strong>Prepare Inputs</strong>:
-Create an <code>inputs.json</code> file:</li>
-</ol>
+<p>Create an inputs file:</p>
 <pre><code>{
   "testRemoteFileLocalization.string": "Test String Input",
   "testRemoteFileLocalization.integer": 123,
   "testRemoteFileLocalization.float": 9.81,
   "testRemoteFileLocalization.boolean": false,
-  "testRemoteFileLocalization.remote_file": "/fh/fast/_DaSL/proof_testing/remote_file.txt"
+  "testRemoteFileLocalization.remote_file": "/path/to/remote/file.txt"
 }
 </code></pre>
-<ol start="2">
-<li><strong>Configure Output Storage</strong>:
-Create an <code>options.json</code> file:</li>
-</ol>
-<pre><code>{
-    "final_workflow_outputs_dir": "/fh/fast/_DaSL/proof_testing/remoteOutputstorage",
-    "use_relative_output_paths": true
-}
+<p>Run the workflow:</p>
+<pre><code># Cromwell
+java -jar cromwell.jar run testRemoteFileLocalization.wdl --inputs inputs.json
+
+# miniWDL  
+miniwdl run testRemoteFileLocalization.wdl -i inputs.json
 </code></pre>
-<ol start="3">
-<li><strong>Run the Workflow</strong>:
-Execute the workflow using Cromwell:</li>
-</ol>
-<pre><code>java -jar cromwell.jar run testRemoteFileLocalization.wdl -i inputs.json -o options.json
-</code></pre>
-<p>Alternatively, run with miniwdl:</p>
-<pre><code>miniwdl run testRemoteFileLocalization.wdl \
-  -i inputs.json \
-  -o options.json
-</code></pre>
-<h2>Version</h2>
-<ul>
-<li><strong>WDL</strong>: 1.0</li>
-<li><strong>Options JSON</strong>: Version 1.0</li>
-</ul>
-<h2>Additional Notes</h2>
-<ul>
-<li>This workflow validates the localization of remote files by the WDL engine.</li>
-<li>Demonstrates remote storage of outputs using <code>options.json</code>.</li>
-<li>Provides simple tests for handling various input types (string, integer, float, boolean) in WDL workflows.</li>
-<li>Ensures outputs are properly organized and stored in the specified directory.</li>
-</ul>
+<p><strong>Requirements</strong>: WDL 1.0, Docker runtime (ubuntu:20.04)</p>
 </div></div><div class="main__section"><h2 id="toc" class="main__section-header">Table of Contents</h2><div class="main__grid-container"><div class="main__grid-toc-container"><div class="main__grid-header-cell">Page</div><div class="main__grid-header-cell">Type</div><div class="main__grid-header-cell">Description</div><div class="main__grid-header-separator"></div><div class="main__grid-row" x-data="{ description_expanded: false }"><div class="main__grid-cell"><a class="text-emerald-400 hover:text-emerald-300" href="testRemoteFileLocalization-workflow.html">testRemoteFileLocalization</a></div><div class="main__grid-cell"><code>workflow</code></div><div class="main__grid-cell">No description provided</div><div x-show="description_expanded" class="main__grid-full-width-cell">No description provided</div></div><div class="main__grid-row-separator"></div><div class="main__grid-row" x-data="{ description_expanded: false }"><div class="main__grid-cell"><a class="text-violet-400 hover:text-violet-300" href="testInputLocalization-task.html">testInputLocalization</a></div><div class="main__grid-cell"><code>task</code></div><div class="main__grid-cell">No description provided</div><div x-show="description_expanded" class="main__grid-full-width-cell">No description provided</div></div><div class="main__grid-row-separator"></div><div class="main__grid-row" x-data="{ description_expanded: false }"><div class="main__grid-cell"><a class="text-violet-400 hover:text-violet-300" href="testOutputUsage-task.html">testOutputUsage</a></div><div class="main__grid-cell"><code>task</code></div><div class="main__grid-cell">No description provided</div><div x-show="description_expanded" class="main__grid-full-width-cell">No description provided</div></div></div></div></div></div></div></div><div class="layout__sidebar-right"><div class="right-sidebar__container"><div class="right-sidebar__header">ON THIS PAGE</div><a href="#preamble" class="right-sidebar__section-header">Preamble</a><a href="#toc" class="right-sidebar__section-header">Table of Contents</a><div class="right-sidebar__back-to-top-container"><a href="#title" class="right-sidebar__back-to-top"><span class="right-sidebar__back-to-top-icon">↑</span><span class="right-sidebar__back-to-top-text">Back to top</span></a></div></div></div></div></body></html>
