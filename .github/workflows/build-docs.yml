@@ -33,9 +33,11 @@ jobs:
           # Join WDL dir specific README's into .wdl files
           uv run make-preambles.py
           # Build docs
-          sprocket dev doc -v --homepage assets/docs.md --logo assets/fredhutch-logo.svg .
+          sprocket dev doc -v --light-mode --alt-light-logo=assets/fredhutch-logo-light.svg --logo assets/fredhutch-logo.svg --homepage assets/docs.md .
           # Copy assets to docs directory
           cp -r assets docs/
+          # Append css/style.css to docs/style.css
+          cat css/style.css >> docs/style.css
 
       - name: Deploy docs
         uses: JamesIves/github-pages-deploy-action@v4
