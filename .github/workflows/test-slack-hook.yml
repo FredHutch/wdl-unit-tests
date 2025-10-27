@@ -10,16 +10,28 @@ jobs:
       - name: Send message to Slack
         run: |
           curl -X POST ${{ secrets.SLACK_WEBHOOK_URL }} \
-          -H 'Content-Type: application/json' \
-          -d '{
-            "text": "Testing from repo: ${{ github.repository }}",
-            "blocks": [
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "*Build Status:* Success\n*Repository:* ${{ github.repository }}\n*Branch:* ${{ github.ref_name }}"
-                }
-              }
-            ]
-          }'
+              -H 'Content-Type: application/json' \
+              -d '{
+                "blocks": [
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": ":white_check_mark: *Build Successful*\n*Repo:* <${{ github.server_url }}/${{ github.repository }}|${{ github.repository }}>\n*Branch:* `${{ github.ref_name }}`\n*Commit:* <${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}>"
+                    }
+                  },
+                  {
+                    "type": "actions",
+                    "elements": [
+                      {
+                        "type": "button",
+                        "text": {
+                          "type": "plain_text",
+                          "text": "View Workflow"
+                        },
+                        "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                      }
+                    ]
+                  }
+                ]
+              }'
