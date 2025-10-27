@@ -1,5 +1,12 @@
 <p align="center">
-  <a href="https://github.com/stjudecloud/workflows"><img src="./assets/wdl-tests.svg" width="500" title="OCDO WDL Tests"></a>
+  <a href="https://github.com/stjudecloud/workflows">
+    <div class="wdl-tests-dark">
+      <img src="./assets/wdl-tests.svg" width="500" title="OCDO WDL Tests" alt="WDL Tests Dark Mode">
+    </div>
+    <div class="wdl-tests-light">
+      <img src="./assets/wdl-tests-light.svg" width="500" title="OCDO WDL Tests" alt="WDL Tests Light Mode">
+    </div>
+  </a>
   <br />
   <a href="https://github.com/stjudecloud/workflows/blob/master/LICENSE.md" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
