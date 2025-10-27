@@ -7,6 +7,14 @@ jobs:
   testing:
     runs-on: ubuntu-latest
     steps:
+      - name: Fizzbuzz
+        id: process-changes
+        run: |
+          failed_cassettes=("tests/cromwellapi/cassettes/test-abort/test_abort[helloHostname].yaml",
+          "tests/cromwellapi/cassettes/test-failures/test_failures_final.yaml")
+          length_failed_cassettes=${#failed_cassettes[@]}
+          echo "length_failed_cassettes=$length_failed_cassettes" >> $GITHUB_OUTPUT
+
       - name: Send message to Slack
         run: |
           curl -X POST ${{ secrets.SLACK_WEBHOOK_URL }} \
@@ -17,7 +25,7 @@ jobs:
                     "type": "section",
                     "text": {
                       "type": "mrkdwn",
-                      "text": ":white_check_mark: *Build Successful*\n*Repo:* <${{ github.server_url }}/${{ github.repository }}|${{ github.repository }}>\n*Branch:* `${{ github.ref_name }}`\n*Commit:* <${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}>"
+                      "text": ":white_check_mark: *API Tests - Rewrite Cassettes Finished*\n*Repo:* <${{ github.server_url }}/${{ github.repository }}|${{ github.repository }}>\n*Run on Branch:* `${{ github.ref_name }}`\n*Run on Commit:* <${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}>\n*Number of failed cassettes:* ${{ steps.process-changes.outputs.length_failed_cassettes }}"
                     }
                   },
                   {
@@ -27,7 +35,7 @@ jobs:
                         "type": "button",
                         "text": {
                           "type": "plain_text",
-                          "text": "View Workflow"
+                          "text": "Go to run"
                         },
                         "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
                       }
