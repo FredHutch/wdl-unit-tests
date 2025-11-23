@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--e9a469999e0b3d82f0bf15527d0a7434\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--bad1daaf9a5fa11cb0ec9699c8d5646f\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"mapTypeTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow enhanced_map_test {\n    input {\n        # Original inputs\n
       \       Array[String] samples\n        Map[String, String] sample_metadata\n
@@ -44,7 +44,7 @@ interactions:
       'w') as f:\n            for sample, message in result.items():\n                f.write(f\"{sample}\\t{message}\\n\")\n
       \       CODE\n    >>>\n\n    output {\n        Map[String, String] output_map
       = read_map('output.txt')\n    }\n\n    runtime {\n        docker: \"python:3.8-slim\"\n
-      \   }\n}\r\n--e9a469999e0b3d82f0bf15527d0a7434\r\nContent-Disposition: form-data;
+      \   }\n}\r\n--bad1daaf9a5fa11cb0ec9699c8d5646f\r\nContent-Disposition: form-data;
       name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type: application/json\r\n\r\n{\n
       \   \"enhanced_map_test.samples\": [\"sample1\", \"sample2\", \"sample3\"],\n
       \   \"enhanced_map_test.sample_metadata\": {\n        \"sample1\": \"normal\",\n
@@ -54,10 +54,10 @@ interactions:
       {\n            \"sample1\": \"normal\",\n            \"sample2\": \"tumor\"\n
       \       },\n        \"patient2\": {\n            \"sample3\": \"normal\",\n
       \           \"sample4\": \"tumor\"\n        }\n    },\n    \"enhanced_map_test.patient_ids\":
-      [\"patient1\", \"patient2\"]\n}\r\n--e9a469999e0b3d82f0bf15527d0a7434\r\nContent-Disposition:
+      [\"patient1\", \"patient2\"]\n}\r\n--bad1daaf9a5fa11cb0ec9699c8d5646f\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--e9a469999e0b3d82f0bf15527d0a7434--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--bad1daaf9a5fa11cb0ec9699c8d5646f--\r\n"
     headers:
       accept:
       - '*/*'
@@ -68,16 +68,16 @@ interactions:
       content-length:
       - '4653'
       content-type:
-      - multipart/form-data; boundary=e9a469999e0b3d82f0bf15527d0a7434
+      - multipart/form-data; boundary=bad1daaf9a5fa11cb0ec9699c8d5646f
       host:
-      - gizmoj5.fhcrc.org:41799
+      - gizmoj12.fhcrc.org:34469
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj5.fhcrc.org:41799/api/workflows/v1
+    uri: https://gizmoj12.fhcrc.org:34469/api/workflows/v1
   response:
     body:
-      string: '{"id":"3af1f8c9-2d71-4441-a565-1791fe5956d6","status":"Submitted"}'
+      string: '{"id":"a11fa373-10df-45a0-bdd7-4779a3dc3e78","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -86,7 +86,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 16 Nov 2025 03:34:31 GMT
+      - Sun, 23 Nov 2025 03:39:04 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -102,22 +102,22 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmoj5.fhcrc.org:41799
+      - gizmoj12.fhcrc.org:34469
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj5.fhcrc.org:41799/api/workflows/v1/3af1f8c9-2d71-4441-a565-1791fe5956d6/metadata?expandSubWorkflows=true
+    uri: https://gizmoj12.fhcrc.org:34469/api/workflows/v1/a11fa373-10df-45a0-bdd7-4779a3dc3e78/metadata?expandSubWorkflows=true
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 3af1f8c9-2d71-4441-a565-1791fe5956d6\"\n}"
+        ID: a11fa373-10df-45a0-bdd7-4779a3dc3e78\"\n}"
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 16 Nov 2025 03:34:31 GMT
+      - Sun, 23 Nov 2025 03:39:04 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
@@ -137,11 +137,11 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmoj5.fhcrc.org:41799
+      - gizmoj12.fhcrc.org:34469
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj5.fhcrc.org:41799/api/workflows/v1/3af1f8c9-2d71-4441-a565-1791fe5956d6/metadata?expandSubWorkflows=true
+    uri: https://gizmoj12.fhcrc.org:34469/api/workflows/v1/a11fa373-10df-45a0-bdd7-4779a3dc3e78/metadata?expandSubWorkflows=true
   response:
     body:
       string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow enhanced_map_test
@@ -187,14 +187,14 @@ interactions:
         {\n        Map[String, String] output_map = read_map(''output.txt'')\n    }\n\n    runtime
         {\n        docker: \"python:3.8-slim\"\n    }\n}","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{\"enhanced_map_test.nested_map\":{\"patient1\":{\"sample1\":\"normal\",\"sample2\":\"tumor\"},\"patient2\":{\"sample3\":\"normal\",\"sample4\":\"tumor\"}},\"enhanced_map_test.patient_ids\":[\"patient1\",\"patient2\"],\"enhanced_map_test.read_lengths\":{\"sample1\":100,\"sample2\":150,\"sample3\":100},\"enhanced_map_test.sample_metadata\":{\"sample1\":\"normal\",\"sample2\":\"tumor\",\"sample3\":\"normal\"},\"enhanced_map_test.samples\":[\"sample1\",\"sample2\",\"sample3\"]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"3af1f8c9-2d71-4441-a565-1791fe5956d6","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-3af1f8c9-2d71-4441-a565-1791fe5956d6"},"submission":"2025-11-16T03:34:31.721Z"}'
+        false\n}","inputs":"{\"enhanced_map_test.nested_map\":{\"patient1\":{\"sample1\":\"normal\",\"sample2\":\"tumor\"},\"patient2\":{\"sample3\":\"normal\",\"sample4\":\"tumor\"}},\"enhanced_map_test.patient_ids\":[\"patient1\",\"patient2\"],\"enhanced_map_test.read_lengths\":{\"sample1\":100,\"sample2\":150,\"sample3\":100},\"enhanced_map_test.sample_metadata\":{\"sample1\":\"normal\",\"sample2\":\"tumor\",\"sample3\":\"normal\"},\"enhanced_map_test.samples\":[\"sample1\",\"sample2\",\"sample3\"]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"a11fa373-10df-45a0-bdd7-4779a3dc3e78","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-a11fa373-10df-45a0-bdd7-4779a3dc3e78"},"submission":"2025-11-23T03:39:04.730Z"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 16 Nov 2025 03:34:35 GMT
+      - Sun, 23 Nov 2025 03:39:08 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
