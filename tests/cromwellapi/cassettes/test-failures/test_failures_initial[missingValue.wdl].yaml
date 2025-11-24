@@ -1,14 +1,14 @@
 interactions:
 - request:
-    body: "--d9f329479f7188ac7fd1ad6f0e167832\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--ff0e92cf00d5fd1ad2847f1005900413\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"missingValue.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n## This is a test workflow that fails against womtool.\n## From https://github.com/broadinstitute/cromwell\n\n####
       WORKFLOW DEFINITION\n\nworkflow oops {\n  call oopsie\n}\n\n#### TASK DEFINITIONS\n\ntask
       oopsie {\n  input {\n    String str\n  }\n  command { echo ${str} }\n  runtime
-      { docker: docker_image }\n}\n\r\n--d9f329479f7188ac7fd1ad6f0e167832\r\nContent-Disposition:
+      { docker: docker_image }\n}\n\r\n--ff0e92cf00d5fd1ad2847f1005900413\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--d9f329479f7188ac7fd1ad6f0e167832--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--ff0e92cf00d5fd1ad2847f1005900413--\r\n"
     headers:
       accept:
       - '*/*'
@@ -19,16 +19,16 @@ interactions:
       content-length:
       - '778'
       content-type:
-      - multipart/form-data; boundary=d9f329479f7188ac7fd1ad6f0e167832
+      - multipart/form-data; boundary=ff0e92cf00d5fd1ad2847f1005900413
       host:
-      - gizmoj5.fhcrc.org:41799
+      - gizmoj12.fhcrc.org:34469
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj5.fhcrc.org:41799/api/workflows/v1
+    uri: https://gizmoj12.fhcrc.org:34469/api/workflows/v1
   response:
     body:
-      string: '{"id":"2170e0a2-81d5-4e14-8712-d39c4f544ad7","status":"Submitted"}'
+      string: '{"id":"8e792d30-6361-4225-940f-18bd8201db52","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -37,7 +37,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 16 Nov 2025 03:34:33 GMT
+      - Sun, 23 Nov 2025 03:39:03 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -53,22 +53,22 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmoj5.fhcrc.org:41799
+      - gizmoj12.fhcrc.org:34469
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj5.fhcrc.org:41799/api/workflows/v1/2170e0a2-81d5-4e14-8712-d39c4f544ad7/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+    uri: https://gizmoj12.fhcrc.org:34469/api/workflows/v1/8e792d30-6361-4225-940f-18bd8201db52/metadata?includeKey=status&includeKey=failures&includeKey=jobId
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 2170e0a2-81d5-4e14-8712-d39c4f544ad7\"\n}"
+        ID: 8e792d30-6361-4225-940f-18bd8201db52\"\n}"
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 16 Nov 2025 03:34:33 GMT
+      - Sun, 23 Nov 2025 03:39:03 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
@@ -88,56 +88,21 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmoj5.fhcrc.org:41799
+      - gizmoj12.fhcrc.org:34469
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj5.fhcrc.org:41799/api/workflows/v1/2170e0a2-81d5-4e14-8712-d39c4f544ad7/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+    uri: https://gizmoj12.fhcrc.org:34469/api/workflows/v1/8e792d30-6361-4225-940f-18bd8201db52/metadata?includeKey=status&includeKey=failures&includeKey=jobId
   response:
     body:
-      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 2170e0a2-81d5-4e14-8712-d39c4f544ad7\"\n}"
+      string: '{"status":"Submitted","calls":{},"id":"8e792d30-6361-4225-940f-18bd8201db52"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 16 Nov 2025 03:34:37 GMT
-      Server:
-      - nginx/1.25.3
-      Transfer-Encoding:
-      - chunked
-      content-length:
-      - '101'
-    status:
-      code: 404
-      message: Not Found
-- request:
-    body: ''
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      connection:
-      - keep-alive
-      host:
-      - gizmoj5.fhcrc.org:41799
-      user-agent:
-      - python-httpx/0.28.1
-    method: GET
-    uri: https://gizmoj5.fhcrc.org:41799/api/workflows/v1/2170e0a2-81d5-4e14-8712-d39c4f544ad7/metadata?includeKey=status&includeKey=failures&includeKey=jobId
-  response:
-    body:
-      string: '{"status":"Submitted","calls":{},"id":"2170e0a2-81d5-4e14-8712-d39c4f544ad7"}'
-    headers:
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-      Date:
-      - Sun, 16 Nov 2025 03:34:41 GMT
+      - Sun, 23 Nov 2025 03:39:07 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
