@@ -1,13 +1,13 @@
 interactions:
 - request:
-    body: "--5bdf371dc62ed1ef9412f23d0dd1531b\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--0076d20fb8bd69d4117c27925a25b573\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"symlinkOnly.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow symlinkOnly {\n    call generate_diverse_outputs\n    \n    output
       {\n        File symlink_file = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask
       generate_diverse_outputs {\n    command <<<\n        # Create a symlink\n        echo
       \"original\" > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n
       \   output {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime
-      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\r\n--5bdf371dc62ed1ef9412f23d0dd1531b--\r\n"
+      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\r\n--0076d20fb8bd69d4117c27925a25b573--\r\n"
     headers:
       accept:
       - '*/*'
@@ -18,13 +18,13 @@ interactions:
       content-length:
       - '650'
       content-type:
-      - multipart/form-data; boundary=5bdf371dc62ed1ef9412f23d0dd1531b
+      - multipart/form-data; boundary=0076d20fb8bd69d4117c27925a25b573
       host:
-      - gizmoj12.fhcrc.org:34469
+      - gizmoj12.fhcrc.org:34331
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj12.fhcrc.org:34469/api/womtool/v1/describe
+    uri: https://gizmoj12.fhcrc.org:34331/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"symlinkOnly","inputs":[],"outputs":[{"name":"symlink_file","valueType":{"typeName":"File"},"typeDisplayName":"File"}],"images":["\"ubuntu:noble-20241118.1\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
@@ -36,7 +36,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 23 Nov 2025 04:05:56 GMT
+      - Sun, 30 Nov 2025 04:07:09 GMT
       Server:
       - nginx/1.25.3
     status:
