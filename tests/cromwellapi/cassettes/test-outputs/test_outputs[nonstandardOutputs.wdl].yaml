@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--b2e9e765997233fa8e67abb0124c161c\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--8f2dab1852309a02f0a94a7a16ba1970\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"nonstandardOutputs.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow test_nonstandard_outputs {\n    call generate_diverse_outputs\n
       \   \n    output {\n        File special_chars = generate_diverse_outputs.file_special_chars\n
@@ -19,10 +19,10 @@ interactions:
       \       File file_no_extension = \"datafile\"\n        File nested_file = \"nested/dir/test.txt\"\n
       \       File symlink_output = \"link.txt\"\n        Array[File] pattern_files
       = glob(\"pattern_*.out\")\n    }\n\n    runtime {\n        docker: \"ubuntu:noble-20241118.1\"\n
-      \   }\n}\n\r\n--b2e9e765997233fa8e67abb0124c161c\r\nContent-Disposition: form-data;
+      \   }\n}\n\r\n--8f2dab1852309a02f0a94a7a16ba1970\r\nContent-Disposition: form-data;
       name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type: application/json\r\n\r\n{\n
       \   \"workflow_failure_mode\": \"ContinueWhilePossible\",\n    \"write_to_cache\":
-      false,\n    \"read_from_cache\": false\n}\n\r\n--b2e9e765997233fa8e67abb0124c161c--\r\n"
+      false,\n    \"read_from_cache\": false\n}\n\r\n--8f2dab1852309a02f0a94a7a16ba1970--\r\n"
     headers:
       accept:
       - '*/*'
@@ -33,16 +33,16 @@ interactions:
       content-length:
       - '1856'
       content-type:
-      - multipart/form-data; boundary=b2e9e765997233fa8e67abb0124c161c
+      - multipart/form-data; boundary=8f2dab1852309a02f0a94a7a16ba1970
       host:
-      - gizmoj12.fhcrc.org:34469
+      - gizmoj12.fhcrc.org:34331
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj12.fhcrc.org:34469/api/workflows/v1
+    uri: https://gizmoj12.fhcrc.org:34331/api/workflows/v1
   response:
     body:
-      string: '{"id":"0147f31a-cb76-44c8-9f93-e6b1ba8f56a3","status":"Submitted"}'
+      string: '{"id":"5b28667d-2dca-4403-a097-1342a23c45c4","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -51,7 +51,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 23 Nov 2025 03:52:03 GMT
+      - Sun, 30 Nov 2025 03:53:11 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -67,15 +67,15 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmoj12.fhcrc.org:34469
+      - gizmoj12.fhcrc.org:34331
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj12.fhcrc.org:34469/api/workflows/v1/0147f31a-cb76-44c8-9f93-e6b1ba8f56a3/outputs
+    uri: https://gizmoj12.fhcrc.org:34331/api/workflows/v1/5b28667d-2dca-4403-a097-1342a23c45c4/outputs
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 0147f31a-cb76-44c8-9f93-e6b1ba8f56a3\"\n}"
+        ID: 5b28667d-2dca-4403-a097-1342a23c45c4\"\n}"
     headers:
       Connection:
       - keep-alive
@@ -84,7 +84,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 23 Nov 2025 03:52:03 GMT
+      - Sun, 30 Nov 2025 03:53:11 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -100,14 +100,47 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmoj12.fhcrc.org:34469
+      - gizmoj12.fhcrc.org:34331
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj12.fhcrc.org:34469/api/workflows/v1/0147f31a-cb76-44c8-9f93-e6b1ba8f56a3/outputs
+    uri: https://gizmoj12.fhcrc.org:34331/api/workflows/v1/5b28667d-2dca-4403-a097-1342a23c45c4/outputs
   response:
     body:
-      string: '{"outputs":{},"id":"0147f31a-cb76-44c8-9f93-e6b1ba8f56a3"}'
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: 5b28667d-2dca-4403-a097-1342a23c45c4\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '101'
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 30 Nov 2025 03:53:15 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj12.fhcrc.org:34331
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj12.fhcrc.org:34331/api/workflows/v1/5b28667d-2dca-4403-a097-1342a23c45c4/outputs
+  response:
+    body:
+      string: '{"outputs":{},"id":"5b28667d-2dca-4403-a097-1342a23c45c4"}'
     headers:
       Connection:
       - keep-alive
@@ -116,7 +149,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 23 Nov 2025 03:52:07 GMT
+      - Sun, 30 Nov 2025 03:53:19 GMT
       Server:
       - nginx/1.25.3
     status:
