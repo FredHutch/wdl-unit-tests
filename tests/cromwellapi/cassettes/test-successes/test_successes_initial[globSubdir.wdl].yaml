@@ -1,36 +1,36 @@
 interactions:
 - request:
-    body: "--eb22f1c02460e5fbe8f71cec34919645\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--3c01911f14cd035a229f90ad4abc1c69\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"globSubdir.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
       matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n
       \   }\n}\n\ntask create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n
       \       echo \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n
       \   >>>\n    output {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n
-      \       Array[File] matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n\r\n--eb22f1c02460e5fbe8f71cec34919645\r\nContent-Disposition:
+      \       Array[File] matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n\r\n--3c01911f14cd035a229f90ad4abc1c69\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--eb22f1c02460e5fbe8f71cec34919645--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--3c01911f14cd035a229f90ad4abc1c69--\r\n"
     headers:
-      accept:
+      Accept:
       - '*/*'
-      accept-encoding:
+      Accept-Encoding:
       - gzip, deflate
-      connection:
+      Connection:
       - keep-alive
-      content-length:
+      Content-Length:
       - '999'
-      content-type:
-      - multipart/form-data; boundary=eb22f1c02460e5fbe8f71cec34919645
-      host:
-      - gizmoj12.fhcrc.org:34331
-      user-agent:
+      Content-Type:
+      - multipart/form-data; boundary=3c01911f14cd035a229f90ad4abc1c69
+      Host:
+      - gizmoj1.fhcrc.org:33357
+      User-Agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj12.fhcrc.org:34331/api/workflows/v1
+    uri: https://gizmoj1.fhcrc.org:33357/api/workflows/v1
   response:
     body:
-      string: '{"id":"54bf1fd3-e628-4e93-b23a-fd58ad6fbb87","status":"Submitted"}'
+      string: '{"id":"de753431-f871-40e1-a40b-ccfd650e1316","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -39,7 +39,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 30 Nov 2025 03:53:43 GMT
+      - Mon, 08 Dec 2025 17:20:24 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -48,29 +48,29 @@ interactions:
 - request:
     body: ''
     headers:
-      accept:
+      Accept:
       - '*/*'
-      accept-encoding:
+      Accept-Encoding:
       - gzip, deflate
-      connection:
+      Connection:
       - keep-alive
-      host:
-      - gizmoj12.fhcrc.org:34331
-      user-agent:
+      Host:
+      - gizmoj1.fhcrc.org:33357
+      User-Agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj12.fhcrc.org:34331/api/workflows/v1/54bf1fd3-e628-4e93-b23a-fd58ad6fbb87/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+    uri: https://gizmoj1.fhcrc.org:33357/api/workflows/v1/de753431-f871-40e1-a40b-ccfd650e1316/metadata?includeKey=status&includeKey=failures&includeKey=jobId
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 54bf1fd3-e628-4e93-b23a-fd58ad6fbb87\"\n}"
+        ID: de753431-f871-40e1-a40b-ccfd650e1316\"\n}"
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 30 Nov 2025 03:53:43 GMT
+      - Mon, 08 Dec 2025 17:20:24 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
@@ -83,28 +83,28 @@ interactions:
 - request:
     body: ''
     headers:
-      accept:
+      Accept:
       - '*/*'
-      accept-encoding:
+      Accept-Encoding:
       - gzip, deflate
-      connection:
+      Connection:
       - keep-alive
-      host:
-      - gizmoj12.fhcrc.org:34331
-      user-agent:
+      Host:
+      - gizmoj1.fhcrc.org:33357
+      User-Agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj12.fhcrc.org:34331/api/workflows/v1/54bf1fd3-e628-4e93-b23a-fd58ad6fbb87/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+    uri: https://gizmoj1.fhcrc.org:33357/api/workflows/v1/de753431-f871-40e1-a40b-ccfd650e1316/metadata?includeKey=status&includeKey=failures&includeKey=jobId
   response:
     body:
-      string: '{"status":"Submitted","calls":{},"id":"54bf1fd3-e628-4e93-b23a-fd58ad6fbb87"}'
+      string: '{"status":"Submitted","calls":{},"id":"de753431-f871-40e1-a40b-ccfd650e1316"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 30 Nov 2025 03:53:47 GMT
+      - Mon, 08 Dec 2025 17:20:28 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
