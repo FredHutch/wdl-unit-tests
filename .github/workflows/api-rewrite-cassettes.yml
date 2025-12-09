@@ -55,7 +55,7 @@ jobs:
           failed_mock_jsons=$(jq -r '.tests[] | select(.outcome=="failed") | .mock_json' results.json | grep -v "null" || echo "")
 
           # Record failed cassettes for slack message
-          length_failed_cassettes=${#failed_cassettes[@]}
+          length_failed_cassettes=$(jq -r '[.tests[] | select(.outcome=="failed") | .cassette] | map(select(. != null)) | length' results.json)
           echo "length_failed_cassettes=$length_failed_cassettes" >> $GITHUB_OUTPUT
 
           # Display passed tests
