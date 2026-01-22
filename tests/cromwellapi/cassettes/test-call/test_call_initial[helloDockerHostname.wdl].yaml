@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--ddef76949b38bab559d63ba0329f2b59\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--c5ecb1c5e5de034839c609a8545c51d3\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"helloDockerHostname.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n## This is a test workflow that returns the Docker image name and tag\n##
       and measures execution time of the Hostname task.\n\n#### WORKFLOW DEFINITION\n\nworkflow
@@ -45,12 +45,12 @@ interactions:
       \   echo \"Expected Image: ~{expected_image}\"\n    echo \"Hostname: $(hostname)\"\n
       \ >>>\n\n  output {\n    File out = stdout()\n  }\n\n  runtime {\n    cpu: 1\n
       \   memory: \"1 GB\"\n    docker: \"~{expected_image}\"\n  }\n\n  parameter_meta
-      {\n    expected_image: \"Docker image that should be running this task\"\n  }\n}\n\r\n--ddef76949b38bab559d63ba0329f2b59\r\nContent-Disposition:
+      {\n    expected_image: \"Docker image that should be running this task\"\n  }\n}\n\r\n--c5ecb1c5e5de034839c609a8545c51d3\r\nContent-Disposition:
       form-data; name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type:
-      application/json\r\n\r\n{\n    \"HelloDockerHostname.docker_image\": \"ubuntu:20.04\"\n}\n\r\n--ddef76949b38bab559d63ba0329f2b59\r\nContent-Disposition:
+      application/json\r\n\r\n{\n    \"HelloDockerHostname.docker_image\": \"ubuntu:20.04\"\n}\n\r\n--c5ecb1c5e5de034839c609a8545c51d3\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--ddef76949b38bab559d63ba0329f2b59--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--c5ecb1c5e5de034839c609a8545c51d3--\r\n"
     headers:
       Accept:
       - '*/*'
@@ -61,16 +61,16 @@ interactions:
       Content-Length:
       - '4114'
       Content-Type:
-      - multipart/form-data; boundary=ddef76949b38bab559d63ba0329f2b59
+      - multipart/form-data; boundary=c5ecb1c5e5de034839c609a8545c51d3
       Host:
-      - gizmok103.fhcrc.org:42705
+      - gizmok14.fhcrc.org:39041
       User-Agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmok103.fhcrc.org:42705/api/workflows/v1
+    uri: https://gizmok14.fhcrc.org:39041/api/workflows/v1
   response:
     body:
-      string: '{"id":"eda8ee1e-6233-45c2-9b94-fd33ab0a84ca","status":"Submitted"}'
+      string: '{"id":"b4a38bb3-17fd-4738-9c29-0ac60332c924","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -79,7 +79,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 11 Jan 2026 03:42:11 GMT
+      - Sun, 18 Jan 2026 03:40:41 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -95,22 +95,22 @@ interactions:
       Connection:
       - keep-alive
       Host:
-      - gizmok103.fhcrc.org:42705
+      - gizmok14.fhcrc.org:39041
       User-Agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok103.fhcrc.org:42705/api/workflows/v1/eda8ee1e-6233-45c2-9b94-fd33ab0a84ca/metadata?expandSubWorkflows=true
+    uri: https://gizmok14.fhcrc.org:39041/api/workflows/v1/b4a38bb3-17fd-4738-9c29-0ac60332c924/metadata?expandSubWorkflows=true
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: eda8ee1e-6233-45c2-9b94-fd33ab0a84ca\"\n}"
+        ID: b4a38bb3-17fd-4738-9c29-0ac60332c924\"\n}"
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 11 Jan 2026 03:42:11 GMT
+      - Sun, 18 Jan 2026 03:40:41 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
@@ -130,46 +130,11 @@ interactions:
       Connection:
       - keep-alive
       Host:
-      - gizmok103.fhcrc.org:42705
+      - gizmok14.fhcrc.org:39041
       User-Agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok103.fhcrc.org:42705/api/workflows/v1/eda8ee1e-6233-45c2-9b94-fd33ab0a84ca/metadata?expandSubWorkflows=true
-  response:
-    body:
-      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: eda8ee1e-6233-45c2-9b94-fd33ab0a84ca\"\n}"
-    headers:
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-      Date:
-      - Sun, 11 Jan 2026 03:42:15 GMT
-      Server:
-      - nginx/1.25.3
-      Transfer-Encoding:
-      - chunked
-      content-length:
-      - '101'
-    status:
-      code: 404
-      message: Not Found
-- request:
-    body: ''
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Host:
-      - gizmok103.fhcrc.org:42705
-      User-Agent:
-      - python-httpx/0.28.1
-    method: GET
-    uri: https://gizmok103.fhcrc.org:42705/api/workflows/v1/eda8ee1e-6233-45c2-9b94-fd33ab0a84ca/metadata?expandSubWorkflows=true
+    uri: https://gizmok14.fhcrc.org:39041/api/workflows/v1/b4a38bb3-17fd-4738-9c29-0ac60332c924/metadata?expandSubWorkflows=true
   response:
     body:
       string: '{"submittedFiles":{"workflow":"version 1.0\n## This is a test workflow
@@ -217,14 +182,14 @@ interactions:
         {\n    cpu: 1\n    memory: \"1 GB\"\n    docker: \"~{expected_image}\"\n  }\n\n  parameter_meta
         {\n    expected_image: \"Docker image that should be running this task\"\n  }\n}\n","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{\"HelloDockerHostname.docker_image\":\"ubuntu:20.04\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"eda8ee1e-6233-45c2-9b94-fd33ab0a84ca","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-eda8ee1e-6233-45c2-9b94-fd33ab0a84ca"},"submission":"2026-01-11T03:42:11.821Z"}'
+        false\n}","inputs":"{\"HelloDockerHostname.docker_image\":\"ubuntu:20.04\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"b4a38bb3-17fd-4738-9c29-0ac60332c924","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-b4a38bb3-17fd-4738-9c29-0ac60332c924"},"submission":"2026-01-18T03:40:41.106Z"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 11 Jan 2026 03:42:19 GMT
+      - Sun, 18 Jan 2026 03:40:45 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:

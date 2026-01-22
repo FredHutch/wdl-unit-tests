@@ -1,13 +1,13 @@
 interactions:
 - request:
-    body: "--35dc0a85841022c662657d74f89b23fe\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--d245e25efb72c88ac1d6cedd9d032f70\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"globSubdir.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
       matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n
       \   }\n}\n\ntask create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n
       \       echo \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n
       \   >>>\n    output {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n
-      \       Array[File] matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n\r\n--35dc0a85841022c662657d74f89b23fe--\r\n"
+      \       Array[File] matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n\r\n--d245e25efb72c88ac1d6cedd9d032f70--\r\n"
     headers:
       Accept:
       - '*/*'
@@ -18,13 +18,13 @@ interactions:
       Content-Length:
       - '730'
       Content-Type:
-      - multipart/form-data; boundary=35dc0a85841022c662657d74f89b23fe
+      - multipart/form-data; boundary=d245e25efb72c88ac1d6cedd9d032f70
       Host:
-      - gizmok103.fhcrc.org:42705
+      - gizmok14.fhcrc.org:39041
       User-Agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmok103.fhcrc.org:42705/api/womtool/v1/describe
+    uri: https://gizmok14.fhcrc.org:39041/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"globSubdir","inputs":[],"outputs":[{"name":"matched_files","valueType":{"typeName":"Array","arrayType":{"typeName":"File"},"nonEmpty":false},"typeDisplayName":"Array[File]"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
@@ -36,7 +36,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 11 Jan 2026 04:09:04 GMT
+      - Sun, 18 Jan 2026 04:07:54 GMT
       Server:
       - nginx/1.25.3
     status:

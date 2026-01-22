@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--a4305350be54a1d81d8bf80f063b0a8f\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--7e168c1f4b71f54f44e69079827be48a\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"WildcardsandConditions.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow WildcardsandConditions {\n    input {\n        String prefix
       \ # Required input for the file prefix (no default value)\n    }\n\n    call
@@ -19,12 +19,12 @@ interactions:
       ~{prefix}\" > parsed_output.txt\n    >>>\n\n    output {\n        Array[File]
       txt_files = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
       = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
-      {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\r\n--a4305350be54a1d81d8bf80f063b0a8f\r\nContent-Disposition:
+      {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\r\n--7e168c1f4b71f54f44e69079827be48a\r\nContent-Disposition:
       form-data; name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type:
-      application/json\r\n\r\n{\n  \"WildcardsandConditions.prefix\": \"testfile\"\n}\n\r\n--a4305350be54a1d81d8bf80f063b0a8f\r\nContent-Disposition:
+      application/json\r\n\r\n{\n  \"WildcardsandConditions.prefix\": \"testfile\"\n}\n\r\n--7e168c1f4b71f54f44e69079827be48a\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--a4305350be54a1d81d8bf80f063b0a8f--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--7e168c1f4b71f54f44e69079827be48a--\r\n"
     headers:
       Accept:
       - '*/*'
@@ -35,16 +35,16 @@ interactions:
       Content-Length:
       - '2043'
       Content-Type:
-      - multipart/form-data; boundary=a4305350be54a1d81d8bf80f063b0a8f
+      - multipart/form-data; boundary=7e168c1f4b71f54f44e69079827be48a
       Host:
-      - gizmok103.fhcrc.org:42705
+      - gizmok14.fhcrc.org:39041
       User-Agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmok103.fhcrc.org:42705/api/workflows/v1
+    uri: https://gizmok14.fhcrc.org:39041/api/workflows/v1
   response:
     body:
-      string: '{"id":"7b02a2d5-159d-4271-bff3-9a25cb40f078","status":"Submitted"}'
+      string: '{"id":"1b26a07e-20d0-478a-a027-6c4db1448cf3","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -53,7 +53,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 11 Jan 2026 03:42:21 GMT
+      - Sun, 18 Jan 2026 03:40:57 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -69,22 +69,22 @@ interactions:
       Connection:
       - keep-alive
       Host:
-      - gizmok103.fhcrc.org:42705
+      - gizmok14.fhcrc.org:39041
       User-Agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok103.fhcrc.org:42705/api/workflows/v1/7b02a2d5-159d-4271-bff3-9a25cb40f078/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmok14.fhcrc.org:39041/api/workflows/v1/1b26a07e-20d0-478a-a027-6c4db1448cf3/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 7b02a2d5-159d-4271-bff3-9a25cb40f078\"\n}"
+        ID: 1b26a07e-20d0-478a-a027-6c4db1448cf3\"\n}"
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 11 Jan 2026 03:42:21 GMT
+      - Sun, 18 Jan 2026 03:40:57 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
@@ -104,46 +104,11 @@ interactions:
       Connection:
       - keep-alive
       Host:
-      - gizmok103.fhcrc.org:42705
+      - gizmok14.fhcrc.org:39041
       User-Agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok103.fhcrc.org:42705/api/workflows/v1/7b02a2d5-159d-4271-bff3-9a25cb40f078/metadata?expandSubWorkflows=false&excludeKey=calls
-  response:
-    body:
-      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 7b02a2d5-159d-4271-bff3-9a25cb40f078\"\n}"
-    headers:
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-      Date:
-      - Sun, 11 Jan 2026 03:42:26 GMT
-      Server:
-      - nginx/1.25.3
-      Transfer-Encoding:
-      - chunked
-      content-length:
-      - '101'
-    status:
-      code: 404
-      message: Not Found
-- request:
-    body: ''
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Host:
-      - gizmok103.fhcrc.org:42705
-      User-Agent:
-      - python-httpx/0.28.1
-    method: GET
-    uri: https://gizmok103.fhcrc.org:42705/api/workflows/v1/7b02a2d5-159d-4271-bff3-9a25cb40f078/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmok14.fhcrc.org:39041/api/workflows/v1/1b26a07e-20d0-478a-a027-6c4db1448cf3/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
       string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow WildcardsandConditions
@@ -165,14 +130,14 @@ interactions:
         = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
         {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"7b02a2d5-159d-4271-bff3-9a25cb40f078","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-7b02a2d5-159d-4271-bff3-9a25cb40f078"},"submission":"2026-01-11T03:42:21.947Z"}'
+        false\n}","inputs":"{\"WildcardsandConditions.prefix\":\"testfile\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"1b26a07e-20d0-478a-a027-6c4db1448cf3","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-1b26a07e-20d0-478a-a027-6c4db1448cf3"},"submission":"2026-01-18T03:40:57.509Z"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 11 Jan 2026 03:42:30 GMT
+      - Sun, 18 Jan 2026 03:41:01 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
