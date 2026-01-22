@@ -4,6 +4,10 @@ else
     WORKERS = auto
 endif
 
+export OP_SERVICE_ACCOUNT_TOKEN ?= $(OP_SERVICE_ACCOUNT_TOKEN_PROOF)
+OP_RUN = op run --
+OP_RUN_M = op run --no-masking --
+
 # from https://stackoverflow.com/a/10858332/1091766
 # function to check a named environment variable
 # see usage below for examples
@@ -37,13 +41,13 @@ check_wdl_dirs:
 	@uv run tests/validate_wdls.py
 
 server_status:
-	op run --no-masking -- uv run python -m tests.cromwellapi.server_type --check-status
+	$(OP_RUN_M) uv run python -m tests.cromwellapi.server_type --check-status
 
 server_type_regulated:
-	op run --no-masking -- uv run python -m tests.cromwellapi.server_type --regulated
+	$(OP_RUN_M) uv run python -m tests.cromwellapi.server_type --regulated
 
 server_type_not_regulated:
-	op run --no-masking -- uv run python -m tests.cromwellapi.server_type --not-regulated
+	$(OP_RUN_M) uv run python -m tests.cromwellapi.server_type --not-regulated
 
 test_api_cached: check_env_vars check_wdl_dirs
 	@op run -- uv run pytest -n $(WORKERS) \
@@ -51,7 +55,7 @@ test_api_cached: check_env_vars check_wdl_dirs
 	tests/cromwellapi/
 
 test_api_rewrite: check_env_vars
-	op run -- uv run pytest -n $(WORKERS) \
+	$(OP_RUN) uv run pytest -n $(WORKERS) \
 	--color=yes --record-mode=rewrite --verbose \
 	tests/cromwellapi/
 
@@ -59,19 +63,19 @@ regulated-data-envs:
 	op inject -i .env-regulated > .env-temp
 
 test_api_regulated_local: check_env_vars regulated-data-envs
-	op run -- uv run --env-file .env-temp \
+	$(OP_RUN) uv run --env-file .env-temp \
 	pytest -n $(WORKERS) \
 	--color=yes --record-mode=rewrite --verbose \
 	tests/cromwellapi/ && \
 	rm .env-temp
 
 test_api_regulated: check_env_vars
-	op run -- uv run pytest -n $(WORKERS) \
+	$(OP_RUN) uv run pytest -n $(WORKERS) \
 	--color=yes --record-mode=rewrite --verbose \
 	tests/cromwellapi/
 
 test_api_rewrite_json_report: check_env_vars
-	op run -- uv run pytest -n $(WORKERS) \
+	$(OP_RUN) uv run pytest -n $(WORKERS) \
 	--json-report --json-report-file=results.json \
 	--color=yes --record-mode=rewrite --verbose \
 	tests/cromwellapi/
@@ -86,8 +90,8 @@ test_java_run:
 
 ipython: check_env_vars
 	cd tests/cromwellapi/ && \
-	op run --no-masking -- uv run --with rich --with ipython python -m IPython
+	$(OP_RUN_M) uv run --with rich --with ipython python -m IPython
 
 py: check_env_vars
 	cd tests/cromwellapi/ && \
-	op run --no-masking -- uv run python
+	$(OP_RUN_M) uv run python
