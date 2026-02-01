@@ -1,16 +1,16 @@
 interactions:
 - request:
-    body: "--0136f80fdf7b072f5a7c30e002a309cc\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--94ac25a82b64679d5aa4816bc58c3d8f\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"globSubdir.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
       matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n
       \   }\n}\n\ntask create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n
       \       echo \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n
       \   >>>\n    output {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n
-      \       Array[File] matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n\r\n--0136f80fdf7b072f5a7c30e002a309cc\r\nContent-Disposition:
+      \       Array[File] matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n\r\n--94ac25a82b64679d5aa4816bc58c3d8f\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--0136f80fdf7b072f5a7c30e002a309cc--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--94ac25a82b64679d5aa4816bc58c3d8f--\r\n"
     headers:
       Accept:
       - '*/*'
@@ -21,16 +21,16 @@ interactions:
       Content-Length:
       - '999'
       Content-Type:
-      - multipart/form-data; boundary=0136f80fdf7b072f5a7c30e002a309cc
+      - multipart/form-data; boundary=94ac25a82b64679d5aa4816bc58c3d8f
       Host:
-      - gizmok38.fhcrc.org:44395
+      - gizmok21.fhcrc.org:39229
       User-Agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmok38.fhcrc.org:44395/api/workflows/v1
+    uri: https://gizmok21.fhcrc.org:39229/api/workflows/v1
   response:
     body:
-      string: '{"id":"df4fc344-d239-40b7-a62c-c2bacd0e3054","status":"Submitted"}'
+      string: '{"id":"d78e7842-e526-40d8-8162-2c9a431b3054","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -39,7 +39,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 25 Jan 2026 03:43:09 GMT
+      - Sun, 01 Feb 2026 04:04:06 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -55,22 +55,22 @@ interactions:
       Connection:
       - keep-alive
       Host:
-      - gizmok38.fhcrc.org:44395
+      - gizmok21.fhcrc.org:39229
       User-Agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok38.fhcrc.org:44395/api/workflows/v1/df4fc344-d239-40b7-a62c-c2bacd0e3054/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmok21.fhcrc.org:39229/api/workflows/v1/d78e7842-e526-40d8-8162-2c9a431b3054/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: df4fc344-d239-40b7-a62c-c2bacd0e3054\"\n}"
+        ID: d78e7842-e526-40d8-8162-2c9a431b3054\"\n}"
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 25 Jan 2026 03:43:09 GMT
+      - Sun, 01 Feb 2026 04:04:06 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
@@ -90,11 +90,46 @@ interactions:
       Connection:
       - keep-alive
       Host:
-      - gizmok38.fhcrc.org:44395
+      - gizmok21.fhcrc.org:39229
       User-Agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok38.fhcrc.org:44395/api/workflows/v1/df4fc344-d239-40b7-a62c-c2bacd0e3054/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmok21.fhcrc.org:39229/api/workflows/v1/d78e7842-e526-40d8-8162-2c9a431b3054/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: d78e7842-e526-40d8-8162-2c9a431b3054\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 01 Feb 2026 04:04:10 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '101'
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Host:
+      - gizmok21.fhcrc.org:39229
+      User-Agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok21.fhcrc.org:39229/api/workflows/v1/d78e7842-e526-40d8-8162-2c9a431b3054/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
       string: '{"submittedFiles":{"workflow":"version 1.0\nworkflow globSubdir {\n    call
@@ -105,14 +140,14 @@ interactions:
         {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n        Array[File]
         matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"df4fc344-d239-40b7-a62c-c2bacd0e3054","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-df4fc344-d239-40b7-a62c-c2bacd0e3054"},"submission":"2026-01-25T03:43:09.189Z"}'
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"d78e7842-e526-40d8-8162-2c9a431b3054","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-d78e7842-e526-40d8-8162-2c9a431b3054"},"submission":"2026-02-01T04:04:06.474Z"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 25 Jan 2026 03:43:13 GMT
+      - Sun, 01 Feb 2026 04:04:14 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
