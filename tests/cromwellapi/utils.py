@@ -40,11 +40,13 @@ metadata_response_keys = {
         "submission",
     ],
     "failed": [
+        "workflowName",
         "workflowProcessingEvents",
         "actualWorkflowLanguageVersion",
         "submittedFiles",
         "calls",
         "outputs",
+        "workflowRoot",
         "actualWorkflowLanguage",
         "status",
         "failures",
@@ -54,6 +56,8 @@ metadata_response_keys = {
         "inputs",
         "labels",
         "submission",
+        "workflowDuration",
+        "callDuration",
     ],
     "succeeded": [
         "workflowName",

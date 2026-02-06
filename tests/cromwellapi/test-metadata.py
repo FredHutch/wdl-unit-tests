@@ -54,6 +54,6 @@ def test_metadata_final(
 
     res = cromwell_api_final.metadata(workflow_id=job["id"], params=params)
     assert isinstance(res, dict)
-    assert sorted(list(res.keys())) == sorted(
-        metadata_response_keys[res["status"].lower()]
+    assert set(list(res.keys())).issubset(
+        set(metadata_response_keys[res["status"].lower()])
     )

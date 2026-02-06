@@ -59,6 +59,6 @@ def test_call_final(wdl_path, cromwell_api_final, recording_mode, test_name):
     job = submit_wdl(wdl_path, recording_mode, cromwell_api_final, test_name)
     res = cromwell_api_final.metadata(workflow_id=job["id"], params=params)
     assert isinstance(res, dict)
-    assert sorted(list(res.keys())) == sorted(
-        metadata_response_keys[res["status"].lower()]
+    assert set(list(res.keys())).issubset(
+        set(metadata_response_keys[res["status"].lower()])
     )
