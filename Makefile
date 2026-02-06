@@ -4,6 +4,9 @@ else
     WORKERS = auto
 endif
 
+export PROOF_API_TOKEN_DEV="op://PROOF/PROOF_Test_User/dev token"
+export PATH_ROOTS="op://PROOF/PROOF_PATH_ROOTS/credential"
+
 export OP_SERVICE_ACCOUNT_TOKEN ?= $(OP_SERVICE_ACCOUNT_TOKEN_PROOF)
 OP_RUN = op run --
 OP_RUN_M = op run --no-masking --
