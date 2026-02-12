@@ -1,16 +1,16 @@
 interactions:
 - request:
-    body: "--5fcd1907b27efe6d1a423f2bf22e526c\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--89549dd230337c996c6c4afbbc4ed3da\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"globSubdir.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\nworkflow globSubdir {\n    call create_nested_files\n    output {\n        Array[File]
       matched_files = flatten([create_nested_files.matched_files_top, create_nested_files.matched_files_nested])\n
       \   }\n}\n\ntask create_nested_files {\n    command <<<\n        mkdir -p subdir/nested\n
       \       echo \"Hello\" > subdir/nested/file1.txt\n        echo \"World\" > subdir/file2.txt\n
       \   >>>\n    output {\n        Array[File] matched_files_top = glob(\"subdir/*.txt\")\n
-      \       Array[File] matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n\r\n--5fcd1907b27efe6d1a423f2bf22e526c\r\nContent-Disposition:
+      \       Array[File] matched_files_nested = glob(\"subdir/**/*.txt\")\n    }\n}\n\r\n--89549dd230337c996c6c4afbbc4ed3da\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--5fcd1907b27efe6d1a423f2bf22e526c--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--89549dd230337c996c6c4afbbc4ed3da--\r\n"
     headers:
       Accept:
       - '*/*'
@@ -21,16 +21,16 @@ interactions:
       Content-Length:
       - '999'
       Content-Type:
-      - multipart/form-data; boundary=5fcd1907b27efe6d1a423f2bf22e526c
+      - multipart/form-data; boundary=89549dd230337c996c6c4afbbc4ed3da
       Host:
-      - gizmok21.fhcrc.org:39229
+      - gizmok23.fhcrc.org:46091
       User-Agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmok21.fhcrc.org:39229/api/workflows/v1
+    uri: https://gizmok23.fhcrc.org:46091/api/workflows/v1
   response:
     body:
-      string: '{"id":"7ba37c1e-19f2-4cbb-811b-3b7b86be2f75","status":"Submitted"}'
+      string: '{"id":"d08f732a-ffa9-443c-82d3-96552a8b13f1","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -39,7 +39,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 01 Feb 2026 04:15:20 GMT
+      - Thu, 12 Feb 2026 18:11:32 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -55,22 +55,22 @@ interactions:
       Connection:
       - keep-alive
       Host:
-      - gizmok21.fhcrc.org:39229
+      - gizmok23.fhcrc.org:46091
       User-Agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok21.fhcrc.org:39229/api/workflows/v1/7ba37c1e-19f2-4cbb-811b-3b7b86be2f75/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+    uri: https://gizmok23.fhcrc.org:46091/api/workflows/v1/d08f732a-ffa9-443c-82d3-96552a8b13f1/metadata?includeKey=status&includeKey=failures&includeKey=jobId
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 7ba37c1e-19f2-4cbb-811b-3b7b86be2f75\"\n}"
+        ID: d08f732a-ffa9-443c-82d3-96552a8b13f1\"\n}"
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 01 Feb 2026 04:15:20 GMT
+      - Thu, 12 Feb 2026 18:11:32 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
@@ -90,56 +90,21 @@ interactions:
       Connection:
       - keep-alive
       Host:
-      - gizmok21.fhcrc.org:39229
+      - gizmok23.fhcrc.org:46091
       User-Agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok21.fhcrc.org:39229/api/workflows/v1/7ba37c1e-19f2-4cbb-811b-3b7b86be2f75/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+    uri: https://gizmok23.fhcrc.org:46091/api/workflows/v1/d08f732a-ffa9-443c-82d3-96552a8b13f1/metadata?includeKey=status&includeKey=failures&includeKey=jobId
   response:
     body:
-      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 7ba37c1e-19f2-4cbb-811b-3b7b86be2f75\"\n}"
+      string: '{"status":"Submitted","calls":{},"id":"d08f732a-ffa9-443c-82d3-96552a8b13f1"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 01 Feb 2026 04:15:24 GMT
-      Server:
-      - nginx/1.25.3
-      Transfer-Encoding:
-      - chunked
-      content-length:
-      - '101'
-    status:
-      code: 404
-      message: Not Found
-- request:
-    body: ''
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Host:
-      - gizmok21.fhcrc.org:39229
-      User-Agent:
-      - python-httpx/0.28.1
-    method: GET
-    uri: https://gizmok21.fhcrc.org:39229/api/workflows/v1/7ba37c1e-19f2-4cbb-811b-3b7b86be2f75/metadata?includeKey=status&includeKey=failures&includeKey=jobId
-  response:
-    body:
-      string: '{"status":"Submitted","calls":{},"id":"7ba37c1e-19f2-4cbb-811b-3b7b86be2f75"}'
-    headers:
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-      Date:
-      - Sun, 01 Feb 2026 04:15:28 GMT
+      - Thu, 12 Feb 2026 18:11:36 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
