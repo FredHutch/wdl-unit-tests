@@ -1,16 +1,16 @@
 interactions:
 - request:
-    body: "--9c42f1b15ba9951d157ec2eac388be28\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--4a3e2094d4e730a43f219dcce83ae992\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"symlinkOnly.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow symlinkOnly {\n    call generate_diverse_outputs\n    \n    output
       {\n        File symlink_file = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask
       generate_diverse_outputs {\n    command <<<\n        # Create a symlink\n        echo
       \"original\" > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n
       \   output {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime
-      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\r\n--9c42f1b15ba9951d157ec2eac388be28\r\nContent-Disposition:
+      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\r\n--4a3e2094d4e730a43f219dcce83ae992\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--9c42f1b15ba9951d157ec2eac388be28--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--4a3e2094d4e730a43f219dcce83ae992--\r\n"
     headers:
       Accept:
       - '*/*'
@@ -21,16 +21,16 @@ interactions:
       Content-Length:
       - '919'
       Content-Type:
-      - multipart/form-data; boundary=9c42f1b15ba9951d157ec2eac388be28
+      - multipart/form-data; boundary=4a3e2094d4e730a43f219dcce83ae992
       Host:
-      - gizmok10.fhcrc.org:40417
+      - gizmok47.fhcrc.org:40419
       User-Agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmok10.fhcrc.org:40417/api/workflows/v1
+    uri: https://gizmok47.fhcrc.org:40419/api/workflows/v1
   response:
     body:
-      string: '{"id":"d501fa4e-583c-42d6-9fc6-0b5ce3d2a72b","status":"Submitted"}'
+      string: '{"id":"f0514c18-8899-4de7-8388-66aa751396d0","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -39,7 +39,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 01 Mar 2026 04:10:59 GMT
+      - Sun, 08 Mar 2026 04:07:52 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -55,15 +55,15 @@ interactions:
       Connection:
       - keep-alive
       Host:
-      - gizmok10.fhcrc.org:40417
+      - gizmok47.fhcrc.org:40419
       User-Agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok10.fhcrc.org:40417/api/workflows/v1/d501fa4e-583c-42d6-9fc6-0b5ce3d2a72b/outputs
+    uri: https://gizmok47.fhcrc.org:40419/api/workflows/v1/f0514c18-8899-4de7-8388-66aa751396d0/outputs
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: d501fa4e-583c-42d6-9fc6-0b5ce3d2a72b\"\n}"
+        ID: f0514c18-8899-4de7-8388-66aa751396d0\"\n}"
     headers:
       Connection:
       - keep-alive
@@ -72,7 +72,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 01 Mar 2026 04:10:59 GMT
+      - Sun, 08 Mar 2026 04:07:52 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -88,14 +88,47 @@ interactions:
       Connection:
       - keep-alive
       Host:
-      - gizmok10.fhcrc.org:40417
+      - gizmok47.fhcrc.org:40419
       User-Agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok10.fhcrc.org:40417/api/workflows/v1/d501fa4e-583c-42d6-9fc6-0b5ce3d2a72b/outputs
+    uri: https://gizmok47.fhcrc.org:40419/api/workflows/v1/f0514c18-8899-4de7-8388-66aa751396d0/outputs
   response:
     body:
-      string: '{"outputs":{},"id":"d501fa4e-583c-42d6-9fc6-0b5ce3d2a72b"}'
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: f0514c18-8899-4de7-8388-66aa751396d0\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '101'
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 08 Mar 2026 04:07:56 GMT
+      Server:
+      - nginx/1.25.3
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Host:
+      - gizmok47.fhcrc.org:40419
+      User-Agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok47.fhcrc.org:40419/api/workflows/v1/f0514c18-8899-4de7-8388-66aa751396d0/outputs
+  response:
+    body:
+      string: '{"outputs":{},"id":"f0514c18-8899-4de7-8388-66aa751396d0"}'
     headers:
       Connection:
       - keep-alive
@@ -104,7 +137,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 01 Mar 2026 04:11:03 GMT
+      - Sun, 08 Mar 2026 04:08:00 GMT
       Server:
       - nginx/1.25.3
     status:
