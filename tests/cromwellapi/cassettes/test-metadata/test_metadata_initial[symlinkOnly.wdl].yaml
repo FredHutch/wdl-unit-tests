@@ -1,16 +1,16 @@
 interactions:
 - request:
-    body: "--b5bead123e6869528d40d9c99fc314b7\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--f763c68288962fb05fe5846a972c2c86\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"symlinkOnly.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow symlinkOnly {\n    call generate_diverse_outputs\n    \n    output
       {\n        File symlink_file = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask
       generate_diverse_outputs {\n    command <<<\n        # Create a symlink\n        echo
       \"original\" > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n
       \   output {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime
-      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\r\n--b5bead123e6869528d40d9c99fc314b7\r\nContent-Disposition:
+      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\r\n--f763c68288962fb05fe5846a972c2c86\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--b5bead123e6869528d40d9c99fc314b7--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--f763c68288962fb05fe5846a972c2c86--\r\n"
     headers:
       Accept:
       - '*/*'
@@ -21,16 +21,16 @@ interactions:
       Content-Length:
       - '919'
       Content-Type:
-      - multipart/form-data; boundary=b5bead123e6869528d40d9c99fc314b7
+      - multipart/form-data; boundary=f763c68288962fb05fe5846a972c2c86
       Host:
-      - gizmok47.fhcrc.org:40419
+      - gizmoj31.fhcrc.org:38289
       User-Agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmok47.fhcrc.org:40419/api/workflows/v1
+    uri: https://gizmoj31.fhcrc.org:38289/api/workflows/v1
   response:
     body:
-      string: '{"id":"394281ad-effe-4159-99c7-94790f7231de","status":"Submitted"}'
+      string: '{"id":"28ec7c59-4b63-4541-b393-cf09204d7092","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -39,7 +39,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 08 Mar 2026 03:52:54 GMT
+      - Sun, 15 Mar 2026 04:04:47 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -55,22 +55,22 @@ interactions:
       Connection:
       - keep-alive
       Host:
-      - gizmok47.fhcrc.org:40419
+      - gizmoj31.fhcrc.org:38289
       User-Agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok47.fhcrc.org:40419/api/workflows/v1/394281ad-effe-4159-99c7-94790f7231de/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmoj31.fhcrc.org:38289/api/workflows/v1/28ec7c59-4b63-4541-b393-cf09204d7092/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 394281ad-effe-4159-99c7-94790f7231de\"\n}"
+        ID: 28ec7c59-4b63-4541-b393-cf09204d7092\"\n}"
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 08 Mar 2026 03:52:54 GMT
+      - Sun, 15 Mar 2026 04:04:47 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
@@ -90,11 +90,46 @@ interactions:
       Connection:
       - keep-alive
       Host:
-      - gizmok47.fhcrc.org:40419
+      - gizmoj31.fhcrc.org:38289
       User-Agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok47.fhcrc.org:40419/api/workflows/v1/394281ad-effe-4159-99c7-94790f7231de/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmoj31.fhcrc.org:38289/api/workflows/v1/28ec7c59-4b63-4541-b393-cf09204d7092/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: 28ec7c59-4b63-4541-b393-cf09204d7092\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 15 Mar 2026 04:04:51 GMT
+      Server:
+      - nginx/1.25.3
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '101'
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Host:
+      - gizmoj31.fhcrc.org:38289
+      User-Agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj31.fhcrc.org:38289/api/workflows/v1/28ec7c59-4b63-4541-b393-cf09204d7092/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
       string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow symlinkOnly
@@ -105,14 +140,14 @@ interactions:
         {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime {\n        docker:
         \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"394281ad-effe-4159-99c7-94790f7231de","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-394281ad-effe-4159-99c7-94790f7231de"},"submission":"2026-03-08T03:52:54.942Z"}'
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"28ec7c59-4b63-4541-b393-cf09204d7092","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-28ec7c59-4b63-4541-b393-cf09204d7092"},"submission":"2026-03-15T04:04:47.432Z"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 08 Mar 2026 03:52:59 GMT
+      - Sun, 15 Mar 2026 04:04:55 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
