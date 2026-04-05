@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--aa5a22b5e02a88efd7a91e621b35b315\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--e58991f6394c3ba9ecf3a4fc8376f655\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"mapTypeTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow enhanced_map_test {\n    input {\n        # Original inputs\n
       \       Array[String] samples\n        Map[String, String] sample_metadata\n
@@ -44,7 +44,7 @@ interactions:
       'w') as f:\n            for sample, message in result.items():\n                f.write(f\"{sample}\\t{message}\\n\")\n
       \       CODE\n    >>>\n\n    output {\n        Map[String, String] output_map
       = read_map('output.txt')\n    }\n\n    runtime {\n        docker: \"python:3.8-slim\"\n
-      \   }\n}\r\n--aa5a22b5e02a88efd7a91e621b35b315\r\nContent-Disposition: form-data;
+      \   }\n}\r\n--e58991f6394c3ba9ecf3a4fc8376f655\r\nContent-Disposition: form-data;
       name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type: application/json\r\n\r\n{\n
       \   \"enhanced_map_test.samples\": [\"sample1\", \"sample2\", \"sample3\"],\n
       \   \"enhanced_map_test.sample_metadata\": {\n        \"sample1\": \"normal\",\n
@@ -54,10 +54,10 @@ interactions:
       {\n            \"sample1\": \"normal\",\n            \"sample2\": \"tumor\"\n
       \       },\n        \"patient2\": {\n            \"sample3\": \"normal\",\n
       \           \"sample4\": \"tumor\"\n        }\n    },\n    \"enhanced_map_test.patient_ids\":
-      [\"patient1\", \"patient2\"]\n}\r\n--aa5a22b5e02a88efd7a91e621b35b315\r\nContent-Disposition:
+      [\"patient1\", \"patient2\"]\n}\r\n--e58991f6394c3ba9ecf3a4fc8376f655\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--aa5a22b5e02a88efd7a91e621b35b315--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--e58991f6394c3ba9ecf3a4fc8376f655--\r\n"
     headers:
       Accept:
       - '*/*'
@@ -68,16 +68,16 @@ interactions:
       Content-Length:
       - '4653'
       Content-Type:
-      - multipart/form-data; boundary=aa5a22b5e02a88efd7a91e621b35b315
+      - multipart/form-data; boundary=e58991f6394c3ba9ecf3a4fc8376f655
       Host:
-      - gizmok5.fhcrc.org:36043
+      - gizmoj1.fhcrc.org:33459
       User-Agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmok5.fhcrc.org:36043/api/workflows/v1
+    uri: https://gizmoj1.fhcrc.org:33459/api/workflows/v1
   response:
     body:
-      string: '{"id":"d22af601-208e-4eef-97fa-27c99458d7db","status":"Submitted"}'
+      string: '{"id":"b866ba56-bdc0-4261-9a37-b264e0033d66","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -86,7 +86,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 22 Mar 2026 04:09:11 GMT
+      - Sun, 05 Apr 2026 04:21:20 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -102,22 +102,22 @@ interactions:
       Connection:
       - keep-alive
       Host:
-      - gizmok5.fhcrc.org:36043
+      - gizmoj1.fhcrc.org:33459
       User-Agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok5.fhcrc.org:36043/api/workflows/v1/d22af601-208e-4eef-97fa-27c99458d7db/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+    uri: https://gizmoj1.fhcrc.org:33459/api/workflows/v1/b866ba56-bdc0-4261-9a37-b264e0033d66/metadata?includeKey=status&includeKey=failures&includeKey=jobId
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: d22af601-208e-4eef-97fa-27c99458d7db\"\n}"
+        ID: b866ba56-bdc0-4261-9a37-b264e0033d66\"\n}"
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 22 Mar 2026 04:09:11 GMT
+      - Sun, 05 Apr 2026 04:21:20 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
@@ -137,21 +137,21 @@ interactions:
       Connection:
       - keep-alive
       Host:
-      - gizmok5.fhcrc.org:36043
+      - gizmoj1.fhcrc.org:33459
       User-Agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok5.fhcrc.org:36043/api/workflows/v1/d22af601-208e-4eef-97fa-27c99458d7db/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+    uri: https://gizmoj1.fhcrc.org:33459/api/workflows/v1/b866ba56-bdc0-4261-9a37-b264e0033d66/metadata?includeKey=status&includeKey=failures&includeKey=jobId
   response:
     body:
-      string: '{"status":"Submitted","calls":{},"id":"d22af601-208e-4eef-97fa-27c99458d7db"}'
+      string: '{"status":"Submitted","calls":{},"id":"b866ba56-bdc0-4261-9a37-b264e0033d66"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 22 Mar 2026 04:09:15 GMT
+      - Sun, 05 Apr 2026 04:21:24 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
