@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--52e442e7eb4bd36fb88ce773fe4d1382\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--4e00f374e58944b529b9e180158857d0\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"mapTypeTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow enhanced_map_test {\n    input {\n        # Original inputs\n
       \       Array[String] samples\n        Map[String, String] sample_metadata\n
@@ -44,7 +44,7 @@ interactions:
       'w') as f:\n            for sample, message in result.items():\n                f.write(f\"{sample}\\t{message}\\n\")\n
       \       CODE\n    >>>\n\n    output {\n        Map[String, String] output_map
       = read_map('output.txt')\n    }\n\n    runtime {\n        docker: \"python:3.8-slim\"\n
-      \   }\n}\r\n--52e442e7eb4bd36fb88ce773fe4d1382\r\nContent-Disposition: form-data;
+      \   }\n}\r\n--4e00f374e58944b529b9e180158857d0\r\nContent-Disposition: form-data;
       name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type: application/json\r\n\r\n{\n
       \   \"enhanced_map_test.samples\": [\"sample1\", \"sample2\", \"sample3\"],\n
       \   \"enhanced_map_test.sample_metadata\": {\n        \"sample1\": \"normal\",\n
@@ -54,10 +54,10 @@ interactions:
       {\n            \"sample1\": \"normal\",\n            \"sample2\": \"tumor\"\n
       \       },\n        \"patient2\": {\n            \"sample3\": \"normal\",\n
       \           \"sample4\": \"tumor\"\n        }\n    },\n    \"enhanced_map_test.patient_ids\":
-      [\"patient1\", \"patient2\"]\n}\r\n--52e442e7eb4bd36fb88ce773fe4d1382\r\nContent-Disposition:
+      [\"patient1\", \"patient2\"]\n}\r\n--4e00f374e58944b529b9e180158857d0\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--52e442e7eb4bd36fb88ce773fe4d1382--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--4e00f374e58944b529b9e180158857d0--\r\n"
     headers:
       Accept:
       - '*/*'
@@ -68,16 +68,16 @@ interactions:
       Content-Length:
       - '4653'
       Content-Type:
-      - multipart/form-data; boundary=52e442e7eb4bd36fb88ce773fe4d1382
+      - multipart/form-data; boundary=4e00f374e58944b529b9e180158857d0
       Host:
-      - gizmok2.fhcrc.org:37765
+      - gizmok135.fhcrc.org:40485
       User-Agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmok2.fhcrc.org:37765/api/workflows/v1
+    uri: https://gizmok135.fhcrc.org:40485/api/workflows/v1
   response:
     body:
-      string: '{"id":"4e163ab7-d509-4498-9a23-74b51ba588e8","status":"Submitted"}'
+      string: '{"id":"a4cf96dd-350b-413b-b410-4a4651b283f5","status":"Submitted"}'
     headers:
       Connection:
       - keep-alive
@@ -86,7 +86,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 19 Apr 2026 04:10:28 GMT
+      - Mon, 27 Apr 2026 17:02:01 GMT
       Server:
       - nginx/1.25.3
     status:
@@ -102,22 +102,22 @@ interactions:
       Connection:
       - keep-alive
       Host:
-      - gizmok2.fhcrc.org:37765
+      - gizmok135.fhcrc.org:40485
       User-Agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok2.fhcrc.org:37765/api/workflows/v1/4e163ab7-d509-4498-9a23-74b51ba588e8/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmok135.fhcrc.org:40485/api/workflows/v1/a4cf96dd-350b-413b-b410-4a4651b283f5/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 4e163ab7-d509-4498-9a23-74b51ba588e8\"\n}"
+        ID: a4cf96dd-350b-413b-b410-4a4651b283f5\"\n}"
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 19 Apr 2026 04:10:28 GMT
+      - Mon, 27 Apr 2026 17:02:01 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
@@ -137,46 +137,11 @@ interactions:
       Connection:
       - keep-alive
       Host:
-      - gizmok2.fhcrc.org:37765
+      - gizmok135.fhcrc.org:40485
       User-Agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok2.fhcrc.org:37765/api/workflows/v1/4e163ab7-d509-4498-9a23-74b51ba588e8/metadata?expandSubWorkflows=false&excludeKey=calls
-  response:
-    body:
-      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 4e163ab7-d509-4498-9a23-74b51ba588e8\"\n}"
-    headers:
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-      Date:
-      - Sun, 19 Apr 2026 04:10:32 GMT
-      Server:
-      - nginx/1.25.3
-      Transfer-Encoding:
-      - chunked
-      content-length:
-      - '101'
-    status:
-      code: 404
-      message: Not Found
-- request:
-    body: ''
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Host:
-      - gizmok2.fhcrc.org:37765
-      User-Agent:
-      - python-httpx/0.28.1
-    method: GET
-    uri: https://gizmok2.fhcrc.org:37765/api/workflows/v1/4e163ab7-d509-4498-9a23-74b51ba588e8/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmok135.fhcrc.org:40485/api/workflows/v1/a4cf96dd-350b-413b-b410-4a4651b283f5/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
       string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow enhanced_map_test
@@ -222,14 +187,14 @@ interactions:
         {\n        Map[String, String] output_map = read_map(''output.txt'')\n    }\n\n    runtime
         {\n        docker: \"python:3.8-slim\"\n    }\n}","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{\"enhanced_map_test.nested_map\":{\"patient1\":{\"sample1\":\"normal\",\"sample2\":\"tumor\"},\"patient2\":{\"sample3\":\"normal\",\"sample4\":\"tumor\"}},\"enhanced_map_test.patient_ids\":[\"patient1\",\"patient2\"],\"enhanced_map_test.read_lengths\":{\"sample1\":100,\"sample2\":150,\"sample3\":100},\"enhanced_map_test.sample_metadata\":{\"sample1\":\"normal\",\"sample2\":\"tumor\",\"sample3\":\"normal\"},\"enhanced_map_test.samples\":[\"sample1\",\"sample2\",\"sample3\"]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"4e163ab7-d509-4498-9a23-74b51ba588e8","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-4e163ab7-d509-4498-9a23-74b51ba588e8"},"submission":"2026-04-19T04:10:28.620Z"}'
+        false\n}","inputs":"{\"enhanced_map_test.nested_map\":{\"patient1\":{\"sample1\":\"normal\",\"sample2\":\"tumor\"},\"patient2\":{\"sample3\":\"normal\",\"sample4\":\"tumor\"}},\"enhanced_map_test.patient_ids\":[\"patient1\",\"patient2\"],\"enhanced_map_test.read_lengths\":{\"sample1\":100,\"sample2\":150,\"sample3\":100},\"enhanced_map_test.sample_metadata\":{\"sample1\":\"normal\",\"sample2\":\"tumor\",\"sample3\":\"normal\"},\"enhanced_map_test.samples\":[\"sample1\",\"sample2\",\"sample3\"]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"a4cf96dd-350b-413b-b410-4a4651b283f5","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-a4cf96dd-350b-413b-b410-4a4651b283f5"},"submission":"2026-04-27T17:02:01.902Z"}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Sun, 19 Apr 2026 04:10:36 GMT
+      - Mon, 27 Apr 2026 17:02:05 GMT
       Server:
       - nginx/1.25.3
       Transfer-Encoding:
