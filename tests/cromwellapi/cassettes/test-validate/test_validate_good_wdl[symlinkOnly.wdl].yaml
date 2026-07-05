@@ -1,43 +1,43 @@
 interactions:
 - request:
-    body: "--54ef7548db5224a5754e20ef7c6e9c16\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--f4fc97b8fbe87bd64f5252848dd4f748\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"symlinkOnly.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow symlinkOnly {\n    call generate_diverse_outputs\n    \n    output
       {\n        File symlink_file = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask
       generate_diverse_outputs {\n    command <<<\n        # Create a symlink\n        echo
       \"original\" > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n
       \   output {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime
-      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\r\n--54ef7548db5224a5754e20ef7c6e9c16--\r\n"
+      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\r\n--f4fc97b8fbe87bd64f5252848dd4f748--\r\n"
     headers:
-      Accept:
+      accept:
       - '*/*'
-      Accept-Encoding:
+      accept-encoding:
       - gzip, deflate
-      Connection:
+      connection:
       - keep-alive
-      Content-Length:
+      content-length:
       - '650'
-      Content-Type:
-      - multipart/form-data; boundary=54ef7548db5224a5754e20ef7c6e9c16
-      Host:
-      - gizmoj40.fhcrc.org:45261
-      User-Agent:
+      content-type:
+      - multipart/form-data; boundary=f4fc97b8fbe87bd64f5252848dd4f748
+      host:
+      - gizmoj19.fhcrc.org:33393
+      user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj40.fhcrc.org:45261/api/womtool/v1/describe
+    uri: https://gizmoj19.fhcrc.org:33393/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"symlinkOnly","inputs":[],"outputs":[{"name":"symlink_file","valueType":{"typeName":"File"},"typeDisplayName":"File"}],"images":["\"ubuntu:noble-20241118.1\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
     headers:
-      Connection:
+      connection:
       - keep-alive
-      Content-Length:
+      content-length:
       - '379'
-      Content-Type:
+      content-type:
       - application/json
-      Date:
-      - Sun, 07 Jun 2026 05:06:04 GMT
-      Server:
+      date:
+      - Sun, 05 Jul 2026 04:58:21 GMT
+      server:
       - nginx/1.25.3
     status:
       code: 200
