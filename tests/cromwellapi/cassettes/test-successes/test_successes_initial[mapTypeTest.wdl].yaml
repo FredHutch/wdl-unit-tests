@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--30d797b7e7702787e6a0154cc65d54d2\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--f0bf404422073291ea3f5c0cbd041eed\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"mapTypeTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow enhanced_map_test {\n    input {\n        # Original inputs\n
       \       Array[String] samples\n        Map[String, String] sample_metadata\n
@@ -44,7 +44,7 @@ interactions:
       'w') as f:\n            for sample, message in result.items():\n                f.write(f\"{sample}\\t{message}\\n\")\n
       \       CODE\n    >>>\n\n    output {\n        Map[String, String] output_map
       = read_map('output.txt')\n    }\n\n    runtime {\n        docker: \"python:3.8-slim\"\n
-      \   }\n}\r\n--30d797b7e7702787e6a0154cc65d54d2\r\nContent-Disposition: form-data;
+      \   }\n}\r\n--f0bf404422073291ea3f5c0cbd041eed\r\nContent-Disposition: form-data;
       name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type: application/json\r\n\r\n{\n
       \   \"enhanced_map_test.samples\": [\"sample1\", \"sample2\", \"sample3\"],\n
       \   \"enhanced_map_test.sample_metadata\": {\n        \"sample1\": \"normal\",\n
@@ -54,40 +54,40 @@ interactions:
       {\n            \"sample1\": \"normal\",\n            \"sample2\": \"tumor\"\n
       \       },\n        \"patient2\": {\n            \"sample3\": \"normal\",\n
       \           \"sample4\": \"tumor\"\n        }\n    },\n    \"enhanced_map_test.patient_ids\":
-      [\"patient1\", \"patient2\"]\n}\r\n--30d797b7e7702787e6a0154cc65d54d2\r\nContent-Disposition:
+      [\"patient1\", \"patient2\"]\n}\r\n--f0bf404422073291ea3f5c0cbd041eed\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--30d797b7e7702787e6a0154cc65d54d2--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--f0bf404422073291ea3f5c0cbd041eed--\r\n"
     headers:
-      Accept:
+      accept:
       - '*/*'
-      Accept-Encoding:
+      accept-encoding:
       - gzip, deflate
-      Connection:
+      connection:
       - keep-alive
-      Content-Length:
+      content-length:
       - '4653'
-      Content-Type:
-      - multipart/form-data; boundary=30d797b7e7702787e6a0154cc65d54d2
-      Host:
-      - gizmoj40.fhcrc.org:45261
-      User-Agent:
+      content-type:
+      - multipart/form-data; boundary=f0bf404422073291ea3f5c0cbd041eed
+      host:
+      - gizmoj19.fhcrc.org:33393
+      user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj40.fhcrc.org:45261/api/workflows/v1
+    uri: https://gizmoj19.fhcrc.org:33393/api/workflows/v1
   response:
     body:
-      string: '{"id":"61a9ffe3-3d14-4d66-abd1-9bf84d9f8c11","status":"Submitted"}'
+      string: '{"id":"99f26568-f993-49df-b193-a153ca91f8ab","status":"Submitted"}'
     headers:
-      Connection:
+      connection:
       - keep-alive
-      Content-Length:
+      content-length:
       - '66'
-      Content-Type:
+      content-type:
       - application/json
-      Date:
-      - Sun, 07 Jun 2026 04:51:51 GMT
-      Server:
+      date:
+      - Sun, 05 Jul 2026 04:45:57 GMT
+      server:
       - nginx/1.25.3
     status:
       code: 201
@@ -95,69 +95,69 @@ interactions:
 - request:
     body: ''
     headers:
-      Accept:
+      accept:
       - '*/*'
-      Accept-Encoding:
+      accept-encoding:
       - gzip, deflate
-      Connection:
+      connection:
       - keep-alive
-      Host:
-      - gizmoj40.fhcrc.org:45261
-      User-Agent:
+      host:
+      - gizmoj19.fhcrc.org:33393
+      user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj40.fhcrc.org:45261/api/workflows/v1/61a9ffe3-3d14-4d66-abd1-9bf84d9f8c11/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+    uri: https://gizmoj19.fhcrc.org:33393/api/workflows/v1/99f26568-f993-49df-b193-a153ca91f8ab/metadata?includeKey=status&includeKey=failures&includeKey=jobId
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 61a9ffe3-3d14-4d66-abd1-9bf84d9f8c11\"\n}"
+        ID: 99f26568-f993-49df-b193-a153ca91f8ab\"\n}"
     headers:
-      Connection:
+      connection:
       - keep-alive
-      Content-Type:
-      - application/json
-      Date:
-      - Sun, 07 Jun 2026 04:51:51 GMT
-      Server:
-      - nginx/1.25.3
-      Transfer-Encoding:
-      - chunked
       content-length:
       - '101'
+      content-type:
+      - application/json
+      date:
+      - Sun, 05 Jul 2026 04:45:57 GMT
+      server:
+      - nginx/1.25.3
+      transfer-encoding:
+      - chunked
     status:
       code: 404
       message: Not Found
 - request:
     body: ''
     headers:
-      Accept:
+      accept:
       - '*/*'
-      Accept-Encoding:
+      accept-encoding:
       - gzip, deflate
-      Connection:
+      connection:
       - keep-alive
-      Host:
-      - gizmoj40.fhcrc.org:45261
-      User-Agent:
+      host:
+      - gizmoj19.fhcrc.org:33393
+      user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj40.fhcrc.org:45261/api/workflows/v1/61a9ffe3-3d14-4d66-abd1-9bf84d9f8c11/metadata?includeKey=status&includeKey=failures&includeKey=jobId
+    uri: https://gizmoj19.fhcrc.org:33393/api/workflows/v1/99f26568-f993-49df-b193-a153ca91f8ab/metadata?includeKey=status&includeKey=failures&includeKey=jobId
   response:
     body:
-      string: '{"status":"Submitted","calls":{},"id":"61a9ffe3-3d14-4d66-abd1-9bf84d9f8c11"}'
+      string: '{"status":"Submitted","calls":{},"id":"99f26568-f993-49df-b193-a153ca91f8ab"}'
     headers:
-      Connection:
+      connection:
       - keep-alive
-      Content-Type:
-      - application/json
-      Date:
-      - Sun, 07 Jun 2026 04:51:55 GMT
-      Server:
-      - nginx/1.25.3
-      Transfer-Encoding:
-      - chunked
       content-length:
       - '77'
+      content-type:
+      - application/json
+      date:
+      - Sun, 05 Jul 2026 04:46:01 GMT
+      server:
+      - nginx/1.25.3
+      transfer-encoding:
+      - chunked
     status:
       code: 200
       message: OK
