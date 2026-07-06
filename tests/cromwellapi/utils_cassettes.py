@@ -1,4 +1,3 @@
-import itertools
 from datetime import datetime
 from email.utils import parsedate_to_datetime
 from pathlib import Path
@@ -29,14 +28,14 @@ def cassettes_last_modified(directory):
         try:
             with open(path, "r") as f:
                 doc = yaml.load(f, Loader=yaml.SafeLoader)
-                dates.append(
-                    [
-                        parsedate_to_datetime(
-                            w["response"]["headers"]["Date"][0]
-                        )
-                        for w in doc["interactions"]
-                    ]
-                )
+                for w in doc["interactions"]:
+                    try:
+                        date = w["response"]["headers"]["Date"][0]
+                    except KeyError:
+                        date = w["response"]["headers"]["date"][0]
+
+                    dates.append(parsedate_to_datetime(date))
+
         except FileNotFoundError:
             # This seem very unlikely to happen but just in case
             print(f"file {path} not found")
@@ -44,6 +43,5 @@ def cassettes_last_modified(directory):
     if not dates:
         return "unknown"
 
-    all_dates = list(itertools.chain(*dates))
-    stamp_mean = sum([w.timestamp() for w in all_dates]) / len(all_dates)
+    stamp_mean = sum([w.timestamp() for w in dates]) / len(dates)
     return datetime.fromtimestamp(stamp_mean).strftime("%B %d, %Y %H:%M")
