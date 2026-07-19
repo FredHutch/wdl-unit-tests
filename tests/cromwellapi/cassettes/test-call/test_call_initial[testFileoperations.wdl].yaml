@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--c0e57ca0e79fbba88ead20ebae1dd9ca\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--592b89bd95c7972764958a943649962a\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"testFileoperations.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow testFileoperations {\n    call file_operations\n\n    output
       {\n        File created_file1 = file_operations.created_file1\n        File
@@ -16,10 +16,10 @@ interactions:
       The first file remains unchanged\n        File moved_file = \"output_dir/file2.txt\"
       \         # The second file after being moved\n        File renamed_file = \"file3_renamed.txt\"
       \          # The third file after being renamed\n    }\n\n    runtime {\n        docker:
-      \"ubuntu:20.04\"\n    }\n}\n\r\n--c0e57ca0e79fbba88ead20ebae1dd9ca\r\nContent-Disposition:
+      \"ubuntu:20.04\"\n    }\n}\n\r\n--592b89bd95c7972764958a943649962a\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--c0e57ca0e79fbba88ead20ebae1dd9ca--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--592b89bd95c7972764958a943649962a--\r\n"
     headers:
       accept:
       - '*/*'
@@ -30,16 +30,16 @@ interactions:
       content-length:
       - '1624'
       content-type:
-      - multipart/form-data; boundary=c0e57ca0e79fbba88ead20ebae1dd9ca
+      - multipart/form-data; boundary=592b89bd95c7972764958a943649962a
       host:
-      - gizmoj19.fhcrc.org:33393
+      - gizmoj8.fhcrc.org:41209
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj19.fhcrc.org:33393/api/workflows/v1
+    uri: https://gizmoj8.fhcrc.org:41209/api/workflows/v1
   response:
     body:
-      string: '{"id":"c9ca662a-3850-4548-bdec-2fba96568f6f","status":"Submitted"}'
+      string: '{"id":"8fd0e46d-7355-4379-a28c-5f2841011db5","status":"Submitted"}'
     headers:
       connection:
       - keep-alive
@@ -48,7 +48,7 @@ interactions:
       content-type:
       - application/json
       date:
-      - Sun, 05 Jul 2026 04:31:07 GMT
+      - Sun, 19 Jul 2026 04:15:03 GMT
       server:
       - nginx/1.25.3
     status:
@@ -64,15 +64,15 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmoj19.fhcrc.org:33393
+      - gizmoj8.fhcrc.org:41209
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj19.fhcrc.org:33393/api/workflows/v1/c9ca662a-3850-4548-bdec-2fba96568f6f/metadata?expandSubWorkflows=true
+    uri: https://gizmoj8.fhcrc.org:41209/api/workflows/v1/8fd0e46d-7355-4379-a28c-5f2841011db5/metadata?expandSubWorkflows=true
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: c9ca662a-3850-4548-bdec-2fba96568f6f\"\n}"
+        ID: 8fd0e46d-7355-4379-a28c-5f2841011db5\"\n}"
     headers:
       connection:
       - keep-alive
@@ -81,7 +81,7 @@ interactions:
       content-type:
       - application/json
       date:
-      - Sun, 05 Jul 2026 04:31:07 GMT
+      - Sun, 19 Jul 2026 04:15:03 GMT
       server:
       - nginx/1.25.3
       transfer-encoding:
@@ -99,40 +99,39 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmoj19.fhcrc.org:33393
+      - gizmoj8.fhcrc.org:41209
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj19.fhcrc.org:33393/api/workflows/v1/c9ca662a-3850-4548-bdec-2fba96568f6f/metadata?expandSubWorkflows=true
+    uri: https://gizmoj8.fhcrc.org:41209/api/workflows/v1/8fd0e46d-7355-4379-a28c-5f2841011db5/metadata?expandSubWorkflows=true
   response:
     body:
-      string: '{"workflowName":"testFileoperations","workflowProcessingEvents":[{"cromwellId":"cromid-4480884","description":"PickedUp","timestamp":"2026-07-05T04:31:07.335Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"1.0","submittedFiles":{"workflow":"version
-        1.0\n\nworkflow testFileoperations {\n    call file_operations\n\n    output
-        {\n        File created_file1 = file_operations.created_file1\n        File
-        moved_file = file_operations.moved_file\n        File renamed_file = file_operations.renamed_file\n    }\n}\n\ntask
-        file_operations {\n    command <<<\n        # Create three different files\n        echo
-        \"This is the first created file.\" > file1.txt\n        echo \"This is the
-        second file that will be moved.\" > file2.txt\n        echo \"This is the
-        third file that will be renamed.\" > file3.txt\n        \n        # Move the
-        second file to a new directory\n        mkdir -p output_dir\n        mv file2.txt
-        output_dir/\n        \n        # Rename the third file\n        mv file3.txt
-        file3_renamed.txt\n    >>>\n\n    output {\n        # Output the actual existing
-        files\n        File created_file1 = \"file1.txt\"                  # The first
-        file remains unchanged\n        File moved_file = \"output_dir/file2.txt\"          #
-        The second file after being moved\n        File renamed_file = \"file3_renamed.txt\"           #
-        The third file after being renamed\n    }\n\n    runtime {\n        docker:
-        \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
+      string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow testFileoperations
+        {\n    call file_operations\n\n    output {\n        File created_file1 =
+        file_operations.created_file1\n        File moved_file = file_operations.moved_file\n        File
+        renamed_file = file_operations.renamed_file\n    }\n}\n\ntask file_operations
+        {\n    command <<<\n        # Create three different files\n        echo \"This
+        is the first created file.\" > file1.txt\n        echo \"This is the second
+        file that will be moved.\" > file2.txt\n        echo \"This is the third file
+        that will be renamed.\" > file3.txt\n        \n        # Move the second file
+        to a new directory\n        mkdir -p output_dir\n        mv file2.txt output_dir/\n        \n        #
+        Rename the third file\n        mv file3.txt file3_renamed.txt\n    >>>\n\n    output
+        {\n        # Output the actual existing files\n        File created_file1
+        = \"file1.txt\"                  # The first file remains unchanged\n        File
+        moved_file = \"output_dir/file2.txt\"          # The second file after being
+        moved\n        File renamed_file = \"file3_renamed.txt\"           # The third
+        file after being renamed\n    }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/redacted/_DaSL/user/svc_proof_test/cromwell-scratch/testFileoperations/c9ca662a-3850-4548-bdec-2fba96568f6f","actualWorkflowLanguage":"WDL","status":"Running","start":"2026-07-05T04:31:07.411Z","id":"c9ca662a-3850-4548-bdec-2fba96568f6f","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-c9ca662a-3850-4548-bdec-2fba96568f6f"},"submission":"2026-07-05T04:31:07.047Z"}'
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"8fd0e46d-7355-4379-a28c-5f2841011db5","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-8fd0e46d-7355-4379-a28c-5f2841011db5"},"submission":"2026-07-19T04:15:03.435Z"}'
     headers:
       connection:
       - keep-alive
       content-length:
-      - '2057'
+      - '1645'
       content-type:
       - application/json
       date:
-      - Sun, 05 Jul 2026 04:31:11 GMT
+      - Sun, 19 Jul 2026 04:15:07 GMT
       server:
       - nginx/1.25.3
       transfer-encoding:
