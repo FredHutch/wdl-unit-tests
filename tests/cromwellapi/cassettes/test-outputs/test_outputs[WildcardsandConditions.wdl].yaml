@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--7450827b031060029598d45f519f2b3e\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--6bab0a38c05555031fa179fa857df1c8\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"WildcardsandConditions.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow WildcardsandConditions {\n    input {\n        String prefix
       \ # Required input for the file prefix (no default value)\n    }\n\n    call
@@ -19,12 +19,12 @@ interactions:
       ~{prefix}\" > parsed_output.txt\n    >>>\n\n    output {\n        Array[File]
       txt_files = glob(\"*.txt\")  # Test wildcard resolution\n        String conditional_output
       = read_string(\"parsed_output.txt\")  # Verify input parsing\n    }\n\n    runtime
-      {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\r\n--7450827b031060029598d45f519f2b3e\r\nContent-Disposition:
+      {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\r\n--6bab0a38c05555031fa179fa857df1c8\r\nContent-Disposition:
       form-data; name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type:
-      application/json\r\n\r\n{\n  \"WildcardsandConditions.prefix\": \"testfile\"\n}\n\r\n--7450827b031060029598d45f519f2b3e\r\nContent-Disposition:
+      application/json\r\n\r\n{\n  \"WildcardsandConditions.prefix\": \"testfile\"\n}\n\r\n--6bab0a38c05555031fa179fa857df1c8\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--7450827b031060029598d45f519f2b3e--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--6bab0a38c05555031fa179fa857df1c8--\r\n"
     headers:
       accept:
       - '*/*'
@@ -35,16 +35,16 @@ interactions:
       content-length:
       - '2043'
       content-type:
-      - multipart/form-data; boundary=7450827b031060029598d45f519f2b3e
+      - multipart/form-data; boundary=6bab0a38c05555031fa179fa857df1c8
       host:
-      - gizmoj19.fhcrc.org:33393
+      - gizmoj8.fhcrc.org:41209
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj19.fhcrc.org:33393/api/workflows/v1
+    uri: https://gizmoj8.fhcrc.org:41209/api/workflows/v1
   response:
     body:
-      string: '{"id":"7349eb72-417c-4556-a08c-095a3563e2f4","status":"Submitted"}'
+      string: '{"id":"31019a34-6c7b-4b93-9ccb-bb4245e9c73e","status":"Submitted"}'
     headers:
       connection:
       - keep-alive
@@ -53,7 +53,7 @@ interactions:
       content-type:
       - application/json
       date:
-      - Sun, 05 Jul 2026 04:43:21 GMT
+      - Sun, 19 Jul 2026 04:27:47 GMT
       server:
       - nginx/1.25.3
     status:
@@ -69,15 +69,15 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmoj19.fhcrc.org:33393
+      - gizmoj8.fhcrc.org:41209
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj19.fhcrc.org:33393/api/workflows/v1/7349eb72-417c-4556-a08c-095a3563e2f4/outputs
+    uri: https://gizmoj8.fhcrc.org:41209/api/workflows/v1/31019a34-6c7b-4b93-9ccb-bb4245e9c73e/outputs
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 7349eb72-417c-4556-a08c-095a3563e2f4\"\n}"
+        ID: 31019a34-6c7b-4b93-9ccb-bb4245e9c73e\"\n}"
     headers:
       connection:
       - keep-alive
@@ -86,7 +86,7 @@ interactions:
       content-type:
       - application/json
       date:
-      - Sun, 05 Jul 2026 04:43:21 GMT
+      - Sun, 19 Jul 2026 04:27:47 GMT
       server:
       - nginx/1.25.3
     status:
@@ -102,47 +102,14 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmoj19.fhcrc.org:33393
+      - gizmoj8.fhcrc.org:41209
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj19.fhcrc.org:33393/api/workflows/v1/7349eb72-417c-4556-a08c-095a3563e2f4/outputs
+    uri: https://gizmoj8.fhcrc.org:41209/api/workflows/v1/31019a34-6c7b-4b93-9ccb-bb4245e9c73e/outputs
   response:
     body:
-      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 7349eb72-417c-4556-a08c-095a3563e2f4\"\n}"
-    headers:
-      connection:
-      - keep-alive
-      content-length:
-      - '101'
-      content-type:
-      - application/json
-      date:
-      - Sun, 05 Jul 2026 04:43:25 GMT
-      server:
-      - nginx/1.25.3
-    status:
-      code: 404
-      message: Not Found
-- request:
-    body: ''
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      connection:
-      - keep-alive
-      host:
-      - gizmoj19.fhcrc.org:33393
-      user-agent:
-      - python-httpx/0.28.1
-    method: GET
-    uri: https://gizmoj19.fhcrc.org:33393/api/workflows/v1/7349eb72-417c-4556-a08c-095a3563e2f4/outputs
-  response:
-    body:
-      string: '{"outputs":{},"id":"7349eb72-417c-4556-a08c-095a3563e2f4"}'
+      string: '{"outputs":{},"id":"31019a34-6c7b-4b93-9ccb-bb4245e9c73e"}'
     headers:
       connection:
       - keep-alive
@@ -151,7 +118,7 @@ interactions:
       content-type:
       - application/json
       date:
-      - Sun, 05 Jul 2026 04:43:29 GMT
+      - Sun, 19 Jul 2026 04:27:51 GMT
       server:
       - nginx/1.25.3
     status:
