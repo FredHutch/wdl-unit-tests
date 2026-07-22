@@ -31,11 +31,8 @@ Performs the actual GPU testing and tensor operations.
 4. Captures and formats results
 
 **Runtime Requirements:**
-- GPU: "1" (needs to be a string)
+- GPU: true (boolean)
 - Docker: tensorflow/tensorflow:latest-gpu
-
-## Usage
-Since the `gpus` runtime parameter is specific to PROOF infrastructure, this workflow is best executed on the Fred Hutch HPC using PROOF rather than via the command line directly.
 
 ## Expected Output
 The workflow should produce:
