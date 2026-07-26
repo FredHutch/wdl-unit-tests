@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--e7bbf6f0cbe3000a6f7dadc030ceb7dc\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--8e223e344ea3716e62f80c4ffa7930ab\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"gpuAlloc.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\n# This workflow tests GPU allocation and basic tensor operations using
       TensorFlow\n# It verifies that:\n# 1. A GPU can be successfully allocated\n#
@@ -32,10 +32,10 @@ interactions:
       detected_gpus = read_int(\"gpu_count.txt\")\n        Array[Float] multiplication_result
       = read_lines(\"multiplication_result.txt\")\n    }\n\n    runtime {\n        docker:
       \"tensorflow/tensorflow:2.11.0-gpu\"\n        # modules: \"TensorFlow/2.11.0-foss-2022a-CUDA-11.7.0\"\n
-      \       gpus: \"1\"\n    }\n\n    parameter_meta {\n        results: \"Output
+      \       gpu: true\n    }\n\n    parameter_meta {\n        results: \"Output
       log containing GPU detection and matrix multiplication results\"\n        detected_gpus:
       \"Number of GPUs detected by TensorFlow\"\n        multiplication_result: \"Flattened
-      array containing the result of matrix multiplication\"\n    }\n}\n\r\n--e7bbf6f0cbe3000a6f7dadc030ceb7dc--\r\n"
+      array containing the result of matrix multiplication\"\n    }\n}\n\r\n--8e223e344ea3716e62f80c4ffa7930ab--\r\n"
     headers:
       accept:
       - '*/*'
@@ -46,13 +46,13 @@ interactions:
       content-length:
       - '2891'
       content-type:
-      - multipart/form-data; boundary=e7bbf6f0cbe3000a6f7dadc030ceb7dc
+      - multipart/form-data; boundary=8e223e344ea3716e62f80c4ffa7930ab
       host:
-      - gizmoj8.fhcrc.org:41209
+      - gizmoj8.fhcrc.org:36461
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj8.fhcrc.org:41209/api/womtool/v1/describe
+    uri: https://gizmoj8.fhcrc.org:36461/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"GpuMatrixMult","inputs":[],"outputs":[{"name":"gpu_count","valueType":{"typeName":"Int"},"typeDisplayName":"Int"},{"name":"matrix_result","valueType":{"typeName":"Array","arrayType":{"typeName":"Float"},"nonEmpty":false},"typeDisplayName":"Array[Float]"},{"name":"test_results","valueType":{"typeName":"File"},"typeDisplayName":"File"}],"images":["\"tensorflow/tensorflow:2.11.0-gpu\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{"test_results":"Complete
@@ -67,7 +67,7 @@ interactions:
       content-type:
       - application/json
       date:
-      - Sun, 19 Jul 2026 04:42:12 GMT
+      - Sun, 26 Jul 2026 04:44:34 GMT
       server:
       - nginx/1.25.3
     status:
