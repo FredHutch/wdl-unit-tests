@@ -1,14 +1,14 @@
 interactions:
 - request:
-    body: "--b14cda2008040504c15c4971c95a2241\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--14e84b342fc2defb973a15dc511e6b97\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"basicGlobTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow basicGlobTest {\n    call create_files\n    output {\n        Array[File]
       matched_files = create_files.txt_files\n    }\n}\n\ntask create_files {\n    command
       <<<\n        echo \"File 1\" > file1.txt\n        echo \"File 2\" > file2.txt\n
-      \   >>>\n    output {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n\r\n--b14cda2008040504c15c4971c95a2241\r\nContent-Disposition:
+      \   >>>\n    output {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n\r\n--14e84b342fc2defb973a15dc511e6b97\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--b14cda2008040504c15c4971c95a2241--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--14e84b342fc2defb973a15dc511e6b97--\r\n"
     headers:
       accept:
       - '*/*'
@@ -19,16 +19,16 @@ interactions:
       content-length:
       - '792'
       content-type:
-      - multipart/form-data; boundary=b14cda2008040504c15c4971c95a2241
+      - multipart/form-data; boundary=14e84b342fc2defb973a15dc511e6b97
       host:
-      - gizmok74.fhcrc.org:38773
+      - gizmoj10.fhcrc.org:36907
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmok74.fhcrc.org:38773/api/workflows/v1
+    uri: https://gizmoj10.fhcrc.org:36907/api/workflows/v1
   response:
     body:
-      string: '{"id":"efee6c7d-3534-4261-8369-86d522644e1c","status":"Submitted"}'
+      string: '{"id":"b0d3031e-1faa-40d2-b9f0-f3ab731c7177","status":"Submitted"}'
     headers:
       connection:
       - keep-alive
@@ -37,7 +37,7 @@ interactions:
       content-type:
       - application/json
       date:
-      - Sun, 16 Aug 2026 03:24:47 GMT
+      - Sun, 30 Aug 2026 03:24:29 GMT
       server:
       - nginx/1.25.3
     status:
@@ -53,15 +53,15 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmok74.fhcrc.org:38773
+      - gizmoj10.fhcrc.org:36907
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok74.fhcrc.org:38773/api/workflows/v1/efee6c7d-3534-4261-8369-86d522644e1c/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmoj10.fhcrc.org:36907/api/workflows/v1/b0d3031e-1faa-40d2-b9f0-f3ab731c7177/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: efee6c7d-3534-4261-8369-86d522644e1c\"\n}"
+        ID: b0d3031e-1faa-40d2-b9f0-f3ab731c7177\"\n}"
     headers:
       connection:
       - keep-alive
@@ -70,7 +70,7 @@ interactions:
       content-type:
       - application/json
       date:
-      - Sun, 16 Aug 2026 03:24:47 GMT
+      - Sun, 30 Aug 2026 03:24:29 GMT
       server:
       - nginx/1.25.3
       transfer-encoding:
@@ -88,11 +88,46 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmok74.fhcrc.org:38773
+      - gizmoj10.fhcrc.org:36907
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmok74.fhcrc.org:38773/api/workflows/v1/efee6c7d-3534-4261-8369-86d522644e1c/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: https://gizmoj10.fhcrc.org:36907/api/workflows/v1/b0d3031e-1faa-40d2-b9f0-f3ab731c7177/metadata?expandSubWorkflows=false&excludeKey=calls
+  response:
+    body:
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: b0d3031e-1faa-40d2-b9f0-f3ab731c7177\"\n}"
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '101'
+      content-type:
+      - application/json
+      date:
+      - Sun, 30 Aug 2026 03:24:33 GMT
+      server:
+      - nginx/1.25.3
+      transfer-encoding:
+      - chunked
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmoj10.fhcrc.org:36907
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmoj10.fhcrc.org:36907/api/workflows/v1/b0d3031e-1faa-40d2-b9f0-f3ab731c7177/metadata?expandSubWorkflows=false&excludeKey=calls
   response:
     body:
       string: '{"submittedFiles":{"workflow":"version 1.0\n\nworkflow basicGlobTest
@@ -101,7 +136,7 @@ interactions:
         \"File 1\" > file1.txt\n        echo \"File 2\" > file2.txt\n    >>>\n    output
         {\n        Array[File] txt_files = glob(\"*.txt\")\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"efee6c7d-3534-4261-8369-86d522644e1c","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-efee6c7d-3534-4261-8369-86d522644e1c"},"submission":"2026-08-16T03:24:47.151Z"}'
+        false\n}","inputs":"{}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"b0d3031e-1faa-40d2-b9f0-f3ab731c7177","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-b0d3031e-1faa-40d2-b9f0-f3ab731c7177"},"submission":"2026-08-30T03:24:29.785Z"}'
     headers:
       connection:
       - keep-alive
@@ -110,7 +145,7 @@ interactions:
       content-type:
       - application/json
       date:
-      - Sun, 16 Aug 2026 03:24:51 GMT
+      - Sun, 30 Aug 2026 03:24:37 GMT
       server:
       - nginx/1.25.3
       transfer-encoding:
