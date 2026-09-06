@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--334cb93cf75a2a29a8e026a30884b17f\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--eca7dc715421982abc67843b1feef002\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"conditionalTest.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n## This workflow demonstrates the usage of conditional statements in WDL\n##
       by selectively processing samples based on their properties\n\nstruct SampleInfo
@@ -39,17 +39,17 @@ interactions:
       \   }\n\n    command <<<\n        echo \"~{report}\"\n        echo \"Number
       of samples processed: ~{length(messages)}\"\n    >>>\n\n    output {\n        String
       summary = read_string(stdout())\n    }\n\n    runtime {\n        docker: \"ubuntu:noble-20241118.1\"\n
-      \   }\n}\n\r\n--334cb93cf75a2a29a8e026a30884b17f\r\nContent-Disposition: form-data;
+      \   }\n}\n\r\n--eca7dc715421982abc67843b1feef002\r\nContent-Disposition: form-data;
       name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type: application/json\r\n\r\n{\n
       \   \"conditional_example.samples\": [\n        {\n            \"name\": \"sample1\",\n
       \           \"quality_score\": 95.5,\n            \"type\": \"normal\"\n        },\n
       \       {\n            \"name\": \"sample2\",\n            \"quality_score\":
       85.3,\n            \"type\": \"tumor\"\n        },\n        {\n            \"name\":
       \"sample3\",\n            \"quality_score\": 92.1,\n            \"type\": \"normal\"\n
-      \       }\n    ],\n    \"conditional_example.quality_threshold\": 90.0\n}\n\r\n--334cb93cf75a2a29a8e026a30884b17f\r\nContent-Disposition:
+      \       }\n    ],\n    \"conditional_example.quality_threshold\": 90.0\n}\n\r\n--eca7dc715421982abc67843b1feef002\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--334cb93cf75a2a29a8e026a30884b17f--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--eca7dc715421982abc67843b1feef002--\r\n"
     headers:
       accept:
       - '*/*'
@@ -60,16 +60,16 @@ interactions:
       content-length:
       - '3982'
       content-type:
-      - multipart/form-data; boundary=334cb93cf75a2a29a8e026a30884b17f
+      - multipart/form-data; boundary=eca7dc715421982abc67843b1feef002
       host:
-      - gizmoj10.fhcrc.org:36907
+      - gizmok25.fhcrc.org:46847
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj10.fhcrc.org:36907/api/workflows/v1
+    uri: https://gizmok25.fhcrc.org:46847/api/workflows/v1
   response:
     body:
-      string: '{"id":"1f48ba34-f568-4b8c-b28f-c1153352aa21","status":"Submitted"}'
+      string: '{"id":"f267ee05-49dd-4ef6-9844-988472f2de37","status":"Submitted"}'
     headers:
       connection:
       - keep-alive
@@ -78,7 +78,7 @@ interactions:
       content-type:
       - application/json
       date:
-      - Sun, 30 Aug 2026 03:24:19 GMT
+      - Sun, 06 Sep 2026 03:24:15 GMT
       server:
       - nginx/1.25.3
     status:
@@ -94,15 +94,15 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmoj10.fhcrc.org:36907
+      - gizmok25.fhcrc.org:46847
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj10.fhcrc.org:36907/api/workflows/v1/1f48ba34-f568-4b8c-b28f-c1153352aa21/metadata?expandSubWorkflows=true
+    uri: https://gizmok25.fhcrc.org:46847/api/workflows/v1/f267ee05-49dd-4ef6-9844-988472f2de37/metadata?expandSubWorkflows=true
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 1f48ba34-f568-4b8c-b28f-c1153352aa21\"\n}"
+        ID: f267ee05-49dd-4ef6-9844-988472f2de37\"\n}"
     headers:
       connection:
       - keep-alive
@@ -111,7 +111,7 @@ interactions:
       content-type:
       - application/json
       date:
-      - Sun, 30 Aug 2026 03:24:19 GMT
+      - Sun, 06 Sep 2026 03:24:15 GMT
       server:
       - nginx/1.25.3
       transfer-encoding:
@@ -129,46 +129,11 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmoj10.fhcrc.org:36907
+      - gizmok25.fhcrc.org:46847
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj10.fhcrc.org:36907/api/workflows/v1/1f48ba34-f568-4b8c-b28f-c1153352aa21/metadata?expandSubWorkflows=true
-  response:
-    body:
-      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 1f48ba34-f568-4b8c-b28f-c1153352aa21\"\n}"
-    headers:
-      connection:
-      - keep-alive
-      content-length:
-      - '101'
-      content-type:
-      - application/json
-      date:
-      - Sun, 30 Aug 2026 03:24:23 GMT
-      server:
-      - nginx/1.25.3
-      transfer-encoding:
-      - chunked
-    status:
-      code: 404
-      message: Not Found
-- request:
-    body: ''
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      connection:
-      - keep-alive
-      host:
-      - gizmoj10.fhcrc.org:36907
-      user-agent:
-      - python-httpx/0.28.1
-    method: GET
-    uri: https://gizmoj10.fhcrc.org:36907/api/workflows/v1/1f48ba34-f568-4b8c-b28f-c1153352aa21/metadata?expandSubWorkflows=true
+    uri: https://gizmok25.fhcrc.org:46847/api/workflows/v1/f267ee05-49dd-4ef6-9844-988472f2de37/metadata?expandSubWorkflows=true
   response:
     body:
       string: '{"submittedFiles":{"workflow":"version 1.0\n## This workflow demonstrates
@@ -208,7 +173,7 @@ interactions:
         ~{length(messages)}\"\n    >>>\n\n    output {\n        String summary = read_string(stdout())\n    }\n\n    runtime
         {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n","root":"","options":"{\n  \"read_from_cache\":
         false,\n  \"workflow_failure_mode\": \"ContinueWhilePossible\",\n  \"write_to_cache\":
-        false\n}","inputs":"{\"conditional_example.quality_threshold\":90.0,\"conditional_example.samples\":[{\"name\":\"sample1\",\"quality_score\":95.5,\"type\":\"normal\"},{\"name\":\"sample2\",\"quality_score\":85.3,\"type\":\"tumor\"},{\"name\":\"sample3\",\"quality_score\":92.1,\"type\":\"normal\"}]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"1f48ba34-f568-4b8c-b28f-c1153352aa21","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-1f48ba34-f568-4b8c-b28f-c1153352aa21"},"submission":"2026-08-30T03:24:19.107Z"}'
+        false\n}","inputs":"{\"conditional_example.quality_threshold\":90.0,\"conditional_example.samples\":[{\"name\":\"sample1\",\"quality_score\":95.5,\"type\":\"normal\"},{\"name\":\"sample2\",\"quality_score\":85.3,\"type\":\"tumor\"},{\"name\":\"sample3\",\"quality_score\":92.1,\"type\":\"normal\"}]}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"status":"Submitted","id":"f267ee05-49dd-4ef6-9844-988472f2de37","inputs":{},"labels":{"cromwell-workflow-id":"cromwell-f267ee05-49dd-4ef6-9844-988472f2de37"},"submission":"2026-09-06T03:24:15.526Z"}'
     headers:
       connection:
       - keep-alive
@@ -217,7 +182,7 @@ interactions:
       content-type:
       - application/json
       date:
-      - Sun, 30 Aug 2026 03:24:27 GMT
+      - Sun, 06 Sep 2026 03:24:20 GMT
       server:
       - nginx/1.25.3
       transfer-encoding:
