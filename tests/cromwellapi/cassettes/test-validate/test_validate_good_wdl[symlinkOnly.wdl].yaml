@@ -1,13 +1,13 @@
 interactions:
 - request:
-    body: "--783525aff04f30006757d8eef01d63d0\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--4fdbdda56cb4588fb99a77bf8a2a6d93\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"symlinkOnly.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow symlinkOnly {\n    call generate_diverse_outputs\n    \n    output
       {\n        File symlink_file = generate_diverse_outputs.symlink_output\n    }\n}\n\ntask
       generate_diverse_outputs {\n    command <<<\n        # Create a symlink\n        echo
       \"original\" > original.txt\n        ln -s original.txt link.txt\n    >>>\n\n
       \   output {\n        File symlink_output = \"link.txt\"\n    }\n\n    runtime
-      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\r\n--783525aff04f30006757d8eef01d63d0--\r\n"
+      {\n        docker: \"ubuntu:noble-20241118.1\"\n    }\n}\n\r\n--4fdbdda56cb4588fb99a77bf8a2a6d93--\r\n"
     headers:
       accept:
       - '*/*'
@@ -18,13 +18,13 @@ interactions:
       content-length:
       - '650'
       content-type:
-      - multipart/form-data; boundary=783525aff04f30006757d8eef01d63d0
+      - multipart/form-data; boundary=4fdbdda56cb4588fb99a77bf8a2a6d93
       host:
-      - gizmoj12.fhcrc.org:46329
+      - gizmoj1.fhcrc.org:33357
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj12.fhcrc.org:46329/api/womtool/v1/describe
+    uri: https://gizmoj1.fhcrc.org:33357/api/womtool/v1/describe
   response:
     body:
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"symlinkOnly","inputs":[],"outputs":[{"name":"symlink_file","valueType":{"typeName":"File"},"typeDisplayName":"File"}],"images":["\"ubuntu:noble-20241118.1\""],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"1.0"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
@@ -36,7 +36,7 @@ interactions:
       content-type:
       - application/json
       date:
-      - Sun, 25 Oct 2026 03:51:18 GMT
+      - Sun, 08 Nov 2026 03:42:58 GMT
       server:
       - nginx/1.25.3
     status:
