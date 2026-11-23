@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--e74b35dd061dd0ed6fdd2c2c532cb83e\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--79ae97e2650f96075169aa60400d0379\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"testRemoteFileLocalization.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n\nworkflow testRemoteFileLocalization {\n    input {\n        String string\n
       \       Int integer\n        Float float\n        Boolean boolean\n        File
@@ -31,15 +31,15 @@ interactions:
       {\n    input {\n        File processed_file\n    }\n\n    command <<<\n        #
       Rename the file received from the previous task\n        mv ~{processed_file}
       renamed_file.txt\n    >>>\n\n    output {\n        File renamed_file = \"renamed_file.txt\"\n
-      \   }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\r\n--e74b35dd061dd0ed6fdd2c2c532cb83e\r\nContent-Disposition:
+      \   }\n\n    runtime {\n        docker: \"ubuntu:20.04\"\n    }\n}\n\r\n--79ae97e2650f96075169aa60400d0379\r\nContent-Disposition:
       form-data; name=\"workflowInputs\"; filename=\"inputs.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n  \"testRemoteFileLocalization.string\": \"Test String
       Input\",\n  \"testRemoteFileLocalization.integer\": 123,\n  \"testRemoteFileLocalization.float\":
       9.81,\n  \"testRemoteFileLocalization.boolean\": false,\n  \"testRemoteFileLocalization.remote_file\":
-      \"/fh/fast/_DaSL/proof_testing/remote_file.txt\"\n}\n\r\n--e74b35dd061dd0ed6fdd2c2c532cb83e\r\nContent-Disposition:
+      \"/fh/fast/_DaSL/proof_testing/remote_file.txt\"\n}\n\r\n--79ae97e2650f96075169aa60400d0379\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n  \"final_workflow_outputs_dir\": \"/fh/fast/_DaSL/proof_testing/remoteOutputstorage\",\n
-      \ \"use_relative_output_paths\": true\n}\n\r\n--e74b35dd061dd0ed6fdd2c2c532cb83e--\r\n"
+      \ \"use_relative_output_paths\": true\n}\n\r\n--79ae97e2650f96075169aa60400d0379--\r\n"
     headers:
       accept:
       - '*/*'
@@ -50,16 +50,16 @@ interactions:
       content-length:
       - '3320'
       content-type:
-      - multipart/form-data; boundary=e74b35dd061dd0ed6fdd2c2c532cb83e
+      - multipart/form-data; boundary=79ae97e2650f96075169aa60400d0379
       host:
-      - gizmoj1.fhcrc.org:40253
+      - gizmok105.fhcrc.org:42575
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj1.fhcrc.org:40253/api/workflows/v1
+    uri: https://gizmok105.fhcrc.org:42575/api/workflows/v1
   response:
     body:
-      string: '{"id":"7463c4b0-dfbc-4840-86af-238d918360c9","status":"Submitted"}'
+      string: '{"id":"d4eb8cf4-0304-4cbc-bdb5-3dd3a5a405a8","status":"Submitted"}'
     headers:
       connection:
       - keep-alive
@@ -68,7 +68,7 @@ interactions:
       content-type:
       - application/json
       date:
-      - Sun, 15 Nov 2026 03:44:25 GMT
+      - Sun, 22 Nov 2026 03:44:20 GMT
       server:
       - nginx/1.25.3
     status:
@@ -84,14 +84,47 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmoj1.fhcrc.org:40253
+      - gizmok105.fhcrc.org:42575
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj1.fhcrc.org:40253/api/workflows/v1/7463c4b0-dfbc-4840-86af-238d918360c9/outputs
+    uri: https://gizmok105.fhcrc.org:42575/api/workflows/v1/d4eb8cf4-0304-4cbc-bdb5-3dd3a5a405a8/outputs
   response:
     body:
-      string: '{"outputs":{},"id":"7463c4b0-dfbc-4840-86af-238d918360c9"}'
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: d4eb8cf4-0304-4cbc-bdb5-3dd3a5a405a8\"\n}"
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '101'
+      content-type:
+      - application/json
+      date:
+      - Sun, 22 Nov 2026 03:44:20 GMT
+      server:
+      - nginx/1.25.3
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok105.fhcrc.org:42575
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok105.fhcrc.org:42575/api/workflows/v1/d4eb8cf4-0304-4cbc-bdb5-3dd3a5a405a8/outputs
+  response:
+    body:
+      string: '{"outputs":{},"id":"d4eb8cf4-0304-4cbc-bdb5-3dd3a5a405a8"}'
     headers:
       connection:
       - keep-alive
@@ -100,7 +133,7 @@ interactions:
       content-type:
       - application/json
       date:
-      - Sun, 15 Nov 2026 03:44:25 GMT
+      - Sun, 22 Nov 2026 03:44:24 GMT
       server:
       - nginx/1.25.3
     status:

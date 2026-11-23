@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: "--179c6771d3e5a73f45bc32c2493462a0\r\nContent-Disposition: form-data; name=\"workflowSource\";
+    body: "--35ea5a22463099be44a2dd559b79c47b\r\nContent-Disposition: form-data; name=\"workflowSource\";
       filename=\"helloHostname.wdl\"\r\nContent-Type: application/octet-stream\r\n\r\nversion
       1.0\n## This is a test workflow that returns the hostname of the node \n## the
       job is submitted to as a test for the Gizmo backend. \n\n#### WORKFLOW DEFINITION\n\nworkflow
@@ -9,10 +9,10 @@ interactions:
       to\"\n  }\n}\n\n#### TASK DEFINITIONS\n\ntask Hostname {\n  command <<<\n    echo
       $(hostname)\n  >>>\n\n  output {\n    File out = stdout()\n  }\n  \n  runtime
       {\n    cpu: 1\n    memory: \"1 GB\"\n  }\n\n  parameter_meta {\n    out: \"hostname
-      of the node the job was submitted to\"\n  }\n}\n\r\n--179c6771d3e5a73f45bc32c2493462a0\r\nContent-Disposition:
+      of the node the job was submitted to\"\n  }\n}\n\r\n--35ea5a22463099be44a2dd559b79c47b\r\nContent-Disposition:
       form-data; name=\"workflowOptions\"; filename=\"options.json\"\r\nContent-Type:
       application/json\r\n\r\n{\n    \"workflow_failure_mode\": \"ContinueWhilePossible\",\n
-      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--179c6771d3e5a73f45bc32c2493462a0--\r\n"
+      \   \"write_to_cache\": false,\n    \"read_from_cache\": false\n}\n\r\n--35ea5a22463099be44a2dd559b79c47b--\r\n"
     headers:
       accept:
       - '*/*'
@@ -23,16 +23,16 @@ interactions:
       content-length:
       - '1071'
       content-type:
-      - multipart/form-data; boundary=179c6771d3e5a73f45bc32c2493462a0
+      - multipart/form-data; boundary=35ea5a22463099be44a2dd559b79c47b
       host:
-      - gizmoj1.fhcrc.org:40253
+      - gizmok105.fhcrc.org:42575
       user-agent:
       - python-httpx/0.28.1
     method: POST
-    uri: https://gizmoj1.fhcrc.org:40253/api/workflows/v1
+    uri: https://gizmok105.fhcrc.org:42575/api/workflows/v1
   response:
     body:
-      string: '{"id":"40cda7fa-7c11-40eb-a7b1-e15597420ebd","status":"Submitted"}'
+      string: '{"id":"c3085c56-c3ef-48e2-8024-b2207abba6c5","status":"Submitted"}'
     headers:
       connection:
       - keep-alive
@@ -41,7 +41,7 @@ interactions:
       content-type:
       - application/json
       date:
-      - Sun, 15 Nov 2026 03:16:38 GMT
+      - Sun, 22 Nov 2026 03:16:34 GMT
       server:
       - nginx/1.25.3
     status:
@@ -57,15 +57,15 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmoj1.fhcrc.org:40253
+      - gizmok105.fhcrc.org:42575
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj1.fhcrc.org:40253/api/workflows/v1/40cda7fa-7c11-40eb-a7b1-e15597420ebd/labels
+    uri: https://gizmok105.fhcrc.org:42575/api/workflows/v1/c3085c56-c3ef-48e2-8024-b2207abba6c5/labels
   response:
     body:
       string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
-        ID: 40cda7fa-7c11-40eb-a7b1-e15597420ebd\"\n}"
+        ID: c3085c56-c3ef-48e2-8024-b2207abba6c5\"\n}"
     headers:
       connection:
       - keep-alive
@@ -74,7 +74,7 @@ interactions:
       content-type:
       - application/json
       date:
-      - Sun, 15 Nov 2026 03:16:38 GMT
+      - Sun, 22 Nov 2026 03:16:35 GMT
       server:
       - nginx/1.25.3
     status:
@@ -90,14 +90,47 @@ interactions:
       connection:
       - keep-alive
       host:
-      - gizmoj1.fhcrc.org:40253
+      - gizmok105.fhcrc.org:42575
       user-agent:
       - python-httpx/0.28.1
     method: GET
-    uri: https://gizmoj1.fhcrc.org:40253/api/workflows/v1/40cda7fa-7c11-40eb-a7b1-e15597420ebd/labels
+    uri: https://gizmok105.fhcrc.org:42575/api/workflows/v1/c3085c56-c3ef-48e2-8024-b2207abba6c5/labels
   response:
     body:
-      string: '{"id":"40cda7fa-7c11-40eb-a7b1-e15597420ebd","labels":{"cromwell-workflow-id":"cromwell-40cda7fa-7c11-40eb-a7b1-e15597420ebd"}}'
+      string: "{\n  \"status\": \"fail\",\n  \"message\": \"Unrecognized workflow
+        ID: c3085c56-c3ef-48e2-8024-b2207abba6c5\"\n}"
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '101'
+      content-type:
+      - application/json
+      date:
+      - Sun, 22 Nov 2026 03:16:39 GMT
+      server:
+      - nginx/1.25.3
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - gizmok105.fhcrc.org:42575
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://gizmok105.fhcrc.org:42575/api/workflows/v1/c3085c56-c3ef-48e2-8024-b2207abba6c5/labels
+  response:
+    body:
+      string: '{"id":"c3085c56-c3ef-48e2-8024-b2207abba6c5","labels":{"cromwell-workflow-id":"cromwell-c3085c56-c3ef-48e2-8024-b2207abba6c5"}}'
     headers:
       connection:
       - keep-alive
@@ -106,7 +139,7 @@ interactions:
       content-type:
       - application/json
       date:
-      - Sun, 15 Nov 2026 03:16:42 GMT
+      - Sun, 22 Nov 2026 03:16:43 GMT
       server:
       - nginx/1.25.3
     status:
